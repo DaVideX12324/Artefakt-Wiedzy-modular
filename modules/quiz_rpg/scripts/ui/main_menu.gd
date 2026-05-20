@@ -1,14 +1,14 @@
-extends Control
+extends CanvasLayer
 
 ## Menu główne — nowa gra, wczytaj, statystyki, wyjście.
 ## Stylowane z kodu, nie wymaga Theme resource.
 
-@onready var new_game_btn: Button = $VBoxContainer/NewGameBtn
-@onready var load_game_btn: Button = $VBoxContainer/LoadGameBtn
-@onready var stats_btn: Button = $VBoxContainer/StatsBtn
-@onready var quit_btn: Button = $VBoxContainer/QuitBtn
-@onready var title_label: Label = $TitleLabel
-@onready var stats_panel: Panel = $StatsPanel
+@onready var new_game_btn: Button = $Center/Panel/Margin/VBox/BtnNewGame
+@onready var load_game_btn: Button = $Center/Panel/Margin/VBox/BtnLoadGame
+@onready var stats_btn: Button = $Center/Panel/Margin/VBox/BtnStats
+@onready var quit_btn: Button = $Center/Panel/Margin/VBox/BtnQuit
+@onready var title_label: Label = $StatsPanel/StatsMargin/StatsVBox/StatsLabel
+@onready var stats_panel: PanelContainer = $StatsPanel
 
 var _title_time: float = 0.0
 
