@@ -43,7 +43,7 @@ func _connect_buttons() -> void:
 
 
 func _update_load_button() -> void:
-	var gm := CoreManager.get_singleton("GameManager")
+	var gm := _get_module_singleton("GameManager")
 	load_game_btn.disabled = not FileAccess.file_exists(gm.SAVE_PATH) if gm else true
 
 
@@ -88,13 +88,15 @@ func _style_stats_panel() -> void:
 
 
 func _on_new_game() -> void:
-	var gm := CoreManager.get_singleton("GameManager")
+	var gm := _get_module_singleton("GameManager")
 	if gm:
 		gm.new_game()
+	else:
+		push_warning("MainMenu: GameManager unavailable, cannot start new game.")
 
 
 func _on_load_game() -> void:
-	var gm := CoreManager.get_singleton("GameManager")
+	var gm := _get_module_singleton("GameManager")
 	if not gm:
 		return
 	if gm.load_game():
@@ -114,7 +116,7 @@ func _on_close_stats() -> void:
 
 
 func _populate_stats() -> void:
-	var ps := CoreManager.get_singleton("PlayerStats")
+	var ps := _get_module_singleton("PlayerStats")
 	if not ps:
 		stats_label.text = "Brak statystyk"
 		return
@@ -146,3 +148,18 @@ func _on_quit() -> void:
 		CoreManager.exit_active_module()
 		return
 	get_tree().quit()
+
+
+func _get_module_singleton(singleton_name: String) -> Node:
+	var singleton := CoreManager.get_singleton(singleton_name)
+	if singleton:
+		return singleton
+
+	var module_root := CoreManager.get_active_module()
+	if module_root:
+		singleton = module_root.get_node_or_null(singleton_name)
+		if singleton:
+			CoreManager.register_singleton(singleton_name, singleton)
+			return singleton
+
+	return null
