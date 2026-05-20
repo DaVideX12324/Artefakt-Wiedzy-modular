@@ -1,0 +1,375 @@
+extends Node
+
+signal quiz_source_registered(module_id: String, source_path: String)
+signal quiz_loaded(module_id: String, quiz_id: String)
+signal question_answered(module_id: String, quiz_id: String, correct: bool, question_data: Dictionary)
+signal quiz_completed(module_id: String, quiz_id: String, score: int, total: int)
+
+const GLOBAL_SOURCE_PATH := "res://resources/quizzes"
+
+var _sources: Dictionary = {}
+var _quizzes: Dictionary = {}
+var _answered_questions: Dictionary = {}
+var _sessions: Dictionary = {}
+
+
+func register_source(module_id: String, source_path: String, reload_now: bool = true) -> void:
+	register_sources(module_id, [source_path], reload_now)
+
+
+func register_sources(module_id: String, source_paths: Array, reload_now: bool = true) -> void:
+	var cleaned_sources: Array[String] = []
+	for source_path_variant in source_paths:
+		var source_path := str(source_path_variant).trim_suffix("/")
+		if source_path == "":
+			continue
+		if not cleaned_sources.has(source_path):
+			cleaned_sources.append(source_path)
+	_sources[module_id] = cleaned_sources
+	if not _quizzes.has(module_id):
+		_quizzes[module_id] = {}
+	if reload_now:
+		reload_module(module_id)
+	for source_path in cleaned_sources:
+		quiz_source_registered.emit(module_id, source_path)
+
+
+func register_module(manifest: Dictionary) -> void:
+	var module_id := str(manifest.get("id", ""))
+	var root_path := str(manifest.get("root_path", ""))
+	var quiz_path := str(manifest.get("quiz_path", "resources/quizzes"))
+	if module_id == "" or root_path == "":
+		return
+	register_sources(module_id, [
+		GLOBAL_SOURCE_PATH,
+		_join_path(root_path, quiz_path),
+	])
+
+
+func reload_module(module_id: String) -> void:
+	if not _sources.has(module_id):
+		return
+
+	_quizzes[module_id] = {}
+	for source_path_variant in _sources[module_id]:
+		var source_path := str(source_path_variant)
+		var dir := DirAccess.open(source_path)
+		if dir == null:
+			continue
+
+		dir.list_dir_begin()
+		var file_name := dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".json"):
+				var quiz_id := file_name.get_basename()
+				_load_quiz_file(module_id, quiz_id, "%s/%s" % [source_path, file_name])
+			file_name = dir.get_next()
+		dir.list_dir_end()
+
+
+func get_quiz_ids(module_id: String = "") -> Array:
+	if module_id != "":
+		return _quizzes.get(module_id, {}).keys()
+
+	var result: Array = []
+	for registered_module_id in _quizzes:
+		for quiz_id in _quizzes[registered_module_id]:
+			result.append("%s:%s" % [registered_module_id, quiz_id])
+	return result
+
+
+func get_questions(
+	module_id: String,
+	quiz_id: String,
+	difficulty_range: Vector2i = Vector2i(1, 5),
+	count: int = 5,
+	allowed_types: Array = []
+) -> Array:
+	var module_quizzes: Dictionary = _quizzes.get(module_id, {})
+	if not module_quizzes.has(quiz_id):
+		push_warning("QuizService: quiz '%s' not found for module '%s'" % [quiz_id, module_id])
+		return []
+
+	var filtered: Array = []
+	for question in module_quizzes[quiz_id]:
+		var diff: int = question.get("difficulty", 1)
+		var qtype: String = question.get("type", "multiple_choice")
+		var diff_ok := diff >= difficulty_range.x and diff <= difficulty_range.y
+		var type_ok := allowed_types.is_empty() or (qtype in allowed_types)
+		if diff_ok and type_ok:
+			filtered.append(question)
+
+	filtered.shuffle()
+	if filtered.size() > count:
+		filtered.resize(count)
+	return filtered
+
+
+func start_quiz(
+	module_id: String,
+	quiz_id: String,
+	difficulty_range: Vector2i = Vector2i(1, 5),
+	count: int = 5,
+	allowed_types: Array = [],
+	session_id: String = "default"
+) -> Dictionary:
+	var questions := get_questions(module_id, quiz_id, difficulty_range, count, allowed_types)
+	var key := _session_key(module_id, session_id)
+	_sessions[key] = {
+		"module_id": module_id,
+		"quiz_id": quiz_id,
+		"questions": questions,
+		"index": 0,
+		"score": 0,
+	}
+
+	if questions.is_empty():
+		return {}
+
+	quiz_loaded.emit(module_id, quiz_id)
+	return questions[0]
+
+
+func answer_current(module_id: String, player_answer: Dictionary, session_id: String = "default") -> Dictionary:
+	var key := _session_key(module_id, session_id)
+	if not _sessions.has(key):
+		return {}
+
+	var session: Dictionary = _sessions[key]
+	var questions: Array = session["questions"]
+	var index: int = session["index"]
+	if index >= questions.size():
+		return {}
+
+	var question: Dictionary = questions[index]
+	var correct := _check_answer(question, player_answer)
+	if correct:
+		session["score"] += 1
+
+	var quiz_id: String = session["quiz_id"]
+	_record_answer(module_id, question, correct)
+	question_answered.emit(module_id, quiz_id, correct, question)
+
+	session["index"] = index + 1
+	var finished: bool = int(session["index"]) >= questions.size()
+	if finished:
+		quiz_completed.emit(module_id, quiz_id, session["score"], questions.size())
+
+	return {
+		"correct": correct,
+		"question_type": question.get("type", "multiple_choice"),
+		"correct_index": question.get("correct_index", 0),
+		"correct_answer": question.get("correct_answer", null),
+		"answer": question.get("answer", ""),
+		"gaps": question.get("gaps", []),
+		"pairs": question.get("pairs", []),
+		"explanation": question.get("explanation", ""),
+		"quiz_finished": finished,
+		"score": session["score"],
+		"total": questions.size(),
+	}
+
+
+func get_current_question(module_id: String, session_id: String = "default") -> Dictionary:
+	var session: Dictionary = _sessions.get(_session_key(module_id, session_id), {})
+	var questions: Array = session.get("questions", [])
+	var index: int = session.get("index", 0)
+	if index < questions.size():
+		return questions[index]
+	return {}
+
+
+func get_save_data(module_id: String = "") -> Dictionary:
+	if module_id != "":
+		return {
+			"answered_questions": _answered_questions.get(module_id, {}).duplicate(true),
+		}
+	return {
+		"answered_questions": _answered_questions.duplicate(true),
+	}
+
+
+func get_accuracy_for_category(module_id: String, category: String) -> float:
+	var module_quizzes: Dictionary = _quizzes.get(module_id, {})
+	var module_answers: Dictionary = _answered_questions.get(module_id, {})
+	var correct_count := 0
+	var total_count := 0
+	for quiz_id in module_quizzes:
+		for question in module_quizzes[quiz_id]:
+			if question.get("category", "") == category:
+				var question_id := str(question.get("id", ""))
+				if module_answers.has(question_id):
+					correct_count += int(module_answers[question_id]["correct"])
+					total_count += int(module_answers[question_id]["correct"]) + int(module_answers[question_id]["wrong"])
+	if total_count == 0:
+		return 0.5
+	return float(correct_count) / float(total_count)
+
+
+func get_overall_accuracy(module_id: String) -> float:
+	var module_answers: Dictionary = _answered_questions.get(module_id, {})
+	var correct_count := 0
+	var total_count := 0
+	for question_id in module_answers:
+		correct_count += int(module_answers[question_id]["correct"])
+		total_count += int(module_answers[question_id]["correct"]) + int(module_answers[question_id]["wrong"])
+	if total_count == 0:
+		return 0.5
+	return float(correct_count) / float(total_count)
+
+
+func load_save_data(module_id: String, data: Dictionary) -> void:
+	_answered_questions[module_id] = data.get("answered_questions", {})
+
+
+func reset_module(module_id: String) -> void:
+	_answered_questions.erase(module_id)
+	for key in _sessions.keys():
+		if key.begins_with("%s/" % module_id):
+			_sessions.erase(key)
+
+
+func _load_quiz_file(module_id: String, quiz_id: String, path: String) -> void:
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		push_warning("QuizService: cannot read %s" % path)
+		return
+
+	var json := JSON.new()
+	var error := json.parse(file.get_as_text())
+	file.close()
+	if error != OK:
+		push_warning("QuizService: invalid JSON %s" % path)
+		return
+
+	var raw_questions: Array = []
+	if json.data is Dictionary and json.data.has("questions"):
+		raw_questions = json.data["questions"]
+	elif json.data is Array:
+		raw_questions = json.data
+	else:
+		push_warning("QuizService: unsupported quiz format in %s" % path)
+		return
+
+	_quizzes[module_id][quiz_id] = _normalize_questions(raw_questions, path)
+
+
+func _check_answer(question: Dictionary, player_answer: Dictionary) -> bool:
+	var qtype: String = question.get("type", "multiple_choice")
+	match qtype:
+		"multiple_choice":
+			return player_answer.get("index", -1) == question.get("correct_index", -1)
+		"true_false":
+			return player_answer.get("value", null) == question.get("correct_answer", null)
+		"fill_text":
+			return _check_fill_text(question, player_answer)
+		"fill_tiles":
+			return _check_fill_tiles(question, player_answer)
+		"matching":
+			return _check_matching(question, player_answer)
+		_:
+			push_warning("QuizService: unknown question type '%s'" % qtype)
+			return false
+
+
+func _check_fill_text(question: Dictionary, player_answer: Dictionary) -> bool:
+	var given := str(player_answer.get("text", "")).strip_edges()
+	var expected := str(question.get("answer", "")).strip_edges()
+	var alternatives: Array = question.get("accepted_alternatives", [])
+	if not question.get("case_sensitive", false):
+		given = given.to_lower()
+		expected = expected.to_lower()
+		alternatives = alternatives.map(func(value): return str(value).strip_edges().to_lower())
+	return given == expected or given in alternatives
+
+
+func _check_fill_tiles(question: Dictionary, player_answer: Dictionary) -> bool:
+	var placements: Dictionary = player_answer.get("placements", {})
+	for gap in question.get("gaps", []):
+		var index := str(int(gap.get("index", -1)))
+		var player_value := str(placements.get(index, "")).strip_edges().to_lower()
+		var correct_value := str(gap.get("correct", "")).strip_edges().to_lower()
+		if player_value != correct_value:
+			return false
+	return true
+
+
+func _check_matching(question: Dictionary, player_answer: Dictionary) -> bool:
+	var player_pairs: Array = player_answer.get("pairs", [])
+	var correct_pairs: Array = question.get("pairs", [])
+	if player_pairs.size() != correct_pairs.size():
+		return false
+	for correct_pair in correct_pairs:
+		var found := false
+		for player_pair in player_pairs:
+			if player_pair.get("left_index", -1) == correct_pair.get("left_index", -1) \
+			and player_pair.get("right_index", -1) == correct_pair.get("right_index", -1):
+				found = true
+				break
+		if not found:
+			return false
+	return true
+
+
+func _record_answer(module_id: String, question: Dictionary, correct: bool) -> void:
+	if not _answered_questions.has(module_id):
+		_answered_questions[module_id] = {}
+	var question_id := str(question.get("id", "unknown"))
+	if not _answered_questions[module_id].has(question_id):
+		_answered_questions[module_id][question_id] = { "correct": 0, "wrong": 0 }
+	if correct:
+		_answered_questions[module_id][question_id]["correct"] += 1
+	else:
+		_answered_questions[module_id][question_id]["wrong"] += 1
+
+
+func _session_key(module_id: String, session_id: String) -> String:
+	return "%s/%s" % [module_id, session_id]
+
+
+func _join_path(root_path: String, relative_path: String) -> String:
+	if relative_path.begins_with("res://") or relative_path.begins_with("user://"):
+		return relative_path
+	return "%s/%s" % [root_path.trim_suffix("/"), relative_path.trim_prefix("/")]
+
+
+func _normalize_questions(raw_questions: Array, path: String) -> Array:
+	var normalized: Array = []
+	for raw_question in raw_questions:
+		if not (raw_question is Dictionary):
+			push_warning("QuizService: skipping non-dictionary question in %s" % path)
+			continue
+		var question := (raw_question as Dictionary).duplicate(true)
+		var qtype := str(question.get("type", "multiple_choice"))
+		match qtype:
+			"multiple_choice":
+				if not question.has("question") or not question.has("answers") or not question.has("correct_index"):
+					push_warning("QuizService: invalid multiple_choice question in %s" % path)
+					continue
+			"true_false":
+				if not question.has("statement") or not question.has("correct_answer"):
+					push_warning("QuizService: invalid true_false question in %s" % path)
+					continue
+				question["question"] = question.get("question", question["statement"])
+				question["answers"] = question.get("answers", ["Prawda", "Falsz"])
+				question["correct_index"] = 0 if bool(question["correct_answer"]) else 1
+			"fill_text":
+				if not question.has("prompt") or not question.has("answer"):
+					push_warning("QuizService: invalid fill_text question in %s" % path)
+					continue
+				question["question"] = question.get("question", question["prompt"])
+			"fill_tiles":
+				if not question.has("text_with_gaps") or not question.has("gaps") or not question.has("tiles"):
+					push_warning("QuizService: invalid fill_tiles question in %s" % path)
+					continue
+				question["question"] = question.get("question", question["text_with_gaps"])
+			"matching":
+				if not question.has("left_items") or not question.has("right_items") or not question.has("pairs"):
+					push_warning("QuizService: invalid matching question in %s" % path)
+					continue
+				question["question"] = question.get("question", "Dopasuj elementy.")
+			_:
+				push_warning("QuizService: unknown question type '%s' in %s" % [qtype, path])
+				continue
+		normalized.append(question)
+	return normalized
