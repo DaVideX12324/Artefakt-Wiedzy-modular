@@ -1,1 +1,4 @@
 res://modules/quiz_rpg/scenes/quiz/quiz_combat_ui.tscn
+res://modules/quiz_rpg/scripts/ui/main_menu.gd
+res://modules/quiz_rpg/scenes/ui/main_menu.tscn
+res://modules/quiz_rpg/module_root.gd
