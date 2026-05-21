@@ -139,6 +139,28 @@ func start_quiz(
 	return questions[0]
 
 
+func start_custom_questions(
+	module_id: String,
+	questions: Array,
+	quiz_id: String = "custom",
+	session_id: String = "default"
+) -> Dictionary:
+	var key := _session_key(module_id, session_id)
+	_sessions[key] = {
+		"module_id": module_id,
+		"quiz_id": quiz_id,
+		"questions": questions.duplicate(true),
+		"index": 0,
+		"score": 0,
+	}
+
+	if questions.is_empty():
+		return {}
+
+	quiz_loaded.emit(module_id, quiz_id)
+	return questions[0]
+
+
 func answer_current(module_id: String, player_answer: Dictionary, session_id: String = "default") -> Dictionary:
 	var key := _session_key(module_id, session_id)
 	if not _sessions.has(key):
