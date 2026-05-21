@@ -25,6 +25,18 @@ func answer_current(player_answer: Dictionary) -> Dictionary:
 	return QuizService.answer_current(module_id, player_answer, DEFAULT_SESSION)
 
 
+func get_questions(
+	quiz_id: String,
+	difficulty_range: Vector2i = Vector2i(1, 5),
+	count: int = 5,
+	allowed_types: Array = []
+) -> Array:
+	var module_id := CoreManager.get_active_module_id()
+	if module_id == "":
+		return []
+	return QuizService.get_questions(module_id, quiz_id, difficulty_range, count, allowed_types)
+
+
 func get_current_question() -> Dictionary:
 	var module_id := CoreManager.get_active_module_id()
 	if module_id == "":
@@ -57,6 +69,13 @@ func get_quiz_ids() -> Array:
 	if module_id == "":
 		return []
 	return QuizService.get_quiz_ids(module_id)
+
+
+func start_custom_questions(questions: Array, quiz_id: String = "custom") -> Dictionary:
+	var module_id := CoreManager.get_active_module_id()
+	if module_id == "":
+		return {}
+	return QuizService.start_custom_questions(module_id, questions, quiz_id, DEFAULT_SESSION)
 
 
 func get_save_data() -> Dictionary:

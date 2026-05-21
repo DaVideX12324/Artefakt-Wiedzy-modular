@@ -21,11 +21,17 @@ config/icon="res://icon.svg"
 SettingsService="*res://autoloads/services/settings_service.gd"
 UIScaleService="*res://autoloads/services/ui_scale_service.gd"
 WindowService="*res://autoloads/services/window_service.gd"
+SettingsManager="*res://autoloads/compat/bitbomber_settings_manager.gd"
+UIScaleManager="*res://autoloads/compat/bitbomber_ui_scale_manager.gd"
+WindowManager="*res://autoloads/services/window_service.gd"
 AssetService="*res://autoloads/services/asset_service.gd"
 QuizService="*res://autoloads/services/quiz_service.gd"
 CoreManager="*res://autoloads/compat/core_manager.gd"
 QuizManager="*res://autoloads/compat/quiz_manager.gd"
 ModuleRegistry="*res://autoloads/module_registry.gd"
+GameManager="*res://modules/BitBomber/autoloads/game_manager.gd"
+RoundManager="*res://modules/BitBomber/autoloads/round_manager.gd"
+SpriteLoader="*res://modules/BitBomber/autoloads/sprite_loader.gd"
 
 [display]
 
