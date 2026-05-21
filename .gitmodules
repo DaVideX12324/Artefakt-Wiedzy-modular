@@ -1,3 +1,6 @@
 [submodule "modules/modules/BitBomber"]
 	path = modules/modules/BitBomber
 	url = https://github.com/DaVideX12324/BitBomber
+[submodule "modules/BitBomber"]
+	path = modules/BitBomber
+	url = https://github.com/DaVideX12324/BitBomber
