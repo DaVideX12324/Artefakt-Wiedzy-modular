@@ -6,6 +6,15 @@ signal question_answered(module_id: String, quiz_id: String, correct: bool, ques
 signal quiz_completed(module_id: String, quiz_id: String, score: int, total: int)
 
 const GLOBAL_SOURCE_PATH := "res://resources/quizzes"
+const WORDS_PER_SEC := 0.35
+const DIFF_STEP_SEC := 3.0
+const TYPE_MULTIPLIER := {
+	"true_false": 0.80,
+	"multiple_choice": 1.00,
+	"fill_text": 1.20,
+	"fill_tiles": 1.40,
+	"matching": 1.55,
+}
 
 var _sources: Dictionary = {}
 var _quizzes: Dictionary = {}
@@ -177,6 +186,99 @@ func get_current_question(module_id: String, session_id: String = "default") -> 
 	if index < questions.size():
 		return questions[index]
 	return {}
+
+
+func get_question_display_text(question: Dictionary) -> String:
+	match str(question.get("type", "multiple_choice")):
+		"true_false":
+			return str(question.get("statement", ""))
+		"fill_text":
+			return str(question.get("prompt", ""))
+		"fill_tiles":
+			return str(question.get("text_with_gaps", ""))
+		_:
+			return str(question.get("question", question.get("prompt", "")))
+
+
+func get_question_hint(question: Dictionary) -> String:
+	match str(question.get("type", "multiple_choice")):
+		"multiple_choice":
+			return "W/S/A/D lub klikniecie"
+		"true_false":
+			return "W = Prawda, S = Falsz"
+		"fill_text":
+			return "Wpisz odpowiedz i Enter"
+		"fill_tiles":
+			return "Klikaj kafle, Tab zmienia luke, Enter zatwierdza"
+		"matching":
+			return "Lewa -> prawa, Enter zatwierdza"
+		_:
+			return ""
+
+
+func get_question_time_limit(question: Dictionary, base_time: float = 16.0, base_difficulty: int = 1) -> float:
+	var word_count := 0
+	for field in [
+		question.get("question", ""),
+		question.get("statement", ""),
+		question.get("prompt", ""),
+		question.get("text_with_gaps", ""),
+	]:
+		if str(field) != "":
+			word_count += str(field).split(" ", false).size()
+	for answer in question.get("answers", []):
+		word_count += str(answer).split(" ", false).size()
+	for item in question.get("left_items", []):
+		word_count += str(item).split(" ", false).size()
+	for item in question.get("right_items", []):
+		word_count += str(item).split(" ", false).size()
+	var word_bonus := float(word_count) * WORDS_PER_SEC
+	var qtype := str(question.get("type", "multiple_choice"))
+	var type_mult := float(TYPE_MULTIPLIER.get(qtype, 1.0))
+	var diff_offset := float(int(question.get("difficulty", base_difficulty)) - base_difficulty) * DIFF_STEP_SEC
+	return clampf((base_time + word_bonus) * type_mult + diff_offset, 5.0, 120.0)
+
+
+func get_timeout_answer(question: Dictionary) -> Dictionary:
+	match str(question.get("type", "multiple_choice")):
+		"multiple_choice":
+			return {"index": -1}
+		"true_false":
+			return {"value": null}
+		"fill_text":
+			return {"text": ""}
+		"fill_tiles":
+			return {"placements": {}}
+		"matching":
+			return {"pairs": []}
+		_:
+			return {}
+
+
+func get_correct_answer_text(question: Dictionary) -> String:
+	match str(question.get("type", "multiple_choice")):
+		"fill_text":
+			var values: Array[String] = [str(question.get("answer", ""))]
+			for alt in question.get("accepted_alternatives", []):
+				values.append(str(alt))
+			return "Poprawne: %s" % ", ".join(values)
+		"fill_tiles":
+			var values: Array[String] = []
+			for gap in question.get("gaps", []):
+				values.append(str(gap.get("correct", "")))
+			return "Poprawna kolejnosc: %s" % ", ".join(values)
+		"matching":
+			var left_items: Array = question.get("left_items", [])
+			var right_items: Array = question.get("right_items", [])
+			var lines: Array[String] = []
+			for pair in question.get("pairs", []):
+				var left_index := int(pair.get("left_index", -1))
+				var right_index := int(pair.get("right_index", -1))
+				if left_index >= 0 and left_index < left_items.size() and right_index >= 0 and right_index < right_items.size():
+					lines.append("%s -> %s" % [str(left_items[left_index]), str(right_items[right_index])])
+			return "Poprawne:\n%s" % "\n".join(lines)
+		_:
+			return ""
 
 
 func get_save_data(module_id: String = "") -> Dictionary:
