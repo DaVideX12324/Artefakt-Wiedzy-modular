@@ -32,6 +32,26 @@ func get_current_question() -> Dictionary:
 	return QuizService.get_current_question(module_id, DEFAULT_SESSION)
 
 
+func get_question_display_text(question: Dictionary) -> String:
+	return QuizService.get_question_display_text(question)
+
+
+func get_question_hint(question: Dictionary) -> String:
+	return QuizService.get_question_hint(question)
+
+
+func get_question_time_limit(question: Dictionary, base_time: float = 16.0, base_difficulty: int = 1) -> float:
+	return QuizService.get_question_time_limit(question, base_time, base_difficulty)
+
+
+func get_timeout_answer(question: Dictionary) -> Dictionary:
+	return QuizService.get_timeout_answer(question)
+
+
+func get_correct_answer_text(question: Dictionary) -> String:
+	return QuizService.get_correct_answer_text(question)
+
+
 func get_quiz_ids() -> Array:
 	var module_id := CoreManager.get_active_module_id()
 	if module_id == "":
