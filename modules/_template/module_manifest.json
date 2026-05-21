@@ -1,10 +1,9 @@
 {
-  "id": "_template",
+  "id": "template_module",
   "name": "Template Module",
-  "description": "Minimalny wzorzec modulu dzialajacego standalone i w Artefakcie Wiedzy.",
+  "description": "Minimalny szablon nowego modulu zgodnego z hostem i standalone.",
   "version": "0.1.0",
-  "entry_scene": "scenes/module_entry_embedded.tscn",
+  "entry_scene": "module_root.tscn",
   "quiz_path": "resources/quizzes",
-  "asset_path": "assets",
-  "standalone_project_template": "standalone_project.godot.example"
+  "asset_path": "resources"
 }
