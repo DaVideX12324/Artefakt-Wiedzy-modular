@@ -225,9 +225,9 @@ func get_question_display_text(question: Dictionary) -> String:
 func get_question_hint(question: Dictionary) -> String:
 	match str(question.get("type", "multiple_choice")):
 		"multiple_choice":
-			return "W/S/A/D lub klikniecie"
+			return "W/S/A/D lub strzalki, Enter/Z/Spacja zatwierdza"
 		"true_false":
-			return "W = Prawda, S = Falsz"
+			return "W/S/A/D lub strzalki, Enter/Z/Spacja zatwierdza"
 		"fill_text":
 			return "Wpisz odpowiedz i Enter"
 		"fill_tiles":
