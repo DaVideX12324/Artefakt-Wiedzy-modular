@@ -7,6 +7,7 @@ signal settings_loaded
 const CONFIG_PATH := "user://artefakt_wiedzy_settings.cfg"
 const SEC_DISPLAY := "display"
 const SEC_AUDIO := "audio"
+const KEY_QUIZLESS_MODE := "quizless_mode"
 
 var _cfg := ConfigFile.new()
 
@@ -67,6 +68,20 @@ func get_global(key: String, default_value: Variant = null) -> Variant:
 
 func set_global(key: String, value: Variant, save_now: bool = true) -> void:
 	_cfg.set_value("global", key, value)
+	if save_now:
+		save_settings()
+
+
+func is_quizless_mode_enabled() -> bool:
+	for key_name in [KEY_QUIZLESS_MODE, "disable_quizzes", "skip_quizzes"]:
+		var value: Variant = get_global(key_name, null)
+		if value != null:
+			return bool(value)
+	return false
+
+
+func set_quizless_mode_enabled(enabled: bool, save_now: bool = true) -> void:
+	set_global(KEY_QUIZLESS_MODE, enabled, false)
 	if save_now:
 		save_settings()
 

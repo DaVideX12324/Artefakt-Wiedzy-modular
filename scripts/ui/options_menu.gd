@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var _res_note: Label = $Panel/Margin/VBox/Tabs/Ekran/ResNote
 @onready var _monitor_option: OptionButton = $Panel/Margin/VBox/Tabs/Ekran/MonitorOption
 @onready var _scale_option: OptionButton = $Panel/Margin/VBox/Tabs/Ekran/ScaleOption
+@onready var _quizless_mode: CheckButton = $Panel/Margin/VBox/Tabs/Ekran/QuizlessMode
 @onready var _mode_label: Label = $Panel/Margin/VBox/Tabs/Ekran/ModeLabel
 @onready var _monitor_label: Label = $Panel/Margin/VBox/Tabs/Ekran/MonitorLabel
 @onready var _res_label: Label = $Panel/Margin/VBox/Tabs/Ekran/ResLabel
@@ -64,12 +65,14 @@ var _resolutions: Array[Vector2i] = []
 var _sel_mode := WindowService.MODE_WINDOWED
 var _sel_scale: int = UIScaleService.ScaleMode.NORMAL
 var _scale_manually_changed := false
+var _sel_quizless_mode := false
 
 var _prev_mode := WindowService.MODE_WINDOWED
 var _prev_res := Vector2i(1280, 720)
 var _prev_monitor := 0
 var _prev_scale: int = UIScaleService.ScaleMode.NORMAL
 var _prev_scale_user_picked := false
+var _prev_quizless_mode := false
 
 var _countdown := 0.0
 var _confirming := false
@@ -123,14 +126,17 @@ func open() -> void:
 	_prev_monitor = WindowService.monitor_idx
 	_prev_scale = UIScaleService.current_mode
 	_prev_scale_user_picked = UIScaleService.user_picked
+	_prev_quizless_mode = SettingsService.is_quizless_mode_enabled()
 	_sel_mode = _prev_mode
 	_sel_scale = _prev_scale
+	_sel_quizless_mode = _prev_quizless_mode
 	_scale_manually_changed = false
 	_sync_mode_buttons()
 	_monitor_option.selected = _prev_monitor
 	_populate_resolutions(_prev_monitor)
 	_sync_resolution()
 	_sync_scale()
+	_sync_quizless_mode()
 	_sync_audio_sliders()
 	visible = true
 
@@ -198,11 +204,21 @@ func _populate_scale() -> void:
 	_sync_scale()
 	if not _scale_option.item_selected.is_connected(_on_scale_item_selected):
 		_scale_option.item_selected.connect(_on_scale_item_selected)
+	if not _quizless_mode.toggled.is_connected(_on_quizless_toggled):
+		_quizless_mode.toggled.connect(_on_quizless_toggled)
 
 
 func _on_scale_item_selected(index: int) -> void:
 	_sel_scale = index
 	_scale_manually_changed = true
+
+
+func _sync_quizless_mode() -> void:
+	_quizless_mode.button_pressed = _sel_quizless_mode
+
+
+func _on_quizless_toggled(enabled: bool) -> void:
+	_sel_quizless_mode = enabled
 
 
 func _update_res_note() -> void:
@@ -262,6 +278,7 @@ func _on_apply() -> void:
 	else:
 		if not _prev_scale_user_picked:
 			UIScaleService.reset_to_auto()
+	SettingsService.set_quizless_mode_enabled(_sel_quizless_mode, false)
 	SettingsService.apply_settings(_sel_mode, resolution, _monitor_option.selected)
 	_start_confirm()
 
@@ -287,14 +304,17 @@ func _on_revert() -> void:
 		UIScaleService.set_mode(_prev_scale)
 	else:
 		UIScaleService.reset_to_auto()
+	SettingsService.set_quizless_mode_enabled(_prev_quizless_mode, false)
 	SettingsService.apply_settings(_prev_mode, _prev_res, _prev_monitor)
 	_sel_mode = _prev_mode
 	_sel_scale = _prev_scale
+	_sel_quizless_mode = _prev_quizless_mode
 	_sync_mode_buttons()
 	_monitor_option.selected = _prev_monitor
 	_populate_resolutions(_prev_monitor)
 	_sync_resolution()
 	_sync_scale()
+	_sync_quizless_mode()
 	_sync_audio_sliders()
 
 
@@ -307,6 +327,7 @@ func _on_scale_changed(_scale: float) -> void:
 	_res_label.add_theme_font_size_override("font_size", main_size)
 	_res_note.add_theme_font_size_override("font_size", UIScaleService.px(15))
 	_scale_label.add_theme_font_size_override("font_size", main_size)
+	_quizless_mode.add_theme_font_size_override("font_size", main_size)
 	_monitor_option.add_theme_font_size_override("font_size", main_size)
 	_res_option.add_theme_font_size_override("font_size", main_size)
 	_scale_option.add_theme_font_size_override("font_size", main_size)
