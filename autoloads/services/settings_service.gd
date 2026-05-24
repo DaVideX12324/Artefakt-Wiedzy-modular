@@ -63,6 +63,10 @@ func get_available_resolutions() -> Array[Vector2i]:
 
 
 func get_global(key: String, default_value: Variant = null) -> Variant:
+	if not _cfg.has_section("global"):
+		return default_value
+	if not _cfg.has_section_key("global", key):
+		return default_value
 	return _cfg.get_value("global", key, default_value)
 
 
@@ -87,7 +91,12 @@ func set_quizless_mode_enabled(enabled: bool, save_now: bool = true) -> void:
 
 
 func get_module(module_id: String, key: String, default_value: Variant = null) -> Variant:
-	return _cfg.get_value("module:%s" % module_id, key, default_value)
+	var section_name: String = "module:%s" % module_id
+	if not _cfg.has_section(section_name):
+		return default_value
+	if not _cfg.has_section_key(section_name, key):
+		return default_value
+	return _cfg.get_value(section_name, key, default_value)
 
 
 func set_module(module_id: String, key: String, value: Variant, save_now: bool = true) -> void:
