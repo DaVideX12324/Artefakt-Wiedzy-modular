@@ -1,8 +1,6 @@
-# Artefakt Wiedzy Modular
+# Artefakt Wiedzy
 
-Czysty host dla modulow gier edukacyjnych w Godot 4.
-
-Ten projekt celowo nie dziedziczy struktury starego `Artefakt Wiedzy`. Host ma tylko launcher, rejestr modulow i loader scen. Konkretne gry trzymamy w `modules/<module_id>/`.
+Interaktywny system edukacyjny w formie gry top-down RPG. Warstwa merytoryczna (pytania/odpowiedzi) jest oddzielona od warstwy prezentacji — quizy ładowane z plików JSON. System wykorzystuje grywalizację (punkty, poziomy, nagrody, streak) oraz adaptacyjną trudność.
 
 ## Zasada
 
