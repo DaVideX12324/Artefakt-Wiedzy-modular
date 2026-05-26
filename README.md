@@ -12,6 +12,18 @@ Platforma edukacyjno-techniczna zbudowana w **Godot 4.x**. Host wykrywa i urucha
 
 BitBomber to gra 2D typu bomberman-like z wbudowanym systemem quizów edukacyjnych — pierwszy artefakt wykonawczy platformy.
 
+## Edytor quizów
+
+Menu główne platformy zawiera dedykowany przycisk **"Moje quizy"** — globalny edytor quizów dostępny niezależnie od uruchomionego modułu.
+
+Użytkownik może:
+- przeglądać istniejące quizy załadowane przez `QuizService`,
+- tworzyć nowe quizy i zapisywać je jako pliki `.json`,
+- edytować pytania: treść, typ (`multiple_choice`, `true_false`, `fill_text`, `fill_tiles`, `matching`), trudność (1–5), kategorię i wyjaśnienie,
+- importować quizy z zewnętrznych plików `.json`.
+
+Quizy stworzone w edytorze są dostępne we wszystkich modułach platformy przez `QuizService` — wystarczy podać odpowiednie `quiz_id` przy starcie quizu w danym module.
+
 ## Architektura hosta
 
 Host nie zna wewnętrznej logiki modułów. Jego rola:
@@ -37,7 +49,7 @@ Artefakt-Wiedzy-modular/
 │   └── compat/                  # Adaptery kompatybilności dla modułów legacy
 ├── modules/
 │   └── BitBomber/               # Git submodule → github.com/DaVideX12324/BitBomber
-├── scenes/                      # Sceny hosta (launcher, menu modułów)
+├── scenes/                      # Sceny hosta (launcher, menu modułów, edytor quizów)
 ├── scripts/                     # Skrypty hosta
 ├── resources/                   # Zasoby hosta
 ├── docs/
