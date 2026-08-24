@@ -9,8 +9,11 @@ Platforma edukacyjno-techniczna zbudowana w **Godot 4.x**. Host wykrywa i urucha
 | Moduł | Repo | Status |
 |-------|------|--------|
 | **BitBomber** | [github.com/DaVideX12324/BitBomber](https://github.com/DaVideX12324/BitBomber) | W migracji |
+| **Quiz RPG** | `modules/quiz_rpg` (natywny, brak osobnego repo) | W rozwoju |
 
 BitBomber to gra 2D typu bomberman-like z wbudowanym systemem quizów edukacyjnych — pierwszy artefakt wykonawczy platformy.
+
+Quiz RPG to gra RPG z eksploracją, walką turową i quizami edukacyjnymi wplecionymi w mechanikę — party, ekwipunek, save sloty, generowany świat.
 
 ## Edytor quizów
 
@@ -48,7 +51,9 @@ Artefakt-Wiedzy-modular/
 │   │   └── window_service.gd    # Tryb okna, rozdzielczość, monitor
 │   └── compat/                  # Adaptery kompatybilności dla modułów legacy
 ├── modules/
-│   └── BitBomber/               # Git submodule → github.com/DaVideX12324/BitBomber
+│   ├── BitBomber/               # Git submodule → github.com/DaVideX12324/BitBomber
+│   ├── quiz_rpg/                # Moduł natywny — RPG z systemem quizów
+│   └── _template/               # Szablon startowy do tworzenia nowych modułów
 ├── scenes/                      # Sceny hosta (launcher, menu modułów, edytor quizów)
 ├── scripts/                     # Skrypty hosta
 ├── resources/                   # Zasoby hosta
@@ -117,6 +122,16 @@ Moduł posiada dwie sceny wejścia — cienkie wrappery, cała logika przechodzi
 Jeśli moduł ma działać standalone, przechowuje `standalone_project.godot.example`. Do dev standalone kopiujesz moduł poza hosta i zmieniasz ten plik na `project.godot`.
 
 > **Uwaga:** Host ignoruje podfolder jeśli wykryje w nim aktywny `project.godot`.
+
+## Tworzenie nowego modułu
+
+Nowe moduły startują z gotowego szablonu w [`modules/_template/`](modules/_template/README.md):
+
+1. Skopiuj `modules/_template` do `modules/<TwojModul>`.
+2. Podmień `TEMPLATE_MODULE_ID` i `Template Module` w plikach szablonu.
+3. Rozwijaj gameplay lokalnie w folderze modułu, korzystając z `ModuleRuntime.path(...)` i globalnych serwisów hosta.
+
+Szablon zawiera manifest, cienki wrapper `module_root`, minimalną scenę startową i `START_PROMPT.md` do generowania nowej gry.
 
 ## Migracja istniejących modułów
 
