@@ -1,0 +1,17 @@
+{
+  "menu": "res://assets/audio/music/menu.ogg",
+  "tutorial": "res://assets/audio/music/tutorial.ogg",
+  "desert_oasis": "res://assets/audio/music/desert_oasis.ogg",
+  "desert_town": "res://assets/audio/music/desert_town.ogg",
+  "cave_entrance": "res://assets/audio/music/cave_entrance.ogg",
+  "tunels": "res://assets/audio/music/tunnels.ogg",
+  "ancient_ruins": "res://assets/audio/music/ancient_ruins.ogg",
+  "uncharted_depths": "res://assets/audio/music/uncharted_depths.ogg",
+  "final_arena": "res://assets/audio/music/final_arena.ogg",
+  "boss_kosiarz": "res://assets/audio/music/kosiarz.ogg",
+  "boss_minotaur": "res://assets/audio/music/kosiarz.ogg",
+  "boss_szkieletor": "res://assets/audio/music/szkieletor.ogg",
+  "boss_mecha_golem": "res://assets/audio/music/mecha_golem.ogg",
+  "boss_crystal_warrior": "res://assets/audio/music/crystal_warrior.ogg",
+  "boss_ra": "res://assets/audio/music/ra.ogg"
+}
