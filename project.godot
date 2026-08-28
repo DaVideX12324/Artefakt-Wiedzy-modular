@@ -76,7 +76,7 @@ interact={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemies"
-2d_physics/layer_3="Walls"
+2d_physics/layer_3="MapCollision"
 2d_physics/layer_4="Interactables"
 2d_physics/layer_5="Triggers"
 
