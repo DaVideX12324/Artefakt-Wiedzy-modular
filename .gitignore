@@ -2,3 +2,5 @@
 /modules/*/.godot
 *.import
 /assets/Pixel Crawler
+/scratch/
+export_presets.cfg
