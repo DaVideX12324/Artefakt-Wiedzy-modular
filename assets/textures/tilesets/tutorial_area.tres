@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" format=3 uid="uid://dis32q3fbs00h"]
 
-[ext_resource type="Texture2D" uid="uid://dlphipshnw08u" path="res://modules/quiz_rpg/assets/textures/atlases/Dungeon tileset/Dungeon tileset.png" id="1_a0pnv"]
-[ext_resource type="Texture2D" uid="uid://rqt5e3rvq03k" path="res://modules/quiz_rpg/assets/textures/atlases/free-2d-top-down-pixel-dungeon-asset-pack/PNG/Objects.png" id="2_skd5q"]
+[ext_resource type="Texture2D" uid="uid://dlphipshnw08u" path="res://assets/textures/atlases/Dungeon tileset/Dungeon tileset.png" id="1_a0pnv"]
+[ext_resource type="Texture2D" uid="uid://rqt5e3rvq03k" path="res://assets/textures/atlases/free-2d-top-down-pixel-dungeon-asset-pack/PNG/Objects.png" id="2_skd5q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6mq55"]
 texture = ExtResource("1_a0pnv")
