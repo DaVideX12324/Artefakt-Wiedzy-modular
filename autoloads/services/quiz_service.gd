@@ -22,6 +22,12 @@ var _answered_questions: Dictionary = {}
 var _sessions: Dictionary = {}
 
 
+func _ready() -> void:
+	# Automatycznie załaduj bazę quizów z głównego folderu do puli globalnej i domyślnej
+	register_sources("global", [GLOBAL_SOURCE_PATH], true)
+	register_sources("", [GLOBAL_SOURCE_PATH], true)
+
+
 func register_source(module_id: String, source_path: String, reload_now: bool = true) -> void:
 	register_sources(module_id, [source_path], reload_now)
 
@@ -76,14 +82,63 @@ func reload_module(module_id: String) -> void:
 		dir.list_dir_end()
 
 
+func _get_module_quizzes(module_id: String) -> Dictionary:
+	var quizzes: Dictionary = _quizzes.get(module_id, {})
+	if not quizzes.is_empty():
+		return quizzes
+	for fallback_mod in ["quiz_rpg", "global", ""]:
+		var fallback_quizzes: Dictionary = _quizzes.get(fallback_mod, {})
+		if not fallback_quizzes.is_empty():
+			return fallback_quizzes
+	return {}
+
+
+func _resolve_quiz_id(module_id: String, quiz_id: String) -> String:
+	var clean_id := quiz_id.strip_edges()
+	var module_quizzes := _get_module_quizzes(module_id)
+
+	if clean_id != "" and clean_id != "default" and module_quizzes.has(clean_id):
+		return clean_id
+
+	if clean_id != "" and clean_id != "default":
+		for fallback_mod in ["", "global", "quiz_rpg"]:
+			if _quizzes.get(fallback_mod, {}).has(clean_id):
+				return clean_id
+
+	# Fallback dla "default" lub nieznalezionego quiz_id
+	var cheat_service := get_node_or_null("/root/CheatService")
+	if cheat_service and "active_quiz_override" in cheat_service:
+		var override_id: String = str(cheat_service.active_quiz_override).strip_edges()
+		if override_id != "" and module_quizzes.has(override_id):
+			return override_id
+
+	if module_quizzes.has("inf_podst"):
+		return "inf_podst"
+	for fallback_mod in ["", "global", "quiz_rpg"]:
+		if _quizzes.get(fallback_mod, {}).has("inf_podst"):
+			return "inf_podst"
+
+	if not module_quizzes.is_empty():
+		return str(module_quizzes.keys()[0])
+	for fallback_mod in ["", "global", "quiz_rpg"]:
+		var fallback_quizzes: Dictionary = _quizzes.get(fallback_mod, {})
+		if not fallback_quizzes.is_empty():
+			return str(fallback_quizzes.keys()[0])
+
+	return clean_id
+
+
 func get_quiz_ids(module_id: String = "") -> Array:
 	if module_id != "":
-		return _quizzes.get(module_id, {}).keys()
+		var quizzes := _get_module_quizzes(module_id)
+		return quizzes.keys()
 
 	var result: Array = []
 	for registered_module_id in _quizzes:
 		for quiz_id in _quizzes[registered_module_id]:
-			result.append("%s:%s" % [registered_module_id, quiz_id])
+			var entry: String = ("%s:%s" % [registered_module_id, quiz_id]) if registered_module_id != "" else str(quiz_id)
+			if not result.has(entry):
+				result.append(entry)
 	return result
 
 
@@ -94,19 +149,29 @@ func get_questions(
 	count: int = 5,
 	allowed_types: Array = []
 ) -> Array:
-	var module_quizzes: Dictionary = _quizzes.get(module_id, {})
-	if not module_quizzes.has(quiz_id):
-		push_warning("QuizService: quiz '%s' not found for module '%s'" % [quiz_id, module_id])
+	var effective_quiz_id := _resolve_quiz_id(module_id, quiz_id)
+	var module_quizzes := _get_module_quizzes(module_id)
+	if not module_quizzes.has(effective_quiz_id):
+		push_warning("QuizService: quiz '%s' (resolved '%s') not found for module '%s'" % [quiz_id, effective_quiz_id, module_id])
 		return []
 
 	var filtered: Array = []
-	for question in module_quizzes[quiz_id]:
+	for question in module_quizzes[effective_quiz_id]:
 		var diff: int = question.get("difficulty", 1)
 		var qtype: String = question.get("type", "multiple_choice")
 		var diff_ok := diff >= difficulty_range.x and diff <= difficulty_range.y
 		var type_ok := allowed_types.is_empty() or (qtype in allowed_types)
 		if diff_ok and type_ok:
 			filtered.append(question)
+
+	# Jeśli filtr trudności/typów nie znalazł pytań, złagodź filtr:
+	if filtered.is_empty() and not module_quizzes[effective_quiz_id].is_empty():
+		for question in module_quizzes[effective_quiz_id]:
+			var qtype: String = question.get("type", "multiple_choice")
+			if allowed_types.is_empty() or (qtype in allowed_types):
+				filtered.append(question)
+		if filtered.is_empty():
+			filtered = module_quizzes[effective_quiz_id].duplicate()
 
 	filtered.shuffle()
 	if filtered.size() > count:
@@ -122,11 +187,12 @@ func start_quiz(
 	allowed_types: Array = [],
 	session_id: String = "default"
 ) -> Dictionary:
-	var questions := get_questions(module_id, quiz_id, difficulty_range, count, allowed_types)
+	var effective_quiz_id := _resolve_quiz_id(module_id, quiz_id)
+	var questions := get_questions(module_id, effective_quiz_id, difficulty_range, count, allowed_types)
 	var key := _session_key(module_id, session_id)
 	_sessions[key] = {
 		"module_id": module_id,
-		"quiz_id": quiz_id,
+		"quiz_id": effective_quiz_id,
 		"questions": questions,
 		"index": 0,
 		"score": 0,
@@ -135,7 +201,7 @@ func start_quiz(
 	if questions.is_empty():
 		return {}
 
-	quiz_loaded.emit(module_id, quiz_id)
+	quiz_loaded.emit(module_id, effective_quiz_id)
 	return questions[0]
 
 
