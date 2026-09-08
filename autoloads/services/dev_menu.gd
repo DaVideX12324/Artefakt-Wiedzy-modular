@@ -20,6 +20,7 @@ var _btn_add_xp: Button
 var _btn_add_streak: Button
 var _opt_speed: OptionButton
 var _opt_quizzes: OptionButton
+var _opt_quiz_layout: OptionButton
 var _lbl_fps: Label
 var _lbl_info: Label
 
@@ -110,6 +111,9 @@ func _refresh_controls_state() -> void:
 			if _opt_quizzes.get_item_metadata(i) == active_quiz:
 				_opt_quizzes.selected = i
 				break
+
+	if _opt_quiz_layout and cheat_service and "quiz_ui_mode" in cheat_service:
+		_opt_quiz_layout.selected = 1 if cheat_service.quiz_ui_mode == "popup" else 0
 
 
 func _build_floating_button() -> void:
@@ -323,6 +327,25 @@ func _build_tab_quizzes() -> Control:
 	)
 	quiz_select_box.add_child(reload_btn)
 	vbox.add_child(quiz_select_box)
+
+	# Wybór układu UI quizu w walce (Dolny pasek vs Popup w centrum)
+	var layout_box := _create_card_box("Układ UI Quizu w Walce", "Wybierz sposób wyświetlania pytań podczas pojedynku RPG.")
+	_opt_quiz_layout = OptionButton.new()
+	_opt_quiz_layout.add_item("📏 Dolny pasek (100% szerokości ekranu, styl RPG)", 0)
+	_opt_quiz_layout.set_item_metadata(0, "bottom")
+	_opt_quiz_layout.add_item("🖼️ Modal / Popup w centrum ekranu", 1)
+	_opt_quiz_layout.set_item_metadata(1, "popup")
+	var cheat_service_layout = get_node_or_null("/root/CheatService")
+	if cheat_service_layout and "quiz_ui_mode" in cheat_service_layout:
+		_opt_quiz_layout.selected = 1 if cheat_service_layout.quiz_ui_mode == "popup" else 0
+	_opt_quiz_layout.item_selected.connect(func(idx):
+		var mode: String = str(_opt_quiz_layout.get_item_metadata(idx))
+		var cs = get_node_or_null("/root/CheatService")
+		if cs and cs.has_method("set_quiz_ui_mode"):
+			cs.set_quiz_ui_mode(mode)
+	)
+	layout_box.add_child(_opt_quiz_layout)
+	vbox.add_child(layout_box)
 
 	var stats_box := _create_card_box("Ścieżka źródłowa bazy quizów", "Pytania są pobierane bezpośrednio z:\nres://resources/quizzes/inf_podst.json\nres://resources/quizzes/informatyka.json")
 	vbox.add_child(stats_box)

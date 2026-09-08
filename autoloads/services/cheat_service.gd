@@ -11,11 +11,13 @@ signal quizzes_toggled(quizless: bool)
 signal instant_win_triggered
 signal god_mode_toggled(enabled: bool)
 signal speed_mult_changed(mult: float)
+signal quiz_ui_mode_changed(mode: String)
 
 var enemies_disabled: bool = false
 var god_mode: bool = false
 var player_speed_mult: float = 1.0
 var active_quiz_override: String = ""
+var quiz_ui_mode: String = "bottom" # "bottom" (100% full-width bar) lub "popup" (modal w centrum)
 
 var _toast_layer: CanvasLayer
 var _toast_panel: PanelContainer
@@ -121,6 +123,15 @@ func toggle_quizzes() -> bool:
 func trigger_instant_win() -> void:
 	instant_win_triggered.emit()
 	show_toast("🏆 CHEAT: Natychmiastowe Zwycięstwo (Instant Win)!", Color(1.0, 0.95, 0.2))
+
+
+func set_quiz_ui_mode(mode: String) -> void:
+	quiz_ui_mode = mode
+	quiz_ui_mode_changed.emit(quiz_ui_mode)
+	if mode == "popup":
+		show_toast("🖼️ Układ quizu: Modal / Popup w centrum", Color(0.4, 0.85, 1.0))
+	else:
+		show_toast("📏 Układ quizu: Dolny pasek (100% szerokości)", Color(0.4, 0.85, 1.0))
 
 
 func show_toast(text: String, accent_color: Color = Color.WHITE) -> void:
