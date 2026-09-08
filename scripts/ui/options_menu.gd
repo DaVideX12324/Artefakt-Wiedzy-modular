@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal closed
+
 @onready var _btn_windowed: Button = $Panel/Margin/VBox/Tabs/Ekran/HBoxMode/BtnWindowed
 @onready var _btn_borderless: Button = $Panel/Margin/VBox/Tabs/Ekran/HBoxMode/BtnBorderless
 @onready var _btn_fullscreen: Button = $Panel/Margin/VBox/Tabs/Ekran/HBoxMode/BtnFullscreen
@@ -141,11 +143,16 @@ func open() -> void:
 	visible = true
 
 
+func close() -> void:
+	_on_close()
+
+
 func _on_close() -> void:
 	if _confirming:
 		_on_revert()
 	else:
 		hide()
+		closed.emit()
 
 
 func _select_mode(mode: int) -> void:
