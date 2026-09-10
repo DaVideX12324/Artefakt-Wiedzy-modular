@@ -106,16 +106,40 @@ func set_module(module_id: String, key: String, value: Variant, save_now: bool =
 
 
 func get_bus_volume(bus_name: String) -> float:
+	var key := bus_name.to_lower()
+	if _cfg.has_section_key(SEC_AUDIO, key):
+		return clampf(float(_cfg.get_value(SEC_AUDIO, key, 1.0)), 0.0, 1.0)
 	var index := AudioServer.get_bus_index(bus_name)
 	if index < 0:
 		return 1.0
-	return db_to_linear(AudioServer.get_bus_volume_db(index))
+	var db := AudioServer.get_bus_volume_db(index)
+	if db <= -70.0:
+		return 0.0
+	return clampf(db_to_linear(db), 0.0, 1.0)
 
 
 func set_bus_volume(bus_name: String, value: float, save_now: bool = true) -> void:
 	var index := _ensure_bus(bus_name)
-	AudioServer.set_bus_volume_db(index, linear_to_db(maxf(value, 0.001)))
-	_cfg.set_value(SEC_AUDIO, bus_name.to_lower(), value)
+	var clamped_val := clampf(value, 0.0, 1.0)
+	_cfg.set_value(SEC_AUDIO, bus_name.to_lower(), clamped_val)
+	if clamped_val <= 0.0001:
+		AudioServer.set_bus_volume_db(index, -80.0)
+	else:
+		AudioServer.set_bus_volume_db(index, linear_to_db(clamped_val))
+
+	var audio := get_node_or_null("/root/AudioService")
+	if audio:
+		match bus_name.to_lower():
+			"master":
+				if audio.master_volume != clamped_val:
+					audio.master_volume = clamped_val
+			"music":
+				if audio.music_volume != clamped_val:
+					audio.music_volume = clamped_val
+			"sfx":
+				if audio.sfx_volume != clamped_val:
+					audio.sfx_volume = clamped_val
+
 	if save_now:
 		save_settings()
 
@@ -128,15 +152,21 @@ func _load_defaults() -> void:
 
 
 func _load_audio() -> void:
-	for bus_name in ["Master", "Music", "SFX"]:
-		var value: float = _cfg.get_value(SEC_AUDIO, bus_name.to_lower(), 1.0)
+	for bus_name: String in ["Master", "Music", "SFX"]:
+		var key: String = bus_name.to_lower()
+		var value: float = clampf(float(_cfg.get_value(SEC_AUDIO, key, 1.0)), 0.0, 1.0)
 		var index := _ensure_bus(bus_name)
-		AudioServer.set_bus_volume_db(index, linear_to_db(maxf(value, 0.001)))
+		if value <= 0.0001:
+			AudioServer.set_bus_volume_db(index, -80.0)
+		else:
+			AudioServer.set_bus_volume_db(index, linear_to_db(value))
 
 
 func _save_audio_to_cfg() -> void:
-	for bus_name in ["Master", "Music", "SFX"]:
-		_cfg.set_value(SEC_AUDIO, bus_name.to_lower(), get_bus_volume(bus_name))
+	for bus_name: String in ["Master", "Music", "SFX"]:
+		var key: String = bus_name.to_lower()
+		if not _cfg.has_section_key(SEC_AUDIO, key):
+			_cfg.set_value(SEC_AUDIO, key, get_bus_volume(bus_name))
 
 
 func _ensure_bus(bus_name: String) -> int:
