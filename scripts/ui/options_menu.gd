@@ -147,7 +147,14 @@ func close() -> void:
 	_on_close()
 
 
+func _play_click() -> void:
+	var audio := get_node_or_null("/root/AudioService")
+	if audio:
+		audio.play_sfx_by_name("click")
+
+
 func _on_close() -> void:
+	_play_click()
 	if _confirming:
 		_on_revert()
 	else:
@@ -156,6 +163,7 @@ func _on_close() -> void:
 
 
 func _select_mode(mode: int) -> void:
+	_play_click()
 	_sel_mode = mode
 	_sync_mode_buttons()
 
@@ -276,6 +284,7 @@ func _populate_binds() -> void:
 
 
 func _on_apply() -> void:
+	_play_click()
 	var resolution_index := _res_option.selected
 	var resolution := WindowService.resolution
 	if resolution_index >= 0 and resolution_index < _resolutions.size():
@@ -298,12 +307,14 @@ func _start_confirm() -> void:
 
 
 func _on_confirm() -> void:
+	_play_click()
 	_confirming = false
 	_confirm_popup.visible = false
 	hide()
 
 
 func _on_revert() -> void:
+	_play_click()
 	_confirming = false
 	_confirm_popup.visible = false
 	_scale_manually_changed = false
