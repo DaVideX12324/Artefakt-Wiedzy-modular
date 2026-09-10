@@ -28,6 +28,8 @@ func _ready() -> void:
 	UIScaleService.scale_changed.connect(_on_scale_changed)
 	refresh_modules()
 	_on_scale_changed(UIScaleService.scale_factor)
+	if AudioService:
+		AudioService.play_music("menu")
 
 
 func refresh_modules() -> void:
@@ -58,7 +60,10 @@ func _build_module_button(manifest: Dictionary) -> Button:
 	button.custom_minimum_size = UIScaleService.sz2(BASE_BTN_MODULE.x, BASE_BTN_MODULE.y)
 	button.text = _module_button_text(manifest)
 	button.alignment = HORIZONTAL_ALIGNMENT_CENTER
-	button.pressed.connect(func(): launch_requested.emit(manifest))
+	button.pressed.connect(func():
+		if AudioService: AudioService.play_sfx_by_name("click")
+		launch_requested.emit(manifest)
+	)
 	return button
 
 
@@ -97,6 +102,7 @@ func _on_scale_changed(_scale: float) -> void:
 
 
 func _on_options() -> void:
+	if AudioService: AudioService.play_sfx_by_name("click")
 	if _options_menu.has_method("open"):
 		_options_menu.call("open")
 	else:
@@ -104,4 +110,5 @@ func _on_options() -> void:
 
 
 func _on_quit() -> void:
+	if AudioService: AudioService.play_sfx_by_name("click")
 	get_tree().quit()
