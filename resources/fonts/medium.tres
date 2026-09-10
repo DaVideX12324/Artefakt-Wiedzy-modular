@@ -4,9 +4,11 @@
 
 [resource]
 base_font = ExtResource("1_ai4aa")
+spacing_glyph = 1
+spacing_space = 1
 variation_opentype = {
-1869640570: 14,
-2003265652: 500
+1869640570: 16,
+2003265652: 550
 }
 opentype_features = {
 1667329140: 0
