@@ -39,6 +39,7 @@ SpriteLoader="*res://modules/BitBomber/autoloads/sprite_loader.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
