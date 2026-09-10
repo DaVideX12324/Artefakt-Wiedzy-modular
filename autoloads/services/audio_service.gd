@@ -38,6 +38,7 @@ const SFX_POOL_SIZE := 16
 var is_muted: bool = false:
 	set(value):
 		is_muted = value
+		_apply_master_volume()
 		mute_toggled.emit(is_muted)
 
 var current_track: String = ""
@@ -72,6 +73,10 @@ const PREFERENCES_PATH := "user://preferences.dat"
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
+	_ensure_bus(BUS_MASTER)
+	_ensure_bus(BUS_MUSIC)
+	_ensure_bus(BUS_SFX)
+
 	music_player = AudioStreamPlayer.new()
 	music_player.bus = BUS_MUSIC
 	music_player.name = "MusicPlayer"
@@ -94,6 +99,16 @@ func _ready() -> void:
 	_apply_music_volume()
 	_apply_sfx_volume()
 	_apply_master_volume()
+
+
+func _ensure_bus(bus_name: String) -> int:
+	var index := AudioServer.get_bus_index(bus_name)
+	if index >= 0:
+		return index
+	AudioServer.add_bus()
+	index = AudioServer.get_bus_count() - 1
+	AudioServer.set_bus_name(index, bus_name)
+	return index
 
 
 func _load_music_tracks_manifest() -> void:
@@ -131,9 +146,51 @@ func _get_music_stream(track_name: String) -> AudioStream:
 	return stream
 
 
+const DEFAULT_SFX: Dictionary = {
+	"click": "res://assets/audio/sfx/RPG Sound Pack/interface/interface1.wav",
+	"hover": "res://assets/audio/sfx/RPG Sound Pack/interface/interface4.wav",
+	"correct": "res://assets/audio/sfx/RPG Sound Pack/inventory/coin.wav",
+	"wrong": "res://assets/audio/sfx/Helton Yan's Pixel Combat - Single Files/DSGNImpt_EXPLOSION-Forced Shutdown_HY_PC-001.wav",
+	"attack": "res://assets/audio/sfx/RPG Sound Pack/battle/swing.wav",
+	"hit": "res://assets/audio/sfx/Helton Yan's Pixel Combat - Single Files/DSGNImpt_MELEE-Homerunner_HY_PC-001.wav",
+	"player_damage": "res://assets/audio/sfx/Minifantasy_Dungeon_SFX/11_human_damage_1.wav",
+	"enemy_death": "res://assets/audio/sfx/Helton Yan's Pixel Combat - Single Files/DSGNImpt_EXPLOSION-Eruption_HY_PC-001.wav",
+	"door_open": "res://assets/audio/sfx/Minifantasy_Dungeon_SFX/05_door_open_1.mp3",
+	"door_close": "res://assets/audio/sfx/Minifantasy_Dungeon_SFX/06_door_close_1.mp3",
+	"chest_open": "res://assets/audio/sfx/Minifantasy_Dungeon_SFX/01_chest_open_1.wav",
+	"coin": "res://assets/audio/sfx/RPG Sound Pack/inventory/coin.wav",
+	"victory": "res://assets/audio/sfx/RPG Sound Pack/misc/random6.wav",
+	"defeat": "res://assets/audio/sfx/RPG Sound Pack/misc/random1.wav",
+	"flee": "res://assets/audio/sfx/RPG Sound Pack/misc/random3.wav",
+	"magic": "res://assets/audio/sfx/RPG Sound Pack/battle/magic1.wav",
+}
+
+var _sfx_stream_cache: Dictionary = {}
+
+
 ## ============================================
 ## SFX PLAYBACK -- GLOBAL (UI, non-spatial)
 ## ============================================
+func play_sfx_by_name(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
+	var stream := _get_sfx_stream(sfx_name)
+	if stream:
+		play_sfx(stream, volume_db, pitch_scale)
+
+
+func _get_sfx_stream(sfx_name: String) -> AudioStream:
+	if _sfx_stream_cache.has(sfx_name):
+		return _sfx_stream_cache[sfx_name]
+	if not DEFAULT_SFX.has(sfx_name):
+		push_warning("[AudioService] Unknown SFX name: " + sfx_name)
+		return null
+	var path: String = DEFAULT_SFX[sfx_name]
+	if ResourceLoader.exists(path):
+		var s: AudioStream = load(path) as AudioStream
+		_sfx_stream_cache[sfx_name] = s
+		return s
+	return null
+
+
 func play_sfx(sound: AudioStream, volume_db: float = 0.0, pitch_scale: float = 1.0) -> void:
 	if not sound:
 		push_warning("[AudioService] Attempted to play null sound!")
@@ -185,8 +242,16 @@ func play_music(track_name: String, _fade_time: float = 1.0) -> void:
 	if current_track == track_name and music_player.playing:
 		return
 
-	if not track_name.begins_with("boss_"):
-		previous_track = track_name
+	var is_battle_track := track_name.begins_with("boss_") or track_name.begins_with("battle")
+	var was_battle_track := current_track.begins_with("boss_") or current_track.begins_with("battle")
+
+	# Save previous_track only when entering battle/boss from normal exploration/menu
+	if is_battle_track:
+		if not was_battle_track and current_track != "":
+			previous_track = current_track
+	else:
+		if not was_battle_track and current_track != "":
+			previous_track = current_track
 
 	current_track = track_name
 	music_player.stream = stream
@@ -196,18 +261,26 @@ func play_music(track_name: String, _fade_time: float = 1.0) -> void:
 
 
 func start_boss_music(boss_name: String, fade_time: float = 0.5) -> void:
-	var boss_track := "boss_%s" % boss_name
+	var boss_track := boss_name
 	if not music_track_paths.has(boss_track):
-		push_warning("[AudioService] Boss track not found: %s" % boss_track)
-		return
-	if current_track != "" and not current_track.begins_with("boss_"):
-		previous_track = current_track
+		boss_track = "boss_%s" % boss_name
+	if not music_track_paths.has(boss_track):
+		boss_track = "battle_boss"
+	if not music_track_paths.has(boss_track):
+		boss_track = "battle"
 	play_music(boss_track, fade_time)
 
 
-func end_boss_music(fade_time: float = 2.0, return_to_previous: bool = true) -> void:
-	if return_to_previous and previous_track != "":
+func return_to_previous_track(fade_time: float = 1.0) -> void:
+	if previous_track != "" and music_track_paths.has(previous_track):
 		play_music(previous_track, fade_time)
+	else:
+		stop_music(fade_time)
+
+
+func end_boss_music(fade_time: float = 2.0, return_to_previous: bool = true) -> void:
+	if return_to_previous:
+		return_to_previous_track(fade_time)
 	else:
 		stop_music(fade_time)
 
@@ -252,44 +325,46 @@ func stop_ambience(fade_time: float = 1.0) -> void:
 ## ============================================
 ## VOLUME CONTROL
 ## ============================================
-func _shape_slider(value: float) -> float:
-	return pow(value, 0.7)
-
-
 func _apply_master_volume() -> void:
 	var bus_index := AudioServer.get_bus_index(BUS_MASTER)
 	if bus_index == -1:
 		return
-	var db := MUTE_DB
-	if master_volume > 0.0:
-		db = lerp(MASTER_MIN_DB, 0.0, _shape_slider(master_volume))
-	AudioServer.set_bus_volume_db(bus_index, db)
+	if is_muted or master_volume <= 0.0001:
+		AudioServer.set_bus_volume_db(bus_index, -80.0)
+	else:
+		AudioServer.set_bus_volume_db(bus_index, linear_to_db(master_volume))
 
 
 func _apply_music_volume() -> void:
 	var bus_index := AudioServer.get_bus_index(BUS_MUSIC)
 	if bus_index == -1:
 		return
-	var db := MUTE_DB
-	if music_volume > 0.0:
-		db = lerp(MUSIC_MIN_DB, 0.0, _shape_slider(music_volume))
-	AudioServer.set_bus_volume_db(bus_index, db)
+	if is_muted or music_volume <= 0.0001:
+		AudioServer.set_bus_volume_db(bus_index, -80.0)
+	else:
+		AudioServer.set_bus_volume_db(bus_index, linear_to_db(music_volume))
 
 
 func _apply_sfx_volume() -> void:
 	var bus_index := AudioServer.get_bus_index(BUS_SFX)
 	if bus_index == -1:
 		return
-	var db := MUTE_DB
-	if sfx_volume > 0.0:
-		db = lerp(SFX_MIN_DB, 0.0, _shape_slider(sfx_volume))
-	AudioServer.set_bus_volume_db(bus_index, db)
+	if is_muted or sfx_volume <= 0.0001:
+		AudioServer.set_bus_volume_db(bus_index, -80.0)
+	else:
+		AudioServer.set_bus_volume_db(bus_index, linear_to_db(sfx_volume))
 
 
 ## ============================================
 ## SAVE/LOAD PREFERENCES
 ## ============================================
 func save_audio_settings() -> void:
+	var settings_service: Node = get_node_or_null("/root/SettingsService")
+	if settings_service and settings_service.has_method("set_bus_volume"):
+		settings_service.set_bus_volume(BUS_MASTER, master_volume, false)
+		settings_service.set_bus_volume(BUS_MUSIC, music_volume, false)
+		settings_service.set_bus_volume(BUS_SFX, sfx_volume, true)
+		return
 	var settings := {
 		"music_volume": music_volume,
 		"sfx_volume": sfx_volume,
@@ -307,6 +382,12 @@ func save_audio_settings() -> void:
 
 
 func load_audio_settings() -> void:
+	var settings_service: Node = get_node_or_null("/root/SettingsService")
+	if settings_service and settings_service.has_method("get_bus_volume"):
+		master_volume = settings_service.get_bus_volume(BUS_MASTER)
+		music_volume = settings_service.get_bus_volume(BUS_MUSIC)
+		sfx_volume = settings_service.get_bus_volume(BUS_SFX)
+		return
 	var all_preferences := _load_preferences()
 	if all_preferences.has("audio"):
 		var audio_settings: Dictionary = all_preferences["audio"]
