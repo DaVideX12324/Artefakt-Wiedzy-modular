@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://vhrbu0jcibh3"]
 
-[ext_resource type="Texture2D" uid="uid://dv1ai8rii8muw" path="res://assets/textures/atlases/Chests/RPG Chests.png" id="1_kcd45"]
+[ext_resource type="Texture2D" uid="uid://dv1ai8rii8muw" path="res://assets/textures/legacy_amonra/atlases/Chests/RPG Chests.png" id="1_kcd45"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jgjjg"]
 texture = ExtResource("1_kcd45")
