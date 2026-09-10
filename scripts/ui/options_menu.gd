@@ -98,6 +98,9 @@ func _ready() -> void:
 	_setup_audio_sliders()
 	_populate_binds()
 	UIScaleService.scale_changed.connect(_on_scale_changed)
+	WindowService.resolution_changed.connect(func(_r: Vector2i) -> void: _on_scale_changed(UIScaleService.scale_factor))
+	if get_tree() and get_tree().root:
+		get_tree().root.size_changed.connect(func() -> void: _on_scale_changed(UIScaleService.scale_factor))
 	_on_scale_changed(UIScaleService.scale_factor)
 
 
@@ -356,12 +359,14 @@ func _on_scale_changed(_scale: float) -> void:
 	_lbl_music.add_theme_font_size_override("font_size", main_size)
 	_lbl_sfx.add_theme_font_size_override("font_size", main_size)
 	_lbl_info.add_theme_font_size_override("font_size", UIScaleService.px(14))
+	_lbl_info.custom_minimum_size = Vector2(UIScaleService.px(200), 0)
 	for child in _binds_list.get_children():
 		if child is Label:
 			child.add_theme_font_size_override("font_size", UIScaleService.px(14))
 	_btn_apply.add_theme_font_size_override("font_size", UIScaleService.px(20))
 	_btn_close.add_theme_font_size_override("font_size", UIScaleService.px(20))
 	_lbl_question.add_theme_font_size_override("font_size", UIScaleService.px(18))
+	_lbl_question.custom_minimum_size = Vector2(UIScaleService.px(220), 0)
 	_lbl_countdown.add_theme_font_size_override("font_size", UIScaleService.px(22))
 	_btn_confirm.add_theme_font_size_override("font_size", UIScaleService.px(20))
 	_btn_revert.add_theme_font_size_override("font_size", UIScaleService.px(20))
@@ -373,19 +378,26 @@ func _on_scale_changed(_scale: float) -> void:
 	_btn_close.custom_minimum_size = UIScaleService.sz2(BASE_BTN_ACTION_SIZE.x, BASE_BTN_ACTION_SIZE.y)
 	_btn_confirm.custom_minimum_size = UIScaleService.sz2(BASE_BTN_CONFIRM_SIZE.x, BASE_BTN_CONFIRM_SIZE.y)
 	_btn_revert.custom_minimum_size = UIScaleService.sz2(BASE_BTN_CONFIRM_SIZE.x, BASE_BTN_CONFIRM_SIZE.y)
-	var panel_half_w := UIScaleService.sz(BASE_PANEL_HALF_W)
-	var panel_half_h := UIScaleService.sz(BASE_PANEL_HALF_H)
+
+	var vp_size: Vector2 = get_viewport().get_visible_rect().size if get_viewport() else Vector2(1920, 1080)
+	if vp_size.x <= 0 or vp_size.y <= 0:
+		vp_size = Vector2(WindowService.resolution)
+	var max_half_w: float = maxf(160.0, (vp_size.x - 24.0) * 0.5)
+	var max_half_h: float = maxf(180.0, (vp_size.y - 24.0) * 0.5)
+	var panel_half_w: float = minf(UIScaleService.sz(BASE_PANEL_HALF_W), max_half_w)
+	var panel_half_h: float = minf(UIScaleService.sz(BASE_PANEL_HALF_H), max_half_h)
 	_panel.offset_left = -panel_half_w
 	_panel.offset_top = -panel_half_h
 	_panel.offset_right = panel_half_w
 	_panel.offset_bottom = panel_half_h
-	var confirm_half_w := UIScaleService.sz(BASE_CONFIRM_HALF_W)
-	var confirm_half_h := UIScaleService.sz(BASE_CONFIRM_HALF_H)
+	var confirm_half_w: float = minf(UIScaleService.sz(BASE_CONFIRM_HALF_W), max_half_w)
+	var confirm_half_h: float = minf(UIScaleService.sz(BASE_CONFIRM_HALF_H), max_half_h)
 	_confirm_popup.offset_left = -confirm_half_w
 	_confirm_popup.offset_top = -confirm_half_h
 	_confirm_popup.offset_right = confirm_half_w
 	_confirm_popup.offset_bottom = confirm_half_h
-	var pad := UIScaleService.px(BASE_PANEL_PADDING)
+	var pad := mini(UIScaleService.px(BASE_PANEL_PADDING), int(panel_half_h * 0.1))
+	pad = maxi(pad, 8)
 	_margin.add_theme_constant_override("margin_left", pad)
 	_margin.add_theme_constant_override("margin_top", pad)
 	_margin.add_theme_constant_override("margin_right", pad)
