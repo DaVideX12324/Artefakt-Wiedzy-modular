@@ -2539,7 +2539,7 @@ Indeks `0` = wariant A, indeks `1` = wariant B. Wybór:
   "display_name": "Natural Cave",
   "schema_version": 1,
 
-  "tileset_path": "res://modules/quiz_rpg/resources/tilemaps/caves.tres",
+  "tileset_path": "res://modules/quiz_rpg/resources/maps/caves.tres",
   "source_id": 0,
 
   "layers": {
@@ -4000,7 +4000,7 @@ lub jednoznacznie wynikający z kodu), czy **do weryfikacji** (wymaga obejrzenia
 2. `modules/quiz_rpg/scripts/generation/cave_generator.gd` — **cały plik**,
    nie fragmenty. Refaktor bez znajomości całości skończy się utratą przypadków brzegowych.
 3. `modules/quiz_rpg/scripts/maps/procedural_level.gd` — jedyny produkcyjny konsument.
-4. `modules/quiz_rpg/resources/tilemaps/caves.tres`, sekcja `[resource]` na końcu
+4. `modules/quiz_rpg/resources/maps/caves.tres`, sekcja `[resource]` na końcu
    (definicje `terrain_set` i `physics_layer`).
 
 ### 15.2. Bezwzględne zakazy
