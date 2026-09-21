@@ -122,6 +122,9 @@ height = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
 radius = 11.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_elev"]
+radius = 4.0
+
 [node name="Player" type="CharacterBody2D" unique_id=921874676 groups=["player"]]
 y_sort_enabled = true
 collision_mask = 6
@@ -151,3 +154,19 @@ collision_mask = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=2040479895]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_interact")
+
+[node name="ElevationSensorUp" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevationSensorUp"]
+position = Vector2(0, 4.5)
+shape = SubResource("CircleShape2D_elev")
+
+[node name="ElevationSensorDown" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevationSensorDown"]
+position = Vector2(0, 4.5)
+shape = SubResource("CircleShape2D_elev")

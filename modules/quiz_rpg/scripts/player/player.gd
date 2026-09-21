@@ -11,6 +11,14 @@ extends CharacterBody2D
 var facing_direction: Vector2 = Vector2.DOWN
 var can_move: bool = true
 var nearby_interactables: Array = []
+
+# --- Wysokość (platformy 2.5D) ---
+# Detektory z tilesetu: _2 (col.64) = "na górze" -> poziom 1; _3 (col.128) = "na dole" -> poziom 0.
+# Sensory wykrywają kształty tych warstw; realna kolizja to _0 (4, poziom 0) / _1 (32, poziom 1).
+const Z_PER_LEVEL := 10
+var elevation: int = 0
+var _up_overlaps: int = 0    # nakładające się kształty detektora _2 (górny poziom)
+var _down_overlaps: int = 0  # nakładające się kształty detektora _3 (dolny poziom)
 var _use_programmer_art: bool = true
 var _gm: Node  # GameManager
 var _follow_target: CharacterBody2D = null
@@ -41,6 +49,7 @@ func _ready() -> void:
 		if sprite:
 			sprite.visible = false
 	_connect_interaction_area()
+	_connect_elevation_sensors()
 	_record_trail_position()
 	if is_party_follower:
 		_setup_as_follower()
@@ -236,6 +245,52 @@ func _connect_interaction_area() -> void:
 		interaction_area.area_entered.connect(_on_interaction_area_area_entered)
 	if not interaction_area.area_exited.is_connected(_on_interaction_area_area_exited):
 		interaction_area.area_exited.connect(_on_interaction_area_area_exited)
+
+
+func _connect_elevation_sensors() -> void:
+	var up := get_node_or_null("ElevationSensorUp") as Area2D
+	var down := get_node_or_null("ElevationSensorDown") as Area2D
+	if up and not up.body_shape_entered.is_connected(_on_up_entered):
+		up.body_shape_entered.connect(_on_up_entered)
+		up.body_shape_exited.connect(_on_up_exited)
+	if down and not down.body_shape_entered.is_connected(_on_down_entered):
+		down.body_shape_entered.connect(_on_down_entered)
+		down.body_shape_exited.connect(_on_down_exited)
+
+
+func _on_up_entered(_rid: RID, _body: Node, _bs: int, _ls: int) -> void:
+	_up_overlaps += 1
+	_resolve_elevation()
+
+func _on_up_exited(_rid: RID, _body: Node, _bs: int, _ls: int) -> void:
+	_up_overlaps = maxi(_up_overlaps - 1, 0)
+	_resolve_elevation()
+
+func _on_down_entered(_rid: RID, _body: Node, _bs: int, _ls: int) -> void:
+	_down_overlaps += 1
+	_resolve_elevation()
+
+func _on_down_exited(_rid: RID, _body: Node, _bs: int, _ls: int) -> void:
+	_down_overlaps = maxi(_down_overlaps - 1, 0)
+	_resolve_elevation()
+
+
+## Histereza kierunkowa: przełączamy poziom tylko w jednoznacznej domenie.
+## W szwie (oba detektory) i w pustce (żaden) trzymamy obecny poziom — brak migotania i dziury.
+func _resolve_elevation() -> void:
+	if _up_overlaps > 0 and _down_overlaps == 0:
+		set_elevation(1)
+	elif _down_overlaps > 0 and _up_overlaps == 0:
+		set_elevation(0)
+
+
+## Ustawia poziom wysokości: jednocześnie z_index (pasmo renderu) i collision_mask (realny profil kolizji).
+func set_elevation(e: int) -> void:
+	if e == elevation:
+		return
+	elevation = e
+	z_index = e * Z_PER_LEVEL
+	collision_mask = (collision_mask & ~(4 | 32)) | (32 if e >= 1 else 4)
 
 
 func _get_follow_input() -> Vector2:
