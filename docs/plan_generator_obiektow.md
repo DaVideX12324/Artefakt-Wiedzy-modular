@@ -32,6 +32,28 @@ rysowanie i kolizje w kwadrantach). Dlatego o ścieżce decyduje to, czego obiek
 - Duże przeszkody wielokratkowe: grafika jako jeden kafel/tekstura z `y_sort_origin` u podstawy,
   kolizja tylko na kratkach podstawy (footprint), nie na całej wysokości sprite'a.
 
+## Tryb rozmieszczania: siatka albo free placement
+
+Każdy obiekt ma `placement`, ustawiany w JSON-ie per obiekt albo dziedziczony z **grupy** (grupa
+ustala domyślne wartości dla wielu obiektów naraz, obiekt może je nadpisać):
+
+| `placement` | Pozycja | Render (DECAL/PROP) | Kolizja | Zajętość |
+|---|---|---|---|---|
+| `grid` | środek / kotwica kratki | kafel (`Decals` / `Props`) | warstwa fizyki TileSetu | kratki footprintu |
+| `grid_jitter` | kratka + losowe przesunięcie do `jitter` px | canvas item (`RenderingServer`) | kształt w body fragmentu | kratki footprintu (jak `grid`) |
+| `free` | dowolna pozycja w pikselach w dozwolonym obszarze | canvas item | kształt w body fragmentu | koło/prostokąt w px → kratki, które pokrywa (zachowawczo) |
+
+- Ta sama grafika działa w obu trybach: canvas item rysuje region atlasu TileSetu (bez osobnych tekstur),
+  więc przełączenie obiektu z `grid` na `free` to zmiana jednej wartości w JSON-ie.
+- INTERACTIVE (sceny): tryb decyduje tylko o pozycji instancji (środek kratki albo pozycja w px).
+- `free` — próbkowanie Poisson-disk w pikselach (min. odstęp `spacing_px`), przyspieszone kubełkami
+  siatki (sprawdzamy sąsiednie kratki, nie całą listę); kandydaci nadal z masek cech (kratka punktu),
+  więc reguły kontekstu działają tak samo. Opcjonalnie `flip_h`, skala z zakresu.
+- `grid_jitter` — tani środek: kandydaci jak w siatce (maski, footprint), a na ekranie bez sztywnego
+  rastra; dobre dla drobnicy (kamyki, grzyby).
+- Zajętość zawsze w kratkach (wspólna dla wszystkich trybów, dla wrogów i testu osiągalności); obiekt
+  `free` z kolizją blokuje kratki, które jego kształt pokrywa w ≥ połowie (bez kolizji — tylko odstęp).
+
 ## Architektura
 
 ```
@@ -42,13 +64,36 @@ topologia + płaskowyże ──> ObjectPlanner (wątek roboczy) ──> ObjectPl
 ```
 
 ### Dane
-- **`ObjectDef` (Resource, katalog per biom `resources/objects/caves/*.tres`)**: `id`, `klasa`
-  (DECAL/PROP/INTERACTIVE), `footprint` (maska kratek podstawy), `render` (atlas coords + zestaw /
+- **Katalog w JSON-ie** per biom (`resources/maps/config/objects_caves.json`, wskazany z `caves.json`),
+  wczytywany jak `GeneratorBehaviourConfig`: sekcja `groups` (domyślne wartości) i `objects` (każdy
+  obiekt ma `group` i może nadpisać dowolne pole). Przykład:
+  ```json
+  {
+    "groups": {
+      "rubble":  { "class": "DECAL", "placement": "grid_jitter", "jitter": 5, "density": 3.0,
+                   "cluster": { "size": [3, 6], "radius": 2 } },
+      "boulders": { "class": "PROP", "placement": "free", "spacing_px": 40, "collision": "shape",
+                   "context": ["room"], "keep_paths": true }
+    },
+    "objects": [
+      { "id": "pebbles_a", "group": "rubble", "atlas": [12, 20], "variants": 4 },
+      { "id": "boulder_big", "group": "boulders", "atlas": [14, 22], "size": [2, 2],
+        "footprint": [[0, 1], [1, 1]], "shape": { "rect": [28, 12], "offset": [0, -6] } },
+      { "id": "stalagmite", "group": "boulders", "placement": "grid", "context": ["wall_s"] },
+      { "id": "chest", "class": "INTERACTIVE", "placement": "grid", "scene": "chest",
+        "context": ["dead_end", "niche", "wall_any"], "levels": ["ground", "plateau_top"] }
+    ]
+  }
+  ```
+  Walidacja przy wczytaniu (nieznane pola, brakujące atlasy/sceny, konflikt trybu z kolizją kafla).
+- **`ObjectDef`** (sparsowany obiekt po scaleniu z grupą): `id`, `klasa`
+  (DECAL/PROP/INTERACTIVE), `placement`, `footprint` (maska kratek podstawy), `render` (atlas coords + zestaw /
   tekstura + region / scena), warianty (lista + wagi), `collision` (brak / kafel / kształt), reguły:
   poziomy wysokości (ziemia, góra płaskowyżu, dół), tagi kontekstu (przy ścianie N/S/E/W, narożnik,
   środek pokoju, korytarz, ślepy zaułek, nisza, przy licu płaskowyżu), motyw (rock/roots), gęstość
   na 100 kratek, klastry (rozmiar, rozrzut), min. odstęp od swoich i od innych klas, priorytet.
-- **`ObjectPlan`** (czyste dane, bez węzłów): lista `{def, cell, variant, flip}` + `occupancy`.
+- **`ObjectPlan`** (czyste dane, bez węzłów): lista `{def, cell, offset_px, variant, flip}` + `occupancy`
+  (`offset_px` = 0 dla `grid`, przesunięcie w kratce dla `grid_jitter`/`free`).
   Liczony w wątku roboczym razem z planem kafli — gotowy, zanim główny wątek zacznie malować.
 
 ### Mapy cech (raz na mapę, płaskie `PackedInt32Array`/`PackedByteArray` W×H)
@@ -94,7 +139,8 @@ Wszystkie reguły to odczyt O(1) z tablic — żadnych BFS-ów na obiekt:
   (`LevelStateManager`) przetrwa regenerację tej samej mapy.
 
 ## Fazy (każda z testami i osobnymi commitami)
-1. **F0 — infrastruktura**: `ObjectDef`, katalog caves, `ObjectPlan`, mapy cech + zajętość (płaskie),
+1. **F0 — infrastruktura**: katalog JSON (grupy + obiekty, scalanie, walidacja), `ObjectDef`,
+   `ObjectPlan`, tryby `grid` / `grid_jitter` / `free`, mapy cech + zajętość (płaskie),
    `ObjectPlanner` w wątku (etap `GenProgress` `objects`), `ObjectRealizer` z trzema ścieżkami (na
    start pusta). Test: determinizm (digest planu), czas etapu.
 2. **F1 — skrzynie**: przeniesienie z `SpawnPlanner`, nowe reguły, stabilne id. Testy: skrzynie
