@@ -4,6 +4,43 @@
 > wartości ~15 ms to w dużej części szum od `print`). Cel: gra nie zamarza podczas generowania,
 > a mapa 250×250 z płaskowyżami generuje się w ~2 s zamiast ~5 s — bez zmiany wyniku (parytet).
 
+## Stan realizacji (2026-09-25)
+
+Zrobione — parytet (42 digesty: ściany + ścieżka z płaskowyżami) IDENTICAL po każdym kroku,
+z jedną świadomą zmianą (2a-A). Pomiar: `bash modules/quiz_rpg/tests/run_gen_profile.sh`
+(minimum z 3 przebiegów po rozgrzewce), sama generacja bez encji:
+
+| Mapa | przed | po |
+|---|---:|---:|
+| 150×150 | ~1,1 s | 0,82 s |
+| 150×150 + płaskowyże | ~1,8 s | 1,03 s |
+| 250×250 | ~3,2 s | 2,25 s |
+| 250×250 + płaskowyże | ~4,9 s | 2,75 s |
+
+- **Krok 0** — `core/gen_progress.gd`: znaczniki `GenProgress.begin(&"etap")` / `sub(0..1)` w generatorze;
+  ten sam mechanizm mierzy czasy etapów (profil) i napędza pasek ładowania. Parytet: linie `DIGESTP`
+  (flagi z caves.json, warstwa Platforms, maska płaskowyżu), wzorzec `tests/parity_baseline.txt`.
+- **Krok 1** — generowanie w tle: `ProceduralLevel.generate_level_async()` (domyślnie, `async_generation`),
+  topologia + plan kafli w `WorkerThreadPool` (`CaveGenerator.plan_cave_tiles`), kafle porcjami
+  (`PAINT_CHUNK`), encje porcjami (`ENTITY_CHUNK`), sygnał `generation_finished`; ekran ładowania
+  `scripts/ui/generation_loading_overlay.gd`; `level_manager` czeka na koniec (gracz zamrożony),
+  podgląd też czeka. `apply_cave_tiles` = `plan_cave_tiles` + `prepare_cave_layers` + `execute_cave_tiles`.
+- **Krok 2a** — `PlateauRenderer` skanuje rozłączne okna skupisk płaskowyżów (`ctx.scan_rect`,
+  współrzędne globalne). Świadoma zmiana (A): wariant A/B ściany bocznej płaskowyżu z hasha pozycji
+  zamiast `tile_rng` w kolejności skanu (inaczej okna zmieniałyby losowanie). 1440 → ~360 ms.
+- **Krok 2b** — `SolidFillPlacer`: cache wyniku resolvera po (zestaw kratki, roll);
+  `TileResolver.own_tileset_id`. 620 → ~300 ms.
+- **Krok 2c (część)** — `EdgeAnalyzer`: sąsiedztwo 3×3 z płaskiej tablicy bajtów (`_walkable_bytes`),
+  dokładne warunki konieczne w przebiegach 5B (ściana boczna / narożnik wewnętrzny). 1320 → ~600 ms.
+- **Krok 2d** — `TilePlacementExecutor` bez sortowania + `place_range` (porcje). 400 → ~200 ms.
+
+Odkrycie: w pełnej ścieżce gry najdroższe są encje (~0,8–1 s przy 250×250) — `slime_tutorial.tscn`
+wymaga odtworzenia przy każdej instancji („A node in the scene this one inherits from has been
+removed or moved… re-save this scene”). Naprawa: otworzyć scenę w edytorze i zapisać.
+
+Dalej (nie zrobione): krok 3 (płaska siatka w topologii — „smoothing” ~370 ms, „plateaus” ~250 ms),
+przebieg 1 `EdgeAnalyzera` (obiekt `EdgeContext` na każdą kratkę, ~350 ms), krok 4 (C++/C#).
+
 ## Gdzie idzie czas
 
 | Etap | 150×150 | 150×150 + płaskowyże | 250×250 | 250×250 + płaskowyże |
