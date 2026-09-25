@@ -7,6 +7,26 @@
 
 (brak)
 
+## Do zrobienia (zgłoszone, następnym razem)
+
+### Fasada płaskowyżu tuż za ścianą jaskini — zamiast wchłaniać, dociągnąć boki
+- Zgłoszenie 2026-09-26, seed 119 250×250, okolice (46–52, 73–75): płaskowyż stoi tuż za ścianą jaskini
+  (góra płaskowyżu pod górą ściany jaskini), a jego fasada wychodzi przed ścianę.
+- Oczekiwane: fasadę płaskowyżu w takim miejscu wyciąć (jak rim północny pod górą modułu ściany —
+  `PlateauRenderer._absorbed`, commit 0c8bc75), a ściany boczne płaskowyżu dociągnąć do ściany jaskini.
+  Kierunek: przy kształtowaniu maski (`PlateauPass`, podobnie jak `_turn_up_at_walls`) albo w rendererze.
+
+### Małe filary: skosy i łączniki 3H zamiast 2H
+- Seed 118945 160×160, filary (118–121, 89–92) i (124–127, 97–99). Grubość kolumn filaru 2/3/4/3 i 2/3/3/2
+  -> mieszanka narożnika 2H, łącznika 2H↔3H, schodka 3H i narożnika out 3H.
+- Poprawiacz skosów (`EdgeAnalyzer.slope_2h_depth`, grubość 3..5, commit 107f047) wymaga kontynuacji skosu po
+  drugiej stronie — ostatni stopień przed płaskim końcem filaru zostaje narożnikiem 3H. Kolumny grubości 3
+  nie dostaną kafla 2H (pokrywa 2 kratki ściany + rim), więc pełne 2H wymaga ścięcia siatki.
+- Filar 2 naprawia `ShortBulgeFlattenPass` (włączony domyślnie; na zgłoszeniu był wyłączony w podglądzie).
+  Filaru 1 (kształt schodów) nie łapie, bo porównuje wybrzuszenie tylko z sąsiadem w tym samym rzędzie.
+- Opcje: (1) rozszerzyć spłaszczanie wybrzuszeń na sąsiadów o rząd wyżej / niżej (ścina górę filaru);
+  (2) wymusić 2H na małych, wolnostojących filarach (jak tryb płaskowyżu).
+
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
