@@ -5,21 +5,7 @@
 
 ## Odłożone świadomie
 
-### Nawigacja nie widzi ścian ani przeszkód
-- `MapGeneratorBase.setup_navigation_region` robi `NavigationRegion2D` jako sam prostokąt mapy — region
-  nie ma dzieci do parsowania, więc ani ściany, ani przeszkody z generatora obiektów (kształty w ciałach
-  `PhysicsServer2D` po fragmentach 32×32 kratek) nie są przeszkodami nawigacji.
-- Odłożone (decyzja 2026-09-25): wrogowie po kolizji z obiektem zmieniają kierunek, więc w praktyce nie
-  przeszkadza.
-- Wrócić, gdy pojawią się objawy: wrogowie klinują się o duże grzyby / koralowce, idą w ściany, gonią
-  gracza „przez” przeszkody. Kierunek: obrysy przeszkód (kształty z `ObjectBake`, `ObjectPlan.solid_cells`)
-  i ścian jako przeszkody w `NavigationMeshSourceGeometryData2D` przed bake'iem.
-
-### Przeciwnik widzi przez ściany
-- `RayCast2D` wroga ma domyślną maskę 1 (warstwa Player), więc nie trafia ścian (warstwa 3); do tego
-  skrót „bliżej niż 50 px = widoczny”, a ściany mają kolizję tylko na krawędziach (15% promieni przez skałę
-  przecieka nawet z poprawną maską). Szczegóły, pomiary i proponowana naprawa (widoczność po siatce mapy):
-  `docs/analiza_ai_przeciwnikow.md`, sekcja 1. Pościg omijający ściany wymaga siatki nawigacji (punkt wyżej).
+(brak)
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
@@ -32,6 +18,9 @@
   skrzynie; większe sceny interaktywne mogą wymagać własnego originu.
 
 ## Wydajność
+- **Wypiekanie siatki nawigacji** ~1 s na 250×250 (w wątku roboczym, etap „Ścieżki przeciwników”);
+  mapa nawigacji wczytuje region asynchronicznie (~12 klatek fizyki) — do tego czasu wróg bez ścieżki
+  idzie prosto tylko przy czystej linii.
 - **Pętla naprawy płaskowyżów** (`PlateauPass._solve`) ~750 ms na 250×250 (BFS po mapie × ~8 iteracji) —
   kandydat na płaskie tablice (jak w `ObjectPlanner`).
 - **Planer obiektów** ~95–110 ms na 250×250 przy ~500 obiektach, ale z pełnym katalogiem caves
@@ -68,6 +57,10 @@
   zmiana `objects_caves.json` z kolizją zmienia pole `spawns` w digestach (ściany/podłoga bez zmian).
 
 ## Rozwiązane (dla kontekstu)
+- Nawigacja wrogów bez ścian i przeszkód — siatka nawigacji z generatora (`NavOutlines`, commit b4bb991,
+  dokładne kształty przeszkód 0785ade); wrogowie gonią i wałęsają się po niej (0785ade).
+- Wróg widział przez ściany — promień jak w Amon-Ra (ściany + przeszkody) + linia po siatce mapy
+  (e4192f9). Szczegóły: `docs/analiza_ai_przeciwnikow.md`.
 - Pojedyncze kratki / plamy 1×2 / zakręty 1-szerokie błota i trawy (zestaw 13 kafli bez pokrycia) —
   kształtowanie masek pod wierzchołki kafli (commit c4c253f), test `diag_terrain_masks.gd`.
 - Twarde cięcia krawędzi błota/trawy = Godot bug #70218 (`set_cells_terrain_connect`) — obejście własnym
