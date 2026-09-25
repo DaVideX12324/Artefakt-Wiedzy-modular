@@ -2,7 +2,11 @@
 
 > Spisane 2026-09-25. Źródła: `Amon-Ra/amon-ra/scripts/characters/enemy.gd` (1077 linii) + podklasy
 > i sceny `scenes/characters/enemy_*.tscn`; `modules/quiz_rpg/scripts/enemies/enemy_base.gd` +
-> `scenes/enemies/enemy.tscn`. Numery linii `enemy.gd:NNN` = plik Amon-Ra. Nic jeszcze nie zmieniane.
+> `scenes/enemies/enemy.tscn`. Numery linii `enemy.gd:NNN` = plik Amon-Ra.
+>
+> **Stan (2026-09-25): wdrożone** — widoczność (e4192f9), animacje 4-way / 2-way (fe4255b), siatka nawigacji
+> z generatora (b4bb991), pościg i wałęsanie po niej (0785ade). `_try_custom_attack` pominięty (ataki są
+> tylko w UI walki). Opis poniżej to analiza sprzed zmian.
 
 ## 1. Błąd: przeciwnik w Artefakcie widzi przez ściany
 
