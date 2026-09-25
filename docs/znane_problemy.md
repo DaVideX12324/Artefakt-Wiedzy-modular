@@ -33,7 +33,7 @@
 - Stan: `enemy_base._setup_detection_area()` ustawia `radius` w `_ready`, ale:
   - `CircleShape2D_detect` w `enemy.tscn` jest współdzielonym sub_resource (bez `resource_local_to_scene`),
     więc wszystkie instancje tej sceny mają ten sam kształt, a promień ustawia ostatni wróg;
-  - `enemy_data.detection_radius` nadpisuje wartość z inspektora (`_apply_enemy_data`);
+  - jeśli wróg ma `enemy_data`, jego `detection_radius` nadpisuje wartość z inspektora (`_apply_enemy_data`);
   - w edytorze kształt się nie zmienia (skrypt nie jest `@tool`).
 - Kierunek: kształt lokalny dla instancji (`local_to_scene` albo `duplicate()` w `_ready`) + setter
   `detection_radius`, który aktualizuje promień; ewentualnie podgląd w edytorze (`@tool` tylko dla setera
