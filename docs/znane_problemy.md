@@ -15,6 +15,12 @@
   gracza „przez” przeszkody. Kierunek: obrysy przeszkód (kształty z `ObjectBake`, `ObjectPlan.solid_cells`)
   i ścian jako przeszkody w `NavigationMeshSourceGeometryData2D` przed bake'iem.
 
+### Przeciwnik widzi przez ściany
+- `RayCast2D` wroga ma domyślną maskę 1 (warstwa Player), więc nie trafia ścian (warstwa 3); do tego
+  skrót „bliżej niż 50 px = widoczny”, a ściany mają kolizję tylko na krawędziach (15% promieni przez skałę
+  przecieka nawet z poprawną maską). Szczegóły, pomiary i proponowana naprawa (widoczność po siatce mapy):
+  `docs/analiza_ai_przeciwnikow.md`, sekcja 1. Pościg omijający ściany wymaga siatki nawigacji (punkt wyżej).
+
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
