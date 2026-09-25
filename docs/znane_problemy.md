@@ -10,14 +10,14 @@
 ## Do zrobienia (zgłoszone, następnym razem)
 
 ### Fasada płaskowyżu tuż za ścianą jaskini — zamiast wchłaniać, dociągnąć boki
-- Zgłoszenie 2026-09-26, seed 119 250×250, okolice (46–52, 73–75): płaskowyż stoi tuż za ścianą jaskini
+- Zgłoszenie 2026-09-26, seed 119 250×250, okolice (57, 78): płaskowyż stoi tuż za ścianą jaskini
   (góra płaskowyżu pod górą ściany jaskini), a jego fasada wychodzi przed ścianę.
 - Oczekiwane: fasadę płaskowyżu w takim miejscu wyciąć (jak rim północny pod górą modułu ściany —
   `PlateauRenderer._absorbed`, commit 0c8bc75), a ściany boczne płaskowyżu dociągnąć do ściany jaskini.
   Kierunek: przy kształtowaniu maski (`PlateauPass`, podobnie jak `_turn_up_at_walls`) albo w rendererze.
 
 ### Małe filary: skosy i łączniki 3H zamiast 2H
-- Seed 118945 160×160, filary (118–121, 89–92) i (124–127, 97–99). Grubość kolumn filaru 2/3/4/3 i 2/3/3/2
+- Seed 118945 160×160, filar 1 (118–121, 89–93) i filar 2 (dół w rzędzie y=100). Grubość kolumn filaru 2/3/4/3 i 2/3/3/2
   -> mieszanka narożnika 2H, łącznika 2H↔3H, schodka 3H i narożnika out 3H.
 - Poprawiacz skosów (`EdgeAnalyzer.slope_2h_depth`, grubość 3..5, commit 107f047) wymaga kontynuacji skosu po
   drugiej stronie — ostatni stopień przed płaskim końcem filaru zostaje narożnikiem 3H. Kolumny grubości 3
