@@ -918,7 +918,7 @@ texture = ExtResource("2_skd5q")
 
 [resource]
 physics_layer_0/collision_layer = 4
-physics_layer_0/collision_mask = 4
+physics_layer_0/collision_mask = 3
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Floor"
 terrain_set_0/terrain_0/color = Color(0.0974041, 0.3559064, 0.7809211, 1)
