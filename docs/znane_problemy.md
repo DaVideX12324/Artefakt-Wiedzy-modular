@@ -27,6 +27,18 @@
 - Opcje: (1) rozszerzyć spłaszczanie wybrzuszeń na sąsiadów o rząd wyżej / niżej (ścina górę filaru);
   (2) wymusić 2H na małych, wolnostojących filarach (jak tryb płaskowyżu).
 
+### Zasięg wykrywania wroga widoczny jako kolizja DetectionArea
+- Zgłoszenie 2026-09-26: zmiana `detection_radius` w edytorze (inspektor wroga) ma zmieniać promień
+  kształtu `DetectionArea/CollisionShape2D`, żeby w grze z włączonym „Visible Collision Shapes” było widać zasięg.
+- Stan: `enemy_base._setup_detection_area()` ustawia `radius` w `_ready`, ale:
+  - `CircleShape2D_detect` w `enemy.tscn` jest współdzielonym sub_resource (bez `resource_local_to_scene`),
+    więc wszystkie instancje tej sceny mają ten sam kształt, a promień ustawia ostatni wróg;
+  - `enemy_data.detection_radius` nadpisuje wartość z inspektora (`_apply_enemy_data`);
+  - w edytorze kształt się nie zmienia (skrypt nie jest `@tool`).
+- Kierunek: kształt lokalny dla instancji (`local_to_scene` albo `duplicate()` w `_ready`) + setter
+  `detection_radius`, który aktualizuje promień; ewentualnie podgląd w edytorze (`@tool` tylko dla setera
+  lub `_draw` w edytorze). Zmiana tylko w bazowym `enemy.tscn` / `enemy_base.gd`.
+
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
