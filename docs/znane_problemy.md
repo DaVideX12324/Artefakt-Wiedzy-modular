@@ -16,10 +16,12 @@
 - **Wrogowie za nisko, mimo że w edytorze pole jest wyżej**: kontroler (ok. linii 1818) nadpisuje wysokość
   i przesunięcie sekcji wrogów wartościami z tła (`get_enemy_layout_config`: `enemy_section_height`,
   `enemy_section_bottom_offset`, mnożniki marginesów rzędów) — ustawienia sceny w edytorze nie działają.
-- **Marginesy pola walki per tło w JSON-ie**: dziś na sztywno w skryptach (`BIOME_CONFIGS` w
+- **Marginesy pola walki per tło jako `.tres`**: dziś na sztywno w skryptach (`BIOME_CONFIGS` w
   `pixel_crawler_battle_background.gd`, konfiguracje per wariant w `tutorial_area_battle_background.gd`,
-  `default_battle_background.gd`). Przenieść do JSON-a per grafika tła (np. obok `battle_backgrounds/<biom>/`),
-  z granicami pola walki tak, żeby wrogowie nie stali na ścianie tła i była odpowiednia głębia (rzędy).
+  `default_battle_background.gd`). Własny zasób (np. `BattleBackgroundLayout extends Resource`: tekstura
+  tła, granice pola walki, głębia / odstępy rzędów) — jeden `.tres` obok każdej grafiki w
+  `battle_backgrounds/<biom>/`, edycja w inspektorze; opcjonalnie scena `@tool` rysująca granice na tle
+  (ustawianie wzrokowo). Cel: wrogowie nie stoją na ścianie tła, odpowiednia głębia (rzędy).
 - **Długi freeze po pokonaniu potwora**: do zbadania — w kontrolerze są sekwencje `await create_timer(...)`
   (1.0–1.5 s) i komunikaty przed końcem walki, do tego zamknięcie sceny i powrót na mapę; zmierzyć, co trwa.
 - **Losowe spotkania jak w JRPG**: wrogowie niewidoczni na mapie, walka zaczyna się nagle podczas chodzenia.
