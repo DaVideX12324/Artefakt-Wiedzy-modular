@@ -1,8 +1,5 @@
 # Otwarte sprawy
 
-- **NAJPIERW — spłaszczanie wybrzuszeń**: user porównuje pary z przebiegiem / bez
-  (`scratchpad/bulge_po_zmianach/`, szczegóły w `docs/znane_problemy.md`). Dobrze -> usunąć przebieg
-  (albo flaga domyślnie false); nie -> dalsze poprawki wg jego zrzutów.
 - **Tryb walki**: interfejs, wrogowie za nisko (kontroler nadpisuje ustawienia sceny wartościami z tła),
   marginesy pola walki per tło jako `.tres`, freeze po pokonaniu potwora, losowe spotkania jak w JRPG —
   opis w `docs/znane_problemy.md` („Do zrobienia”).
