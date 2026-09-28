@@ -1,6 +1,6 @@
 # Otwarte sprawy
 
-- **Nisze out z zawartością, sekretne pokoje, klucze i wytrychy (quiz wg tieru skrzyni)** — pomysł
+- **Każda nisza out z losową zawartością, sekretne pokoje, klucze i wytrychy (quiz wg tieru skrzyni)** — pomysł
   usera, opis w `docs/znane_problemy.md` („Do zrobienia”).
 - **Obiekty**: obejrzeć w eksploratorze map, czy duże grzyby nie są za rzadkie przy ścianach
   (ew. gęstość w `objects_caves.json`).

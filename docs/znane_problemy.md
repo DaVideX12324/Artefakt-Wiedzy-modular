@@ -12,9 +12,9 @@
 ### Zawartość nisz out, sekretne pokoje, klucze i wytrychy do skrzyń
 - Zgłoszenie 2026-09-29. Dziś nisze z modułów out (`tiling/niche_placer.gd`, szansa
   `secret_niche_spawn_chance`, kandydaci `EdgeContext.is_secret_niche_candidate`) są tylko kaflami ścian.
-- **Nisze out czasem z zawartością** (losowo, rzadko): przedmiot na ziemi, skrzynia albo **przejście do
+- **Każda nisza out ma zawartość, losowaną**: przedmiot na ziemi, skrzynia albo **przejście do
   sekretnego pokoju**. Sekretny pokój: osobna mała mapa / podpokój z nagrodą — mocny przedmiot, miniboss
-  z dobrym lootem albo inna niespodzianka (lista do rozbudowy).
+  z dobrym lootem albo inna niespodzianka (lista do rozbudowy). Wagi losowania do ustalenia.
 - **Klucze i wytrychy do skrzyń** — oba wypadają z potworów, **klucze dużo rzadziej**.
   - Klucz: otwiera skrzynię od razu.
   - Wytrych: otwarcie uruchamia **sekcję quizu**; **tier skrzyni** wyznacza trudność i liczbę pytań
@@ -23,8 +23,7 @@
   skrzynie z generatora obiektów (INTERACTIVE `chest`, `unique_id` "<id>_<x>_<y>"), loot z wrogów
   (`autoloads/loot_manager.gd`, `enemy_data.encounter_tier`), quiz (`scripts/quiz/` — kontrolery
   walki / zagadki, `quiz_door.gd` jako wzór bramki quizowej).
-- Do ustalenia przy realizacji: skąd tier skrzyni (głębokość / poziom mapy / nisza vs pokój), czy nisza
-  z zawartością ma wyglądać inaczej (podpowiedź dla gracza), zapis stanu (otwarte skrzynie / odwiedzone
+- Do ustalenia przy realizacji: skąd tier skrzyni (głębokość / poziom mapy / nisza vs pokój), zapis stanu (otwarte skrzynie / odwiedzone
   sekretne pokoje per save, jak pokonani bossowie).
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
