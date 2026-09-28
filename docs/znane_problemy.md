@@ -65,10 +65,11 @@
 
 ## Rozwiązane (dla kontekstu)
 - Małe przekrzywione filary (seed 118945 160×160, (118–121, 89–92); bez `ShortBulgeFlattenPass` więcej
-  takich) — mieszanka 2H / łącznik / 3H. Mała wolnostojąca wyspa ściany (pole <= `small_pillar_2h_max_area`,
-  domyślnie 15) z górami i dołami kolumn w różnych rzędach dostaje zawsze lico 2H, bez łączników
-  (`EdgeAnalyzer.small_wall_islands` / `_skewed`, `GenerationContext.force_2h_cells`). Filary o równej
-  górze (np. 2/3/3/3/2) zostają 3H. Siatka bez zmian (tylko kafle).
+  takich, np. (127, 107) 2/4/5/3/2) — mieszanka 2H / łącznik / 3H. Mała wolnostojąca wyspa ściany
+  (pole <= 25, <= 6 kolumn, kolumny <= 5 — flagi `small_pillar_2h_*`) z górami i dołami kolumn w różnych
+  rzędach dostaje zawsze lico 2H, bez łączników (`EdgeAnalyzer.small_wall_islands` / `_skewed`,
+  `GenerationContext.force_2h_cells`). Filary o równej górze (np. 2/3/3/3/2), szersze pasy skały i wysokie
+  bryły zostają przy 3H. Siatka bez zmian (tylko kafle).
 - Fasada płaskowyżu tuż za ścianą jaskini (seed 119 250×250, (48–51, 74–75)) — lico płaskowyżu, którego
   górna kratka wypada na górze modułu ściany głównej (rim / najwyższa część lica, nie narożnik out), jest
   wchłaniane (`PlateauRenderer._on_wall_top`); sąsiednia kolumna dostaje zakończenie lica.
