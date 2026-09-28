@@ -38,6 +38,10 @@
 - Kierunek: kształt lokalny dla instancji (`local_to_scene` albo `duplicate()` w `_ready`) + setter
   `detection_radius`, który aktualizuje promień; ewentualnie podgląd w edytorze (`@tool` tylko dla setera
   lub `_draw` w edytorze). Zmiana tylko w bazowym `enemy.tscn` / `enemy_base.gd`.
+- Nie ruszać dziedziczenia: wszystkie sceny wrogów dziedziczą po `enemy.tscn` (decyzja usera, łatwiejsze
+  zarządzanie przy dużej liczbie wrogów). Nie nadpisywać kształtu w scenach pochodnych. Uwaga: skrypt
+  pochodny bez `@tool` nie uruchomi w edytorze kodu `@tool` z `enemy_base.gd`. Podgląd w edytorze lepiej
+  zrobić osobnym małym węzłem `@tool` w bazowej scenie, żeby nie dopisywać `@tool` do każdego wroga.
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
