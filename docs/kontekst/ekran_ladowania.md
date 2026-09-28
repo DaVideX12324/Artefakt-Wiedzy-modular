@@ -29,4 +29,4 @@ Scena `scenes/ui/loading_screen.tscn`, skrypt `scripts/ui/loading_screen.gd` (da
 ## Niezrobione
 
 - Ekran nie jest podpięty pod mapy ręczne (`level_manager.load_level_direct` robi `load()` synchronicznie).
-- Grafiki z Gemini w `loading_screens/cave/` są usera, niezacommitowane.
+- Grafiki z Gemini dla jaskini są w `loading_screens/cave/` (c205e80); pozostałe foldery puste.
