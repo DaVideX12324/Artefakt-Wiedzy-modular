@@ -9,13 +9,6 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### Fasada płaskowyżu tuż za ścianą jaskini — zamiast wchłaniać, dociągnąć boki
-- Zgłoszenie 2026-09-26, seed 119 250×250, okolice (57, 78): płaskowyż stoi tuż za ścianą jaskini
-  (góra płaskowyżu pod górą ściany jaskini), a jego fasada wychodzi przed ścianę.
-- Oczekiwane: fasadę płaskowyżu w takim miejscu wyciąć (jak rim północny pod górą modułu ściany —
-  `PlateauRenderer._absorbed`, commit 0c8bc75), a ściany boczne płaskowyżu dociągnąć do ściany jaskini.
-  Kierunek: przy kształtowaniu maski (`PlateauPass`, podobnie jak `_turn_up_at_walls`) albo w rendererze.
-
 ### Małe filary: skosy i łączniki 3H zamiast 2H
 - Seed 118945 160×160, filar 1 (118–121, 89–93) i filar 2 (dół w rzędzie y=100). Grubość kolumn filaru 2/3/4/3 i 2/3/3/2
   -> mieszanka narożnika 2H, łącznika 2H↔3H, schodka 3H i narożnika out 3H.
@@ -82,6 +75,9 @@
   przed zmianami. Pojedynczy FAIL tam to jeszcze nie regresja; powtórzyć kilka razy.
 
 ## Rozwiązane (dla kontekstu)
+- Fasada płaskowyżu tuż za ścianą jaskini (seed 119 250×250, (48–51, 74–75)) — lico płaskowyżu, którego
+  górna kratka wypada na górze modułu ściany głównej (rim / najwyższa część lica, nie narożnik out), jest
+  wchłaniane (`PlateauRenderer._on_wall_top`); sąsiednia kolumna dostaje zakończenie lica.
 - Zasięg wykrywania wroga niewidoczny / zły przy „Visible Collision Shapes” — kształt `DetectionArea`
   był współdzielony przez wszystkie instancje `enemy.tscn` (promień ustawiał ostatni wróg). Teraz
   `resource_local_to_scene` + setter `detection_radius` (zmiana w trakcie gry od razu zmienia okrąg).
