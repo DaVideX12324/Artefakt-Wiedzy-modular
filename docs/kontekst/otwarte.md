@@ -1,5 +1,8 @@
 # Otwarte sprawy
 
+- **Tryb walki**: interfejs, wrogowie za nisko (kontroler nadpisuje ustawienia sceny wartościami z tła),
+  marginesy pola walki per tło w JSON-ie, freeze po pokonaniu potwora, losowe spotkania jak w JRPG —
+  opis w `docs/znane_problemy.md` („Do zrobienia”).
 - **Każda nisza out z losową zawartością, sekretne pokoje, klucze i wytrychy (quiz wg tieru skrzyni)** — pomysł
   usera, opis w `docs/znane_problemy.md` („Do zrobienia”).
 - **Obiekty**: obejrzeć w eksploratorze map, czy duże grzyby nie są za rzadkie przy ścianach

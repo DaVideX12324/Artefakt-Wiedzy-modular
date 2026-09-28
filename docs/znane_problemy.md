@@ -9,6 +9,23 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
+### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, freeze, losowe spotkania
+- Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
+  tła `scripts/quiz/battle_background.gd` + `background_generators/*`.
+- **Interfejs walki** — do poprawy (szczegóły do ustalenia z userem).
+- **Wrogowie za nisko, mimo że w edytorze pole jest wyżej**: kontroler (ok. linii 1818) nadpisuje wysokość
+  i przesunięcie sekcji wrogów wartościami z tła (`get_enemy_layout_config`: `enemy_section_height`,
+  `enemy_section_bottom_offset`, mnożniki marginesów rzędów) — ustawienia sceny w edytorze nie działają.
+- **Marginesy pola walki per tło w JSON-ie**: dziś na sztywno w skryptach (`BIOME_CONFIGS` w
+  `pixel_crawler_battle_background.gd`, konfiguracje per wariant w `tutorial_area_battle_background.gd`,
+  `default_battle_background.gd`). Przenieść do JSON-a per grafika tła (np. obok `battle_backgrounds/<biom>/`),
+  z granicami pola walki tak, żeby wrogowie nie stali na ścianie tła i była odpowiednia głębia (rzędy).
+- **Długi freeze po pokonaniu potwora**: do zbadania — w kontrolerze są sekwencje `await create_timer(...)`
+  (1.0–1.5 s) i komunikaty przed końcem walki, do tego zamknięcie sceny i powrót na mapę; zmierzyć, co trwa.
+- **Losowe spotkania jak w JRPG**: wrogowie niewidoczni na mapie, walka zaczyna się nagle podczas chodzenia.
+  Tryb obok obecnego (wrogowie widoczni) — np. włącza się po pokonaniu wszystkich wrogów na mapie; zasada
+  do ustalenia (per mapa / per biom, szansa na krok, strefy bez spotkań: portale, schody, sekretne pokoje).
+
 ### Zawartość nisz out, sekretne pokoje, klucze i wytrychy do skrzyń
 - Zgłoszenie 2026-09-29. Dziś nisze z modułów out (`tiling/niche_placer.gd`, szansa
   `secret_niche_spawn_chance`, kandydaci `EdgeContext.is_secret_niche_candidate`) są tylko kaflami ścian.
