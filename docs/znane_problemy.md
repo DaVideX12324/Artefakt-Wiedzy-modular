@@ -9,6 +9,15 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
+### Nisze przy ścianie 3H: bez narożników wewnętrznych na górze (przejście), bez sekretnego pokoju
+- Zgłoszenie 2026-09-29, przykład: `…/scratchpad/bulge_po_zmianach/bulge_103107_160_0.png` (seed 103107 160×160,
+  okolice (83–100, 104–119), **lewa** strona — jeszcze ze spłaszczaniem wybrzuszeń, które jest już usunięte, więc
+  na tym seedzie kształt może się nie powtórzyć; do testu odtworzyć kształtem ręcznym albo znaleźć inny seed).
+- W skrypcie nisz (`tiling/niche_placer.gd`, kandydaci w `EdgeAnalyzer` — `is_niche_candidate` /
+  `is_secret_niche_candidate`) dodać warunek: jeśli ściana ma wysokość 3 przynajmniej na jednej części niszy,
+  **nie stawiać narożników wewnętrznych na górze** — powstaje wtedy ładne przejście.
+- Taka nisza **nie może mieć sekretnego pokoju** (ani przejścia do niego) — por. wpis o zawartości nisz out.
+
 ### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, freeze, losowe spotkania
 - Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
   tła `scripts/quiz/battle_background.gd` + `background_generators/*`.
