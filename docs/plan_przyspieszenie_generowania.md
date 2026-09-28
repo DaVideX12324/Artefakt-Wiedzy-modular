@@ -23,7 +23,7 @@ z jedną świadomą zmianą (2a-A). Pomiar: `bash modules/quiz_rpg/tests/run_gen
 - **Krok 1** — generowanie w tle: `ProceduralLevel.generate_level_async()` (domyślnie, `async_generation`),
   topologia + plan kafli w `WorkerThreadPool` (`CaveGenerator.plan_cave_tiles`), kafle porcjami
   (`PAINT_CHUNK`), encje porcjami (`ENTITY_CHUNK`), sygnał `generation_finished`; ekran ładowania
-  `scripts/ui/generation_loading_overlay.gd`; `level_manager` czeka na koniec (gracz zamrożony),
+  `scripts/ui/loading_screen.gd`; `level_manager` czeka na koniec (gracz zamrożony),
   podgląd też czeka. `apply_cave_tiles` = `plan_cave_tiles` + `prepare_cave_layers` + `execute_cave_tiles`.
 - **Krok 2a** — `PlateauRenderer` skanuje rozłączne okna skupisk płaskowyżów (`ctx.scan_rect`,
   współrzędne globalne). Świadoma zmiana (A): wariant A/B ściany bocznej płaskowyżu z hasha pozycji
