@@ -9,6 +9,16 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
+### NAJPIERW: decyzja o spłaszczaniu wybrzuszeń (`ShortBulgeFlattenPass`)
+- User porównuje mapy ze spłaszczaniem i bez po zmianach z 2026-09-29 (filary 2H, `ShortLedgeRaisePass`):
+  pary PNG w `C:/Users/Dawid/AppData/Local/Temp/claude/F--Programy-GitHub/77122bc5-1b6d-4178-a9dc-5222577b130d/scratchpad/bulge_po_zmianach/`
+  (lewa = z przebiegiem, prawa = bez; poprzednie porównanie w `…/scratchpad/bulge/`). Skrypt: `tests/render_bulge.gd`.
+- Jeśli bez przebiegu jest dobrze -> **usunąć spłaszczanie**: `enable_bulge_flatten` domyślnie `false`
+  (albo usunąć przebieg i flagę z pipeline'u: `topology/interior_room_layout_generator.gd` P5–P7 i P11,
+  `preprocess/short_bulge_flatten_pass.gd`, klucz w `generator_behaviour_config.gd`, przełącznik
+  w eksploratorze map), zaktualizować parytet.
+- Jeśli coś dalej nie tak -> kolejne poprawki kafli / siatki według zrzutów usera.
+
 ### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, freeze, losowe spotkania
 - Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
   tła `scripts/quiz/battle_background.gd` + `background_generators/*`.
