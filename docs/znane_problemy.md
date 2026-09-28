@@ -27,22 +27,6 @@
 - Opcje: (1) rozszerzyć spłaszczanie wybrzuszeń na sąsiadów o rząd wyżej / niżej (ścina górę filaru);
   (2) wymusić 2H na małych, wolnostojących filarach (jak tryb płaskowyżu).
 
-### Zasięg wykrywania wroga widoczny jako kolizja DetectionArea
-- Zgłoszenie 2026-09-26: zmiana `detection_radius` w edytorze (inspektor wroga) ma zmieniać promień
-  kształtu `DetectionArea/CollisionShape2D`, żeby w grze z włączonym „Visible Collision Shapes” było widać zasięg.
-- Stan: `enemy_base._setup_detection_area()` ustawia `radius` w `_ready`, ale:
-  - `CircleShape2D_detect` w `enemy.tscn` jest współdzielonym sub_resource (bez `resource_local_to_scene`),
-    więc wszystkie instancje tej sceny mają ten sam kształt, a promień ustawia ostatni wróg;
-  - jeśli wróg ma `enemy_data`, jego `detection_radius` nadpisuje wartość z inspektora (`_apply_enemy_data`);
-  - w edytorze kształt się nie zmienia (skrypt nie jest `@tool`).
-- Kierunek: kształt lokalny dla instancji (`local_to_scene` albo `duplicate()` w `_ready`) + setter
-  `detection_radius`, który aktualizuje promień; ewentualnie podgląd w edytorze (`@tool` tylko dla setera
-  lub `_draw` w edytorze). Zmiana tylko w bazowym `enemy.tscn` / `enemy_base.gd`.
-- Nie ruszać dziedziczenia: wszystkie sceny wrogów dziedziczą po `enemy.tscn` (decyzja usera, łatwiejsze
-  zarządzanie przy dużej liczbie wrogów). Nie nadpisywać kształtu w scenach pochodnych. Uwaga: skrypt
-  pochodny bez `@tool` nie uruchomi w edytorze kodu `@tool` z `enemy_base.gd`. Podgląd w edytorze lepiej
-  zrobić osobnym małym węzłem `@tool` w bazowej scenie, żeby nie dopisywać `@tool` do każdego wroga.
-
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
@@ -69,6 +53,8 @@
   — do ponownego zapisu w edytorze.
 
 ## Pułapki konfiguracji (działa zgodnie z założeniem, ale łatwo się naciąć)
+- Wróg z przypisanym `enemy_data` bierze `detection_radius` (i inne statystyki) z niego, nie z inspektora
+  sceny — np. Enemy5 w `tutorial_area.tscn` ma pusty `enemy_data`, więc zasięg = domyślne 150.
 - **Gęstość obiektu jest per obiekt, nie per grupa.** Warianty jednego rodzaju dawać jako listę scen
   w jednym obiekcie (`"scene": [a, b, c]`), a nie jako osobne obiekty — inaczej gęstość się mnoży.
   Narzędzie/wtyczka katalogu dodaje każdą nową scenę jako osobny obiekt → po dodaniu wariantów scalić
@@ -91,8 +77,15 @@
   i baseline'u parytetu.
 - Baseline parytetu zależy od katalogu obiektów: przeszkody zsuwają spawny wrogów/skrzyń, więc każda
   zmiana `objects_caves.json` z kolizją zmienia pole `spawns` w digestach (ściany/podłoga bez zmian).
+- `diag_enemy_chase.gd`, część „poziom ręczny (tutorial_area)” jest losowa (wałęsanie bez seeda):
+  „klatki przy ścianie” wahają się od ~30 do ~1300 / 3000 i sprawdzenia czasem nie przechodzą — także
+  przed zmianami. Pojedynczy FAIL tam to jeszcze nie regresja; powtórzyć kilka razy.
 
 ## Rozwiązane (dla kontekstu)
+- Zasięg wykrywania wroga niewidoczny / zły przy „Visible Collision Shapes” — kształt `DetectionArea`
+  był współdzielony przez wszystkie instancje `enemy.tscn` (promień ustawiał ostatni wróg). Teraz
+  `resource_local_to_scene` + setter `detection_radius` (zmiana w trakcie gry od razu zmienia okrąg).
+  Test `diag_detection_radius.gd`. Podglądu w edytorze nie ma (osobny węzeł `@tool`, jeśli potrzebny).
 - Nawigacja wrogów bez ścian i przeszkód — siatka nawigacji z generatora (`NavOutlines`, commit b4bb991,
   dokładne kształty przeszkód 0785ade); wrogowie gonią i wałęsają się po niej (0785ade).
 - Wróg widział przez ściany — promień jak w Amon-Ra (ściany + przeszkody) + linia po siatce mapy
