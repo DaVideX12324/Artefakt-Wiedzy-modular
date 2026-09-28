@@ -11,8 +11,8 @@
 
 ### Nisze przy ścianie 3H: bez narożników wewnętrznych na górze (przejście), bez sekretnego pokoju
 - Zgłoszenie 2026-09-29, przykład: `…/scratchpad/bulge_po_zmianach/bulge_103107_160_0.png` (seed 103107 160×160,
-  okolice (83–100, 104–119), **lewa** strona — jeszcze ze spłaszczaniem wybrzuszeń, które jest już usunięte, więc
-  na tym seedzie kształt może się nie powtórzyć; do testu odtworzyć kształtem ręcznym albo znaleźć inny seed).
+  okolice (83–100, 104–119); przypadek jest po obu stronach porównania, więc występuje też bez spłaszczania
+  wybrzuszeń — ten seed nadaje się do testu).
 - W skrypcie nisz (`tiling/niche_placer.gd`, kandydaci w `EdgeAnalyzer` — `is_niche_candidate` /
   `is_secret_niche_candidate`) dodać warunek: jeśli ściana ma wysokość 3 przynajmniej na jednej części niszy,
   **nie stawiać narożników wewnętrznych na górze** — powstaje wtedy ładne przejście.
