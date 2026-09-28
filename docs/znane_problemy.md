@@ -9,17 +9,6 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### Małe filary: skosy i łączniki 3H zamiast 2H
-- Seed 118945 160×160, filar 1 (118–121, 89–93) i filar 2 (dół w rzędzie y=100). Grubość kolumn filaru 2/3/4/3 i 2/3/3/2
-  -> mieszanka narożnika 2H, łącznika 2H↔3H, schodka 3H i narożnika out 3H.
-- Poprawiacz skosów (`EdgeAnalyzer.slope_2h_depth`, grubość 3..5, commit 107f047) wymaga kontynuacji skosu po
-  drugiej stronie — ostatni stopień przed płaskim końcem filaru zostaje narożnikiem 3H. Kolumny grubości 3
-  nie dostaną kafla 2H (pokrywa 2 kratki ściany + rim), więc pełne 2H wymaga ścięcia siatki.
-- Filar 2 naprawia `ShortBulgeFlattenPass` (włączony domyślnie; na zgłoszeniu był wyłączony w podglądzie).
-  Filaru 1 (kształt schodów) nie łapie, bo porównuje wybrzuszenie tylko z sąsiadem w tym samym rzędzie.
-- Opcje: (1) rozszerzyć spłaszczanie wybrzuszeń na sąsiadów o rząd wyżej / niżej (ścina górę filaru);
-  (2) wymusić 2H na małych, wolnostojących filarach (jak tryb płaskowyżu).
-
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
@@ -75,6 +64,11 @@
   przed zmianami. Pojedynczy FAIL tam to jeszcze nie regresja; powtórzyć kilka razy.
 
 ## Rozwiązane (dla kontekstu)
+- Małe przekrzywione filary (seed 118945 160×160, (118–121, 89–92); bez `ShortBulgeFlattenPass` więcej
+  takich) — mieszanka 2H / łącznik / 3H. Mała wolnostojąca wyspa ściany (pole <= `small_pillar_2h_max_area`,
+  domyślnie 15) z górami i dołami kolumn w różnych rzędach dostaje zawsze lico 2H, bez łączników
+  (`EdgeAnalyzer.small_wall_islands` / `_skewed`, `GenerationContext.force_2h_cells`). Filary o równej
+  górze (np. 2/3/3/3/2) zostają 3H. Siatka bez zmian (tylko kafle).
 - Fasada płaskowyżu tuż za ścianą jaskini (seed 119 250×250, (48–51, 74–75)) — lico płaskowyżu, którego
   górna kratka wypada na górze modułu ściany głównej (rim / najwyższa część lica, nie narożnik out), jest
   wchłaniane (`PlateauRenderer._on_wall_top`); sąsiednia kolumna dostaje zakończenie lica.
