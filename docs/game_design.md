@@ -37,7 +37,11 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 
 Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (krąg/maszynę), które wg oficjalnej wersji (czyli wersji Strażnika) **nadpisuje pamięć mieszkańców fałszywą rzeczywistością — żeby nikt nie mógł arcymaga powstrzymać**. Im dłużej działa, tym bardziej destruktywne skutki — gdy osiągnie 100%, procesu nie będzie już dało się odwrócić. Żeby nikt mu nie przeszkodził, **arcymag zamknął miasto za magiczną barierą**. Strażnik stanął przeciw niemu i poległ — ale zanim został pokonany, **zrobił w barierze wyrwę wewnątrz ścieków**, przez którą da się wydostać za miasto (stąd droga Sewer → Cemetery). Cel gracza: wydostać się ściekami, przebić się przez bossów strzegących fragmentów klucza, dostać się do zamku, pokonać arcymaga, zniszczyć urządzenie zanim dobije do pełni.
 
-**Dlaczego bohater pokonuje bossów (oficjalnie):** bossowie to potwory **wzmocnione przez arcymaga** i postawione na straży drogi do zamku — każdy pilnuje fragmentu klucza (fragmenty otwierają ukryty poziom Library, a stamtąd scroll do Garden i dalej do zamku). Bohater nie walczy z nimi po to, żeby cokolwiek „przywracać” — walczy, bo **bez fragmentów nie dojdzie do arcymaga**, a każdy pokonany boss to jeden sługus maga mniej. Wg Strażnika nie ma innej drogi.
+**Dlaczego bohater pokonuje bossów (oficjalnie):** bossowie to potwory **wzmocnione przez arcymaga**, a każdy z nich to boss etapu — nie da się go ominąć. Bohater nie walczy z nimi po to, żeby cokolwiek „przywracać”. Powody są dwa:
+- **Trzej bossowie z odnóg** (Desert Temple, Forge, las/zima) strzegą po jednym fragmencie klucza. Fragmenty otwierają ukryty poziom Library, a stamtąd scroll do Garden i dalej do zamku — **bez nich nie dojdzie do arcymaga**.
+- **Pozostali bossowie etapów** nie strzegą klucza. Strażnik wskazuje ich jako najsilniejszych sług arcymaga, których trzeba osłabić przed zamkiem (nagrodą są jego wzmocnienia i fast travel), a mieszkańcy proszą o pomoc, bo bossowie terroryzują okolicę. Bohater po prostu pomaga.
+
+Każdy pokonany boss to oficjalnie jeden sługus maga mniej. Wg Strażnika nie ma innej drogi.
 
 **Wspomnienia po bossie (oficjalnie) to skutek uboczny, a nie cel:** bohater nie ma powodu ich pragnąć — Strażnik przedstawia je jako **fałszywe wspomnienia, „echa” urządzenia arcymaga**, które przeciekają do głów, gdy maszyna wchłania uwolnioną z bossa siłę. Ostrzega, żeby im nie ufać, i każe iść dalej do zamku, żeby maszynę zniszczyć. Bohater więc nie „odzyskuje pamięci” z własnej woli, tylko znosi jej skutki uboczne w drodze do celu.
 
@@ -76,7 +80,7 @@ Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (k
 
 > **Komunikat po każdym bossie:** po pokonaniu bossa bohaterowie otrzymują informację, że „odzyskują wspomnienia" / „mgła umysłu nieco opada" — sformułowaną celowo **dwuznacznie**: nie wiadomo, czy chodzi o powrót prawdziwych wspomnień (prawda) czy o narastanie fałszywych, „echa" maszyny (wersja oficjalna Strażnika). Gracz czyta te komunikaty przez pryzmat tego, w co aktualnie wierzy.
 
-> **Wskaźnik postępu a wersja oficjalna:** oficjalnie bohater walczy z bossami dla fragmentów klucza, a nie dla wskaźnika — wskaźnik maszyny to dla niego tylko ostrzeżenie „ile czasu zostało do zamku”. Dopiero uważny gracz zauważy, że rośnie dokładnie po bossach.
+> **Wskaźnik postępu a wersja oficjalna:** oficjalnie bohater walczy z bossami dla fragmentów klucza (trzej z odnóg) oraz z prośby Strażnika i mieszkańców (pozostali), a nie dla wskaźnika — wskaźnik maszyny to dla niego tylko ostrzeżenie „ile czasu zostało do zamku”. Dopiero uważny gracz zauważy, że rośnie dokładnie po bossach.
 
 ### Sekwencja odkrywania poszlak
 
@@ -104,7 +108,7 @@ Arcymag ginie pośmiertnie    → chroni drużynę, otwiera ścieżkę na Straż
 - [ ] Bossy po zniszczeniu maszyny: po ostatnim fragmencie (klucz do ukrytego poziomu Library) jest powrót do miasta bez fast travelu — maszyna jeszcze działa, więc bossowie wtedy **nie wracają**. Po arcymagu i zniszczeniu maszyny: osobny bossfight ze Strażnikiem gdzie indziej — czy i jak wracają wtedy bossowie (odrodzeni, jako część walki ze Strażnikiem?) i gdzie jest ta walka — do ogarnięcia później.
 - [x] Czy Strażnikowi zależy na pokonywaniu bossów — tak: to on dał narrację, że wspomnienia są fałszywe, a celem jest zniszczenie maszyny; bohater idący przez bossy do zamku realizuje jego plan (to, że każdy boss przyspiesza maszynę, jest ceną, którą Strażnik akceptuje).
 - [x] Strażnik jest bossem finałowym — osobny bossfight po arcymagu i zniszczeniu maszyny, w innym miejscu (lokalizacja do ustalenia).
-- [ ] Ile bossy = ile kroków urządzenia? (Czy wszystkie bosse w grze, czy tylko main path?)
+- [x] Ile bossy = ile kroków urządzenia? — wszyscy bossowie etapów są obowiązkowi (nie da się ich ominąć), więc każdy z nich to jeden krok maszyny (main path i middle bossy).
 
 ---
 
@@ -292,7 +296,7 @@ Typy: `multiple_choice`, `true_false`, `fill_text`, `fill_tiles`, `matching`.
 
 **Fabularne:**
 - [x] Strażnik jest bossem finałowym — osobny bossfight po arcymagu, miejsce do ustalenia (patrz „Otwarte decyzje fabularne”).
-- [ ] Ile kroków urządzenia = ile bossów? Czy liczą się tylko main-path bosse, czy też opcjonalne?
+- [x] Ile kroków urządzenia = ile bossów? — liczą się wszyscy bossowie etapów (są obowiązkowi, nie ma opcjonalnych).
 - [ ] Konkretne poszlaki i ich rozmieszczenie (dzienniki, ślady walki) między Fairy Forest a Library.
 
 **Mechaniczne:**
