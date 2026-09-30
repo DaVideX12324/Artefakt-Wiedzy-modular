@@ -15,8 +15,15 @@ Spłaszczanie wybrzuszeń (`ShortBulgeFlattenPass`) **usunięte** 2026-09-29 —
 
 `EdgeAnalyzer` przebieg 4 klasyfikuje każdą stopę fasady osobno, patrząc na sąsiadów:
 2H gdy grubość 2 (albo wymuszone); łącznik CONNECTOR przy przejściu 2H↔3H; narożnik out; STEP
-(`step_placer`): skok 1 i grubość 3–5 z kontynuacją po drugiej stronie → skos 2H, w innym razie
-narożnik schodka 3H (3 kafle). Ostatni stopień przed płaskim końcem skosu nie dostaje (świadomie, na razie).
+(`step_placer`): grubość 3–5 i schodek o 1 z przynajmniej jednej strony (skok 1 do wyższego sąsiada
+albo sąsiad naprzeciw o 1 niżej — `EdgeAnalyzer.slope_2h_steps`, od 2026-09-30) → skos 2H, w innym razie
+narożnik schodka 3H (3 kafle).
+
+## Siatka po preprocessingu
+
+- `DiagonalTouchPass` (koniec P11a, po `ShortLedgeRaisePass`): skośny styk podłóg przez ścianę
+  (100/000/001, 1 = podłoga) → górny narożnik zasypany. Ta sama reguła jest w `WallThicknessPass`
+  (P5–P7), ale podniesienie wypustki potrafi styk odtworzyć (seed 119 160×160, (68, 58)).
 
 ## Przydatne miejsca
 

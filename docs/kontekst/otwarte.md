@@ -11,8 +11,6 @@
   (ew. gęstość w `objects_caves.json`).
 - **Ekran ładowania pod mapy ręczne**: `level_manager.load_level_direct` → `load_threaded_request` +
   `track_resource_load`, klucz tła = nazwa sceny.
-- **Ostatni stopień skosu przed płaskim końcem** zostaje narożnikiem 3H (`step_placer`, warunek
-  kontynuacji skosu) — przy ścianach innych niż małe filary.
 - **Wypustki**: gdy nie da się podnieść, są usuwane — na razie nie wystąpiło; jeśli user woli usuwanie
   zamiast podnoszenia, zmiana w `ShortLedgeRaisePass`.
 - **`RigidBody2D` w `enemy.tscn`** (węzeł `Node2D`) — do decyzji usera.
