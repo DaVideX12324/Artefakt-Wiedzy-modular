@@ -163,12 +163,12 @@ Jeśli gracz wpisał jedno ze specjalnych imion, komunikaty po bossach lub NPC-e
 
 ## Tajne wejście na zamek (opcjonalne)
 
-**Mechanika losowa per save:** po jednej z trzech map (Desert Temple / Forge / las+zima) znajduje się ukryte, zniszczone lub zablokowane wejście na zamek. Losowane jest *które* z trzech wejść jest aktywne w danym save.
+**Mechanika losowa per save:** losowana jest jedna z trzech odnóg (Desert Temple / Forge / las+zima), a w niej **losowo jeden z jej ostatnich poziomów** — tam znajduje się ukryte, zniszczone lub zablokowane wejście na sekcję side-scroller, która prowadzi **między tą odnogą a murami zamku**.
 
 **Dostępność:** wejście jest widoczne i dostępne **od razu** po wejściu na daną mapę — ale przejście za bramę jest niemożliwe bez odpowiedniego skilla. Można eksplorować obszar przed bramą, nie można przejść dalej.
 
-### Segment 2D side-scroller (przy bramie)
-Przy odkryciu wejścia gra przełącza się na **krótki segment 2D side-scrollerowy** — żeby gracz poczuł skalę zamku i zobaczył, jak wygląda ta konkretna brama (każdy biom ma inny styl).
+### Segment 2D side-scroller (odnoga → mury zamku)
+Po przejściu przez wejście gra przełącza się na **krótki segment 2D side-scrollerowy** — przejście od odnogi pod mury zamku, żeby gracz poczuł skalę zamku i zobaczył, jak wygląda ta konkretna brama (każdy biom ma inny styl).
 
 ### Rodzaje blokad i wymagane skille (biom-specific)
 
@@ -202,7 +202,7 @@ Każda postać ma **4 aktywne skille** + **1 skill combo (5.)** korzystający z 
 
 - **Jednostronny** (tylko Library → Garden), ale **wielokrotnego użytku**.
 - Teleportuje bezpośrednio do ogrodów zamkowych (wejście do strefy Garden).
-- Fizyczna brama z Fairy Forest do Garden jest otwarta po zebraniu 3 fragmentów — scroll daje skrót z poziomu Library bez przechodzenia całej trasy powrotnej.
+- Fizyczne przejście przez mury zamkowe **otwiera się od wewnątrz** — dopiero gdy gracz jest już w zamku (wszedł scrollem albo tajnym wejściem). Potem służy jako skrót z zewnątrz.
 - Scroll wygląda jak dowód winy arcymaga (jest sygnowany jego imieniem) — dopóki prawda nie wyjdzie na jaw.
 
 ---
