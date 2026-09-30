@@ -60,8 +60,9 @@ Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (k
 
 - Strażnik najpierw **testował wysysanie wiedzy i zyskiwanie z niej mocy na potworach**: przekazywał im pochłoniętą wiedzę i moc — i to właśnie przez to **stały się bossami**.
 - Pokonanie bossa uwalnia wiedzę, którą w sobie nosił. **Maszyna arcymaga wyłapuje te wspomnienia i oddaje je ludziom** — dlatego bohaterowie (i mieszkańcy) odzyskują część wspomnień, a maszyna robi kolejny krok.
-- Po zniszczeniu maszyny nie ma już żadnej kontry na czar Strażnika — przejmuje on wiedzę i moc bossów, a NPC tracą pamięć (patrz pkt 5–6 wyżej).
-- **Strażnik chce, żeby bohater pokonywał bossy:** gdy maszyna arcymaga (łamiąca barierę i jego czarną magię) zostanie zniszczona, **cała wiedza i moc, którą dał bossom, przejdzie na niego samego**. Bohater, bijąc bossy i niszcząc maszynę, wykonuje za Strażnika cały plan.
+- **Strażnik od dawna chciał odebrać bossom wiedzę i moc** (zebrać owoce swojego testu), **ale maszyna arcymaga go blokowała.**
+- **Po zniszczeniu maszyny wiedza i moc wracają do bossów** — a bez maszyny nic już nie przeszkadza Strażnikowi, żeby im je odebrać i przejąć całość. Jednocześnie nie ma kontry na jego czar, więc NPC tracą pamięć (patrz pkt 5–6 wyżej).
+- Dlatego Strażnikowi zależy na zniszczeniu maszyny — bohater, niszcząc ją, wykonuje za niego cały plan.
 
 > **Spójność mechaniki z narracją:** liczba potrzebnych „kroków" urządzenia odpowiada dokładnie liczbie bossów w grze (zarówno main-path fragmenty, jak i middle bosse). Gracz sam, przez całą kampanię, nieświadomie napędzał urządzenie arcymaga do działania.
 
@@ -92,6 +93,8 @@ Arcymag ginie pośmiertnie    → chroni drużynę, otwiera ścieżkę na Straż
 - [ ] Prawdziwy powód bariery: A) ukrycie testu zaklęcia przed światem (żeby się nie wydało / nie za szybko), B) spowolnienie maszyny arcymaga, czy oba naraz? Oba warianty pasują do fabuły i się nie wykluczają.
 - [x] Mechanika przepływu wiedzy — rozwiązane: maszyna wyłapuje wiedzę uwolnioną z bossów i oddaje ją ludziom; po jej zniszczeniu nie ma kontry na czar, arcymag osłania tylko drużynę, wszyscy NPC zapominają.
 - [x] Bariera a fast travel — rozwiązane: Strażnik „na sam koniec” dał zmodyfikowaną formułę / kręgi fast travelu działające przez barierę (patrz „Bariera wokół miasta”).
+- [ ] Bossy po zniszczeniu maszyny: skoro wiedza i moc „wracają do bossów”, a bossowie zostali pokonani — czy się odradzają (np. jako cele finału / po drodze na Strażnika), czy wiedza wraca do ich szczątków / miejsc, z których Strażnik ją zbiera?
+- [ ] Czy Strażnikowi zależy też na tym, żeby bohater pokonywał bossy (np. bo to prowadzi go do zamku), skoro każdy boss przyspiesza maszynę, która go blokuje?
 - [ ] Czy Strażnik jest bezpośrednim bossem finałowym, czy ucieka/znika po odkryciu prawdy?
 - [ ] Ile bossy = ile kroków urządzenia? (Czy wszystkie bosse w grze, czy tylko main path?)
 
