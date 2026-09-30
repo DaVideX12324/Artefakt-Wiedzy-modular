@@ -296,6 +296,10 @@ Typy: `multiple_choice`, `true_false`, `fill_text`, `fill_tiles`, `matching`.
 - [ ] Projekt NPC-ów w Hideout i ich upgrade po otwarciu tajnego wejścia.
 - [ ] Mechanika bocznej ścieżki/łódki powrotu do Hideout gdy brak skilla.
 - [ ] Wizualizacja postępu urządzenia arcymaga (UI, animacja) — jak śledzone przez całą grę?
+- [ ] **Więcej bohaterów w drużynie** — dodatkowe postacie (skład, kiedy dołączają, role w walce, własne skille), spójne z fabułą (arcymag osłania całą drużynę) i z UI walki.
+
+**Referencje (do dostarczenia przez autora):**
+- [ ] Przykłady z innych JRPG / gier RPG Maker / serii FNaF World / FNaFB (tą autor zna najlepiej) — jako kontekst, jak ma wyglądać gra: UI (walka, menu, dialogi), balans (staty, obrażenia, tempo levelowania), struktura map i drużyny. Zrzuty / linki / nazwy scen + co konkretnie z nich brać.
 
 **Assety:**
 - [ ] Desert Temple (reskin Desert), Volcano (przedsionek Forge), Dense Forest, biom zimowy — zmodyfikowane warianty lub 16×16 z sieci.
