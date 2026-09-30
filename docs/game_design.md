@@ -35,14 +35,14 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 
 ### Wersja oficjalna (cel gracza na początku)
 
-Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (krąg/maszynę), które wg oficjalnej wersji **nadpisuje pamięć mieszkańców fałszywymi wspomnieniami**. Im dłużej działa, tym bardziej destruktywne skutki — gdy osiągnie 100%, procesu nie będzie już dało się odwrócić. Żeby nikt mu nie przeszkodził, **arcymag zamknął miasto za magiczną barierą**. Strażnik stanął przeciw niemu i poległ — ale zanim został pokonany, **zrobił w barierze wyrwę wewnątrz ścieków**, przez którą da się wydostać za miasto (stąd droga Sewer → Cemetery). Cel gracza: wydostać się ściekami, dostać się do zamku, pokonać arcymaga, zniszczyć urządzenie zanim dobije do pełni.
+Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (krąg/maszynę), które wg oficjalnej wersji (czyli wersji Strażnika) **nadpisuje pamięć mieszkańców fałszywą rzeczywistością — żeby nikt nie mógł arcymaga powstrzymać**. Im dłużej działa, tym bardziej destruktywne skutki — gdy osiągnie 100%, procesu nie będzie już dało się odwrócić. Żeby nikt mu nie przeszkodził, **arcymag zamknął miasto za magiczną barierą**. Strażnik stanął przeciw niemu i poległ — ale zanim został pokonany, **zrobił w barierze wyrwę wewnątrz ścieków**, przez którą da się wydostać za miasto (stąd droga Sewer → Cemetery). Cel gracza: wydostać się ściekami, dostać się do zamku, pokonać arcymaga, zniszczyć urządzenie zanim dobije do pełni.
 
 **Dlaczego pokonanie bossa przywraca część wspomnień (oficjalnie):** pokonane potwory oddają swoją manę maszynie arcymaga — i to ona „przywraca” wspomnienia (a wg wersji oficjalnej: wszczepia kolejne fałszywe).
 
 ### Prawda
 
 1. **Strażnik żyje.** Sam zbudował system fast travel i wzmocnień potworów; wysysał wiedzę mieszkańców miasta — w tym arcymaga.
-2. **Arcymag** w ostatnim momencie, świadomy że traci pamięć, uruchomił urządzenie zaprojektowane specjalnie do **złamania czaru Strażnika i stopniowego przywracania pamięci**. Urządzenie potrzebuje czasu — **każdy pokonany boss to trigger postępu** (=jeden krok procesu magicznego). Przed całkowitym wymazaniem arcymag rzucił na siebie zaklęcie ochronne, żeby zachować ten jeden element — świadomość celu urządzenia.
+2. **Arcymag** w ostatnim momencie, świadomy że traci pamięć, uruchomił urządzenie zaprojektowane specjalnie do **przełamania bariery i czarnej magii Strażnika** (jego czar wysysający wiedzę i dający mu z niej moc to w praktyce czarna magia). Skutkiem jej łamania jest stopniowy powrót pamięci — nie żadne nadpisywanie. Urządzenie potrzebuje czasu — **każdy pokonany boss to trigger postępu** (=jeden krok procesu magicznego). Przed całkowitym wymazaniem arcymag rzucił na siebie zaklęcie ochronne, żeby zachować ten jeden element — świadomość celu urządzenia.
 3. **Strażnik namącił wszystkim w głowach:** urządzenie arcymaga to źródło fałszywych wspomnień, a sam mag to winowajca. Gra od początku napędza gracza do jego zniszczenia.
 4. **Tuż przed salą arcymaga** widoczna jest maszyna/krąg na poziomie **~95%** — pasek postępu, odliczanie, cokolwiek czytelnego mechanicznie. To jest **właściwy Point of No Return** — w pokoju przedsionkowym. Wejście do komnaty maga = brak odwrotu.
 5. **Po pokonaniu arcymaga i zniszczeniu urządzenia** gracz odkrywa prawdę. Ale jest już za późno — bez urządzenia czar Strażnika nie może zostać złamany, wszyscy ponownie tracą wiedzę.
@@ -52,14 +52,14 @@ Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (k
 
 - **Barierę postawił Strażnik, nie arcymag.** Testował na tym mieście swoje zaklęcie pochłaniania wiedzy i zamknął je, bo (do wyboru — patrz otwarte decyzje):
   - **A)** nie chciał, żeby to wyszło poza miasto — a przynajmniej nie za szybko;
-  - **B)** bariera spowalnia maszynę arcymaga, która ma złamać jego zaklęcie — żeby nie zrobiła tego za szybko.
+  - **B)** bariera spowalnia maszynę arcymaga, która ma przełamać barierę i jego czarną magię — żeby nie zrobiła tego za szybko.
 - **Wyrwę w ściekach Strażnik zostawił celowo** — żeby bohater mógł wyjść z miasta i ostatecznie wyłączyć maszynę arcymaga. Jego „heroiczne” przebicie bariery przed „śmiercią” to część tej samej manipulacji.
 
 #### Bossy i wspomnienia (prawda)
 
 - Strażnik najpierw **testował wysysanie wiedzy i zyskiwanie z niej mocy na potworach**: przekazywał im pochłoniętą wiedzę i moc — i to właśnie przez to **stały się bossami**.
 - Pokonanie bossa uwalnia wiedzę, którą w sobie nosił — dlatego bohaterowie odzyskują część wspomnień, a maszyna arcymaga robi kolejny krok.
-- **Strażnik chce, żeby bohater pokonywał bossy:** gdy maszyna arcymaga (łamiąca jego zaklęcie) zostanie zniszczona, **cała wiedza i moc, którą dał bossom, przejdzie na niego samego**. Bohater, bijąc bossy i niszcząc maszynę, wykonuje za Strażnika cały plan.
+- **Strażnik chce, żeby bohater pokonywał bossy:** gdy maszyna arcymaga (łamiąca barierę i jego czarną magię) zostanie zniszczona, **cała wiedza i moc, którą dał bossom, przejdzie na niego samego**. Bohater, bijąc bossy i niszcząc maszynę, wykonuje za Strażnika cały plan.
 
 > **Spójność mechaniki z narracją:** liczba potrzebnych „kroków" urządzenia odpowiada dokładnie liczbie bossów w grze (zarówno main-path fragmenty, jak i middle bosse). Gracz sam, przez całą kampanię, nieświadomie napędzał urządzenie arcymaga do działania.
 
