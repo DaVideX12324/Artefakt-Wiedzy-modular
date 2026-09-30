@@ -36,6 +36,9 @@ Scena `scenes/ui/loading_screen.tscn`, skrypt `scripts/ui/loading_screen.gd` (da
   przy 500×500.
 - **Animacja**: błysk `%Shine` w `%FillClip` pod `%Bar` (szerokość/prędkość/przerwa: `SHINE_*`),
   kropki 1..3 po nazwie etapu (`DOTS_STEP`) — działa także, gdy postęp chwilowo stoi.
+  Pozycja błysku to **stan** (`_shine_x` +`SHINE_SPEED*delta`, po końcu wypełnienia przerwa `SHINE_GAP`),
+  nie `fmod(czas, okres)`: okres zależał od szerokości wypełnienia, która rośnie z paskiem, więc wzór
+  przeskakiwał, także w lewo.
 - Pomiar (seed 184356, próbka co klatkę): 250×250 najdłuższy przestój < 0,5 pkt ~0,65 s, największy
   skok 3,8%; 500×500 ~1,7–1,9 s i 1,7% (wcześniej 12 s na 73% w „Płaskowyżach” i 3,3 s na 99%).
 
