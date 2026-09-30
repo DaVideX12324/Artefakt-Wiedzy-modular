@@ -17,6 +17,11 @@ Scena `scenes/ui/loading_screen.tscn`, skrypt `scripts/ui/loading_screen.gd` (da
 
 ## Postęp i animacja
 
+- **begin / sub / end**: `GenProgress.begin(&"etap")` na początku, `GenProgress.end(&"etap")` na końcu
+  każdego etapu (`end()` bez nazwy = bieżący; nazwa inna niż bieżąca = no-op). `sub()` dochodzi najwyżej
+  do 95% etapu — cały etap zalicza dopiero `end()` (wcześniej `sub(1.0)` w „Potworach i skrzyniach”
+  pokazywało ~100%, choć potem jeszcze sekundami szło wstawianie obiektów). Przed `finish()` pasek
+  najwyżej 99%, procent zaokrąglany w dół — 100% tylko przy `close()`. Nowy etap: `begin` + `end`.
 - **Etapy** (`GenProgress.STAGES`, wagi ≈ ms/10 przy 250×250, kalibracja 2026-09-30): płaskowyże
   rozbite na kształt + schody, obiekty na teren + obiekty, encje na potwory + obiekty w scenie (`props`).
 - **Kotwice** `sub()` w długich etapach: wygładzanie, płaskowyże (kroki kształtu, iteracje naprawy),
