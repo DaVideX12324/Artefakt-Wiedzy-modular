@@ -9,10 +9,30 @@ Scena `scenes/ui/loading_screen.tscn`, skrypt `scripts/ui/loading_screen.gd` (da
   (wczytywanie w tle — pod mapy ręczne), `set_progress(frac, label)`. `close()` = 100% + zanik.
 - Pola: `title`, `location` (duża nazwa, font **Jacquard 24** — `assets/fonts/`, OFL, polskie znaki;
   import bez antyaliasingu tylko lokalnie, bo `.import` w gitignore), `background`, `paused`.
-- Węzły po unikalnych nazwach (`%Root %Art %Band %Title %Location %Stage %Percent %Bar`) — można
+- Węzły po unikalnych nazwach (`%Root %Art %Band %Title %Location %Stage %Percent %Bar`, opcjonalnie
+  `%FillClip %Shine`) — można
   przestawiać w drzewie (user dodał `MarginContainer`).
 - **Pauza**: `paused` (inspektor / Remote) albo klawisz Pause/Break — pasek stoi, `close()` czeka.
 - **Podgląd F6**: scena uruchomiona sama pokazuje grafikę z `preview_key`, `preview_location`, pasek.
+
+## Postęp i animacja
+
+- **Etapy** (`GenProgress.STAGES`, wagi ≈ ms/10 przy 250×250, kalibracja 2026-09-30): płaskowyże
+  rozbite na kształt + schody, obiekty na teren + obiekty, encje na potwory + obiekty w scenie (`props`).
+- **Kotwice** `sub()` w długich etapach: wygładzanie, płaskowyże (kroki kształtu, iteracje naprawy),
+  obiekty (po defach), krawędzie (co 16 wierszy + przebiegi), skała (co 16 wierszy), podłoga, ściany
+  (po placerach), kafle płaskowyżów (poziomy wg wielkości, okna wg pola), malowanie, obiekty w scenie.
+  `sub_in(etap, x)` działa tylko w danym etapie — `EdgeAnalyzer` i placery są wołane też w oknach
+  płaskowyżów (etap `plateau_tiles`) i nie mogą przesuwać paska w cudzym etapie.
+- **Przesuw w czasie**: `fraction()` przesuwa pasek w obrębie etapu wg oczekiwanego czasu (waga ×
+  tempo; tempo startuje z `ms_per_weight` skalowanego polem mapy i dopasowuje się do zmierzonych
+  etapów) — liniowo do 80% etapu, potem coraz wolniej do 97%, nigdy za koniec etapu.
+- **Malowanie terenu** porcjami (`TerrainPaintExecutor.execute_chunked`) — wcześniej jedna klatka ~0,6 s
+  przy 500×500.
+- **Animacja**: błysk `%Shine` w `%FillClip` pod `%Bar` (szerokość/prędkość/przerwa: `SHINE_*`),
+  kropki 1..3 po nazwie etapu (`DOTS_STEP`) — działa także, gdy postęp chwilowo stoi.
+- Pomiar (seed 184356, próbka co klatkę): 250×250 najdłuższy przestój < 0,5 pkt ~0,65 s, największy
+  skok 3,8%; 500×500 ~1,7–1,9 s i 1,7% (wcześniej 12 s na 73% w „Płaskowyżach” i 3,3 s na 99%).
 
 ## Tło
 
