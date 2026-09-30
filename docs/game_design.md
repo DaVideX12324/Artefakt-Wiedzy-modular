@@ -87,15 +87,17 @@ Boss fight z arcymagiem      → po walce: pełne odkrycie, zniszczenie, koniec 
 Arcymag ginie pośmiertnie    → chroni drużynę, otwiera ścieżkę na Strażnika
 ```
 
+> **Po ostatnim fragmencie** (fragmenty to klucz do ukrytego poziomu Library): powrót do miasta **bez fast travelu**. Maszyna wciąż działa, więc pokonani bossowie nie wracają.
+
 > **Kluczowy moment po fragmencie 3:** wyłączenie fast travelu i wzmocnienie potworów jest natychmiastowe. Bohater stwierdza, że to niemożliwe, żeby ktokolwiek inny uruchomił sieć waypointów Strażnika — pierwsze otwarte podejrzenie.
 
 ### Otwarte decyzje fabularne
 - [ ] Prawdziwy powód bariery: A) ukrycie testu zaklęcia przed światem (żeby się nie wydało / nie za szybko), B) spowolnienie maszyny arcymaga, czy oba naraz? Oba warianty pasują do fabuły i się nie wykluczają.
 - [x] Mechanika przepływu wiedzy — rozwiązane: maszyna wyłapuje wiedzę uwolnioną z bossów i oddaje ją ludziom; po jej zniszczeniu nie ma kontry na czar, arcymag osłania tylko drużynę, wszyscy NPC zapominają.
 - [x] Bariera a fast travel — rozwiązane: Strażnik „na sam koniec” dał zmodyfikowaną formułę / kręgi fast travelu działające przez barierę (patrz „Bariera wokół miasta”).
-- [ ] Bossy po zniszczeniu maszyny: skoro wiedza i moc „wracają do bossów”, a bossowie zostali pokonani — czy się odradzają (np. jako cele finału / po drodze na Strażnika), czy wiedza wraca do ich szczątków / miejsc, z których Strażnik ją zbiera?
-- [ ] Czy Strażnikowi zależy też na tym, żeby bohater pokonywał bossy (np. bo to prowadzi go do zamku), skoro każdy boss przyspiesza maszynę, która go blokuje?
-- [ ] Czy Strażnik jest bezpośrednim bossem finałowym, czy ucieka/znika po odkryciu prawdy?
+- [ ] Bossy po zniszczeniu maszyny: po ostatnim fragmencie (klucz do ukrytego poziomu Library) jest powrót do miasta bez fast travelu — maszyna jeszcze działa, więc bossowie wtedy **nie wracają**. Po arcymagu i zniszczeniu maszyny: osobny bossfight ze Strażnikiem gdzie indziej — czy i jak wracają wtedy bossowie (odrodzeni, jako część walki ze Strażnikiem?) i gdzie jest ta walka — do ogarnięcia później.
+- [x] Czy Strażnikowi zależy na pokonywaniu bossów — tak: to on dał narrację, że wspomnienia są fałszywe, a celem jest zniszczenie maszyny; bohater idący przez bossy do zamku realizuje jego plan (to, że każdy boss przyspiesza maszynę, jest ceną, którą Strażnik akceptuje).
+- [x] Strażnik jest bossem finałowym — osobny bossfight po arcymagu i zniszczeniu maszyny, w innym miejscu (lokalizacja do ustalenia).
 - [ ] Ile bossy = ile kroków urządzenia? (Czy wszystkie bosse w grze, czy tylko main path?)
 
 ---
@@ -283,7 +285,7 @@ Typy: `multiple_choice`, `true_false`, `fill_text`, `fill_tiles`, `matching`.
 ## Otwarte zadania
 
 **Fabularne:**
-- [ ] Czy Strażnik jest bossem finałowym, czy ucieka/znika po ujawnieniu prawdy?
+- [x] Strażnik jest bossem finałowym — osobny bossfight po arcymagu, miejsce do ustalenia (patrz „Otwarte decyzje fabularne”).
 - [ ] Ile kroków urządzenia = ile bossów? Czy liczą się tylko main-path bosse, czy też opcjonalne?
 - [ ] Konkretne poszlaki i ich rozmieszczenie (dzienniki, ślady walki) między Fairy Forest a Library.
 
