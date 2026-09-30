@@ -104,9 +104,11 @@ class GenJob extends RefCounted:
 			rng = base_script.create_rng(result.seed_used)
 			plans = gen_script.plan_cave_tiles(result, rng, -1, flags,
 				behaviour.get("profile"), behaviour.get("field"), behaviour.get("raw", {}))
-			# Siatka nawigacji z mapy (podłoga bez barier i przeszkód) — wypiekana tu, w wątku roboczym.
+			# Siatka nawigacji z mapy (podłoga bez barier i przeszkód) — wypiekana tu, w wątku roboczym,
+			# w kawałkach (cała mapa naraz: minuty przy 500×500).
 			GenProgress.begin(&"navmesh")
-			result.nav_polygon = NavOutlines.build_polygon(result)
+			result.nav_polygons = NavOutlines.build_chunks(result)
+			GenProgress.end(&"navmesh")
 		else:
 			result = gen_script.generate(width, height, seed_value)
 			rng = base_script.create_rng(seed_value)
@@ -238,6 +240,8 @@ func generate_level_async(seed_val: int = 0) -> void:
 	is_generating = true
 	var job := _prepare_job(seed_val)
 	var progress := GenProgress.new()
+	# Wagi etapów są dla 250×250 — oczekiwany czas etapu rośnie z polem mapy (pasek płynie między kotwicami).
+	progress.ms_per_weight = 10.0 * float(job.width * job.height) / (250.0 * 250.0)
 	var overlay = LoadingScreenScene.instantiate()
 	overlay.title = _loading_title()
 	overlay.location = location_name if not location_name.is_empty() else LOCATION_NAMES.get(level_type, "")
@@ -292,8 +296,11 @@ func map_report(job: GenJob, progress = null) -> String:
 		lines.append("  obiekty: %d (plan %.1f ms, zdjętych dla osiągalności %d) %s" % [r.objects.placements.size(), r.objects.time_usec / 1000.0, r.objects.removed_for_reach, r.objects.stats])
 	var chests: int = r.chest_spawns.size() + (r.objects.cells_with_scene("chest").size() if r.objects != null else 0)
 	lines.append("  wrogowie %d, skrzynie %d" % [r.enemy_spawns.size(), chests])
-	if r.nav_polygon != null:
-		lines.append("  nawigacja: %d wielokątów (siatka z generatora)" % r.nav_polygon.get_polygon_count())
+	if not r.nav_polygons.is_empty():
+		var polys := 0
+		for np in r.nav_polygons:
+			polys += np.get_polygon_count()
+		lines.append("  nawigacja: %d wielokątów w %d kawałkach (siatka z generatora)" % [polys, r.nav_polygons.size()])
 	if progress != null:
 		lines.append("  czasy etapów:\n" + progress.report())
 	return "\n".join(lines)
@@ -445,7 +452,7 @@ func _apply_job_async(job: GenJob) -> void:
 		for layer_name in order:
 			if layer_name == &"Walls":
 				# Teren (błoto/trawa) między Floor a Walls — jak execute_cave_tiles.
-				TerrainPaintExecutor.execute(layers, job.plans.terrain)
+				await TerrainPaintExecutor.execute_chunked(layers, job.plans.terrain, get_tree(), PAINT_CHUNK)
 			var layer: TileMapLayer = layers.get(layer_name)
 			var cells: Dictionary = tiles.by_layer.get(layer_name, {})
 			if layer == null or cells.is_empty():
@@ -456,6 +463,7 @@ func _apply_job_async(job: GenJob) -> void:
 				done += mini(PAINT_CHUNK, positions.size() - from)
 				GenProgress.sub(float(done) / maxf(total, 1))
 				await get_tree().process_frame
+		GenProgress.end(&"paint")
 	else:
 		_apply_grid_layers(job, layers)
 	await _finish_level(job, ENTITY_CHUNK)
@@ -476,14 +484,19 @@ func _finish_level(job: GenJob, per_frame: int = 0) -> void:
 	GenProgress.begin(&"entities")
 	if spawn_entities_enabled:
 		await MapGeneratorBaseScript.spawn_entities(self, job.result, _enemy_pool, chest_scene, door_scene, 16, per_frame)
+		GenProgress.end(&"entities")
 		# Obiekty z generatora obiektów (po encjach — spawn_entities czyści węzeł Objects).
 		var walls := get_node_or_null("Walls") as TileMapLayer
+		GenProgress.begin(&"props")
 		await ObjectRealizer.realize(self, job.result.objects as ObjectPlan, walls.tile_set if walls else null, {&"chest": chest_scene}, per_frame)
+		GenProgress.end(&"props")
+	GenProgress.end(&"entities")  # spawn_entities_enabled = false
 
 	# 4. Nawigacja 2D
 	GenProgress.begin(&"navigation")
 	if setup_nav_enabled:
 		MapGeneratorBaseScript.setup_navigation_region(self, job.result)
+	GenProgress.end(&"navigation")
 
 	# 5. Podepnij wyjscie
 	_connect_exit_trigger()
