@@ -54,6 +54,37 @@
 - Do ustalenia przy realizacji: skąd tier skrzyni (głębokość / poziom mapy / nisza vs pokój), zapis stanu (otwarte skrzynie / odwiedzone
   sekretne pokoje per save, jak pokonani bossowie).
 
+### Spójna ścieżka postępu między mapami (kierunki wejść i wyjść)
+- Zgłoszenie 2026-09-30. Kolejne mapy mają układać się w jedną ciągłą trasę: jeśli mapa ma wejście na
+  południu i wyjście na północy, następna musi mieć wejście na południu (przyszliśmy z jej południa), a nie
+  wyjście na południe — inaczej mapy „nakładają się” w wyobrażonej przestrzeni świata. Tak samo przy
+  powrocie (mapy wstecz): wyjście poprzedniej = wejście bieżącej po przeciwnej stronie.
+- Dziś krawędź portalu wybiera `PortalGenerator.carve_portal_alcove` (najbliższa krawędź pokoju, wyjście
+  tylko `avoid_edge` = inna niż wejście) — bez wiedzy o sąsiednich mapach. Punkty zaczepienia: łańcuch map
+  (`ProceduralLevel.next_level_path` / `level_key`, seedy w `lsm.set_map_seed`), `level_manager.change_level`.
+- Pomysł: zapisywać per mapa krawędź wejścia i wyjścia (albo pozycję mapy na siatce świata) i przekazywać
+  generatorowi wymuszoną krawędź wejścia (= przeciwna do wyjścia poprzedniej) oraz dozwolone krawędzie
+  wyjścia (nie w stronę już odwiedzonych pól siatki).
+
+### Nowe flagi generatora: kształt pokoi, wejście na środku mapy
+- Zgłoszenie 2026-09-30.
+- **Kształt pokoi** do wyboru flagą (np. organiczne jak dziś / prostokątne / okrągłe / mieszane) — dziś
+  pokoje rzeźbi `OrganicCaveRoomCarver` przez `RoomCarverFactory`; flaga w `GenerationFlags` + `caves.json`
+  i wybór carvera w fabryce.
+- **Wejście na środku mapy** (zamiast przy krawędzi) — szczególnie dla map ścieków (np. zejście włazem
+  z góry). Dziś `PortalGenerator.carve_portal_alcove` zawsze wycina wnękę przy krawędzi mapy; potrzebny
+  tryb portalu w pokoju (strefa wejścia bez wnęki), zgodny z płaskowyżami (`_portal_area`) i spawnami.
+
+### Minimapa z fog of war
+- Zgłoszenie 2026-09-30. W projekcie nie ma jeszcze minimapy.
+- Minimapa w rogu ekranu (opcjonalnie pełna mapa pod klawiszem), odkrywana w miarę chodzenia: kratki
+  w promieniu widzenia gracza przechodzą z „nieznane” na „odkryte” (fog of war); odkryte zostają.
+- Źródło danych: wynik generacji (`GenerationResult.grid`, płaskowyże — bariery / schody, portale),
+  np. jako `Image` W×H rysowany raz, plus maska odkrycia (`PackedByteArray`) aktualizowana przy ruchu.
+  Znaczniki: gracz, wejście / wyjście, opcjonalnie skrzynie i odwiedzone nisze.
+- Do ustalenia: promień odkrywania (z linią wzroku po ścianach czy bez), zapis maski odkrycia per mapa
+  w save (jak seedy map), mapy ręczne (tutorial_area) — z TileMapLayer zamiast z wyniku generacji.
+
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
@@ -65,9 +96,18 @@
   skrzynie; większe sceny interaktywne mogą wymagać własnego originu.
 
 ## Wydajność
-- **Wypiekanie siatki nawigacji** ~1 s na 250×250 (w wątku roboczym, etap „Ścieżki przeciwników”);
-  mapa nawigacji wczytuje region asynchronicznie (~12 klatek fizyki) — do tego czasu wróg bez ścieżki
-  idzie prosto tylko przy czystej linii.
+- **Wypiekanie siatki nawigacji** — w kawałkach 64×64 kratek (`NavOutlines.build_chunks`, jeden
+  `NavigationRegion2D` na kawałek pod węzłem `NavigationRegion2D`), w wątku roboczym, etap „Ścieżki
+  przeciwników”. Cała mapa naraz rosła dużo szybciej niż pole przez obrysy przeszkód (seed 184356:
+  250×250 7 s, 500×500 ~5,5 min w wolnym kontenerze, u autora ~63 s); w kawałkach 0,2 s / 0,7 s.
+  Brzegi kawałków bez zwężania o promień agenta (`baking_rect` + `border_size`), regiony łączy serwer
+  nawigacji. Ścieżki vs cała mapa: 250×250 400/400 par osiągalnych w obu, średnio 0,995 długości, żadna
+  przez ścianę; 500×500 382 w obu, 0 tylko w całej, 5 tylko w kawałkach. Ostrzeżenia „edge error(s)” przy
+  synchronizacji były już przy całej mapie (cienkie przejścia). Mapa nawigacji wczytuje regiony
+  asynchronicznie (kilka klatek fizyki) — do tego czasu wróg bez ścieżki idzie prosto tylko przy czystej linii.
+- **Na 500×500 ~35% losowych par kratek z jednej spójnej części mapy nie ma ścieżki w siatce** (seed 184356,
+  387/600; na 250×250 400/400) — tak samo przy wypiekaniu całej mapy, więc to nie kawałki. Podejrzenie:
+  przeszkody zwężają przejścia poniżej 2× promień agenta (planer obiektów sprawdza osiągalność po kratkach).
 - **Pętla naprawy płaskowyżów** (`PlateauPass._solve`) ~750 ms na 250×250 (BFS po mapie × ~8 iteracji) —
   kandydat na płaskie tablice (jak w `ObjectPlanner`).
 - **Planer obiektów** ~95–110 ms na 250×250 przy ~500 obiektach, ale z pełnym katalogiem caves

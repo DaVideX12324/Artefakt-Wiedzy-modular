@@ -12,6 +12,8 @@ extends RefCounted
 ##    test podstawy / odstępów / zajętości, klastry, tryb free z odstępem w px (kubełki = kratki).
 ## 4. Weryfikacja osiągalności: teren odcięty przez przeszkody -> zdejmij przeszkody przy nim.
 
+const GenProgress = preload("res://modules/quiz_rpg/scripts/generation/core/gen_progress.gd")
+
 const PORTAL_RING := 2
 const STAIR_RING := 1
 const SPAWN_RING := 1
@@ -62,6 +64,7 @@ func _run(result, catalog: ObjectCatalog) -> void:
 		defs_by_id[catalog.defs[di].id] = catalog.defs[di]
 		markers[catalog.defs[di].id] = di + 1
 	for di in range(catalog.defs.size()):
+		GenProgress.sub_in(&"objects", float(di) / catalog.defs.size())
 		_place_def(catalog.defs[di], di + 1)
 	_verify_reach()
 	for pl in plan.placements:
@@ -477,17 +480,19 @@ func _try_free(def: ObjectDef, marker: int, i: int, rng: RandomNumberGenerator) 
 	if not free_pts.has(marker):
 		free_pts[marker] = {}
 	var mine: Dictionary = free_pts[marker]
-	for dy in range(-reach, reach + 1):
-		for dx in range(-reach, reach + 1):
-			var q := c + Vector2i(dx, dy)
-			if not f.in_bounds(q):
-				continue
-			var pts = mine.get(f.idx(q))
-			if pts == null:
-				continue
-			for other in pts:
-				if pt.distance_squared_to(other) < sp2:
-					return false
+	if not mine.is_empty():
+		# Kubełki w promieniu `reach` przycięte do mapy (bez in_bounds/idx na kratkę — przy spacing_px
+		# 112 to 225 kratek na próbę).
+		var w := f.width
+		for y in range(maxi(c.y - reach, 0), mini(c.y + reach, f.height - 1) + 1):
+			var row := y * w
+			for x in range(maxi(c.x - reach, 0), mini(c.x + reach, w - 1) + 1):
+				var pts = mine.get(row + x)
+				if pts == null:
+					continue
+				for other in pts:
+					if pt.distance_squared_to(other) < sp2:
+						return false
 	var cells := PackedInt32Array()
 	if def.is_solid():
 		cells = _shape_cells(def, pt)
