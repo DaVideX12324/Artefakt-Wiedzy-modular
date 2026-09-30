@@ -27,7 +27,7 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 | 11 | **Garden** | Labirynt żywopłotów, elitarna straż, odblokowany scrollem z Library |
 | 12 | **Castle** | **Finał** — spina motywy wszystkich stref, konfrontacja |
 
-> **Fast travel:** aktywny od wejścia do miasta do momentu zdobycia fragmentu 3 (patrz: fabuła). Stworzony przez Strażnika — co samo w sobie jest twardą poszlaką.
+> **Fast travel:** aktywny od wejścia do miasta do momentu zdobycia fragmentu 3 (patrz: fabuła). Stworzony przez Strażnika — co samo w sobie jest twardą poszlaką. Działa przez barierę dzięki zmodyfikowanej formule / kręgom, które Strażnik przekazał „na sam koniec”.
 
 ---
 
@@ -53,6 +53,7 @@ Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (k
 - **Barierę postawił Strażnik, nie arcymag.** Testował na tym mieście swoje zaklęcie pochłaniania wiedzy i zamknął je z jednego z tych powodów albo z obu naraz (nie wykluczają się — patrz otwarte decyzje):
   - **A)** nie chciał, żeby to wyszło poza miasto — a przynajmniej nie za szybko;
   - **B)** bariera spowalnia maszynę arcymaga, która ma przełamać barierę i jego czarną magię — żeby nie zrobiła tego za szybko.
+- **Fast travel przez barierę:** oficjalnie Strażnik „na sam koniec”, przed swoim „upadkiem”, przekazał zmodyfikowaną formułę / kręgi portali, które działają mimo bariery. Naprawdę działają, bo to jego bariera i jego sieć — sam wie, jak ją przepuścić (kolejna poszlaka dla uważnego gracza).
 - **Wyrwę w ściekach Strażnik zostawił celowo** — żeby bohater mógł wyjść z miasta i ostatecznie wyłączyć maszynę arcymaga. Jego „heroiczne” przebicie bariery przed „śmiercią” to część tej samej manipulacji.
 
 #### Bossy i wspomnienia (prawda)
@@ -89,7 +90,7 @@ Arcymag ginie pośmiertnie    → chroni drużynę, otwiera ścieżkę na Straż
 ### Otwarte decyzje fabularne
 - [ ] Prawdziwy powód bariery: A) ukrycie testu zaklęcia przed światem (żeby się nie wydało / nie za szybko), B) spowolnienie maszyny arcymaga, czy oba naraz? Oba warianty pasują do fabuły i się nie wykluczają.
 - [ ] Mechanika przepływu wiedzy: czy po pokonaniu bossa wiedza wraca do ludzi przez maszynę (maszyna ją „łapie” i przywraca), a po jej zniszczeniu cała zgromadzona trafia do Strażnika — czy maszyna tylko liczy kroki, a wiedza zostaje „w zawieszeniu” do czasu jej zniszczenia?
-- [ ] Bariera a fast travel: oficjalnie bariera blokuje duże efekty magiczne (fast travel), a fast travel działa od wejścia do miasta — ustalić, jak sieć waypointów Strażnika przechodzi przez barierę (kolejna poszlaka: działa, bo to jego bariera?).
+- [x] Bariera a fast travel — rozwiązane: Strażnik „na sam koniec” dał zmodyfikowaną formułę / kręgi fast travelu działające przez barierę (patrz „Bariera wokół miasta”).
 - [ ] Czy Strażnik jest bezpośrednim bossem finałowym, czy ucieka/znika po odkryciu prawdy?
 - [ ] Ile bossy = ile kroków urządzenia? (Czy wszystkie bosse w grze, czy tylko main path?)
 
