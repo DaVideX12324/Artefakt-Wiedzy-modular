@@ -59,6 +59,13 @@ Zostaje (500×500, profil po zmianach): `_assemble` ~2,5 s (11 złożeń układu
 ~1,4 s. Dalszy zysk wymaga płaskiej siatki (krok 3): walkable / maski poziomów jako bajty zamiast
 `Dictionary[Vector2i]` + `is_walkable` na kratkę.
 
+**Etap `props` (500×500, seed 119: 14,4 s z 36,7 s razem).** To było prawie samo czekanie na klatki:
+`ObjectRealizer.realize` przerywał co `ENTITY_CHUNK = 6` obiektów (stała z wrogów), więc ~10,7 tys.
+lekkich obiektów (kafle / canvas itemy / kształty fizyki) = ~1800 klatek. Sama praca to ~80 ms
+(headless). Teraz `realize` dostaje budżet czasu na klatkę (`PROPS_BUDGET_MS = 8`) zamiast liczby
+obiektów — ~7–10 klatek. Wynik generowania bez zmian (te same placementy, zmienia się tylko
+rytm czekania). Pasek ładowania nadal dostaje kotwice (`sub_in` przy każdym oddaniu klatki).
+
 Dalej (nie zrobione): krok 3 (płaska siatka w topologii — „smoothing” ~370 ms, „plateaus” ~250 ms),
 przebieg 1 `EdgeAnalyzera` (obiekt `EdgeContext` na każdą kratkę, ~350 ms), krok 4 (C++/C#).
 
