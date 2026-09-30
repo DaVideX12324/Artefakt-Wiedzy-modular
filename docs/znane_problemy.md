@@ -9,6 +9,29 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
+### NAJWAŻNIEJSZE: edytor pytań — dodawanie, usuwanie, wybieranie, edycja, import JSON
+- Zgłoszenie 2026-09-30 (user: „najważniejsza funkcja”).
+- Dziś pytania są tylko w plikach JSON w repo: `res://resources/quizzes/` (`inf_podst.json` — 50 pytań,
+  `informatyka.json`), kopie w `modules/quiz_rpg/resources/quizzes/` i `modules/BitBomber/resources/quizzes/`
+  (manifest quiz_rpg: `quiz_path = res://resources/quizzes`). Format: `{name, description, questions: [
+  {id, type, difficulty, category, question, answers, correct_index, …}]}`, typy `multiple_choice`,
+  `true_false`, `fill_text`, `fill_tiles`, `matching`. Ładuje wspólny `QuizService`
+  (`autoloads/services/quiz_service.gd`: `register_source`, `reload_module`, `_normalize_questions`,
+  `get_questions`, `start_quiz`); przeciwnik wybiera zestaw przez `quiz_id` (scena / `enemy_data`).
+- Zakres:
+  - **Przeglądanie i wybieranie**: lista zestawów i pytań (filtr: kategoria, trudność, typ, wyszukiwanie),
+    zaznaczanie, które zestawy / pytania są aktywne w grze.
+  - **Dodawanie i edycja**: formularz zależny od typu pytania (odpowiedzi, poprawna odpowiedź, pary,
+    kafelki, trudność, kategoria, czas) + podgląd pytania tak, jak wygląda w walce.
+  - **Usuwanie** (z potwierdzeniem).
+  - **Import JSON**: walidacja (typy, wymagane pola, poprawne indeksy), raport błędów, obsługa duplikatów
+    `id` (pomiń / nadpisz / nowe id), scalenie z istniejącym zestawem albo nowy zestaw; eksport.
+- Zapis: w wersji eksportowanej `res://` jest tylko do odczytu -> własne i edytowane zestawy w `user://`
+  (`QuizService` obsługuje już ścieżki `user://`); wbudowane zestawy tylko do odczytu albo „kopia do edycji”.
+- Do ustalenia: miejsce w UI (menu quiz_rpg czy osobny ekran hosta — pytania są wspólne z BitBomberem),
+  aktywne pytania globalnie / per save / per profil, edycja wbudowanych zestawów, dodatkowe formaty
+  importu (np. CSV), porządek z duplikatami plików quizów w repo.
+
 ### Nisze przy ścianie 3H: bez narożników wewnętrznych na górze (przejście), bez sekretnego pokoju
 - Zgłoszenie 2026-09-29, przykład: `…/scratchpad/bulge_po_zmianach/bulge_103107_160_0.png` (seed 103107 160×160,
   okolice (83–100, 104–119); przypadek jest po obu stronach porównania, więc występuje też bez spłaszczania
