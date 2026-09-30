@@ -17,6 +17,9 @@ headless; zrzut z renderowaniem UI — bez `--headless`, z `--resolution 1920x10
 | `time_islands.gd` | czas wyszukiwania wysp | — |
 | `diag_loading_screen*.gd`, `shot_loading_*.gd` | ekran ładowania (test, zrzuty) | `SHOT_OUT`, `LOC` |
 | `diag_detection_radius.gd` | własny kształt DetectionArea na wroga | — |
+| `shot_layout_preview.gd` | zrzut podglądu pól walki (bez `--headless`) | `SHOT_OUT`, `LAYOUT` (plik układu), `COUNTS="5,2"` (field_counts) |
+| `shot_combat.gd`, `shot_menu.gd` | zrzuty ekranu walki / menu (bez `--headless`) | `SHOT_OUT` |
+| `build_quiz_theme.gd`, `rebuild_combat_ui.gd` | generują motyw + czcionkę / przebudowują scenę UI walki | — |
 | `diag_nav_reach.gd` | osiągalność w siatce nawigacji (kawałki, jak w grze) dla losowych par kratek; miejsca przerw | `NR_SEED`, `NR_SIZE`, `NR_PAIRS`, `NR_OBJ` (1/0), `NR_MAXPOLY` (limit wielokątów zapytania, 0 = bez) |
 
 Mapa nawigacji w kawałkach wczytuje się asynchronicznie — test po `setup_navigation_region` czeka na
