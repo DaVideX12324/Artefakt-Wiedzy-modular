@@ -21,17 +21,9 @@
 ### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, losowe spotkania
 - Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
   tła `scripts/quiz/battle_background.gd` + `background_generators/*`.
-- **Interfejs walki** — do poprawy; kierunek (user, 2026-09-30): **jak w grach RPG Maker** (MV/MZ-owy układ
-  ekranu bitwy — szczegóły do ustalenia przy realizacji).
-- **Wrogowie za nisko, mimo że w edytorze pole jest wyżej**: kontroler (ok. linii 1818) nadpisuje wysokość
-  i przesunięcie sekcji wrogów wartościami z tła (`get_enemy_layout_config`: `enemy_section_height`,
-  `enemy_section_bottom_offset`, mnożniki marginesów rzędów) — ustawienia sceny w edytorze nie działają.
-- **Marginesy pola walki per tło jako `.tres`**: dziś na sztywno w skryptach (`BIOME_CONFIGS` w
-  `pixel_crawler_battle_background.gd`, konfiguracje per wariant w `tutorial_area_battle_background.gd`,
-  `default_battle_background.gd`). Własny zasób (np. `BattleBackgroundLayout extends Resource`: tekstura
-  tła, granice pola walki, głębia / odstępy rzędów) — jeden `.tres` obok każdej grafiki w
-  `battle_backgrounds/<biom>/`, edycja w inspektorze; opcjonalnie scena `@tool` rysująca granice na tle
-  (ustawianie wzrokowo). Cel: wrogowie nie stoją na ścianie tła, odpowiednia głębia (rzędy).
+- **Interfejs walki** — zrobiony w stylu RPG Makera (2026-09-30), WYSIWYG; zostały okna Umiejętności /
+  Przedmioty w starym wyglądzie i niesprawdzone w grze typy pytań bossów (wpisywanie, kafelki, dopasowanie).
+  Tło okien = asset UI od usera -> resources/ui/quiz_theme.tres (QuizWindow).
 - **Losowe spotkania jak w JRPG**: wrogowie niewidoczni na mapie, walka zaczyna się nagle podczas chodzenia.
   Tryb obok obecnego (wrogowie widoczni) — np. włącza się po pokonaniu wszystkich wrogów na mapie; zasada
   do ustalenia (per mapa / per biom, szansa na krok, strefy bez spotkań: portale, schody, sekretne pokoje).
@@ -157,6 +149,11 @@
   przed zmianami. Pojedynczy FAIL tam to jeszcze nie regresja; powtórzyć kilka razy.
 
 ## Rozwiązane (dla kontekstu)
+- UI walki WYSIWYG (2026-09-30, 157473c, d914538, 7e61f2f): wygląd w quiz_combat_ui.tscn + motyw
+  resources/ui/quiz_theme.tres; pola walki per tło w `<grafika>_layout.tres` (BattleBackgroundLayout:
+  lista pól BattleField z rzędami, pojemnością, skalą, wcięciem) — edycja graficzna w
+  scenes/tools/battle_layout_preview.tscn. Dawne „wrogowie za nisko” (kontroler nadpisywał scenę
+  wartościami z kodu tła) i „marginesy pola walki per tło jako .tres” — rozwiązane tym samym.
 - Freeze po pokonaniu potwora (2026-09-30, aa8d686): na mapie gracz stał, aż wróg zniknie (stan EXPLORING
   dopiero po animacji). Teraz rusza od razu i ma 5 s nietykalności na kolejne walki (miga). Czekanie na
   ekranie walki (komunikaty zwycięstwa, pomijalne Enterem) zostaje — decyzja usera. XP było dodawane dwa
