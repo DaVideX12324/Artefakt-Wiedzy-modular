@@ -56,6 +56,11 @@ var _match_pairs: Dictionary = {}
 var _match_left_buttons: Array[Button] = []
 var _match_right_buttons: Array[Button] = []
 var _mc_selected_idx: int = 0
+## Własny wygląd zaznaczenia odpowiedzi (np. linia pod pozycją jak w RPG Makerze):
+## selection_styler.call(btn, selected). Bez niego — strzałka „► ” i żółty tekst.
+var selection_styler: Callable
+## Numery „[1] ” przed odpowiedziami (klawisze 1–4 działają także bez nich).
+var show_index_prefix := true
 var _tf_selected_idx: int = 0
 
 
@@ -375,9 +380,9 @@ func show_feedback(result: Dictionary, submitted_answer: Dictionary) -> void:
 		result_label.text = "Poprawnie!"
 		result_label.add_theme_color_override("font_color", Color(0.3, 1.0, 0.4))
 	else:
-		result_label.text = "Bledna odpowiedz!"
+		result_label.text = "Błędna odpowiedź!"
 		if bool(result.get("timed_out", false)):
-			result_label.text = "Czas minal!"
+			result_label.text = "Czas minął!"
 		result_label.add_theme_color_override("font_color", Color(1.0, 0.3, 0.3))
 
 	match str(_current_question.get("type", "multiple_choice")):
@@ -494,7 +499,7 @@ func _build_mc(question: Dictionary) -> void:
 	for i in range(mc_buttons.size()):
 		var btn: Button = mc_buttons[i]
 		if i < answers.size():
-			var prefix := "[%d] " % (i + 1)
+			var prefix := "[%d] " % (i + 1) if show_index_prefix else ""
 			var ans_str := str(answers[i])
 			btn.text = prefix + ans_str
 			btn.visible = true
@@ -512,10 +517,10 @@ func _build_mc(question: Dictionary) -> void:
 func _build_tf() -> void:
 	tf_box.visible = true
 	_tf_selected_idx = 0
-	tf_buttons[0].text = "[1] Prawda"
-	tf_buttons[1].text = "[2] Falsz"
-	tf_buttons[0].set_meta("base_text", "[1] Prawda")
-	tf_buttons[1].set_meta("base_text", "[2] Falsz")
+	var tf_texts := ["[1] Prawda", "[2] Fałsz"] if show_index_prefix else ["Prawda", "Fałsz"]
+	for i in range(2):
+		tf_buttons[i].text = tf_texts[i]
+		tf_buttons[i].set_meta("base_text", tf_texts[i])
 	for i in range(tf_buttons.size()):
 		var btn: Button = tf_buttons[i]
 		btn.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -566,6 +571,11 @@ func _refresh_mc_selection() -> void:
 	for i in range(mc_buttons.size()):
 		var btn: Button = mc_buttons[i]
 		var base_text: String = str(btn.get_meta("base_text", btn.text)).trim_prefix("► ").trim_prefix("   ")
+		if selection_styler.is_valid():
+			btn.text = base_text
+			if btn.visible:
+				selection_styler.call(btn, i == _mc_selected_idx)
+			continue
 		btn.text = ("► " if i == _mc_selected_idx and btn.visible else "   ") + base_text
 		if btn.visible:
 			btn.add_theme_color_override("font_color", Color(1.0, 0.92, 0.45) if i == _mc_selected_idx else TEXT_PRIMARY)
@@ -575,6 +585,10 @@ func _refresh_tf_selection() -> void:
 	for i in range(tf_buttons.size()):
 		var btn: Button = tf_buttons[i]
 		var base_text: String = str(btn.get_meta("base_text", btn.text)).trim_prefix("► ").trim_prefix("   ")
+		if selection_styler.is_valid():
+			btn.text = base_text
+			selection_styler.call(btn, i == _tf_selected_idx)
+			continue
 		btn.text = ("► " if i == _tf_selected_idx else "   ") + base_text
 		btn.add_theme_color_override("font_color", Color(1.0, 0.92, 0.45) if i == _tf_selected_idx else TEXT_PRIMARY)
 
@@ -601,7 +615,7 @@ func _on_tf_button_hover(index: int) -> void:
 func _build_fill_text(question: Dictionary) -> void:
 	fill_text_box.visible = true
 	var pattern := str(question.get("prefilled_pattern", ""))
-	pattern_label.text = "Podpowiedz: %s" % pattern
+	pattern_label.text = "Podpowiedź: %s" % pattern
 	pattern_label.visible = pattern != ""
 	fill_input.text = ""
 	fill_input.grab_focus()
@@ -696,7 +710,7 @@ func _show_correct_answer() -> void:
 		answer_text = str(_current_question.get("answer", ""))
 	if answer_text == "":
 		return
-	correct_answer_label.text = "Poprawna odpowiedz: %s" % answer_text
+	correct_answer_label.text = "Poprawna odpowiedź: %s" % answer_text
 	correct_answer_label.visible = true
 
 
