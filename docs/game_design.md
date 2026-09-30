@@ -50,7 +50,7 @@ Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (k
 
 #### Bariera wokół miasta i przejście ściekami (prawda)
 
-- **Barierę postawił Strażnik, nie arcymag.** Testował na tym mieście swoje zaklęcie pochłaniania wiedzy i zamknął je, bo (do wyboru — patrz otwarte decyzje):
+- **Barierę postawił Strażnik, nie arcymag.** Testował na tym mieście swoje zaklęcie pochłaniania wiedzy i zamknął je z jednego z tych powodów albo z obu naraz (nie wykluczają się — patrz otwarte decyzje):
   - **A)** nie chciał, żeby to wyszło poza miasto — a przynajmniej nie za szybko;
   - **B)** bariera spowalnia maszynę arcymaga, która ma przełamać barierę i jego czarną magię — żeby nie zrobiła tego za szybko.
 - **Wyrwę w ściekach Strażnik zostawił celowo** — żeby bohater mógł wyjść z miasta i ostatecznie wyłączyć maszynę arcymaga. Jego „heroiczne” przebicie bariery przed „śmiercią” to część tej samej manipulacji.
@@ -87,7 +87,7 @@ Arcymag ginie pośmiertnie    → chroni drużynę, otwiera ścieżkę na Straż
 > **Kluczowy moment po fragmencie 3:** wyłączenie fast travelu i wzmocnienie potworów jest natychmiastowe. Bohater stwierdza, że to niemożliwe, żeby ktokolwiek inny uruchomił sieć waypointów Strażnika — pierwsze otwarte podejrzenie.
 
 ### Otwarte decyzje fabularne
-- [ ] Prawdziwy powód bariery: A) ukrycie testu zaklęcia przed światem (żeby się nie wydało / nie za szybko) czy B) spowolnienie maszyny arcymaga? (Oba nie wykluczają się — można dać oba, B jako mocniejszą poszlakę.)
+- [ ] Prawdziwy powód bariery: A) ukrycie testu zaklęcia przed światem (żeby się nie wydało / nie za szybko), B) spowolnienie maszyny arcymaga, czy oba naraz? Oba warianty pasują do fabuły i się nie wykluczają.
 - [ ] Mechanika przepływu wiedzy: czy po pokonaniu bossa wiedza wraca do ludzi przez maszynę (maszyna ją „łapie” i przywraca), a po jej zniszczeniu cała zgromadzona trafia do Strażnika — czy maszyna tylko liczy kroki, a wiedza zostaje „w zawieszeniu” do czasu jej zniszczenia?
 - [ ] Bariera a fast travel: oficjalnie bariera blokuje duże efekty magiczne (fast travel), a fast travel działa od wejścia do miasta — ustalić, jak sieć waypointów Strażnika przechodzi przez barierę (kolejna poszlaka: działa, bo to jego bariera?).
 - [ ] Czy Strażnik jest bezpośrednim bossem finałowym, czy ucieka/znika po odkryciu prawdy?
