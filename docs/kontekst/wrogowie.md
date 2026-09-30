@@ -12,3 +12,5 @@
 - **Podejrzany węzeł**: `Node2D` w `enemy.tscn` to `RigidBody2D` (warstwa/maska 1 = Player) z grawitacją —
   spada ~488 px/s spod wroga. Z commitu usera f5ef8d0; do decyzji usera, czy usunąć.
 - Wróg poza navmeshem wraca do nav area — zamierzone.
+- **Siatka nawigacji** w mapach proceduralnych to wiele regionów (`NavChunk*` pod `NavigationRegion2D`,
+  kawałki 64×64 kratek z `NavOutlines.build_chunks`); zapytania idą do mapy świata, więc wróg tego nie widzi.

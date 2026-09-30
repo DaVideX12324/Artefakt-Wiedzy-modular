@@ -38,6 +38,27 @@ Odkrycie: w pełnej ścieżce gry najdroższe są encje (~0,8–1 s przy 250×25
 wymaga odtworzenia przy każdej instancji („A node in the scene this one inherits from has been
 removed or moved… re-save this scene”). Naprawa: otworzyć scenę w edytorze i zapisać.
 
+**2026-09-30 — duże mapy (500×500).** Parytet: MD5 wyniku topologii (siatka, poziomy/bariery/góry/wysokości
+i schody płaskowyżów, liczniki naprawy, obiekty z zajętością, spawny, maski terenu) dla 150×150 i 250×250
+(seedy 184356, 119, 4242, 7, 99) i 500×500 (184356) — IDENTICAL po każdym kroku. Topologia + obiekty
+(sama generacja, bez kafli): 500×500 32,2 s → 22,2 s, 250×250 ~5,9 s → ~4,5 s, 150×150 ~1,8 s → ~1,4 s.
+- Siatka nawigacji w kawałkach 64×64 (`NavOutlines.build_chunks`) — etap „navmesh” 500×500 ~5,5 min → 0,7 s
+  (osobny commit, szczegóły w `znane_problemy.md`).
+- `PlateauPass._pick_stairs*` przy naprawie dojść: kandydaci lica tylko naprzeciw `near` (`_face_scan`),
+  a nie cały kawałek (kawałek ziemi bywa całą mapą). Kolejność bez znaczenia — biegi sortowane po pełnym
+  kluczu. `_carve_stair_site*` bez zmian (tam przy remisie kosztu wygrywa pierwszy w kolejności kawałka).
+- `PlateauPass._components` — odwiedzone w `PackedByteArray` na prostokącie otaczającym; `_erode` bez
+  wywołania `_solid` na sąsiada; `_assemble` — bariery z `heights.get` zamiast `height_of`.
+- `ObjectPlanner._try_free` — kubełki odstępu przycięte do mapy raz na próbę, bez `in_bounds`/`idx`
+  na kratkę (spacing_px 112 = 225 kratek na próbę). Obiekty 500×500: ~7,4 s → ~3,6 s.
+- Bez zysku (cofnięte): `_bfs` i `_fill_holes` z odwiedzonymi w tablicy bajtów — koszt siedzi
+  w `GridUtils.is_walkable` / `blocked.has` na kratkę, nie w słowniku odwiedzonych.
+
+Zostaje (500×500, profil po zmianach): `_assemble` ~2,5 s (11 złożeń układu), `_components` ~2 s,
+`_clean`/`_level_shape` ~2 s, naprawa dojść ~2 s, pętla obiektów ~2,3 s, `TerrainMaskPlanner.shape_mask`
+~1,4 s. Dalszy zysk wymaga płaskiej siatki (krok 3): walkable / maski poziomów jako bajty zamiast
+`Dictionary[Vector2i]` + `is_walkable` na kratkę.
+
 Dalej (nie zrobione): krok 3 (płaska siatka w topologii — „smoothing” ~370 ms, „plateaus” ~250 ms),
 przebieg 1 `EdgeAnalyzera` (obiekt `EdgeContext` na każdą kratkę, ~350 ms), krok 4 (C++/C#).
 

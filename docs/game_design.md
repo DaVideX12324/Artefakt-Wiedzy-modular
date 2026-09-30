@@ -17,7 +17,7 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 | 1 | **Tutorial Dungeon** | Nauka mechanik, liniowy |
 | 2 | **Cave** | Pierwsza eksploracja, pułapki, rój nietoperzy |
 | 3 | **Miasto** | Hub: sklep, zapis, NPC z questami, odblokowanie skilli |
-| 4 | **Sewer** | Śluzy/przełączniki, klucz do Cemetery |
+| 4 | **Sewer** | Śluzy/przełączniki, klucz do Cemetery; wyrwa w barierze miasta — jedyne wyjście za mury |
 | 5 | **Cemetery** | Nieumarli, klucz od strażnika, pierwsza poszlaka fabularna |
 | 6 | **Fairy Forest** | **Hub-skrzyżowanie** — 3 bramy + ukryta 4. ścieżka (lore) |
 | 7 | **Desert → Desert Temple** | Otwarta mapa, boss strzegący fragmentu 1 |
@@ -27,7 +27,7 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 | 11 | **Garden** | Labirynt żywopłotów, elitarna straż, odblokowany scrollem z Library |
 | 12 | **Castle** | **Finał** — spina motywy wszystkich stref, konfrontacja |
 
-> **Fast travel:** aktywny od wejścia do miasta do momentu zdobycia fragmentu 3 (patrz: fabuła). Stworzony przez Strażnika — co samo w sobie jest twardą poszlaką.
+> **Fast travel:** aktywny od wejścia do miasta do momentu zdobycia fragmentu 3 (patrz: fabuła). Stworzony przez Strażnika — co samo w sobie jest twardą poszlaką. Działa przez barierę dzięki zmodyfikowanej formule / kręgom, które Strażnik przekazał „na sam koniec”.
 
 ---
 
@@ -35,16 +35,34 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 
 ### Wersja oficjalna (cel gracza na początku)
 
-Strażnik osłonił miasto barierą blokującą duże efekty magiczne (w tym fast travel) i poległ w walce z arcymagiem. Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (krąg/maszynę), które wg oficjalnej wersji **nadpisuje pamięć mieszkańców fałszywymi wspomnieniami**. Im dłużej działa, tym bardziej destruktywne skutki — gdy osiągnie 100%, procesu nie będzie już dało się odwrócić. Cel gracza: dostać się do zamku, pokonać arcymaga, zniszczyć urządzenie zanim dobije do pełni.
+Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (krąg/maszynę), które wg oficjalnej wersji (czyli wersji Strażnika) **nadpisuje pamięć mieszkańców fałszywą rzeczywistością — żeby nikt nie mógł arcymaga powstrzymać**. Im dłużej działa, tym bardziej destruktywne skutki — gdy osiągnie 100%, procesu nie będzie już dało się odwrócić. Żeby nikt mu nie przeszkodził, **arcymag zamknął miasto za magiczną barierą**. Strażnik stanął przeciw niemu i poległ — ale zanim został pokonany, **zrobił w barierze wyrwę wewnątrz ścieków**, przez którą da się wydostać za miasto (stąd droga Sewer → Cemetery). Cel gracza: wydostać się ściekami, dostać się do zamku, pokonać arcymaga, zniszczyć urządzenie zanim dobije do pełni.
+
+**Dlaczego pokonanie bossa przywraca część wspomnień (oficjalnie):** pokonane potwory oddają swoją manę maszynie arcymaga — i to ona „przywraca” wspomnienia (a wg wersji oficjalnej: wszczepia kolejne fałszywe).
 
 ### Prawda
 
 1. **Strażnik żyje.** Sam zbudował system fast travel i wzmocnień potworów; wysysał wiedzę mieszkańców miasta — w tym arcymaga.
-2. **Arcymag** w ostatnim momencie, świadomy że traci pamięć, uruchomił urządzenie zaprojektowane specjalnie do **złamania czaru Strażnika i stopniowego przywracania pamięci**. Urządzenie potrzebuje czasu — **każdy pokonany boss to trigger postępu** (=jeden krok procesu magicznego). Przed całkowitym wymazaniem arcymag rzucił na siebie zaklęcie ochronne, żeby zachować ten jeden element — świadomość celu urządzenia.
+2. **Arcymag** w ostatnim momencie, świadomy że traci pamięć, uruchomił urządzenie zaprojektowane specjalnie do **przełamania bariery i czarnej magii Strażnika** (jego czar wysysający wiedzę i dający mu z niej moc to w praktyce czarna magia). Skutkiem jej łamania jest stopniowy powrót pamięci — nie żadne nadpisywanie. Urządzenie potrzebuje czasu — **każdy pokonany boss to trigger postępu** (=jeden krok procesu magicznego). Przed całkowitym wymazaniem arcymag rzucił na siebie zaklęcie ochronne, żeby zachować ten jeden element — świadomość celu urządzenia.
 3. **Strażnik namącił wszystkim w głowach:** urządzenie arcymaga to źródło fałszywych wspomnień, a sam mag to winowajca. Gra od początku napędza gracza do jego zniszczenia.
 4. **Tuż przed salą arcymaga** widoczna jest maszyna/krąg na poziomie **~95%** — pasek postępu, odliczanie, cokolwiek czytelnego mechanicznie. To jest **właściwy Point of No Return** — w pokoju przedsionkowym. Wejście do komnaty maga = brak odwrotu.
-5. **Po pokonaniu arcymaga i zniszczeniu urządzenia** gracz odkrywa prawdę. Ale jest już za późno — bez urządzenia czar Strażnika nie może zostać złamany, wszyscy ponownie tracą wiedzę.
-6. **Arcymag ginie**, ale ostatkiem many **pośmiertnie chroni drużynę** — gracze zachowują pamięć i mogą stawić czoła Strażnikowi.
+5. **Po pokonaniu arcymaga i zniszczeniu urządzenia** gracz odkrywa prawdę. Ale jest już za późno — bez urządzenia nic już nie kontruje czaru Strażnika: **wszyscy NPC zapominają o wszystkim**.
+6. **Arcymag ginie**, ale ostatkiem many **osłania przed czarem tylko drużynę bohatera** — gracze zachowują pamięć i mogą stawić czoła Strażnikowi. Reszta świata zostaje bez wspomnień.
+
+#### Bariera wokół miasta i przejście ściekami (prawda)
+
+- **Barierę postawił Strażnik, nie arcymag.** Testował na tym mieście swoje zaklęcie pochłaniania wiedzy i zamknął je z jednego z tych powodów albo z obu naraz (nie wykluczają się — patrz otwarte decyzje):
+  - **A)** nie chciał, żeby to wyszło poza miasto — a przynajmniej nie za szybko;
+  - **B)** bariera spowalnia maszynę arcymaga, która ma przełamać barierę i jego czarną magię — żeby nie zrobiła tego za szybko.
+- **Fast travel przez barierę:** oficjalnie Strażnik „na sam koniec”, przed swoim „upadkiem”, przekazał zmodyfikowaną formułę / kręgi portali, które działają mimo bariery. Naprawdę działają, bo to jego bariera i jego sieć — sam wie, jak ją przepuścić (kolejna poszlaka dla uważnego gracza).
+- **Wyrwę w ściekach Strażnik zostawił celowo** — żeby bohater mógł wyjść z miasta i ostatecznie wyłączyć maszynę arcymaga. Jego „heroiczne” przebicie bariery przed „śmiercią” to część tej samej manipulacji.
+
+#### Bossy i wspomnienia (prawda)
+
+- Strażnik najpierw **testował wysysanie wiedzy i zyskiwanie z niej mocy na potworach**: przekazywał im pochłoniętą wiedzę i moc — i to właśnie przez to **stały się bossami**.
+- Pokonanie bossa uwalnia wiedzę, którą w sobie nosił. **Maszyna arcymaga wyłapuje te wspomnienia i oddaje je ludziom** — dlatego bohaterowie (i mieszkańcy) odzyskują część wspomnień, a maszyna robi kolejny krok.
+- **Strażnik od dawna chciał odebrać bossom wiedzę i moc** (zebrać owoce swojego testu), **ale maszyna arcymaga go blokowała.**
+- **Po zniszczeniu maszyny wiedza i moc wracają do bossów** — a bez maszyny nic już nie przeszkadza Strażnikowi, żeby im je odebrać i przejąć całość. Jednocześnie nie ma kontry na jego czar, więc NPC tracą pamięć (patrz pkt 5–6 wyżej).
+- Dlatego Strażnikowi zależy na zniszczeniu maszyny — bohater, niszcząc ją, wykonuje za niego cały plan.
 
 > **Spójność mechaniki z narracją:** liczba potrzebnych „kroków" urządzenia odpowiada dokładnie liczbie bossów w grze (zarówno main-path fragmenty, jak i middle bosse). Gracz sam, przez całą kampanię, nieświadomie napędzał urządzenie arcymaga do działania.
 
@@ -69,10 +87,17 @@ Boss fight z arcymagiem      → po walce: pełne odkrycie, zniszczenie, koniec 
 Arcymag ginie pośmiertnie    → chroni drużynę, otwiera ścieżkę na Strażnika
 ```
 
+> **Po ostatnim fragmencie** (fragmenty to klucz do ukrytego poziomu Library): powrót do miasta **bez fast travelu**. Maszyna wciąż działa, więc pokonani bossowie nie wracają.
+
 > **Kluczowy moment po fragmencie 3:** wyłączenie fast travelu i wzmocnienie potworów jest natychmiastowe. Bohater stwierdza, że to niemożliwe, żeby ktokolwiek inny uruchomił sieć waypointów Strażnika — pierwsze otwarte podejrzenie.
 
 ### Otwarte decyzje fabularne
-- [ ] Czy Strażnik jest bezpośrednim bossem finałowym, czy ucieka/znika po odkryciu prawdy?
+- [ ] Prawdziwy powód bariery: A) ukrycie testu zaklęcia przed światem (żeby się nie wydało / nie za szybko), B) spowolnienie maszyny arcymaga, czy oba naraz? Oba warianty pasują do fabuły i się nie wykluczają.
+- [x] Mechanika przepływu wiedzy — rozwiązane: maszyna wyłapuje wiedzę uwolnioną z bossów i oddaje ją ludziom; po jej zniszczeniu nie ma kontry na czar, arcymag osłania tylko drużynę, wszyscy NPC zapominają.
+- [x] Bariera a fast travel — rozwiązane: Strażnik „na sam koniec” dał zmodyfikowaną formułę / kręgi fast travelu działające przez barierę (patrz „Bariera wokół miasta”).
+- [ ] Bossy po zniszczeniu maszyny: po ostatnim fragmencie (klucz do ukrytego poziomu Library) jest powrót do miasta bez fast travelu — maszyna jeszcze działa, więc bossowie wtedy **nie wracają**. Po arcymagu i zniszczeniu maszyny: osobny bossfight ze Strażnikiem gdzie indziej — czy i jak wracają wtedy bossowie (odrodzeni, jako część walki ze Strażnikiem?) i gdzie jest ta walka — do ogarnięcia później.
+- [x] Czy Strażnikowi zależy na pokonywaniu bossów — tak: to on dał narrację, że wspomnienia są fałszywe, a celem jest zniszczenie maszyny; bohater idący przez bossy do zamku realizuje jego plan (to, że każdy boss przyspiesza maszynę, jest ceną, którą Strażnik akceptuje).
+- [x] Strażnik jest bossem finałowym — osobny bossfight po arcymagu i zniszczeniu maszyny, w innym miejscu (lokalizacja do ustalenia).
 - [ ] Ile bossy = ile kroków urządzenia? (Czy wszystkie bosse w grze, czy tylko main path?)
 
 ---
@@ -138,12 +163,12 @@ Jeśli gracz wpisał jedno ze specjalnych imion, komunikaty po bossach lub NPC-e
 
 ## Tajne wejście na zamek (opcjonalne)
 
-**Mechanika losowa per save:** po jednej z trzech map (Desert Temple / Forge / las+zima) znajduje się ukryte, zniszczone lub zablokowane wejście na zamek. Losowane jest *które* z trzech wejść jest aktywne w danym save.
+**Mechanika losowa per save:** losowana jest jedna z trzech odnóg (Desert Temple / Forge / las+zima), a w niej **losowo jeden z jej ostatnich poziomów** — tam znajduje się ukryte, zniszczone lub zablokowane wejście na sekcję side-scroller, która prowadzi **między tą odnogą a murami zamku**.
 
 **Dostępność:** wejście jest widoczne i dostępne **od razu** po wejściu na daną mapę — ale przejście za bramę jest niemożliwe bez odpowiedniego skilla. Można eksplorować obszar przed bramą, nie można przejść dalej.
 
-### Segment 2D side-scroller (przy bramie)
-Przy odkryciu wejścia gra przełącza się na **krótki segment 2D side-scrollerowy** — żeby gracz poczuł skalę zamku i zobaczył, jak wygląda ta konkretna brama (każdy biom ma inny styl).
+### Segment 2D side-scroller (odnoga → brama w murach zamku)
+Po przejściu przez wejście gra przełącza się na **krótki segment 2D side-scrollerowy** — przejście od odnogi pod mury zamku, do bramy (brama jest częścią murów), żeby gracz poczuł skalę zamku i zobaczył, jak wygląda ta konkretna brama (każdy biom ma inny styl).
 
 ### Rodzaje blokad i wymagane skille (biom-specific)
 
@@ -177,7 +202,7 @@ Każda postać ma **4 aktywne skille** + **1 skill combo (5.)** korzystający z 
 
 - **Jednostronny** (tylko Library → Garden), ale **wielokrotnego użytku**.
 - Teleportuje bezpośrednio do ogrodów zamkowych (wejście do strefy Garden).
-- Fizyczna brama z Fairy Forest do Garden jest otwarta po zebraniu 3 fragmentów — scroll daje skrót z poziomu Library bez przechodzenia całej trasy powrotnej.
+- Fizyczne przejście przez mury zamkowe **otwiera się od wewnątrz** — dopiero gdy gracz jest już w zamku (wszedł scrollem albo tajnym wejściem). Potem służy jako skrót z zewnątrz.
 - Scroll wygląda jak dowód winy arcymaga (jest sygnowany jego imieniem) — dopóki prawda nie wyjdzie na jaw.
 
 ---
@@ -260,7 +285,7 @@ Typy: `multiple_choice`, `true_false`, `fill_text`, `fill_tiles`, `matching`.
 ## Otwarte zadania
 
 **Fabularne:**
-- [ ] Czy Strażnik jest bossem finałowym, czy ucieka/znika po ujawnieniu prawdy?
+- [x] Strażnik jest bossem finałowym — osobny bossfight po arcymagu, miejsce do ustalenia (patrz „Otwarte decyzje fabularne”).
 - [ ] Ile kroków urządzenia = ile bossów? Czy liczą się tylko main-path bosse, czy też opcjonalne?
 - [ ] Konkretne poszlaki i ich rozmieszczenie (dzienniki, ślady walki) między Fairy Forest a Library.
 
@@ -271,6 +296,10 @@ Typy: `multiple_choice`, `true_false`, `fill_text`, `fill_tiles`, `matching`.
 - [ ] Projekt NPC-ów w Hideout i ich upgrade po otwarciu tajnego wejścia.
 - [ ] Mechanika bocznej ścieżki/łódki powrotu do Hideout gdy brak skilla.
 - [ ] Wizualizacja postępu urządzenia arcymaga (UI, animacja) — jak śledzone przez całą grę?
+- [ ] **Więcej bohaterów w drużynie** — dodatkowe postacie (skład, kiedy dołączają, role w walce, własne skille), spójne z fabułą (arcymag osłania całą drużynę) i z UI walki.
+
+**Referencje (do dostarczenia przez autora):**
+- [ ] Przykłady z innych JRPG / gier RPG Maker / serii FNaFB (tą autor zna najlepiej) — jako kontekst, jak ma wyglądać gra: UI (walka, menu, dialogi), balans (staty, obrażenia, tempo levelowania), struktura map i drużyny. Zrzuty / linki / nazwy scen + co konkretnie z nich brać.
 
 **Assety:**
 - [ ] Desert Temple (reskin Desert), Volcano (przedsionek Forge), Dense Forest, biom zimowy — zmodyfikowane warianty lub 16×16 z sieci.
