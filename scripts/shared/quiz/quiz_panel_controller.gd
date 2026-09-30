@@ -64,15 +64,18 @@ var show_index_prefix := true
 var _tf_selected_idx: int = 0
 
 
-func setup(p_command_vbox: VBoxContainer) -> void:
+## `nodes`: węzły przeniesione poza panel quizu (np. pytanie i czas w oknie u góry ekranu) —
+## question_label, timer_label, timer_bar, result_label, correct_answer_label; brak klucza = ścieżka
+## domyślna w command_vbox / QuizPanel.
+func setup(p_command_vbox: VBoxContainer, nodes: Dictionary = {}) -> void:
 	command_vbox = p_command_vbox
 	quiz_panel = command_vbox.get_node("QuizPanel") as VBoxContainer
-	result_label = command_vbox.get_node("ResultLabel") as Label
-	correct_answer_label = command_vbox.get_node("CorrectAnswerLabel") as Label
-	question_label = quiz_panel.get_node("QuestionLabel") as Label
+	result_label = _pick(nodes, "result_label", command_vbox, "ResultLabel") as Label
+	correct_answer_label = _pick(nodes, "correct_answer_label", command_vbox, "CorrectAnswerLabel") as Label
+	question_label = _pick(nodes, "question_label", quiz_panel, "QuestionLabel") as Label
 	hint_label = quiz_panel.get_node("HintLabel") as Label
-	timer_label = quiz_panel.get_node("TimerLabel") as Label
-	timer_bar = quiz_panel.get_node("TimerBar") as ProgressBar
+	timer_label = _pick(nodes, "timer_label", quiz_panel, "TimerLabel") as Label
+	timer_bar = _pick(nodes, "timer_bar", quiz_panel, "TimerBar") as ProgressBar
 	mc_box = quiz_panel.get_node("MC_Box") as Control
 	mc_buttons = [
 		mc_box.get_node("Btn0") as Button,
@@ -110,6 +113,10 @@ func setup(p_command_vbox: VBoxContainer) -> void:
 		if _answering:
 			_submit_answer(answer_matching())
 	)
+
+
+func _pick(nodes: Dictionary, key: String, parent: Node, path: String) -> Node:
+	return nodes[key] if nodes.has(key) and nodes[key] != null else parent.get_node(path)
 
 
 func apply_visual_style(button_styler: Callable) -> void:
