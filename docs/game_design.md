@@ -167,8 +167,8 @@ Jeśli gracz wpisał jedno ze specjalnych imion, komunikaty po bossach lub NPC-e
 
 **Dostępność:** wejście jest widoczne i dostępne **od razu** po wejściu na daną mapę — ale przejście za bramę jest niemożliwe bez odpowiedniego skilla. Można eksplorować obszar przed bramą, nie można przejść dalej.
 
-### Segment 2D side-scroller (odnoga → mury zamku)
-Po przejściu przez wejście gra przełącza się na **krótki segment 2D side-scrollerowy** — przejście od odnogi pod mury zamku, żeby gracz poczuł skalę zamku i zobaczył, jak wygląda ta konkretna brama (każdy biom ma inny styl).
+### Segment 2D side-scroller (odnoga → brama w murach zamku)
+Po przejściu przez wejście gra przełącza się na **krótki segment 2D side-scrollerowy** — przejście od odnogi pod mury zamku, do bramy (brama jest częścią murów), żeby gracz poczuł skalę zamku i zobaczył, jak wygląda ta konkretna brama (każdy biom ma inny styl).
 
 ### Rodzaje blokad i wymagane skille (biom-specific)
 
