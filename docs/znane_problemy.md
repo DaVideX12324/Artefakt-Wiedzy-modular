@@ -21,7 +21,8 @@
 ### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, losowe spotkania
 - Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
   tła `scripts/quiz/battle_background.gd` + `background_generators/*`.
-- **Interfejs walki** — do poprawy (szczegóły do ustalenia z userem).
+- **Interfejs walki** — do poprawy; kierunek (user, 2026-09-30): **jak w grach RPG Maker** (MV/MZ-owy układ
+  ekranu bitwy — szczegóły do ustalenia przy realizacji).
 - **Wrogowie za nisko, mimo że w edytorze pole jest wyżej**: kontroler (ok. linii 1818) nadpisuje wysokość
   i przesunięcie sekcji wrogów wartościami z tła (`get_enemy_layout_config`: `enemy_section_height`,
   `enemy_section_bottom_offset`, mnożniki marginesów rzędów) — ustawienia sceny w edytorze nie działają.
