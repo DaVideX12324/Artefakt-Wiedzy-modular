@@ -17,7 +17,9 @@ Spłaszczanie wybrzuszeń (`ShortBulgeFlattenPass`) **usunięte** 2026-09-29 —
 2H gdy grubość 2 (albo wymuszone); łącznik CONNECTOR przy przejściu 2H↔3H; narożnik out; STEP
 (`step_placer`): grubość 3–5 i schodek o 1 z przynajmniej jednej strony (skok 1 do wyższego sąsiada
 albo sąsiad naprzeciw o 1 niżej — `EdgeAnalyzer.slope_2h_steps`, od 2026-09-30) → skos 2H, w innym razie
-narożnik schodka 3H (3 kafle).
+narożnik schodka 3H (3 kafle). Płaska kolumna fasady (grubość 3–5) z sąsiadem o 1 niżej z dokładnie jednej
+strony to górny koniec skosu — też kafel skosu 2H (`EdgeAnalyzer.slope_2h_end_side`, `StepPlacer.place_slope`);
+szczyt (niżej z obu stron) zostaje 3H.
 
 ## Siatka po preprocessingu
 
