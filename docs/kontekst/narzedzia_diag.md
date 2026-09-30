@@ -17,6 +17,11 @@ headless; zrzut z renderowaniem UI — bez `--headless`, z `--resolution 1920x10
 | `time_islands.gd` | czas wyszukiwania wysp | — |
 | `diag_loading_screen*.gd`, `shot_loading_*.gd` | ekran ładowania (test, zrzuty) | `SHOT_OUT`, `LOC` |
 | `diag_detection_radius.gd` | własny kształt DetectionArea na wroga | — |
+| `diag_nav_reach.gd` | osiągalność w siatce nawigacji (kawałki, jak w grze) dla losowych par kratek; miejsca przerw | `NR_SEED`, `NR_SIZE`, `NR_PAIRS`, `NR_OBJ` (1/0), `NR_MAXPOLY` (limit wielokątów zapytania, 0 = bez) |
+
+Mapa nawigacji w kawałkach wczytuje się asynchronicznie — test po `setup_navigation_region` czeka na
+wszystkie kawałki i stałe `map_get_iteration_id` (jak `diag_enemy_chase`), inaczej pod obciążeniem
+zapytania trafiają w niepełną mapę. Każdy wariant (np. z obiektami / bez) w osobnym procesie.
 
 Porównanie przed/po: `git stash push -q -- <pliki>` → uruchom → `git stash pop -q` (uważać, żeby nie
 stashować zmian usera — zawsze podawać ścieżki).
