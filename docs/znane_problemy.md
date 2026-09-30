@@ -54,6 +54,27 @@
 - Do ustalenia przy realizacji: skąd tier skrzyni (głębokość / poziom mapy / nisza vs pokój), zapis stanu (otwarte skrzynie / odwiedzone
   sekretne pokoje per save, jak pokonani bossowie).
 
+### Spójna ścieżka postępu między mapami (kierunki wejść i wyjść)
+- Zgłoszenie 2026-09-30. Kolejne mapy mają układać się w jedną ciągłą trasę: jeśli mapa ma wejście na
+  południu i wyjście na północy, następna musi mieć wejście na południu (przyszliśmy z jej południa), a nie
+  wyjście na południe — inaczej mapy „nakładają się” w wyobrażonej przestrzeni świata. Tak samo przy
+  powrocie (mapy wstecz): wyjście poprzedniej = wejście bieżącej po przeciwnej stronie.
+- Dziś krawędź portalu wybiera `PortalGenerator.carve_portal_alcove` (najbliższa krawędź pokoju, wyjście
+  tylko `avoid_edge` = inna niż wejście) — bez wiedzy o sąsiednich mapach. Punkty zaczepienia: łańcuch map
+  (`ProceduralLevel.next_level_path` / `level_key`, seedy w `lsm.set_map_seed`), `level_manager.change_level`.
+- Pomysł: zapisywać per mapa krawędź wejścia i wyjścia (albo pozycję mapy na siatce świata) i przekazywać
+  generatorowi wymuszoną krawędź wejścia (= przeciwna do wyjścia poprzedniej) oraz dozwolone krawędzie
+  wyjścia (nie w stronę już odwiedzonych pól siatki).
+
+### Nowe flagi generatora: kształt pokoi, wejście na środku mapy
+- Zgłoszenie 2026-09-30.
+- **Kształt pokoi** do wyboru flagą (np. organiczne jak dziś / prostokątne / okrągłe / mieszane) — dziś
+  pokoje rzeźbi `OrganicCaveRoomCarver` przez `RoomCarverFactory`; flaga w `GenerationFlags` + `caves.json`
+  i wybór carvera w fabryce.
+- **Wejście na środku mapy** (zamiast przy krawędzi) — szczególnie dla map ścieków (np. zejście włazem
+  z góry). Dziś `PortalGenerator.carve_portal_alcove` zawsze wycina wnękę przy krawędzi mapy; potrzebny
+  tryb portalu w pokoju (strefa wejścia bez wnęki), zgodny z płaskowyżami (`_portal_area`) i spawnami.
+
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
