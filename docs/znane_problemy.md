@@ -140,7 +140,8 @@
 - **Etap `entities`** jest ciężki przez odtwarzanie sceny `slime_tutorial` przy każdej instancji
   (ostrzeżenie „re-save this scene”) — po ponownym zapisie sceny w edytorze powinno spaść.
 - `closed_chest_tutorial.tscn` ma nieaktualny UID tekstury (ostrzeżenie „invalid UID … using text path”)
-  — do ponownego zapisu w edytorze.
+  — do ponownego zapisu w edytorze. To samo dotyczy prawie wszystkich `resources/enemies/*.tres`
+  (SpriteFrames orków, dzika, bandytów, slime'ów…, sprawdzone 2026-09-30) — grafiki ładują się po ścieżce.
 
 ## Pułapki konfiguracji (działa zgodnie z założeniem, ale łatwo się naciąć)
 - Wróg z przypisanym `enemy_data` bierze `detection_radius` (i inne statystyki) z niego, nie z inspektora
@@ -175,7 +176,8 @@
 - UI walki WYSIWYG (2026-09-30, 157473c, d914538, 7e61f2f): wygląd w quiz_combat_ui.tscn + motyw
   resources/ui/quiz_theme.tres; pola walki per tło w `<grafika>_layout.tres` (BattleBackgroundLayout:
   lista pól BattleField — trapezy z rzędami, pojemnością i skalą głębi, 622a098) — edycja graficzna w
-  scenes/tools/battle_layout_preview.tscn. Dawne „wrogowie za nisko” (kontroler nadpisywał scenę
+  scenes/tools/battle_layout_preview.tscn (narożniki „eksplodujące” do NaN — 9b00207; lista grafik
+  i liczba wrogów na pole w podglądzie — 169e294; szczegóły: docs/kontekst/walka.md). Dawne „wrogowie za nisko” (kontroler nadpisywał scenę
   wartościami z kodu tła) i „marginesy pola walki per tło jako .tres” — rozwiązane tym samym.
 - Freeze po pokonaniu potwora (2026-09-30, aa8d686): na mapie gracz stał, aż wróg zniknie (stan EXPLORING
   dopiero po animacji). Teraz rusza od razu i ma 5 s nietykalności na kolejne walki (miga). Czekanie na
