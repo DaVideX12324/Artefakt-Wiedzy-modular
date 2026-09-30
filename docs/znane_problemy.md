@@ -105,15 +105,18 @@
   przez ścianę; 500×500 382 w obu, 0 tylko w całej, 5 tylko w kawałkach. Ostrzeżenia „edge error(s)” przy
   synchronizacji były już przy całej mapie (cienkie przejścia). Mapa nawigacji wczytuje regiony
   asynchronicznie (kilka klatek fizyki) — do tego czasu wróg bez ścieżki idzie prosto tylko przy czystej linii.
-- **Na 500×500 ~1/3 losowych par kratek z jednej spójnej części mapy nie ma ścieżki w siatce** (seed 184356).
-  Diagnoza 2026-09-30 (`tests/diag_nav_reach.gd`, lokalnie): **bez obiektów 0 / 300**, z obiektami 94 / 300,
-  a licząc spójność po kratkach z przeszkodami (jak planer obiektów) 102 / 300. Nie kawałki (przerwy nie leżą
-  na brzegach 64×64) ani cell_size / merge_rasterizer_cell_scale siatki (0,5–4 px i 0,1 — wynik identyczny).
-  Przeszkody jako całe kratki zamiast dokładnych kształtów: 64 / 300 — więc już planer (`_verify_reach`,
-  BFS po kratkach, 4-sąsiedzi) dopuszcza przejścia, przez które agent o promieniu 7 px nie przejdzie
-  (szczeliny 1 kratki przy ścianie / skosie / barierze, dokładne kształty zwężają je dalej). Do decyzji:
-  osiągalność w planerze z marginesem agenta (np. maska przeszkód poszerzona o promień agenta, sprawdzana
-  w rastrze drobniejszym niż kratka) albo weryfikacja na wypieczonej siatce i zdejmowanie przeszkód przy przerwach.
+- **Na 500×500 ~1/3 losowych par kratek nie miało ścieżki** (seed 184356) — wyjaśnione 2026-09-30
+  (`tests/diag_nav_reach.gd`, lokalnie): to **limit zapytania Godota `path_search_max_polygons` = 4096**
+  (map_get_path / query_path — po nim ścieżka do punktu najbliższego celu), nie siatka. Obiekty mnożą
+  wielokąty (dziury), więc długie zapytania przez 500×500 go przekraczają. Bez limitu: 1 / 300 (rzadkie
+  prawdziwe zwężenie przez przeszkodę), po zmianie w planerze (osiągalność jak dla wroga, niżej) 0 / 300.
+  Wrogowie też pytają z limitem 4096 (`enemy_base.gd`, pościg / wałęsanie), ale ich ścieżki są krótkie.
+  Podniesienie limitu u nich — tylko gdy pojawią się długie trasy (bez limitu nieosiągalny cel przeszukuje
+  całą mapę przy każdym przeliczeniu ścieżki).
+- **Planer obiektów sprawdza osiągalność jak wróg** (`ObjectPlanner._clearance` / `_bfs_agent`): po środkach
+  kratek, z odstępem promienia agenta (7 px) od dokładnych obrysów przeszkód (`NavOutlines.placement_outlines`,
+  te same co siatka); odcięty teren -> zdejmowane przeszkody w promieniu 2 kratek. 250×250: -18 z 2623 obiektów,
+  etap osiągalności 26 -> 40 ms.
 - **Pętla naprawy płaskowyżów** (`PlateauPass._solve`) ~750 ms na 250×250 (BFS po mapie × ~8 iteracji) —
   kandydat na płaskie tablice (jak w `ObjectPlanner`).
 - **Planer obiektów** ~95–110 ms na 250×250 przy ~500 obiektach, ale z pełnym katalogiem caves
