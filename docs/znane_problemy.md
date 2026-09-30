@@ -18,7 +18,7 @@
   **nie stawiać narożników wewnętrznych na górze** — powstaje wtedy ładne przejście.
 - Taka nisza **nie może mieć sekretnego pokoju** (ani przejścia do niego) — por. wpis o zawartości nisz out.
 
-### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, freeze, losowe spotkania
+### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, losowe spotkania
 - Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
   tła `scripts/quiz/battle_background.gd` + `background_generators/*`.
 - **Interfejs walki** — do poprawy (szczegóły do ustalenia z userem).
@@ -31,8 +31,6 @@
   tła, granice pola walki, głębia / odstępy rzędów) — jeden `.tres` obok każdej grafiki w
   `battle_backgrounds/<biom>/`, edycja w inspektorze; opcjonalnie scena `@tool` rysująca granice na tle
   (ustawianie wzrokowo). Cel: wrogowie nie stoją na ścianie tła, odpowiednia głębia (rzędy).
-- **Długi freeze po pokonaniu potwora**: do zbadania — w kontrolerze są sekwencje `await create_timer(...)`
-  (1.0–1.5 s) i komunikaty przed końcem walki, do tego zamknięcie sceny i powrót na mapę; zmierzyć, co trwa.
 - **Losowe spotkania jak w JRPG**: wrogowie niewidoczni na mapie, walka zaczyna się nagle podczas chodzenia.
   Tryb obok obecnego (wrogowie widoczni) — np. włącza się po pokonaniu wszystkich wrogów na mapie; zasada
   do ustalenia (per mapa / per biom, szansa na krok, strefy bez spotkań: portale, schody, sekretne pokoje).
@@ -158,6 +156,10 @@
   przed zmianami. Pojedynczy FAIL tam to jeszcze nie regresja; powtórzyć kilka razy.
 
 ## Rozwiązane (dla kontekstu)
+- Freeze po pokonaniu potwora (2026-09-30, aa8d686): na mapie gracz stał, aż wróg zniknie (stan EXPLORING
+  dopiero po animacji). Teraz rusza od razu i ma 5 s nietykalności na kolejne walki (miga). Czekanie na
+  ekranie walki (komunikaty zwycięstwa, pomijalne Enterem) zostaje — decyzja usera. XP było dodawane dwa
+  razy (ekran walki + mapa) — zostało tylko na ekranie walki (1673bde).
 - Spłaszczanie wybrzuszeń (`ShortBulgeFlattenPass`, flaga `enable_bulge_flatten`) usunięte 2026-09-29
   (decyzja usera po porównaniu par z przebiegiem / bez): kształty ścian zostają naturalne, a kafle
   poprawiają wymuszone 2H małych filarów i `ShortLedgeRaisePass`.
