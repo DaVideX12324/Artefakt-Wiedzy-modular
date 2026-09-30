@@ -151,7 +151,7 @@
 ## Rozwiązane (dla kontekstu)
 - UI walki WYSIWYG (2026-09-30, 157473c, d914538, 7e61f2f): wygląd w quiz_combat_ui.tscn + motyw
   resources/ui/quiz_theme.tres; pola walki per tło w `<grafika>_layout.tres` (BattleBackgroundLayout:
-  lista pól BattleField z rzędami, pojemnością, skalą, wcięciem) — edycja graficzna w
+  lista pól BattleField — trapezy z rzędami, pojemnością i skalą głębi, 622a098) — edycja graficzna w
   scenes/tools/battle_layout_preview.tscn. Dawne „wrogowie za nisko” (kontroler nadpisywał scenę
   wartościami z kodu tła) i „marginesy pola walki per tło jako .tres” — rozwiązane tym samym.
 - Freeze po pokonaniu potwora (2026-09-30, aa8d686): na mapie gracz stał, aż wróg zniknie (stan EXPLORING
