@@ -35,9 +35,13 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 
 ### Wersja oficjalna (cel gracza na początku)
 
-Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (krąg/maszynę), które wg oficjalnej wersji (czyli wersji Strażnika) **nadpisuje pamięć mieszkańców fałszywą rzeczywistością — żeby nikt nie mógł arcymaga powstrzymać**. Im dłużej działa, tym bardziej destruktywne skutki — gdy osiągnie 100%, procesu nie będzie już dało się odwrócić. Żeby nikt mu nie przeszkodził, **arcymag zamknął miasto za magiczną barierą**. Strażnik stanął przeciw niemu i poległ — ale zanim został pokonany, **zrobił w barierze wyrwę wewnątrz ścieków**, przez którą da się wydostać za miasto (stąd droga Sewer → Cemetery). Cel gracza: wydostać się ściekami, dostać się do zamku, pokonać arcymaga, zniszczyć urządzenie zanim dobije do pełni.
+Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (krąg/maszynę), które wg oficjalnej wersji (czyli wersji Strażnika) **nadpisuje pamięć mieszkańców fałszywą rzeczywistością — żeby nikt nie mógł arcymaga powstrzymać**. Im dłużej działa, tym bardziej destruktywne skutki — gdy osiągnie 100%, procesu nie będzie już dało się odwrócić. Żeby nikt mu nie przeszkodził, **arcymag zamknął miasto za magiczną barierą**. Strażnik stanął przeciw niemu i poległ — ale zanim został pokonany, **zrobił w barierze wyrwę wewnątrz ścieków**, przez którą da się wydostać za miasto (stąd droga Sewer → Cemetery). Cel gracza: wydostać się ściekami, przebić się przez bossów strzegących fragmentów klucza, dostać się do zamku, pokonać arcymaga, zniszczyć urządzenie zanim dobije do pełni.
 
-**Dlaczego pokonanie bossa przywraca część wspomnień (oficjalnie):** pokonane potwory oddają swoją manę maszynie arcymaga — i to ona „przywraca” wspomnienia (a wg wersji oficjalnej: wszczepia kolejne fałszywe).
+**Dlaczego bohater pokonuje bossów (oficjalnie):** bossowie to potwory **wzmocnione przez arcymaga** i postawione na straży drogi do zamku — każdy pilnuje fragmentu klucza (fragmenty otwierają ukryty poziom Library, a stamtąd scroll do Garden i dalej do zamku). Bohater nie walczy z nimi po to, żeby cokolwiek „przywracać” — walczy, bo **bez fragmentów nie dojdzie do arcymaga**, a każdy pokonany boss to jeden sługus maga mniej. Wg Strażnika nie ma innej drogi.
+
+**Wspomnienia po bossie (oficjalnie) to skutek uboczny, a nie cel:** bohater nie ma powodu ich pragnąć — Strażnik przedstawia je jako **fałszywe wspomnienia, „echa” urządzenia arcymaga**, które przeciekają do głów, gdy maszyna wchłania uwolnioną z bossa siłę. Ostrzega, żeby im nie ufać, i każe iść dalej do zamku, żeby maszynę zniszczyć. Bohater więc nie „odzyskuje pamięci” z własnej woli, tylko znosi jej skutki uboczne w drodze do celu.
+
+**Zamierzona ironia:** wg wersji oficjalnej gracz idzie zniszczyć maszynę, a robiąc to pokonuje kolejnych bossów — czyli **tylko pomaga arcymagowi**, czyli temu „złemu” (patrz „Prawda”: każdy boss to krok maszyny). Bohater nie wie, że jego postęp napędza urządzenie; Strażnik jest jedynym, który to wie.
 
 ### Prawda
 
@@ -70,7 +74,9 @@ Arcymag — mag nadworny/królewski — uruchomił tajne urządzenie magiczne (k
 
 > **Widoczność postępu — trigger pierwszego wskaźnika:** wskaźnik/indicator pojawia się **po raz pierwszy po pokonaniu jakiegokolwiek pierwszego bossa** (whichever comes first). Kolejne bosse zwiększają go dalej.
 
-> **Komunikat po każdym bossie:** po pokonaniu bossa bohaterowie otrzymują informację, że „odzyskują wspomnienia" / „mgła umysłu nieco opada" — sformułowaną celowo **dwuznacznie**: nie wiadomo, czy chodzi o powrót prawdziwych wspomnień (działanie urządzenia arcymaga) czy o narastanie fałszywych (wersja Strażnika). Gracz czyta te komunikaty przez pryzmat tego, w co aktualnie wierzy.
+> **Komunikat po każdym bossie:** po pokonaniu bossa bohaterowie otrzymują informację, że „odzyskują wspomnienia" / „mgła umysłu nieco opada" — sformułowaną celowo **dwuznacznie**: nie wiadomo, czy chodzi o powrót prawdziwych wspomnień (prawda) czy o narastanie fałszywych, „echa" maszyny (wersja oficjalna Strażnika). Gracz czyta te komunikaty przez pryzmat tego, w co aktualnie wierzy.
+
+> **Wskaźnik postępu a wersja oficjalna:** oficjalnie bohater walczy z bossami dla fragmentów klucza, a nie dla wskaźnika — wskaźnik maszyny to dla niego tylko ostrzeżenie „ile czasu zostało do zamku”. Dopiero uważny gracz zauważy, że rośnie dokładnie po bossach.
 
 ### Sekwencja odkrywania poszlak
 
