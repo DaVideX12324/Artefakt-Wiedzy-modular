@@ -65,9 +65,14 @@
   skrzynie; większe sceny interaktywne mogą wymagać własnego originu.
 
 ## Wydajność
-- **Wypiekanie siatki nawigacji** ~1 s na 250×250 (w wątku roboczym, etap „Ścieżki przeciwników”);
-  mapa nawigacji wczytuje region asynchronicznie (~12 klatek fizyki) — do tego czasu wróg bez ścieżki
-  idzie prosto tylko przy czystej linii.
+- **Wypiekanie siatki nawigacji** — w kawałkach 64×64 kratek (`NavOutlines.build_chunks`, jeden
+  `NavigationRegion2D` na kawałek pod węzłem `NavigationRegion2D`), w wątku roboczym, etap „Ścieżki
+  przeciwników”. Cała mapa naraz rosła dużo szybciej niż pole przez obrysy przeszkód (seed 184356:
+  250×250 7 s, 500×500 ~5,5 min w wolnym kontenerze, u autora ~63 s); w kawałkach 0,2 s / 0,8 s. Brzegi kawałków bez zwężania
+  o promień agenta (`baking_rect` + `border_size`), regiony łączy serwer nawigacji; ścieżki vs cała mapa:
+  400/400 par osiągalnych, średnio 0,995 długości, żadna przez ścianę. Ostrzeżenia „edge error(s)” przy
+  synchronizacji były już przy całej mapie (cienkie przejścia). Mapa nawigacji wczytuje regiony
+  asynchronicznie (kilka klatek fizyki) — do tego czasu wróg bez ścieżki idzie prosto tylko przy czystej linii.
 - **Pętla naprawy płaskowyżów** (`PlateauPass._solve`) ~750 ms na 250×250 (BFS po mapie × ~8 iteracji) —
   kandydat na płaskie tablice (jak w `ObjectPlanner`).
 - **Planer obiektów** ~95–110 ms na 250×250 przy ~500 obiektach, ale z pełnym katalogiem caves
