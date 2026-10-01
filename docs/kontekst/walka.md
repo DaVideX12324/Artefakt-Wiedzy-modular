@@ -9,6 +9,13 @@
 - Motyw `resources/ui/quiz_theme.tres` (typy QuizWindow / QuizLog / QuizMenuItem, styl „selected”),
   czcionka Jersey 15 (`resources/ui/jersey15_pixel.res`) w całym quiz_rpg przez `QuizTheme.apply()` —
   rozmiary na siatce 27 px (`QuizTheme.snap`). Oba pliki generuje `tests/build_quiz_theme.gd`.
+- Przebieg tury: Walcz / Uciekaj (lewo) → **wybór postaci** — kursor (styl „selected” pod wierszem)
+  na liście drużyny w prawym oknie, mysz / strzałki, martwe pomijane → komendy tej postaci
+  (`_active_actor_index`: koszty SP/TP, przedmioty) → cel. Esc cofa o krok (komendy → wybór postaci →
+  Walcz). Kursory menu prowadzi kontroler — przyciski komend mają `FOCUS_NONE` (fokus Godota zjadał
+  strzałki / Enter).
+- Quiz (`scripts/shared/quiz/quiz_panel_controller.gd`): nawigacja odpowiedzi wg `MC_Box.columns`
+  (w scenie 1 kolumna; wcześniej zakładała 2×2 i strzałka w dół skakała o 2).
 - **Asset UI od usera** (tło okien) -> jedno miejsce: `quiz_theme.tres`, typ QuizWindow.
 - XP dodawane tylko na ekranie walki; po wygranej gracz rusza od razu, 5 s nietykalności
   (`player.grant_encounter_immunity`, miganie). Komunikaty zwycięstwa czekają (Enter pomija) — decyzja usera.
