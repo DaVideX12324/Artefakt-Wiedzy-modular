@@ -19,3 +19,6 @@ Pełniejsze listy: `docs/znane_problemy.md` (sekcje „Do zrobienia” i „Rozw
 UI walki (2026-09-30): scena `scenes/quiz/quiz_combat_ui.tscn` + motyw `resources/ui/quiz_theme.tres`
 (czcionka Jersey 15, typy QuizWindow / QuizLog / QuizMenuItem) są WYSIWYG; pola walki per tło —
 `assets/textures/battle_backgrounds/**/<grafika>_layout.tres`, edycja w `scenes/tools/battle_layout_preview.tscn`.
+Przypomnienia na start sesji Claude Code: hook `SessionStart` w `.claude/settings.json` uruchamia
+`.claude/hooks/przypomnienia.sh` — każde przypomnienie sprawdza stan repo i znika samo, gdy sprawa jest
+załatwiona (dziś: pliki `.import` poza repo). Nowe przypomnienie = nowy blok w tym skrypcie.
