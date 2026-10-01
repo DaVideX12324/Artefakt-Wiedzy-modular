@@ -53,7 +53,7 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 - Arcymag uruchomił w zamku **tajną maszynę**, która **nadpisuje ludziom wspomnienia fałszywą rzeczywistością** — „mgła” to jej robota. Robi to, żeby **nikt nie mógł go powstrzymać**.
 - Maszyna działa coraz mocniej; **gdy dobije do pełni, nie da się już tego odwrócić** — wszyscy będą żyć w świecie, który arcymag im wpisał.
 - Żeby nikt mu nie przeszkodził, arcymag **zamknął miasto barierą**, a potwory w okolicy **wzmocnił** i postawił na straży.
-- Strażnik walczył z nim i **poległ** — ale przed śmiercią **przebił w barierze wyrwę w ściekach** i zostawił swoją sieć kręgów, działającą mimo bariery.
+- Strażnik walczył z nim i **poległ** — ale przed śmiercią **przebił w barierze wyrwę w ściekach** i — jak wiedzą ludzie — **zostawił zwój**, który pozwala **zmodyfikować kręgi teleportacyjne tak, żeby działały przez barierę**.
 - *(propozycja)* **Głos Strażnika** — jego ostatnia wiadomość zapisana w kręgach teleportacyjnych — prowadzi bohatera: przy każdym aktywowanym kręgu mówi, dokąd iść, których bossów osłabić, i ostrzega, że wspomnienia wracające po walkach to **fałszywe „echa” maszyny**, którym nie wolno ufać. (Tak „poległy” Strażnik może dawać wskazówki przez całą grę.)
 
 ### Cel gracza
