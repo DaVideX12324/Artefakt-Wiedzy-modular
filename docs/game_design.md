@@ -123,6 +123,10 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - **Faza 1 — bohater sam.** Na start walki Strażnik **zabiera wspomnienia wszystkim towarzyszom** bohatera — znikają z walki. Bohater zostaje solo i **wygrać się tego nie da**.
 - Strażnik w fazie 1 **nie używa potężnych skilli** — tylko zwykły atak i statusy (patrz todo „Statusy pozytywne i negatywne”).
 - Kluczem jest **przetrwanie**: gracz cały czas używa **obrony (guard)** i co jakiś czas **przedmiotów leczących**. Po kilku przetrwanych turach **wraca pierwszy sojusznik**, kilka tur dalej kolejny — aż wróci cała drużyna.
+- Do powrotu sojuszników liczą się **po prostu odbyte tury** (niezależnie od akcji). Kto ma dużo przedmiotów leczących, też przetrwa bez obrony — ale nieefektywnie. Liczby tur do ustalenia przy balansie.
+- **Gra nic nie podpowiada** — gracz sam musi wpaść, że chodzi o przetrwanie.
+- **Brak gwarantowanego leczenia:** kto nie przygotował się na finał (przedmioty), ma problem — skill issue. Po game over: **spróbuj ponownie** albo **wczytaj ostatni zapis** — ten jest zawsze **tuż przed wejściem na arenę z arcymagiem**.
+- **Umiejętności 9. poziomu działają** w fazie 1, ale bohater solo **nie ma** ofensywnej („gigantyczne obrażenia”) ani **uberheala**.
 - Z pełną drużyną gracz **pokonuje Strażnika po raz pierwszy**, po czym zaczyna się **faza 2**.
 
 ### Otwarte decyzje fabularne
@@ -142,7 +146,8 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Jakie umiejętności z magii 9. poziomu — arcymag używa ich w swojej walce, w true endingu gracz wybiera jedną lub więcej (patrz „System skilli” → „Umiejętności 9. poziomu”).
 - [ ] Szczegóły true endingu po walce ze Strażnikiem.
 - [ ] Bossfight ze Strażnikiem, faza 1: arcymag osłonił drużynę przed czarem Strażnika — czemu towarzysze i tak tracą wspomnienia (bezpośredni, skupiony atak zamiast czaru na całe miasto?) i czemu wracają (słabnąca osłona arcymaga / magia 9. poziomu walczy z czarem?). Czemu bohater ich nie traci?
-- [ ] Faza 1 — reguły: co liczy się do powrotu sojusznika (przetrwane tury niezależnie od akcji, czy tylko tury z obroną?), ile tur na sojusznika, czy atak w ogóle zadaje obrażenia, jak gra podpowiada „przetrwaj” (komunikaty), gwarantowane leczenie, gdy gracz nie ma przedmiotów, czy umiejętności 9. poziomu są dostępne solo.
+- [x] Faza 1 — reguły: liczą się odbyte tury, gra nic nie podpowiada, bez gwarantowanego leczenia (game over → ponów / zapis przed areną arcymaga), umiejętności 9. poziomu działają bez ofensywnej i uberheala.
+- [ ] Faza 1 — do ustalenia: ile tur na sojusznika, czy atak bohatera w ogóle zadaje Strażnikowi obrażenia.
 - [ ] Faza 2 — przebieg i mechanika.
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
 - [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
