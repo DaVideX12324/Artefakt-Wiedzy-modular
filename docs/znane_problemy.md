@@ -99,6 +99,102 @@
 - Do ustalenia: promień odkrywania (z linią wzroku po ścianach czy bez), zapis maski odkrycia per mapa
   w save (jak seedy map), mapy ręczne (tutorial_area) — z TileMapLayer zamiast z wyniku generacji.
 
+### Mapy otwarte z uniwersalnego generatora (las zamiast ścian)
+- Zgłoszenie 2026-10-01. Pomysł: mapy otwarte (las, Fairy Forest, Dense Forest…) z tego samego generatora co
+  jaskinie — topologia (pokoje, korytarze, płaskowyże) bez zmian, ale **teren (podłoga, wzniesienia) na całej
+  mapie**, a tam, gdzie jaskinia ma ściany, **gęsto drzewa**, przez które nie da się przejść.
+- Dziś mapy otwarte robi osobny `overworld_forest_generator.gd` (szum + polany + ścieżki, ~170 linii) — nowa
+  ścieżka by go zastąpiła i dała lasom płaskowyże, teren, obiekty, nawigację i postęp ładowania jak w jaskiniach.
+- Proponowany podział:
+  - **Kolizja z siatki, nie z drzew:** kratki ścian zostają blokujące (niewidoczna warstwa kolizji / Walls bez
+    grafiki); drzewa tylko rysują. Gęsto stawiane drzewa z małymi kształtami pni i tak zostawiałyby szczeliny,
+    a nawigacja (`NavOutlines`) już liczy z siatki.
+  - **Pas brzegowy** (1–3 kratki od podłogi): drzewa jako obiekty (`ObjectPlanner`, katalog np.
+    `objects_forest.json`, kontekst przy ścianie), z y-sortem — postać może wejść „za” pień.
+  - **Głąb lasu:** nie kafle koron, które muszą do siebie pasować (korony są szersze niż kratka → luki albo
+    niedopasowane krawędzie), tylko **całe drzewa nachodzące na siebie** — jak w makiecie
+    `assets/pixel_crawler/environments/world_build/MockUps/Trees.png`: duże kafle wielokratkowe (sprite drzewa
+    z `Tree.png` Fairy Forest) w rozstawie mniejszym niż szerokość korony (np. co 2–3 kratki), z y-sortem
+    (przednie przykrywają tylne) i przesunięciem przez kafle alternatywne z innym `texture_origin`.
+    Na TileMapLayer, nie jako obiekty — przy 500×500 to setki tysięcy kratek.
+  - **Ciemne podłoże pod lasem** (kafel cienia zamiast trawy) — ewentualna szczelina między koronami wygląda
+    wtedy jak cień, nie jak dziura. W `Tree.png` są też same korony w 6 odcieniach aż do prawie czarnego —
+    ciemniejsze głębiej w lesie.
+  - **Wariacja mimo siatki** (autor chce drzew nie w równym gridzie), do połączenia:
+    - kafle alternatywne w TileSecie — każdy może mieć własny `texture_origin` (przesunięcie o kilka px),
+      odbicie, `modulate` (odcień) i `y_sort_origin`; generator losuje alternatywę → drzewa „poza siatką”;
+    - osobny TileSet warstwy drzew z drobniejszą kratką (np. 8 px zamiast 16) — więcej możliwych pozycji;
+    - w pasie brzegowym (blisko gracza) drzewa jako obiekty w trybie `free` — pełna dowolność pozycji;
+      wypieczona scena (`ObjectBake`) pozwala złożyć drzewo z wielu sprite'ów jak „moduł”.
+    - Sprawdzone (Godot 4.7.2): `texture_origin` przesuwa **tylko grafikę** — kolizja alternatywy zostaje
+      na kratce (każda alternatywa ma własne kształty, więc trzeba by je przesuwać ręcznie). Przy kolizji
+      z siatki to bez znaczenia; tylko na brzegu przesunięcie w stronę polany ograniczyć, żeby rysunek pnia
+      nie wchodził na kratki podłogi.
+  - Do sprawdzenia: kafle wielokratkowe na warstwie z y-sortem (por. „Do sprawdzenia w grze” → kafle
+    wielokratkowe na `Props`) i koszt rysowania przy 500×500.
+  - Autotiling ścian (`EdgeAnalyzer`, fasady 2H/3H) wyłączony dla tego stylu — flaga stylu ścian
+    (kafle skalne / las) w `GenerationFlags` + JSON biomu (por. wpis „Nowe flagi generatora”).
+- Do ustalenia: krawędzie płaskowyżów pod drzewami (klify widoczne tylko na polanach?), wyjścia mapy w lesie
+  (przecinka w pasie drzew), wygląd przejścia polana → las (krzaki, pojedyncze drzewa przed ścianą).
+
+### Ustawienia sterowania per moduł, wybór modułu w menu głównym
+- Zgłoszenie 2026-10-01. Dziś jedna lista w opcjach hosta (`scripts/ui/options_menu.gd`, `BINDS`) miesza
+  akcje BitBombera (`p1_*`, `p2_*`) i Quiz RPG (`move_*`, `interact`) i tylko je **wyświetla** (bez zmiany
+  klawiszy).
+- Cel: każdy moduł ma własną sekcję sterowania (lista akcji z modułu, np. w `module_manifest.json` albo
+  z prefiksu akcji — por. `docs/module_contract.md`: akcje z prefiksem gry), a w opcjach z menu głównego
+  jest **select modułu** (Quiz RPG / BitBomber / …), który przełącza listę.
+- Przy okazji: zmiana klawiszy (rebind) z zapisem per moduł w `SettingsService.set_module(...)`.
+
+### Ustawienia w menu Quiz RPG
+- Zgłoszenie 2026-10-01. Menu modułu (`modules/quiz_rpg/scenes/ui/main_menu.tscn`, `pause_menu.tscn`)
+  nie ma opcji. Dodać wejście do ustawień (najlepiej ten sam panel co z menu głównego hosta, od razu
+  z wybranym modułem Quiz RPG — patrz wpis wyżej) — także z pauzy w trakcie gry.
+
+### Modularność assetów i autoloadów (moduł samodzielny bez dublowania w eksporcie)
+- Zgłoszenie 2026-10-01. Pomysł: moduł trzyma też kopie assetów i autoloadów, które w hoście zapewnia
+  główny projekt (żeby dało się go uruchomić samodzielnie), a w hoście te kopie są ignorowane — nie ma
+  dublowania w edytorze ani w eksporcie.
+- Wykonalne: kopie w jednym folderze modułu (np. `modules/<id>/_standalone/`) z plikiem `.gdignore` —
+  host w ogóle go nie widzi (bez importu, bez eksportu, bez konfliktów `class_name` i UID). Wersja
+  samodzielna: `project.godot.off` -> `project.godot` + usunięcie `_standalone/.gdignore` (skrypt
+  „make standalone”), autoloady z kopii zarejestrowane w `project.godot.off`.
+- Kopie z tymi samymi UID co oryginały (kopiować razem z `.uid` / `.import`) — sceny modułu odwołują się
+  po `uid://`, więc trafią w oryginał w hoście i w kopię w wersji samodzielnej, mimo innej ścieżki.
+- Tryb pracy (decyzja usera): zmiany assetów / zasobów / skryptów robione w hoście, co jakiś czas
+  synchronizowane do modułów — skrypt synchronizacji (host -> `_standalone`) zamiast ręcznego kopiowania.
+- Stan ścieżek (2026-10-01, quiz_rpg): prawie wszystko to bezwzględne `res://` — ~350 odwołań w
+  `.tscn`/`.tres` do assetów hosta (`res://assets/pixel_crawler`, `res://assets/textures`, `res://assets/fonts`),
+  335 do `res://modules/quiz_rpg/...`, w `.gd` m.in. `res://scenes/ui/options_menu.tscn` (pause_menu),
+  `res://scripts/shared/quiz/...` (quiz_combat_controller), `res://resources/items` (inventory_service),
+  ścieżki `Tiles.png` w generatorach. Względne są tylko: 1 `preload("../…")` w `quiz_combat_controller.gd`
+  i 3 w `scenes/enemies/ork_3.tscn`. Względne ścieżki w `.tscn` edytor i tak zamienia na `res://` przy
+  zapisie, więc nie są sposobem na przenośność scen; w `.gd` (`preload("../x.gd")`) działają.
+  UID ma 601 z 692 `ext_resource` — reszta po zmianie ścieżki by się nie znalazła (ponowny zapis sceny
+  w edytorze dopisuje UID).
+- Każdy moduł ma być osobnym repo podpiętym jako submoduł w `modules/<id>/` (jak BitBomber), więc wersja
+  samodzielna = korzeń repo modułu jako `res://`. Plan:
+  - **Kopie z hosta w lustrzanym układzie wewnątrz modułu** — host `res://assets/X` -> `modules/<id>/assets/X`,
+    host `res://autoloads/...` -> `modules/<id>/autoloads/...`, każdy taki folder z `.gdignore` (host go nie
+    widzi). Samodzielnie (korzeń modułu = `res://`) ścieżki hosta pasują 1:1; „make standalone” usuwa
+    `.gdignore` i zmienia `project.godot.off` -> `project.godot`.
+  - **Własne pliki modułu** (`res://modules/<id>/...` w hoście, `res://...` samodzielnie): UID w scenach
+    (Godot szuka najpierw po `uid://`), względne `preload("../…")` w `.gd`, a ścieżki składane w kodzie przez
+    przełącznik korzenia — jak `bb_runtime.gd` w BitBomberze (`HOST_MODULE_ROOT` / `STANDALONE_ROOT`).
+    Względne `path="…"` w `.tscn` działają przy wczytaniu, ale zapis sceny (edytor, `ResourceSaver`) zmienia
+    je na `res://modules/<id>/…` — sprawdzone na `ork_3.tscn`; zostaje wtedy tylko UID.
+  - BitBomber już tak robi (względne ścieżki, 20/22 `ext_resource` z UID, `bb_runtime.gd`); quiz_rpg nie
+    (patrz stan ścieżek wyżej).
+  - Sprawdzone 2026-10-01 (Godot 4.7.2): `.tres` też przyjmuje względne `path="../…"` przy wczytaniu (ten sam
+    format tekstowy co `.tscn`), ale zapis zmienia je na `res://…` — w praktyce zostają pełne ścieżki.
+    Scena z błędną ścieżką do skryptu, ale poprawnym UID, wczytuje właściwy skrypt (fallback po UID działa).
+  - **Blokada: `*.import` jest w `.gitignore`** (w repo tylko 4 pliki `.import`, `.uid` — 191). UID obrazków,
+    fontów i dźwięków żyje w `.import`, więc każdy świeży klon generuje własne, losowe UID-y — odwołania
+    `uid://` do assetów w scenach / `.tres` są wtedy nieważne („invalid UID - using text path”) i działa tylko
+    ścieżka. Ginęłyby też ustawienia importu per plik. Godot zaleca commitować `.import`; zrobić to
+    **z maszyny autora** (tam UID-y zgadzają się ze scenami) — usunąć `*.import` z `.gitignore`
+    i dodać pliki `.import`. Bez tego fallback po UID nie obejmie własnych assetów modułu.
+
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
