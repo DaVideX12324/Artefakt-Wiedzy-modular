@@ -50,7 +50,7 @@ Każdy pokonany boss to oficjalnie jeden sługus maga mniej. Wg Strażnika nie m
 ### Prawda
 
 1. **Strażnik żyje.** Sam zbudował system fast travel i wzmocnień potworów; wysysał wiedzę mieszkańców miasta — w tym arcymaga.
-2. **Arcymag** w ostatnim momencie, świadomy że traci pamięć, uruchomił urządzenie zaprojektowane specjalnie do **przełamania bariery i czarnej magii Strażnika** (jego czar wysysający wiedzę i dający mu z niej moc to w praktyce czarna magia). Skutkiem jej łamania jest stopniowy powrót pamięci — nie żadne nadpisywanie. Urządzenie potrzebuje czasu — **każdy pokonany boss to trigger postępu** (=jeden krok procesu magicznego). Przed całkowitym wymazaniem arcymag rzucił na siebie zaklęcie ochronne, żeby zachować ten jeden element — świadomość celu urządzenia.
+2. **Arcymag** (jego największa wiedza — czar 9. poziomu do manipulacji wspomnieniami — jest chroniona przez maszynę, patrz „Zakończenia”) w ostatnim momencie, świadomy że traci pamięć, uruchomił urządzenie zaprojektowane specjalnie do **przełamania bariery i czarnej magii Strażnika** (jego czar wysysający wiedzę i dający mu z niej moc to w praktyce czarna magia). Skutkiem jej łamania jest stopniowy powrót pamięci — nie żadne nadpisywanie. Urządzenie potrzebuje czasu — **każdy pokonany boss to trigger postępu** (=jeden krok procesu magicznego). Przed całkowitym wymazaniem arcymag rzucił na siebie zaklęcie ochronne, żeby zachować ten jeden element — świadomość celu urządzenia. To samo zaklęcie osłoniło wiedzę o maszynach i o zwoju do małej maszyny — dlatego Strażnik, choć wysysał wiedzę arcymaga, nie rozpoznał zwoju.
 3. **Strażnik namącił wszystkim w głowach:** urządzenie arcymaga to źródło fałszywych wspomnień, a sam mag to winowajca. Gra od początku napędza gracza do jego zniszczenia.
 4. **Tuż przed salą arcymaga** widoczna jest maszyna/krąg na poziomie **~95%** — pasek postępu, odliczanie, cokolwiek czytelnego mechanicznie. To jest **właściwy Point of No Return** — w pokoju przedsionkowym. Wejście do komnaty maga = brak odwrotu.
 5. **Po pokonaniu arcymaga i zniszczeniu urządzenia** nic już nie kontruje czaru Strażnika: **wszyscy NPC zapominają o wszystkim**. Czy gracz pozna prawdę, zależy od zakończenia (patrz „Zakończenia”).
@@ -107,8 +107,10 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 
 ### Zakończenia
 
-- **Złe zakończenie (bad ending):** gra kończy się na pokonaniu arcymaga i zniszczeniu maszyny — gracz **nie dowiaduje się**, że to sprawka Strażnika. Strażnik wygrywa po cichu.
-- **Prawdziwe zakończenie (true ending):** przed walką z arcymagiem gracz odkrył ukrytą moc zwoju i dotarł do **mniejszej, starszej wersji maszyny**. Po pokonaniu arcymaga mała maszyna **przywraca mu wspomnienia** — wskazuje Strażnika, osłania drużynę przed czarem i ginie. Strażnik przestaje się ukrywać i **wyłącza fast travel** (to jego sieć); dalej bossfight ze Strażnikiem i true ending.
+**Najwyższa wiedza arcymaga:** główna maszyna chroniła też **największą wiedzę arcymaga** — czar 9. poziomu do **manipulacji wspomnieniami**, tak subtelny, że ofiara nawet nie zdaje sobie sprawy, że coś się zmieniło (w duchu Kotoamatsukami Shisuiego). Ironia: Strażnik oskarżał maszynę o nadpisywanie wspomnień fałszywą rzeczywistością — a to on chce przejąć czar, który to robi.
+
+- **Złe zakończenie (bad ending):** gra kończy się na pokonaniu arcymaga i zniszczeniu maszyny — gracz **nie dowiaduje się**, że to sprawka Strażnika. Bez maszyny Strażnik **przejmuje wiedzę arcymaga**, razem z czarem manipulacji wspomnieniami, i **nadpisuje wspomnienia** wszystkim, także drużynie. Koniec. **Końcowa cutscenka pokazuje zmanipulowane zakończenie** — „szczęśliwy” finał, jaki Strażnik wpisał ludziom (i graczowi) do głów.
+- **Prawdziwe zakończenie (true ending):** przed walką z arcymagiem gracz odkrył ukrytą moc zwoju i uruchomił **mniejszą, starszą wersję maszyny**. Dzięki niej po zniszczeniu głównej maszyny **wiedza (z czarem 9. poziomu) wraca do arcymaga**, a nie do Strażnika, i arcymag **odzyskuje wspomnienia** — wskazuje Strażnika, osłania drużynę przed czarem i ginie. Strażnik nie dostaje czaru, przestaje się ukrywać i **wyłącza fast travel** (to jego sieć); dalej bossfight ze Strażnikiem i true ending.
 
 **Zwój arcymaga (rozwiązanie dziury fabularnej „co zwój arcymaga robi w bibliotece”):**
 - Zwój **stworzył arcymag** — jako klucz do sekretnego pomieszczenia z mniejszą / starszą wersją maszyny, która przywróciłaby mu wspomnienia (zabezpieczenie na wypadek ich utraty).
@@ -127,8 +129,9 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Dwa zakończenia (bad / true) i zwój arcymaga z ukrytą mocą — patrz „Zakończenia”.
 - [ ] Gdzie dokładnie stoi mała maszyna: odludne miejsce w mieście czy piwnica biblioteki? I jak gracz odkrywa ukrytą moc zwoju (poszlaka, zagadka / quiz w bibliotece, NPC)?
 - [ ] Jak mała maszyna działa na arcymaga **po** walce, skoro stoi daleko od zamku (uruchomiona wcześniej przez gracza i np. ładuje przedmiot / zaklęcie, którego drużyna używa po walce?).
-- [ ] Strażnik „słabszy / mniej wiedzy” a to, że wysysał wiedzę arcymaga (pkt 1 „Prawdy”): propozycja — zaklęcie ochronne arcymaga (pkt 2) osłoniło właśnie wiedzę o maszynach i zwoju, więc Strażnik jej nie przejął i nie rozpoznał zwoju.
-- [ ] Złe zakończenie: czy drużyna też traci pamięć (arcymag nie wie, przed czym ją osłaniać), czy tylko NPC?
+- [x] Strażnik „słabszy / mniej wiedzy” a to, że wysysał wiedzę arcymaga (pkt 1 „Prawdy”): zaklęcie ochronne arcymaga (pkt 2) osłoniło właśnie wiedzę o maszynach i zwoju, więc Strażnik jej nie przejął i nie rozpoznał zwoju.
+- [x] Złe zakończenie: po prostu koniec — Strażnik przejmuje wiedzę arcymaga i nadpisuje wspomnienia (także drużynie); cutscenka pokazuje zmanipulowane zakończenie.
+- [ ] Szczegóły true endingu po walce ze Strażnikiem (jak różni się od złego poza samą walką, co z czarem 9. poziomu u martwego arcymaga — ginie razem z nim, przechodzi na drużynę?).
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
 - [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
 
