@@ -27,7 +27,7 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 | 11 | **Garden** | Labirynt żywopłotów, elitarna straż, odblokowany scrollem z Library |
 | 12 | **Castle** | **Finał** — spina motywy wszystkich stref, konfrontacja |
 
-> **Fast travel:** aktywny od wejścia do miasta do momentu zdobycia fragmentu 3 (patrz: fabuła). Stworzony przez Strażnika — co samo w sobie jest twardą poszlaką. Działa przez barierę dzięki zmodyfikowanej formule / kręgom, które Strażnik przekazał „na sam koniec”.
+> **Fast travel:** aktywny od wejścia do miasta. Po fragmencie 3 **nie jest wyłączany** — albo dalej działa, albo kolejne waypointy **niszczą potwory** (wariant do wyboru, patrz otwarte decyzje). Sieć wyłącza dopiero Strażnik, **po pokonaniu arcymaga w prawdziwym zakończeniu** (patrz „Zakończenia”). Stworzony przez Strażnika — co samo w sobie jest twardą poszlaką. Działa przez barierę dzięki zmodyfikowanej formule / kręgom, które Strażnik przekazał „na sam koniec”.
 
 ---
 
@@ -88,8 +88,8 @@ Każdy pokonany boss to oficjalnie jeden sługus maga mniej. Wg Strażnika nie m
 Cave/Sewer/Cemetery          → drobne niespójności, poszlaki tła
 Fragment 1 (Desert Temple)   → pierwsza konkretna poszlaka techniczna
 Fragment 2 (Forge)           → mocniejsza poszlaka, coś nie gra ze Strażnikiem
-Fragment 3 (las/zima)        → ★ bohater zaczyna podejrzewać — Strażnik stworzył
-                                fast travel, a właśnie ON je wyłącza i wzmacnia potwory
+Fragment 3 (las/zima)        → ★ najmocniejszy powrót wspomnień; fast travel działa dalej
+                                albo potwory niszczą waypointy (bez wyłączania sieci)
 Library                      → dokumenty, dzienniki — dowody na Strażnika (bez walki);
                                 zwój arcymaga: teleport do Garden teraz albo później
                                 (ukryta moc zwoju → mała maszyna = warunek true endingu)
@@ -103,12 +103,12 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 
 > **Po ostatnim fragmencie** (fragmenty to klucz do ukrytego poziomu Library): powrót do miasta **bez fast travelu**. Maszyna wciąż działa, więc pokonani bossowie nie wracają.
 
-> **Kluczowy moment po fragmencie 3:** wyłączenie fast travelu i wzmocnienie potworów jest natychmiastowe. Bohater stwierdza, że to niemożliwe, żeby ktokolwiek inny uruchomił sieć waypointów Strażnika — pierwsze otwarte podejrzenie.
+> **Fast travel a fragment 3:** sieć **nie jest wyłączana** po fragmencie 3 (wcześniej: wyłączenie sieci = pierwsze otwarte podejrzenie wobec Strażnika — zmienione). Albo działa dalej, albo waypointy niszczą potwory. **Wyłączenie sieci** następuje dopiero po pokonaniu arcymaga w true endingu — Strażnik już się nie ukrywa, więc odcina drużynie swoją sieć.
 
 ### Zakończenia
 
 - **Złe zakończenie (bad ending):** gra kończy się na pokonaniu arcymaga i zniszczeniu maszyny — gracz **nie dowiaduje się**, że to sprawka Strażnika. Strażnik wygrywa po cichu.
-- **Prawdziwe zakończenie (true ending):** przed walką z arcymagiem gracz odkrył ukrytą moc zwoju i dotarł do **mniejszej, starszej wersji maszyny**. Po pokonaniu arcymaga mała maszyna **przywraca mu wspomnienia** — wskazuje Strażnika, osłania drużynę przed czarem i ginie; dalej bossfight ze Strażnikiem i true ending.
+- **Prawdziwe zakończenie (true ending):** przed walką z arcymagiem gracz odkrył ukrytą moc zwoju i dotarł do **mniejszej, starszej wersji maszyny**. Po pokonaniu arcymaga mała maszyna **przywraca mu wspomnienia** — wskazuje Strażnika, osłania drużynę przed czarem i ginie. Strażnik przestaje się ukrywać i **wyłącza fast travel** (to jego sieć); dalej bossfight ze Strażnikiem i true ending.
 
 **Zwój arcymaga (rozwiązanie dziury fabularnej „co zwój arcymaga robi w bibliotece”):**
 - Zwój **stworzył arcymag** — jako klucz do sekretnego pomieszczenia z mniejszą / starszą wersją maszyny, która przywróciłaby mu wspomnienia (zabezpieczenie na wypadek ich utraty).
@@ -129,6 +129,8 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [ ] Jak mała maszyna działa na arcymaga **po** walce, skoro stoi daleko od zamku (uruchomiona wcześniej przez gracza i np. ładuje przedmiot / zaklęcie, którego drużyna używa po walce?).
 - [ ] Strażnik „słabszy / mniej wiedzy” a to, że wysysał wiedzę arcymaga (pkt 1 „Prawdy”): propozycja — zaklęcie ochronne arcymaga (pkt 2) osłoniło właśnie wiedzę o maszynach i zwoju, więc Strażnik jej nie przejął i nie rozpoznał zwoju.
 - [ ] Złe zakończenie: czy drużyna też traci pamięć (arcymag nie wie, przed czym ją osłaniać), czy tylko NPC?
+- [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
+- [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
 
 ---
 
@@ -171,7 +173,7 @@ Placeholder imienia gracza: `{IMIĘ}` (wypełniane imieniem z ekranu tworzenia p
 **Fragment 3:**
 > *{IMIĘ} pamiętał. Przez pełne pięć sekund — pamiętał wszystko. Skąd pochodzi. Kogo zostawił. Dlaczego tu jest naprawdę. Potem mgła wróciła. Ale tym razem wiedział, że to mgła — i że ktoś ją specjalnie zastawił.*
 >
-> *(A gdzieś w oddali — sieć waypointów, która miała ich prowadzić, zatrzęsła się. I zgasła.)*
+> *(Dopisek o waypointach zależny od wariantu fast travelu — sieć już nie gaśnie po fragmencie 3. Wariant „potwory niszczą waypointy”: „A gdzieś w oddali coś uderzyło w kamień waypointu. Potem drugi raz.”; wariant „działa dalej”: bez dopisku.)*
 
 ---
 
