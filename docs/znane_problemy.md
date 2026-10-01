@@ -109,8 +109,21 @@
   „make standalone”), autoloady z kopii zarejestrowane w `project.godot.off`.
 - Kopie z tymi samymi UID co oryginały (kopiować razem z `.uid` / `.import`) — sceny modułu odwołują się
   po `uid://`, więc trafią w oryginał w hoście i w kopię w wersji samodzielnej, mimo innej ścieżki.
-- Ryzyko: kopie się rozjeżdżają z hostem — skrypt synchronizacji (host -> `_standalone`) zamiast ręcznego
-  kopiowania. Same `exclude_filter` w `export_presets.cfg` rozwiązują tylko eksport (edytor dalej widzi
+- Tryb pracy (decyzja usera): zmiany assetów / zasobów / skryptów robione w hoście, co jakiś czas
+  synchronizowane do modułów — skrypt synchronizacji (host -> `_standalone`) zamiast ręcznego kopiowania.
+- Stan ścieżek (2026-10-01, quiz_rpg): prawie wszystko to bezwzględne `res://` — ~350 odwołań w
+  `.tscn`/`.tres` do assetów hosta (`res://assets/pixel_crawler`, `res://assets/textures`, `res://assets/fonts`),
+  335 do `res://modules/quiz_rpg/...`, w `.gd` m.in. `res://scenes/ui/options_menu.tscn` (pause_menu),
+  `res://scripts/shared/quiz/...` (quiz_combat_controller), `res://resources/items` (inventory_service),
+  ścieżki `Tiles.png` w generatorach. Względne są tylko: 1 `preload("../…")` w `quiz_combat_controller.gd`
+  i 3 w `scenes/enemies/ork_3.tscn`. Względne ścieżki w `.tscn` edytor i tak zamienia na `res://` przy
+  zapisie, więc nie są sposobem na przenośność scen; w `.gd` (`preload("../x.gd")`) działają.
+  UID ma 601 z 692 `ext_resource` — reszta po zmianie ścieżki by się nie znalazła (ponowny zapis sceny
+  w edytorze dopisuje UID).
+- Najprostszy wariant samodzielny: **mini-host z tym samym układem** — `project.godot` w korzeniu,
+  moduł w `modules/<id>/`, kopie potrzebnych assetów / autoloadów hosta pod tymi samymi ścieżkami
+  (`assets/...`, `autoloads/...`). Wtedy żadna ścieżka się nie zmienia (ani `res://`, ani UID); skrypt
+  „make standalone” składa taki folder z hosta. Same `exclude_filter` w `export_presets.cfg` rozwiązują tylko eksport (edytor dalej widzi
   duplikaty: zdublowane `class_name` i UID).
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
