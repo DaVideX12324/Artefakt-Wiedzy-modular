@@ -125,7 +125,7 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - Kluczem jest **przetrwanie**: gracz cały czas używa **obrony (guard)** i co jakiś czas **przedmiotów leczących**. Po kilku przetrwanych turach **wraca pierwszy sojusznik**, kilka tur dalej kolejny — aż wróci cała drużyna.
 - Do powrotu sojuszników liczą się **po prostu odbyte tury** (niezależnie od akcji). Kto ma dużo przedmiotów leczących, też przetrwa bez obrony — ale nieefektywnie. Liczby tur do ustalenia przy balansie.
 - **Gra nic nie podpowiada** — gracz sam musi wpaść, że chodzi o przetrwanie.
-- **Brak gwarantowanego leczenia:** kto nie przygotował się na finał (przedmioty), ma problem — skill issue. Po game over: **spróbuj ponownie** albo **wczytaj ostatni zapis** — ten jest zawsze **tuż przed wejściem na arenę z arcymagiem**.
+- **Brak gwarantowanego leczenia:** kto nie przygotował się na finał (przedmioty), ma problem — skill issue. Po game over: **spróbuj ponownie** albo **wczytaj ostatni zapis** — ten jest zawsze **tuż przed wejściem na arenę z arcymagiem**. Po wczytaniu można się wycofać, **dofarmić kasę i lepiej zaopatrzyć** (przedmioty leczące) przed ponownym podejściem.
 - **Umiejętności 9. poziomu działają** w fazie 1, ale bohater solo **nie ma** ofensywnej („gigantyczne obrażenia”) ani **uberheala**.
 - Z pełną drużyną gracz **pokonuje Strażnika po raz pierwszy**, po czym zaczyna się **faza 2**.
 
