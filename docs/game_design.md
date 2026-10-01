@@ -107,10 +107,10 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 
 ### Zakończenia
 
-**Najwyższa wiedza arcymaga:** główna maszyna chroniła też **największą wiedzę arcymaga** — czar 9. poziomu do **manipulacji wspomnieniami**, tak subtelny, że ofiara nawet nie zdaje sobie sprawy, że coś się zmieniło (w duchu Kotoamatsukami Shisuiego). Ironia: Strażnik oskarżał maszynę o nadpisywanie wspomnień fałszywą rzeczywistością — a to on chce przejąć czar, który to robi.
+**Najwyższa wiedza arcymaga:** główna maszyna chroniła też **największą wiedzę arcymaga — magię 9. poziomu** (ogólnie, nie jeden czar). Wśród niej jest czar **manipulacji wspomnieniami**, tak subtelny, że ofiara nawet nie zdaje sobie sprawy, że coś się zmieniło (w stylu Mangekyō Sharingana Shisuiego Uchihy z „Naruto”). Ironia: Strażnik oskarżał maszynę o nadpisywanie wspomnień fałszywą rzeczywistością — a to on chce przejąć czar, który to robi.
 
-- **Złe zakończenie (bad ending):** gra kończy się na pokonaniu arcymaga i zniszczeniu maszyny — gracz **nie dowiaduje się**, że to sprawka Strażnika. Bez maszyny Strażnik **przejmuje wiedzę arcymaga**, razem z czarem manipulacji wspomnieniami, i **nadpisuje wspomnienia** wszystkim, także drużynie. Koniec. **Końcowa cutscenka pokazuje zmanipulowane zakończenie** — „szczęśliwy” finał, jaki Strażnik wpisał ludziom (i graczowi) do głów.
-- **Prawdziwe zakończenie (true ending):** przed walką z arcymagiem gracz odkrył ukrytą moc zwoju i uruchomił **mniejszą, starszą wersję maszyny**. Dzięki niej po zniszczeniu głównej maszyny **wiedza (z czarem 9. poziomu) wraca do arcymaga**, a nie do Strażnika, i arcymag **odzyskuje wspomnienia** — wskazuje Strażnika, osłania drużynę przed czarem i ginie. Strażnik nie dostaje czaru, przestaje się ukrywać i **wyłącza fast travel** (to jego sieć); dalej bossfight ze Strażnikiem i true ending.
+- **Złe zakończenie (bad ending):** gra kończy się na pokonaniu arcymaga i zniszczeniu maszyny — gracz **nie dowiaduje się**, że to sprawka Strażnika. Bez maszyny Strażnik **przejmuje wiedzę arcymaga** (magię 9. poziomu, w tym czar manipulacji wspomnieniami) i **nadpisuje wspomnienia** wszystkim, także drużynie. Koniec. **Końcowa cutscenka pokazuje zmanipulowane zakończenie** — „szczęśliwy” finał, jaki Strażnik wpisał ludziom (i graczowi) do głów.
+- **Prawdziwe zakończenie (true ending):** przed walką z arcymagiem gracz odkrył ukrytą moc zwoju i uruchomił **mniejszą, starszą wersję maszyny**. Dzięki niej po zniszczeniu głównej maszyny **wiedza (magia 9. poziomu) wraca do arcymaga**, a nie do Strażnika, i arcymag **odzyskuje wspomnienia** — wskazuje Strażnika, osłania drużynę przed czarem, **przekazuje drużynie dużo silniejsze umiejętności** (z magii 9. poziomu — na walkę ze Strażnikiem) i ginie. Strażnik nie dostaje czaru, przestaje się ukrywać i **wyłącza fast travel** (to jego sieć); dalej bossfight ze Strażnikiem i true ending.
 
 **Zwój arcymaga (rozwiązanie dziury fabularnej „co zwój arcymaga robi w bibliotece”):**
 - Zwój **stworzył arcymag** — jako klucz do sekretnego pomieszczenia z mniejszą / starszą wersją maszyny, która przywróciłaby mu wspomnienia (zabezpieczenie na wypadek ich utraty).
@@ -131,7 +131,8 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [ ] Jak mała maszyna działa na arcymaga **po** walce, skoro stoi daleko od zamku (uruchomiona wcześniej przez gracza i np. ładuje przedmiot / zaklęcie, którego drużyna używa po walce?).
 - [x] Strażnik „słabszy / mniej wiedzy” a to, że wysysał wiedzę arcymaga (pkt 1 „Prawdy”): zaklęcie ochronne arcymaga (pkt 2) osłoniło właśnie wiedzę o maszynach i zwoju, więc Strażnik jej nie przejął i nie rozpoznał zwoju.
 - [x] Złe zakończenie: po prostu koniec — Strażnik przejmuje wiedzę arcymaga i nadpisuje wspomnienia (także drużynie); cutscenka pokazuje zmanipulowane zakończenie.
-- [ ] Szczegóły true endingu po walce ze Strażnikiem (jak różni się od złego poza samą walką, co z czarem 9. poziomu u martwego arcymaga — ginie razem z nim, przechodzi na drużynę?).
+- [x] Co z magią 9. poziomu w true endingu — arcymag przed śmiercią daje drużynie dużo silniejsze umiejętności.
+- [ ] Jakie konkretnie umiejętności z magii 9. poziomu (per postać? jedna wspólna?) i balans walki ze Strażnikiem pod nie; szczegóły true endingu po tej walce.
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
 - [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
 
