@@ -31,6 +31,44 @@ Top-down dungeon crawler oparty o pakiet assetów **Pixel Crawler (Anokolisa)**,
 
 ---
 
+## Zarys fabuły — co gracz wie na początku
+
+> To jest **wyłącznie wersja, którą gracz zna na starcie** (wersja oficjalna, podana tak, jak ją widzi bohater). Prawda i twist — w sekcji „Fabuła: twist Strażnik vs. Arcymag” niżej; tutaj nie może z niej nic przeciec. Punkty oznaczone *(propozycja)* — do potwierdzenia przez autora.
+
+### Świat na starcie
+
+- **Miasto królewskie** (nazwa — TBD) z **zamkiem** nad nim. Na zamku rezyduje **arcymag** — nadworny / królewski mag, najpotężniejszy czarodziej w królestwie (imię — TBD).
+- Od jakiegoś czasu nad miastem wisi **„mgła”**: ludzie zapominają imiona, drogi, własne zajęcia, mylą wspomnienia — i jest coraz gorzej.
+- **Miasto jest zamknięte magiczną barierą.** Nie da się wyjść ani wejść; za murami potwory są silniejsze niż kiedykolwiek.
+- **Strażnik** — opiekun miasta, budowniczy sieci **kręgów teleportacyjnych** (fast travel) — wg mieszkańców **stanął przeciw arcymagowi i poległ**.
+
+### Bohater
+
+- Budzi się w **podziemiach** (Tutorial Dungeon) z **mgłą w głowie** — nie pamięta, skąd pochodzi ani dlaczego tu jest (por. komunikaty po bossach: „Skąd pochodzi. Kogo zostawił.”). Gracz poznaje świat razem z nim.
+- *(propozycja)* Podziemia i jaskinia (Cave) leżą **pod miastem, wewnątrz bariery** — bohater wychodzi z nich prosto do miasta, więc bariera nie jest problemem na początku drogi.
+- Imię nadaje gracz (`{IMIĘ}`, patrz „System easter eggów”).
+
+### Co bohater słyszy w mieście (wersja oficjalna)
+
+- Arcymag uruchomił w zamku **tajną maszynę**, która **nadpisuje ludziom wspomnienia fałszywą rzeczywistością** — „mgła” to jej robota. Robi to, żeby **nikt nie mógł go powstrzymać**.
+- Maszyna działa coraz mocniej; **gdy dobije do pełni, nie da się już tego odwrócić** — wszyscy będą żyć w świecie, który arcymag im wpisał.
+- Żeby nikt mu nie przeszkodził, arcymag **zamknął miasto barierą**, a potwory w okolicy **wzmocnił** i postawił na straży.
+- Strażnik walczył z nim i **poległ** — ale przed śmiercią **przebił w barierze wyrwę w ściekach** i zostawił swoją sieć kręgów, działającą mimo bariery.
+- *(propozycja)* **Głos Strażnika** — jego ostatnia wiadomość zapisana w kręgach teleportacyjnych — prowadzi bohatera: przy każdym aktywowanym kręgu mówi, dokąd iść, których bossów osłabić, i ostrzega, że wspomnienia wracające po walkach to **fałszywe „echa” maszyny**, którym nie wolno ufać. (Tak „poległy” Strażnik może dawać wskazówki przez całą grę.)
+
+### Cel gracza
+
+1. **Wydostać się z miasta** przez wyrwę w ściekach (Sewer → Cemetery).
+2. Przez Fairy Forest (skrzyżowanie) ruszyć do **trzech odnóg** i pokonać bossów strzegących **fragmentów klucza** — klucz otwiera ukryty poziom Biblioteki, a stamtąd droga (zwój) do ogrodów zamkowych.
+3. Po drodze pokonywać **bossów etapów** — wzmocnionych sług arcymaga, którzy terroryzują okolicę (proszą o to mieszkańcy, wskazuje ich Strażnik).
+4. Przez ogrody dostać się do **zamku**, **pokonać arcymaga** i **zniszczyć maszynę**, zanim dobije do pełni.
+
+### Czego gracz NIE wie (dla autora — nie zdradzać na starcie)
+
+Że Strażnik żyje i to on stoi za barierą, „mgłą” i wzmocnieniem potworów; że maszyna arcymaga naprawdę **przywraca** wspomnienia i łamie czar Strażnika; że każdy pokonany boss napędza maszynę; że zwój z biblioteki ma ukrytą moc; że istnieje mała maszyna i dwa zakończenia.
+
+---
+
 ## Fabuła: twist Strażnik vs. Arcymag
 
 ### Wersja oficjalna (cel gracza na początku)
