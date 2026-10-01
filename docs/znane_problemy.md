@@ -133,6 +133,15 @@
     je na `res://modules/<id>/…` — sprawdzone na `ork_3.tscn`; zostaje wtedy tylko UID.
   - BitBomber już tak robi (względne ścieżki, 20/22 `ext_resource` z UID, `bb_runtime.gd`); quiz_rpg nie
     (patrz stan ścieżek wyżej).
+  - Sprawdzone 2026-10-01 (Godot 4.7.2): `.tres` też przyjmuje względne `path="../…"` przy wczytaniu (ten sam
+    format tekstowy co `.tscn`), ale zapis zmienia je na `res://…` — w praktyce zostają pełne ścieżki.
+    Scena z błędną ścieżką do skryptu, ale poprawnym UID, wczytuje właściwy skrypt (fallback po UID działa).
+  - **Blokada: `*.import` jest w `.gitignore`** (w repo tylko 4 pliki `.import`, `.uid` — 191). UID obrazków,
+    fontów i dźwięków żyje w `.import`, więc każdy świeży klon generuje własne, losowe UID-y — odwołania
+    `uid://` do assetów w scenach / `.tres` są wtedy nieważne („invalid UID - using text path”) i działa tylko
+    ścieżka. Ginęłyby też ustawienia importu per plik. Godot zaleca commitować `.import`; zrobić to
+    **z maszyny autora** (tam UID-y zgadzają się ze scenami) — usunąć `*.import` z `.gitignore`
+    i dodać pliki `.import`. Bez tego fallback po UID nie obejmie własnych assetów modułu.
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
