@@ -20,6 +20,15 @@
 - XP dodawane tylko na ekranie walki; po wygranej gracz rusza od razu, 5 s nietykalności
   (`player.grant_encounter_immunity`, miganie). Komunikaty zwycięstwa czekają (Enter pomija) — decyzja usera.
 
+## Wybór tła walki
+- `battle_background.gd`: klucz mapy jak folder ekranu ładowania — `get_map_key()` mapy (ProceduralLevel:
+  `loading_screen_key` albo biom z typu poziomu: cave / castle / forest), `biome`/`theme`…, nazwa pliku
+  sceny mapy ręcznej (`tutorial_area`), na końcu słowa w ścieżce skryptu / nazwie węzła.
+- Grafiki z folderu mapy (`folder_battle_background.gd`): `battle_backgrounds/<klucz>/` albo
+  `battle_backgrounds/pixel_crawler/<klucz>/`, losowy wariant; `KEY_ALIASES` (forest -> fairy_forest).
+  Brak folderu z grafikami = tło w kodzie (`world_map`, `default`). Lista przez
+  `ResourceLoader.list_directory` (działa w eksporcie). Wcześniej jaskinie generowane dostawały `default`.
+
 ## Pola walki per tło
 - Plik `<grafika>_layout.tres` obok grafiki tła (`BattleBackgroundLayout`: `texture`, `fields`);
   generatory teł dają `get_layout_key()`, tło -> `get_layout()` + sygnał `layout_changed`.
