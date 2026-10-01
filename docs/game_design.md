@@ -132,7 +132,8 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Strażnik „słabszy / mniej wiedzy” a to, że wysysał wiedzę arcymaga (pkt 1 „Prawdy”): zaklęcie ochronne arcymaga (pkt 2) osłoniło właśnie wiedzę o maszynach i zwoju, więc Strażnik jej nie przejął i nie rozpoznał zwoju.
 - [x] Złe zakończenie: po prostu koniec — Strażnik przejmuje wiedzę arcymaga i nadpisuje wspomnienia (także drużynie); cutscenka pokazuje zmanipulowane zakończenie.
 - [x] Co z magią 9. poziomu w true endingu — arcymag przed śmiercią daje drużynie dużo silniejsze umiejętności.
-- [ ] Jakie konkretnie umiejętności z magii 9. poziomu (per postać? jedna wspólna?) i balans walki ze Strażnikiem pod nie; szczegóły true endingu po tej walce.
+- [x] Jakie umiejętności z magii 9. poziomu — arcymag używa ich w swojej walce, w true endingu gracz wybiera jedną lub więcej (patrz „System skilli” → „Umiejętności 9. poziomu”).
+- [ ] Szczegóły true endingu po walce ze Strażnikiem.
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
 - [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
 
@@ -231,6 +232,18 @@ Każda postać ma **4 aktywne skille** + **1 skill combo (5.)** korzystający z 
 - Tech Pointy zdobywane osobną ścieżką (quizy, sekrety, opcjonalne areny).
 
 > Konkretna lista skilli per postać i balans Tech Pointów — do opracowania osobno.
+
+### Umiejętności 9. poziomu (od arcymaga, true ending)
+
+- **Bossfight z arcymagiem:** arcymag używa **wyłącznie swoich unikalnych umiejętności — czarów 9. poziomu**. Gracz poznaje je w walce, zanim może je dostać.
+- **True ending:** po pokonaniu arcymaga gracz **wybiera jedną lub więcej** z tych umiejętności. **Więcej** do wyboru, jeśli przyszedł na bossfight z **ukrytymi przedmiotami / umiejętnościami** (znalezionymi wcześniej w grze).
+- Kosztują **Tech Pointy** i są **bardzo potężne**.
+- Klasy umiejętności (wstępnie 4):
+  1. **Uberheal** — leczy całą drużynę do pełna i usuwa negatywne statusy.
+  2. **Manipulacja wspomnieniami** (Kotoamatsukami) — **blokuje przeciwnikowi ostatnio użytą umiejętność** na kilka tur.
+  3. **Ofensywna** — stricte obrażenia, gigantyczne.
+  4. **Klątwa** — nakłada na przeciwnika negatywne statusy.
+- Wymaga systemu statusów (patrz „Otwarte zadania” → „Statusy pozytywne i negatywne”).
 
 ---
 
@@ -334,6 +347,8 @@ Typy: `multiple_choice`, `true_false`, `fill_text`, `fill_tiles`, `matching`.
 - [ ] Mechanika bocznej ścieżki/łódki powrotu do Hideout gdy brak skilla.
 - [ ] Wizualizacja postępu urządzenia arcymaga (UI, animacja) — jak śledzone przez całą grę?
 - [ ] **Więcej bohaterów w drużynie** — dodatkowe postacie (skład, kiedy dołączają, role w walce, własne skille), spójne z fabułą (arcymag osłania całą drużynę) i z UI walki.
+- [ ] **Statusy pozytywne i negatywne** — dziś walka ich nie ma (jest tylko obrona na turę: akcja `DEFEND`, `defending` w `quiz_combat_controller.gd`). Do zaprojektowania: lista statusów (np. trucizna, ogłuszenie, osłabienie / wzmocnienie ataku i obrony, regeneracja, przyspieszenie / spowolnienie — por. prędkość niżej), czas trwania w turach, kumulowanie, odporności wrogów i bossów, ikonki w UI walki, skąd się biorą (skille, przedmioty, wrogowie) i co je zdejmuje (uberheal, przedmioty, koniec walki). Potrzebne m.in. dla umiejętności 9. poziomu.
+- [ ] **Umiejętności 9. poziomu** (patrz „System skilli”): ile do wyboru bazowo, ile więcej za ukryte przedmioty / umiejętności i jakie to przedmioty, koszty TP (pula drużyny `PARTY_TP_MAX` = 100), czas blokady z manipulacji wspomnieniami, balans walki z arcymagiem (używa tylko tych czarów) i ze Strażnikiem.
 - [ ] **Prędkość postaci w walce** — stat prędkości (bohaterowie i wrogowie) wyznacza kolejność ruchów w turze; **na prędkość wpływa też kolejność w drużynie** (np. pozycja w szyku daje bonus / karę — zasada do ustalenia). Dziś walka to naprzemiennie tura gracza i tura wrogów (`quiz_combat_controller.gd`: `_start_player_turn` / `_enemy_turn`), bez kolejki inicjatywy. Do ustalenia: czy pasek kolejki (jak w FNaFB / JRPG z timeline), wpływ ekwipunku / skilli / statusów na prędkość, remisy.
 
 **Referencje (do dostarczenia przez autora):**
