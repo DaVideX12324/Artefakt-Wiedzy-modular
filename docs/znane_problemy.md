@@ -85,6 +85,25 @@
 - Do ustalenia: promień odkrywania (z linią wzroku po ścianach czy bez), zapis maski odkrycia per mapa
   w save (jak seedy map), mapy ręczne (tutorial_area) — z TileMapLayer zamiast z wyniku generacji.
 
+### Mapy otwarte z uniwersalnego generatora (las zamiast ścian)
+- Zgłoszenie 2026-10-01. Pomysł: mapy otwarte (las, Fairy Forest, Dense Forest…) z tego samego generatora co
+  jaskinie — topologia (pokoje, korytarze, płaskowyże) bez zmian, ale **teren (podłoga, wzniesienia) na całej
+  mapie**, a tam, gdzie jaskinia ma ściany, **gęsto drzewa**, przez które nie da się przejść.
+- Dziś mapy otwarte robi osobny `overworld_forest_generator.gd` (szum + polany + ścieżki, ~170 linii) — nowa
+  ścieżka by go zastąpiła i dała lasom płaskowyże, teren, obiekty, nawigację i postęp ładowania jak w jaskiniach.
+- Proponowany podział:
+  - **Kolizja z siatki, nie z drzew:** kratki ścian zostają blokujące (niewidoczna warstwa kolizji / Walls bez
+    grafiki); drzewa tylko rysują. Gęsto stawiane drzewa z małymi kształtami pni i tak zostawiałyby szczeliny,
+    a nawigacja (`NavOutlines`) już liczy z siatki.
+  - **Pas brzegowy** (1–3 kratki od podłogi): drzewa jako obiekty (`ObjectPlanner`, katalog np.
+    `objects_forest.json`, kontekst przy ścianie), z y-sortem — postać może wejść „za” pień.
+  - **Głąb lasu:** korony jako kafle (TileMapLayer) zamiast obiektów — przy 500×500 to setki tysięcy kratek;
+    obiekty na całości byłyby za ciężkie do rysowania.
+  - Autotiling ścian (`EdgeAnalyzer`, fasady 2H/3H) wyłączony dla tego stylu — flaga stylu ścian
+    (kafle skalne / las) w `GenerationFlags` + JSON biomu (por. wpis „Nowe flagi generatora”).
+- Do ustalenia: krawędzie płaskowyżów pod drzewami (klify widoczne tylko na polanach?), wyjścia mapy w lesie
+  (przecinka w pasie drzew), wygląd przejścia polana → las (krzaki, pojedyncze drzewa przed ścianą).
+
 ### Ustawienia sterowania per moduł, wybór modułu w menu głównym
 - Zgłoszenie 2026-10-01. Dziś jedna lista w opcjach hosta (`scripts/ui/options_menu.gd`, `BINDS`) miesza
   akcje BitBombera (`p1_*`, `p2_*`) i Quiz RPG (`move_*`, `interact`) i tylko je **wyświetla** (bez zmiany
