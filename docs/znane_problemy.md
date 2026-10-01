@@ -120,11 +120,19 @@
   zapisie, więc nie są sposobem na przenośność scen; w `.gd` (`preload("../x.gd")`) działają.
   UID ma 601 z 692 `ext_resource` — reszta po zmianie ścieżki by się nie znalazła (ponowny zapis sceny
   w edytorze dopisuje UID).
-- Najprostszy wariant samodzielny: **mini-host z tym samym układem** — `project.godot` w korzeniu,
-  moduł w `modules/<id>/`, kopie potrzebnych assetów / autoloadów hosta pod tymi samymi ścieżkami
-  (`assets/...`, `autoloads/...`). Wtedy żadna ścieżka się nie zmienia (ani `res://`, ani UID); skrypt
-  „make standalone” składa taki folder z hosta. Same `exclude_filter` w `export_presets.cfg` rozwiązują tylko eksport (edytor dalej widzi
-  duplikaty: zdublowane `class_name` i UID).
+- Każdy moduł ma być osobnym repo podpiętym jako submoduł w `modules/<id>/` (jak BitBomber), więc wersja
+  samodzielna = korzeń repo modułu jako `res://`. Plan:
+  - **Kopie z hosta w lustrzanym układzie wewnątrz modułu** — host `res://assets/X` -> `modules/<id>/assets/X`,
+    host `res://autoloads/...` -> `modules/<id>/autoloads/...`, każdy taki folder z `.gdignore` (host go nie
+    widzi). Samodzielnie (korzeń modułu = `res://`) ścieżki hosta pasują 1:1; „make standalone” usuwa
+    `.gdignore` i zmienia `project.godot.off` -> `project.godot`.
+  - **Własne pliki modułu** (`res://modules/<id>/...` w hoście, `res://...` samodzielnie): UID w scenach
+    (Godot szuka najpierw po `uid://`), względne `preload("../…")` w `.gd`, a ścieżki składane w kodzie przez
+    przełącznik korzenia — jak `bb_runtime.gd` w BitBomberze (`HOST_MODULE_ROOT` / `STANDALONE_ROOT`).
+    Względne `path="…"` w `.tscn` działają przy wczytaniu, ale zapis sceny (edytor, `ResourceSaver`) zmienia
+    je na `res://modules/<id>/…` — sprawdzone na `ork_3.tscn`; zostaje wtedy tylko UID.
+  - BitBomber już tak robi (względne ścieżki, 20/22 `ext_resource` z UID, `bb_runtime.gd`); quiz_rpg nie
+    (patrz stan ścieżek wyżej).
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
