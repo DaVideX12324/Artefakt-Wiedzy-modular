@@ -196,35 +196,33 @@ func handle_input(event: InputEvent) -> bool:
 				_submit_answer(answer_multiple_choice(3))
 				return true
 
-			# 2x2 Grid navigation:
-			# [0] [1]
-			# [2] [3]
+			# Nawigacja po siatce odpowiedzi wg faktycznej liczby kolumn MC_Box (1 kolumna = lista,
+			# 2 kolumny = siatka 2x2); góra / dół przeskakują o jeden wiersz, nie o stałe 2 pozycje.
+			var cols: int = _mc_columns()
 			if event.is_action_pressed("ui_left") or key in [KEY_A, KEY_LEFT]:
-				if _mc_selected_idx in [1, 3] and mc_buttons[_mc_selected_idx - 1].visible:
+				if cols > 1 and _mc_selected_idx % cols > 0 and mc_buttons[_mc_selected_idx - 1].visible:
 					_mc_selected_idx -= 1
 					_refresh_mc_selection()
 					return true
 			elif event.is_action_pressed("ui_right") or key in [KEY_D, KEY_RIGHT]:
-				if _mc_selected_idx in [0, 2] and _mc_selected_idx + 1 < mc_buttons.size() and mc_buttons[_mc_selected_idx + 1].visible:
+				if cols > 1 and _mc_selected_idx % cols < cols - 1 and _mc_selected_idx + 1 < mc_buttons.size() and mc_buttons[_mc_selected_idx + 1].visible:
 					_mc_selected_idx += 1
 					_refresh_mc_selection()
 					return true
 			elif event.is_action_pressed("ui_up") or key in [KEY_W, KEY_UP]:
-				if _mc_selected_idx >= 2 and mc_buttons[_mc_selected_idx - 2].visible:
-					_mc_selected_idx -= 2
+				if _mc_selected_idx >= cols and mc_buttons[_mc_selected_idx - cols].visible:
+					_mc_selected_idx -= cols
 					_refresh_mc_selection()
-					return true
 				else:
 					_move_mc_selection(-1)
-					return true
+				return true
 			elif event.is_action_pressed("ui_down") or key in [KEY_S, KEY_DOWN]:
-				if _mc_selected_idx + 2 < mc_buttons.size() and mc_buttons[_mc_selected_idx + 2].visible:
-					_mc_selected_idx += 2
+				if _mc_selected_idx + cols < mc_buttons.size() and mc_buttons[_mc_selected_idx + cols].visible:
+					_mc_selected_idx += cols
 					_refresh_mc_selection()
-					return true
 				else:
 					_move_mc_selection(1)
-					return true
+				return true
 
 			if _is_choice_accept(event):
 				_submit_answer(answer_multiple_choice(_mc_selected_idx))
@@ -554,6 +552,11 @@ func _is_key_pressed(event: InputEvent, keys: Array[int]) -> bool:
 		return false
 	var key_event: InputEventKey = event as InputEventKey
 	return key_event.pressed and not key_event.echo and int(key_event.keycode) in keys
+
+
+func _mc_columns() -> int:
+	var grid := mc_box as GridContainer
+	return maxi(grid.columns, 1) if grid else 1
 
 
 func _move_mc_selection(delta: int) -> void:
