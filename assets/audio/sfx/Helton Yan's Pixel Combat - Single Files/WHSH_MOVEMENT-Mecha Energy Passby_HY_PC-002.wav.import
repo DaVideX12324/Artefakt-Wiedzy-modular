@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cvcbf6v1rdsot"
+path="res://.godot/imported/WHSH_MOVEMENT-Mecha Energy Passby_HY_PC-002.wav-daec7d6ba0419cdd75c96b2faa366f3a.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/Helton Yan's Pixel Combat - Single Files/WHSH_MOVEMENT-Mecha Energy Passby_HY_PC-002.wav"
+dest_files=["res://.godot/imported/WHSH_MOVEMENT-Mecha Energy Passby_HY_PC-002.wav-daec7d6ba0419cdd75c96b2faa366f3a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

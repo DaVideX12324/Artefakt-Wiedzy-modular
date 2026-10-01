@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b2keo8mxrepf6"
+path="res://.godot/imported/DSGNTonl_MELEE-Sword Critical_HY_PC-005.wav-a18f46b18a7e31ce113063a3aeb0fe27.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/Helton Yan's Pixel Combat - Single Files/DSGNTonl_MELEE-Sword Critical_HY_PC-005.wav"
+dest_files=["res://.godot/imported/DSGNTonl_MELEE-Sword Critical_HY_PC-005.wav-a18f46b18a7e31ce113063a3aeb0fe27.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

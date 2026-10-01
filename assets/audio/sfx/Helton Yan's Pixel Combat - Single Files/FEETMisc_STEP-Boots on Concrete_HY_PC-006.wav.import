@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://2x5i77rw5xkb"
+path="res://.godot/imported/FEETMisc_STEP-Boots on Concrete_HY_PC-006.wav-72ebcae43b29990bde13da6c201d44ac.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/Helton Yan's Pixel Combat - Single Files/FEETMisc_STEP-Boots on Concrete_HY_PC-006.wav"
+dest_files=["res://.godot/imported/FEETMisc_STEP-Boots on Concrete_HY_PC-006.wav-72ebcae43b29990bde13da6c201d44ac.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

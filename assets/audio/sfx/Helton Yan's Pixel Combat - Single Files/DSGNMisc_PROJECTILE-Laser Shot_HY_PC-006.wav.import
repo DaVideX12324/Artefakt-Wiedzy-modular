@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://t0l5r6l7la48"
+path="res://.godot/imported/DSGNMisc_PROJECTILE-Laser Shot_HY_PC-006.wav-316ef3a2da79c887c1ae52aaa57f29ed.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/Helton Yan's Pixel Combat - Single Files/DSGNMisc_PROJECTILE-Laser Shot_HY_PC-006.wav"
+dest_files=["res://.godot/imported/DSGNMisc_PROJECTILE-Laser Shot_HY_PC-006.wav-316ef3a2da79c887c1ae52aaa57f29ed.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

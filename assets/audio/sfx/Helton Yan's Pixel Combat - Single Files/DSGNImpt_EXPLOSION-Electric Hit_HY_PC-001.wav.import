@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dc0tgl0ihtotf"
+path="res://.godot/imported/DSGNImpt_EXPLOSION-Electric Hit_HY_PC-001.wav-0b5d7ca9a6bdcc1583b2e4daa094fb12.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/Helton Yan's Pixel Combat - Single Files/DSGNImpt_EXPLOSION-Electric Hit_HY_PC-001.wav"
+dest_files=["res://.godot/imported/DSGNImpt_EXPLOSION-Electric Hit_HY_PC-001.wav-0b5d7ca9a6bdcc1583b2e4daa094fb12.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

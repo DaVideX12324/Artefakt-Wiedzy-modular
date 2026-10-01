@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d1ca8d4y462cn"
+path="res://.godot/imported/Inworld_inworld-tts-1_Dennis_12-14-2025 19-00-08.mp3-fe820f39bcb84e330a3c20f5b495b344.mp3str"
+
+[deps]
+
+source_file="res://assets/textures/legacy_amonra/outro/outro sound/Inworld_inworld-tts-1_Dennis_12-14-2025 19-00-08.mp3"
+dest_files=["res://.godot/imported/Inworld_inworld-tts-1_Dennis_12-14-2025 19-00-08.mp3-fe820f39bcb84e330a3c20f5b495b344.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
