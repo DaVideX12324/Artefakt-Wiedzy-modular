@@ -56,6 +56,8 @@ pokazuje własny ekran generowania. Gracz zamrożony (`PROCESS_MODE_DISABLED`) d
   pliku sceny (np. `tutorial_area`).
 - `%Band`: pas pod paskiem w kolorze dolnych 2% grafiki (`edge_color`); wysokość i przejście z edytora.
 - Nazwa lokacji: `ProceduralLevel.location_name`, puste → „Jaskinia” / „Zamek” / „Las”.
+  Mapy ręczne: `level_manager.LOCATION_NAMES` wg nazwy pliku sceny (`tutorial_area` → „Starożytne
+  Ruiny”); brak wpisu = bez napisu.
 - Prompty do grafik: `loading_screens/loading_screen_prompts.md` — 12 stref × 3–4 warianty,
   perspektywa 1. osoby z poziomu ziemi (Gemini robił widok z góry), referencje = mockupy autorów paczek.
 
