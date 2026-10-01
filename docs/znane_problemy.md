@@ -97,8 +97,17 @@
     a nawigacja (`NavOutlines`) już liczy z siatki.
   - **Pas brzegowy** (1–3 kratki od podłogi): drzewa jako obiekty (`ObjectPlanner`, katalog np.
     `objects_forest.json`, kontekst przy ścianie), z y-sortem — postać może wejść „za” pień.
-  - **Głąb lasu:** korony jako kafle (TileMapLayer) zamiast obiektów — przy 500×500 to setki tysięcy kratek;
-    obiekty na całości byłyby za ciężkie do rysowania.
+  - **Głąb lasu:** nie kafle koron, które muszą do siebie pasować (korony są szersze niż kratka → luki albo
+    niedopasowane krawędzie), tylko **całe drzewa nachodzące na siebie** — jak w makiecie
+    `assets/pixel_crawler/environments/world_build/MockUps/Trees.png`: duże kafle wielokratkowe (sprite drzewa
+    z `Tree.png` Fairy Forest) w rozstawie mniejszym niż szerokość korony (np. co 2–3 kratki), z y-sortem
+    (przednie przykrywają tylne) i przesunięciem przez kafle alternatywne z innym `texture_origin`.
+    Na TileMapLayer, nie jako obiekty — przy 500×500 to setki tysięcy kratek.
+  - **Ciemne podłoże pod lasem** (kafel cienia zamiast trawy) — ewentualna szczelina między koronami wygląda
+    wtedy jak cień, nie jak dziura. W `Tree.png` są też same korony w 6 odcieniach aż do prawie czarnego —
+    ciemniejsze głębiej w lesie.
+  - Do sprawdzenia: kafle wielokratkowe na warstwie z y-sortem (por. „Do sprawdzenia w grze” → kafle
+    wielokratkowe na `Props`) i koszt rysowania przy 500×500.
   - Autotiling ścian (`EdgeAnalyzer`, fasady 2H/3H) wyłączony dla tego stylu — flaga stylu ścian
     (kafle skalne / las) w `GenerationFlags` + JSON biomu (por. wpis „Nowe flagi generatora”).
 - Do ustalenia: krawędzie płaskowyżów pod drzewami (klify widoczne tylko na polanach?), wyjścia mapy w lesie
