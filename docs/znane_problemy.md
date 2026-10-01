@@ -85,6 +85,34 @@
 - Do ustalenia: promień odkrywania (z linią wzroku po ścianach czy bez), zapis maski odkrycia per mapa
   w save (jak seedy map), mapy ręczne (tutorial_area) — z TileMapLayer zamiast z wyniku generacji.
 
+### Ustawienia sterowania per moduł, wybór modułu w menu głównym
+- Zgłoszenie 2026-10-01. Dziś jedna lista w opcjach hosta (`scripts/ui/options_menu.gd`, `BINDS`) miesza
+  akcje BitBombera (`p1_*`, `p2_*`) i Quiz RPG (`move_*`, `interact`) i tylko je **wyświetla** (bez zmiany
+  klawiszy).
+- Cel: każdy moduł ma własną sekcję sterowania (lista akcji z modułu, np. w `module_manifest.json` albo
+  z prefiksu akcji — por. `docs/module_contract.md`: akcje z prefiksem gry), a w opcjach z menu głównego
+  jest **select modułu** (Quiz RPG / BitBomber / …), który przełącza listę.
+- Przy okazji: zmiana klawiszy (rebind) z zapisem per moduł w `SettingsService.set_module(...)`.
+
+### Ustawienia w menu Quiz RPG
+- Zgłoszenie 2026-10-01. Menu modułu (`modules/quiz_rpg/scenes/ui/main_menu.tscn`, `pause_menu.tscn`)
+  nie ma opcji. Dodać wejście do ustawień (najlepiej ten sam panel co z menu głównego hosta, od razu
+  z wybranym modułem Quiz RPG — patrz wpis wyżej) — także z pauzy w trakcie gry.
+
+### Modularność assetów i autoloadów (moduł samodzielny bez dublowania w eksporcie)
+- Zgłoszenie 2026-10-01. Pomysł: moduł trzyma też kopie assetów i autoloadów, które w hoście zapewnia
+  główny projekt (żeby dało się go uruchomić samodzielnie), a w hoście te kopie są ignorowane — nie ma
+  dublowania w edytorze ani w eksporcie.
+- Wykonalne: kopie w jednym folderze modułu (np. `modules/<id>/_standalone/`) z plikiem `.gdignore` —
+  host w ogóle go nie widzi (bez importu, bez eksportu, bez konfliktów `class_name` i UID). Wersja
+  samodzielna: `project.godot.off` -> `project.godot` + usunięcie `_standalone/.gdignore` (skrypt
+  „make standalone”), autoloady z kopii zarejestrowane w `project.godot.off`.
+- Kopie z tymi samymi UID co oryginały (kopiować razem z `.uid` / `.import`) — sceny modułu odwołują się
+  po `uid://`, więc trafią w oryginał w hoście i w kopię w wersji samodzielnej, mimo innej ścieżki.
+- Ryzyko: kopie się rozjeżdżają z hostem — skrypt synchronizacji (host -> `_standalone`) zamiast ręcznego
+  kopiowania. Same `exclude_filter` w `export_presets.cfg` rozwiązują tylko eksport (edytor dalej widzi
+  duplikaty: zdublowane `class_name` i UID).
+
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
