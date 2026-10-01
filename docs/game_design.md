@@ -123,7 +123,8 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - **Faza 1 — bohater sam.** Na start walki Strażnik **zabiera wspomnienia wszystkim towarzyszom** bohatera — znikają z walki. Bohater zostaje solo i **wygrać się tego nie da**.
 - Strażnik w fazie 1 **nie używa potężnych skilli** — tylko zwykły atak i statusy (patrz todo „Statusy pozytywne i negatywne”).
 - Kluczem jest **przetrwanie**: gracz cały czas używa **obrony (guard)**, żeby nabić TP, i co jakiś czas **przedmiotów leczących**. Sojusznicy wracają **wyłącznie przez wzmocnienie tarczy za TP** (niżej) — liczba tur sama w sobie nie ma znaczenia. Kto ma dużo przedmiotów leczących, też przetrwa, ale nieefektywnie.
-- **Atak bohatera zadaje obrażenia**, ale **bez wszystkich sojuszników pokonanie Strażnika jest niemożliwe**.
+- **Atak bohatera zadaje obrażenia**, ale **bez wszystkich sojuszników pokonanie Strażnika jest niemożliwe** — załatwia to sama **pula HP bossa**. Realnie zbić ją może dopiero sojusznik **stricte ofensywny** albo z **chance hitem** (mała szansa na trafienie, ale trafienie zadaje gigantyczne obrażenia).
+- Dla pewności te skille są **osłabione, dopóki nie wróci cała drużyna**. Z pełną drużyną **chance hit siada bardzo często**.
 - **Gra nic nie podpowiada** — gracz sam musi wpaść, że chodzi o przetrwanie.
 - **Brak gwarantowanego leczenia:** kto nie przygotował się na finał (przedmioty), ma problem — skill issue. Po game over: **spróbuj ponownie** albo **wczytaj ostatni zapis** — ten jest zawsze **tuż przed wejściem na arenę z arcymagiem**. Po wczytaniu można się wycofać, **dofarmić kasę i lepiej zaopatrzyć** (przedmioty leczące) przed ponownym podejściem.
 - **Umiejętności 9. poziomu działają** w fazie 1, ale bohater solo **nie ma** ofensywnej („gigantyczne obrażenia”) ani **uberheala**. *(Do uzgodnienia z utratą wszystkich skilli — patrz niżej i otwarte decyzje.)*
@@ -154,7 +155,7 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Faza 1: wzmocnienie tarczy kosztuje 100 TP.
 - [x] Faza 1 — reguły: sojusznicy wracają tylko za TP (tury bez znaczenia), gra nic nie podpowiada, bez gwarantowanego leczenia (game over → ponów / zapis przed areną arcymaga), umiejętności 9. poziomu działają bez ofensywnej i uberheala.
 - [x] Faza 1: atak bohatera zadaje obrażenia, ale bez wszystkich sojuszników nie da się wygrać.
-- [ ] Faza 1 — mechanika „niemożliwe bez drużyny” (np. HP Strażnika nie spada poniżej progu, dopóki ktoś z drużyny nie wrócił?).
+- [x] Faza 1 — mechanika „niemożliwe bez drużyny”: pula HP bossa + skille ofensywne / chance hit osłabione do powrotu całej drużyny.
 - [ ] Faza 1 — utrata skilli bohatera: czy obejmuje też umiejętności 9. poziomu (wtedy znika zapis „działają bez ofensywnej i uberheala”), które skille wracają z którym sojusznikiem. Wzmocnienie tarczy musi zostać dostępne od początku (np. jako moc samego zwoju, nie skill bohatera).
 - [ ] Faza 2 — przebieg i mechanika.
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
