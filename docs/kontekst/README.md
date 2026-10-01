@@ -14,3 +14,7 @@ Krótkie notatki na start nowej sesji. Moduł `modules/quiz_rpg`, Godot 4.7.2.
 
 Pełniejsze listy: `docs/znane_problemy.md` (sekcje „Do zrobienia” i „Rozwiązane”),
 `docs/plan_generator_obiektow.md`, `docs/game_design.md`.
+
+Przypomnienia na start sesji Claude Code: hook `SessionStart` w `.claude/settings.json` uruchamia
+`.claude/hooks/przypomnienia.sh` — każde przypomnienie sprawdza stan repo i znika samo, gdy sprawa jest
+załatwiona (dziś: pliki `.import` poza repo). Nowe przypomnienie = nowy blok w tym skrypcie.
