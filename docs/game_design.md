@@ -118,6 +118,22 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - Dla Strażnika to podwójny zysk: teleport prowadzi bohatera prosto na arcymaga, a podpis arcymaga robi ze zwoju fałszywy dowód jego winy.
 - Po otrzymaniu zwoju gracz **wybiera: teleportować się od razu albo nie**. Kto zostaje, może odkryć ukrytą moc i dotrzeć do małej maszyny — stoi w odludnym miejscu w mieście albo w piwnicy biblioteki (do ustalenia). Zwój dalej teleportuje (patrz „Scroll z Library → Garden”).
 
+### Bossfight ze Strażnikiem (pomysł, inspiracja: FNaFB)
+
+- **Faza 1 — bohater sam.** Na start walki Strażnik **zabiera wspomnienia wszystkim towarzyszom** bohatera — znikają z walki. Bohater zostaje solo i **wygrać się tego nie da**.
+- Strażnik w fazie 1 **nie używa potężnych skilli** — tylko zwykły atak i statusy (patrz todo „Statusy pozytywne i negatywne”).
+- Kluczem jest **przetrwanie**: gracz cały czas używa **obrony (guard)**, żeby nabić TP, i co jakiś czas **przedmiotów leczących**. Sojusznicy wracają **wyłącznie przez wzmocnienie tarczy za TP** (niżej) — liczba tur sama w sobie nie ma znaczenia. Kto ma dużo przedmiotów leczących, też przetrwa, ale nieefektywnie.
+- **Atak bohatera zadaje obrażenia**, ale **bez wszystkich sojuszników pokonanie Strażnika jest niemożliwe** — załatwia to sama **pula HP bossa**. Realnie zbić ją może dopiero sojusznik **stricte ofensywny** albo z **chance hitem** (mała szansa na trafienie, ale trafienie zadaje gigantyczne obrażenia).
+- Dla pewności te skille są **osłabione, dopóki nie wróci cała drużyna**. Z pełną drużyną **chance hit siada bardzo często**.
+- **Gra nic nie podpowiada** — gracz sam musi wpaść, że chodzi o przetrwanie.
+- **Brak gwarantowanego leczenia:** kto nie przygotował się na finał (przedmioty), ma problem — skill issue. Po game over: **spróbuj ponownie** albo **wczytaj ostatni zapis** — ten jest zawsze **tuż przed wejściem na arenę z arcymagiem**. Po wczytaniu można się wycofać, **dofarmić kasę i lepiej zaopatrzyć** (przedmioty leczące) przed ponownym podejściem.
+- **Umiejętności 9. poziomu** też przepadają na start fazy 1 — **wracają dopiero, gdy wróci cała drużyna**.
+- **Czemu towarzysze tracą wspomnienia mimo osłony arcymaga:** czarna magia rzucona **z bliska jest dużo skuteczniejsza** — osłona wytrzymała czar na całe miasto, ale nie skupiony atak Strażnika w walce.
+- **Czemu bohater ich nie traci:** ma przy sobie **zwój arcymaga z biblioteki** (z ukrytą mocą — ten sam, który prowadził do małej maszyny; w true endingu bohater zawsze go ma).
+- **Zwój nie zatrzymuje czaru w pełni:** bohater zachowuje wspomnienia, ale **traci wszystkie skille**. **Z każdym wracającym sojusznikiem wracają też skille bohatera** (losowe, część po części), więc gra solo to tylko zwykły atak, obrona, przedmioty i wzmocnienie tarczy. Umiejętności 9. poziomu wracają razem z ostatnim sojusznikiem.
+- **Wzmocnienie tarczy (umiejętność fazy 1)** — **moc, którą arcymag odblokował bohaterowi przed śmiercią** (dlatego nie przepada razem ze skillami): obrona (guard) **nabija TP** (TP liczone jak bez obrony — patrz „Tech Pointy w walce”); na czas fazy 1 bohater może wydać **100 TP** (cała pula), żeby **wzmocnić tarczę chroniącą sojuszników przed czarem** — to **przywraca kolejnego sojusznika** z listy drużyny. Jedyny sposób na powrót drużyny.
+- Z pełną drużyną gracz **pokonuje Strażnika po raz pierwszy**, po czym zaczyna się **faza 2**.
+
 ### Otwarte decyzje fabularne
 - [ ] Prawdziwy powód bariery: A) ukrycie testu zaklęcia przed światem (żeby się nie wydało / nie za szybko), B) spowolnienie maszyny arcymaga, czy oba naraz? Oba warianty pasują do fabuły i się nie wykluczają.
 - [x] Mechanika przepływu wiedzy — rozwiązane: maszyna wyłapuje wiedzę uwolnioną z bossów i oddaje ją ludziom; po jej zniszczeniu nie ma kontry na czar, arcymag osłania tylko drużynę, wszyscy NPC zapominają.
@@ -132,7 +148,17 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Strażnik „słabszy / mniej wiedzy” a to, że wysysał wiedzę arcymaga (pkt 1 „Prawdy”): zaklęcie ochronne arcymaga (pkt 2) osłoniło właśnie wiedzę o maszynach i zwoju, więc Strażnik jej nie przejął i nie rozpoznał zwoju.
 - [x] Złe zakończenie: po prostu koniec — Strażnik przejmuje wiedzę arcymaga i nadpisuje wspomnienia (także drużynie); cutscenka pokazuje zmanipulowane zakończenie.
 - [x] Co z magią 9. poziomu w true endingu — arcymag przed śmiercią daje drużynie dużo silniejsze umiejętności.
-- [ ] Jakie konkretnie umiejętności z magii 9. poziomu (per postać? jedna wspólna?) i balans walki ze Strażnikiem pod nie; szczegóły true endingu po tej walce.
+- [x] Jakie umiejętności z magii 9. poziomu — arcymag używa ich w swojej walce, w true endingu gracz wybiera jedną lub więcej (patrz „System skilli” → „Umiejętności 9. poziomu”).
+- [ ] Szczegóły true endingu po walce ze Strażnikiem.
+- [x] Bossfight ze Strażnikiem, faza 1: towarzysze tracą wspomnienia, bo czarna magia z bliska jest skuteczniejsza niż czar na całe miasto; wracają przez wzmocnienie tarczy za TP.
+- [x] Faza 1: bohater nie traci wspomnień, bo ma przy sobie zwój arcymaga z biblioteki.
+- [x] Faza 1: wzmocnienie tarczy kosztuje 100 TP.
+- [x] Faza 1 — reguły: sojusznicy wracają tylko za TP (tury bez znaczenia), gra nic nie podpowiada, bez gwarantowanego leczenia (game over → ponów / zapis przed areną arcymaga), umiejętności 9. poziomu działają bez ofensywnej i uberheala.
+- [x] Faza 1: atak bohatera zadaje obrażenia, ale bez wszystkich sojuszników nie da się wygrać.
+- [x] Faza 1 — mechanika „niemożliwe bez drużyny”: pula HP bossa + skille ofensywne / chance hit osłabione do powrotu całej drużyny.
+- [x] Faza 1 — utrata skilli obejmuje umiejętności 9. poziomu (wracają po powrocie całej drużyny); wzmocnienie tarczy to moc odblokowana przez arcymaga przed śmiercią, więc zostaje od początku.
+- [x] Faza 1 — z każdym sojusznikiem wracają losowe zwykłe skille bohatera.
+- [ ] Faza 2 — przebieg i mechanika.
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
 - [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
 
@@ -228,9 +254,29 @@ Każda postać ma **4 aktywne skille** + **1 skill combo (5.)** korzystający z 
 
 - **Skille 1–4** odblokowywane u NPC w Hideout (stopniowo przez grę).
 - **Skill 5 (combo)** — synteza wybranych skilli, działa za Tech Pointy; gracz wybiera kombinację przy odblokowaniu.
-- Tech Pointy zdobywane osobną ścieżką (quizy, sekrety, opcjonalne areny).
+- Tech Pointy zdobywane osobną ścieżką (quizy, sekrety, opcjonalne areny). *(Do uzgodnienia z „Tech Pointy w walce” niżej — czy to osobna waluta do odblokowań, czy ta sama pula TP.)*
+
+### Tech Pointy w walce (zasady w całej grze)
+
+- **Otrzymywanie obrażeń** daje najwięcej TP — **proporcjonalnie do utraconego % HP** (np. utrata 50% HP → 40 TP).
+- **Atakowanie** też daje TP, ale **dużo mniej**.
+- **Obrona (guard)** zmniejsza otrzymane obrażenia, ale **TP rośnie tak, jakby obrony nie było** (liczone z obrażeń przed redukcją) — dlatego obrona jest dobrym sposobem na nabijanie TP.
+- Dokładne proporcje — do ustalenia balansem.
+- Stan kodu (2026-10-01): TP rośnie tylko z otrzymanych obrażeń i o tyle punktów, ile wynoszą obrażenia, a przy obronie z obrażeń już zmniejszonych (`_gain_party_tp` w `quiz_combat_controller.gd`); atak TP nie daje. Do przerobienia pod zasady wyżej.
 
 > Konkretna lista skilli per postać i balans Tech Pointów — do opracowania osobno.
+
+### Umiejętności 9. poziomu (od arcymaga, true ending)
+
+- **Bossfight z arcymagiem:** arcymag używa **wyłącznie swoich unikalnych umiejętności — czarów 9. poziomu**. Gracz poznaje je w walce, zanim może je dostać.
+- **True ending:** po pokonaniu arcymaga gracz **wybiera jedną lub więcej** z tych umiejętności. **Więcej** do wyboru, jeśli przyszedł na bossfight z **ukrytymi przedmiotami / umiejętnościami** (znalezionymi wcześniej w grze).
+- Kosztują **Tech Pointy** i są **bardzo potężne**.
+- Klasy umiejętności (wstępnie 4):
+  1. **Uberheal** — leczy całą drużynę do pełna i usuwa negatywne statusy.
+  2. **Manipulacja wspomnieniami** (Kotoamatsukami) — **blokuje przeciwnikowi ostatnio użytą umiejętność** na kilka tur.
+  3. **Ofensywna** — stricte obrażenia, gigantyczne.
+  4. **Klątwa** — nakłada na przeciwnika negatywne statusy.
+- Wymaga systemu statusów (patrz „Otwarte zadania” → „Statusy pozytywne i negatywne”).
 
 ---
 
@@ -327,13 +373,15 @@ Typy: `multiple_choice`, `true_false`, `fill_text`, `fill_tiles`, `matching`.
 - [ ] Konkretne poszlaki i ich rozmieszczenie (dzienniki, ślady walki) między Fairy Forest a Library.
 
 **Mechaniczne:**
-- [ ] Lista skilli per postać + balans Tech Pointów.
+- [ ] Lista skilli per postać + balans Tech Pointów (proporcje TP z obrażeń i ataku — patrz „Tech Pointy w walce”).
 - [ ] Skille wymagane do otwarcia każdego tajnego wejścia (biom-specific, do ustalenia przy projektowaniu postaci).
 - [ ] Szczegóły segmentu 2D side-scroller przy tajnym wejściu (długość, co widać, czy jest interakcja).
 - [ ] Projekt NPC-ów w Hideout i ich upgrade po otwarciu tajnego wejścia.
 - [ ] Mechanika bocznej ścieżki/łódki powrotu do Hideout gdy brak skilla.
 - [ ] Wizualizacja postępu urządzenia arcymaga (UI, animacja) — jak śledzone przez całą grę?
 - [ ] **Więcej bohaterów w drużynie** — dodatkowe postacie (skład, kiedy dołączają, role w walce, własne skille), spójne z fabułą (arcymag osłania całą drużynę) i z UI walki.
+- [ ] **Statusy pozytywne i negatywne** — dziś walka ich nie ma (jest tylko obrona na turę: akcja `DEFEND`, `defending` w `quiz_combat_controller.gd`). Do zaprojektowania: lista statusów (np. trucizna, ogłuszenie, osłabienie / wzmocnienie ataku i obrony, regeneracja, przyspieszenie / spowolnienie — por. prędkość niżej), czas trwania w turach, kumulowanie, odporności wrogów i bossów, ikonki w UI walki, skąd się biorą (skille, przedmioty, wrogowie) i co je zdejmuje (uberheal, przedmioty, koniec walki). Potrzebne m.in. dla umiejętności 9. poziomu.
+- [ ] **Umiejętności 9. poziomu** (patrz „System skilli”): ile do wyboru bazowo, ile więcej za ukryte przedmioty / umiejętności i jakie to przedmioty, koszty TP (pula drużyny `PARTY_TP_MAX` = 100), czas blokady z manipulacji wspomnieniami, balans walki z arcymagiem (używa tylko tych czarów) i ze Strażnikiem.
 - [ ] **Prędkość postaci w walce** — stat prędkości (bohaterowie i wrogowie) wyznacza kolejność ruchów w turze; **na prędkość wpływa też kolejność w drużynie** (np. pozycja w szyku daje bonus / karę — zasada do ustalenia). Dziś walka to naprzemiennie tura gracza i tura wrogów (`quiz_combat_controller.gd`: `_start_player_turn` / `_enemy_turn`), bez kolejki inicjatywy. Do ustalenia: czy pasek kolejki (jak w FNaFB / JRPG z timeline), wpływ ekwipunku / skilli / statusów na prędkość, remisy.
 
 **Referencje (do dostarczenia przez autora):**
