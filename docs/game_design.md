@@ -130,7 +130,7 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - **Umiejętności 9. poziomu** też przepadają na start fazy 1 — **wracają dopiero, gdy wróci cała drużyna**.
 - **Czemu towarzysze tracą wspomnienia mimo osłony arcymaga:** czarna magia rzucona **z bliska jest dużo skuteczniejsza** — osłona wytrzymała czar na całe miasto, ale nie skupiony atak Strażnika w walce.
 - **Czemu bohater ich nie traci:** ma przy sobie **zwój arcymaga z biblioteki** (z ukrytą mocą — ten sam, który prowadził do małej maszyny; w true endingu bohater zawsze go ma).
-- **Zwój nie zatrzymuje czaru w pełni:** bohater zachowuje wspomnienia, ale **traci wszystkie skille**. **Z każdym wracającym sojusznikiem wracają też skille bohatera** (część po części), więc gra solo to tylko zwykły atak, obrona, przedmioty i wzmocnienie tarczy. Umiejętności 9. poziomu wracają razem z ostatnim sojusznikiem.
+- **Zwój nie zatrzymuje czaru w pełni:** bohater zachowuje wspomnienia, ale **traci wszystkie skille**. **Z każdym wracającym sojusznikiem wracają też skille bohatera** (losowe, część po części), więc gra solo to tylko zwykły atak, obrona, przedmioty i wzmocnienie tarczy. Umiejętności 9. poziomu wracają razem z ostatnim sojusznikiem.
 - **Wzmocnienie tarczy (umiejętność fazy 1)** — **moc, którą arcymag odblokował bohaterowi przed śmiercią** (dlatego nie przepada razem ze skillami): obrona (guard) **nabija TP** (TP liczone jak bez obrony — patrz „Tech Pointy w walce”); na czas fazy 1 bohater może wydać **100 TP** (cała pula), żeby **wzmocnić tarczę chroniącą sojuszników przed czarem** — to **przywraca kolejnego sojusznika** z listy drużyny. Jedyny sposób na powrót drużyny.
 - Z pełną drużyną gracz **pokonuje Strażnika po raz pierwszy**, po czym zaczyna się **faza 2**.
 
@@ -157,7 +157,7 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Faza 1: atak bohatera zadaje obrażenia, ale bez wszystkich sojuszników nie da się wygrać.
 - [x] Faza 1 — mechanika „niemożliwe bez drużyny”: pula HP bossa + skille ofensywne / chance hit osłabione do powrotu całej drużyny.
 - [x] Faza 1 — utrata skilli obejmuje umiejętności 9. poziomu (wracają po powrocie całej drużyny); wzmocnienie tarczy to moc odblokowana przez arcymaga przed śmiercią, więc zostaje od początku.
-- [ ] Faza 1 — które zwykłe skille bohatera wracają z którym sojusznikiem.
+- [x] Faza 1 — z każdym sojusznikiem wracają losowe zwykłe skille bohatera.
 - [ ] Faza 2 — przebieg i mechanika.
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
 - [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
