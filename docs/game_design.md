@@ -127,6 +127,9 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - **Gra nic nie podpowiada** — gracz sam musi wpaść, że chodzi o przetrwanie.
 - **Brak gwarantowanego leczenia:** kto nie przygotował się na finał (przedmioty), ma problem — skill issue. Po game over: **spróbuj ponownie** albo **wczytaj ostatni zapis** — ten jest zawsze **tuż przed wejściem na arenę z arcymagiem**. Po wczytaniu można się wycofać, **dofarmić kasę i lepiej zaopatrzyć** (przedmioty leczące) przed ponownym podejściem.
 - **Umiejętności 9. poziomu działają** w fazie 1, ale bohater solo **nie ma** ofensywnej („gigantyczne obrażenia”) ani **uberheala**.
+- **Czemu towarzysze tracą wspomnienia mimo osłony arcymaga:** czarna magia rzucona **z bliska jest dużo skuteczniejsza** — osłona wytrzymała czar na całe miasto, ale nie skupiony atak Strażnika w walce.
+- **Wzmocnienie tarczy (umiejętność fazy 1):** obrona (guard) **nabija TP**; na czas fazy 1 bohater może wydać TP, żeby **wzmocnić tarczę chroniącą sojuszników przed czarem** — to **przywraca kolejnego sojusznika** z listy drużyny. Drugi sposób obok odbytych tur: aktywna gra obroną przyspiesza powrót drużyny.
+  - Dziś TP rośnie z otrzymanych obrażeń (`_gain_party_tp` w `quiz_combat_controller.gd`, także przy obronie — wtedy z połowy obrażeń). Pod tę mechanikę obrona musi dawać TP sama w sobie (np. stała porcja za turę obrony).
 - Z pełną drużyną gracz **pokonuje Strażnika po raz pierwszy**, po czym zaczyna się **faza 2**.
 
 ### Otwarte decyzje fabularne
@@ -145,7 +148,8 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Co z magią 9. poziomu w true endingu — arcymag przed śmiercią daje drużynie dużo silniejsze umiejętności.
 - [x] Jakie umiejętności z magii 9. poziomu — arcymag używa ich w swojej walce, w true endingu gracz wybiera jedną lub więcej (patrz „System skilli” → „Umiejętności 9. poziomu”).
 - [ ] Szczegóły true endingu po walce ze Strażnikiem.
-- [ ] Bossfight ze Strażnikiem, faza 1: arcymag osłonił drużynę przed czarem Strażnika — czemu towarzysze i tak tracą wspomnienia (bezpośredni, skupiony atak zamiast czaru na całe miasto?) i czemu wracają (słabnąca osłona arcymaga / magia 9. poziomu walczy z czarem?). Czemu bohater ich nie traci?
+- [x] Bossfight ze Strażnikiem, faza 1: towarzysze tracą wspomnienia, bo czarna magia z bliska jest skuteczniejsza niż czar na całe miasto; wracają z czasem (odbyte tury) albo przez wzmocnienie tarczy za TP.
+- [ ] Faza 1: czemu bohater nie traci wspomnień (to on trzyma tarczę? osłona arcymaga najsilniejsza na nim?); koszt TP wzmocnienia tarczy i ile TP daje obrona.
 - [x] Faza 1 — reguły: liczą się odbyte tury, gra nic nie podpowiada, bez gwarantowanego leczenia (game over → ponów / zapis przed areną arcymaga), umiejętności 9. poziomu działają bez ofensywnej i uberheala.
 - [ ] Faza 1 — do ustalenia: ile tur na sojusznika, czy atak bohatera w ogóle zadaje Strażnikowi obrażenia.
 - [ ] Faza 2 — przebieg i mechanika.
