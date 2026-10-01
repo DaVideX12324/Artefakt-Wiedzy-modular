@@ -122,14 +122,14 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 
 - **Faza 1 — bohater sam.** Na start walki Strażnik **zabiera wspomnienia wszystkim towarzyszom** bohatera — znikają z walki. Bohater zostaje solo i **wygrać się tego nie da**.
 - Strażnik w fazie 1 **nie używa potężnych skilli** — tylko zwykły atak i statusy (patrz todo „Statusy pozytywne i negatywne”).
-- Kluczem jest **przetrwanie**: gracz cały czas używa **obrony (guard)** i co jakiś czas **przedmiotów leczących**. Po kilku przetrwanych turach **wraca pierwszy sojusznik**, kilka tur dalej kolejny — aż wróci cała drużyna.
-- Do powrotu sojuszników liczą się **po prostu odbyte tury** (niezależnie od akcji). Kto ma dużo przedmiotów leczących, też przetrwa bez obrony — ale nieefektywnie. Liczby tur do ustalenia przy balansie.
+- Kluczem jest **przetrwanie**: gracz cały czas używa **obrony (guard)**, żeby nabić TP, i co jakiś czas **przedmiotów leczących**. Sojusznicy wracają **wyłącznie przez wzmocnienie tarczy za TP** (niżej) — liczba tur sama w sobie nie ma znaczenia. Kto ma dużo przedmiotów leczących, też przetrwa, ale nieefektywnie.
+- **Atak bohatera zadaje obrażenia**, ale **bez wszystkich sojuszników pokonanie Strażnika jest niemożliwe**.
 - **Gra nic nie podpowiada** — gracz sam musi wpaść, że chodzi o przetrwanie.
 - **Brak gwarantowanego leczenia:** kto nie przygotował się na finał (przedmioty), ma problem — skill issue. Po game over: **spróbuj ponownie** albo **wczytaj ostatni zapis** — ten jest zawsze **tuż przed wejściem na arenę z arcymagiem**. Po wczytaniu można się wycofać, **dofarmić kasę i lepiej zaopatrzyć** (przedmioty leczące) przed ponownym podejściem.
 - **Umiejętności 9. poziomu działają** w fazie 1, ale bohater solo **nie ma** ofensywnej („gigantyczne obrażenia”) ani **uberheala**.
 - **Czemu towarzysze tracą wspomnienia mimo osłony arcymaga:** czarna magia rzucona **z bliska jest dużo skuteczniejsza** — osłona wytrzymała czar na całe miasto, ale nie skupiony atak Strażnika w walce.
 - **Czemu bohater ich nie traci:** ma przy sobie **zwój arcymaga z biblioteki** (z ukrytą mocą — ten sam, który prowadził do małej maszyny; w true endingu bohater zawsze go ma).
-- **Wzmocnienie tarczy (umiejętność fazy 1):** obrona (guard) **nabija TP** (TP liczone jak bez obrony — patrz „Tech Pointy w walce”); na czas fazy 1 bohater może wydać TP, żeby **wzmocnić tarczę chroniącą sojuszników przed czarem** — to **przywraca kolejnego sojusznika** z listy drużyny. Drugi sposób obok odbytych tur: aktywna gra obroną przyspiesza powrót drużyny.
+- **Wzmocnienie tarczy (umiejętność fazy 1):** obrona (guard) **nabija TP** (TP liczone jak bez obrony — patrz „Tech Pointy w walce”); na czas fazy 1 bohater może wydać **100 TP** (cała pula), żeby **wzmocnić tarczę chroniącą sojuszników przed czarem** — to **przywraca kolejnego sojusznika** z listy drużyny. Jedyny sposób na powrót drużyny.
 - Z pełną drużyną gracz **pokonuje Strażnika po raz pierwszy**, po czym zaczyna się **faza 2**.
 
 ### Otwarte decyzje fabularne
@@ -148,11 +148,12 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Co z magią 9. poziomu w true endingu — arcymag przed śmiercią daje drużynie dużo silniejsze umiejętności.
 - [x] Jakie umiejętności z magii 9. poziomu — arcymag używa ich w swojej walce, w true endingu gracz wybiera jedną lub więcej (patrz „System skilli” → „Umiejętności 9. poziomu”).
 - [ ] Szczegóły true endingu po walce ze Strażnikiem.
-- [x] Bossfight ze Strażnikiem, faza 1: towarzysze tracą wspomnienia, bo czarna magia z bliska jest skuteczniejsza niż czar na całe miasto; wracają z czasem (odbyte tury) albo przez wzmocnienie tarczy za TP.
+- [x] Bossfight ze Strażnikiem, faza 1: towarzysze tracą wspomnienia, bo czarna magia z bliska jest skuteczniejsza niż czar na całe miasto; wracają przez wzmocnienie tarczy za TP.
 - [x] Faza 1: bohater nie traci wspomnień, bo ma przy sobie zwój arcymaga z biblioteki.
-- [ ] Faza 1: koszt TP wzmocnienia tarczy.
-- [x] Faza 1 — reguły: liczą się odbyte tury, gra nic nie podpowiada, bez gwarantowanego leczenia (game over → ponów / zapis przed areną arcymaga), umiejętności 9. poziomu działają bez ofensywnej i uberheala.
-- [ ] Faza 1 — do ustalenia: ile tur na sojusznika, czy atak bohatera w ogóle zadaje Strażnikowi obrażenia.
+- [x] Faza 1: wzmocnienie tarczy kosztuje 100 TP.
+- [x] Faza 1 — reguły: sojusznicy wracają tylko za TP (tury bez znaczenia), gra nic nie podpowiada, bez gwarantowanego leczenia (game over → ponów / zapis przed areną arcymaga), umiejętności 9. poziomu działają bez ofensywnej i uberheala.
+- [x] Faza 1: atak bohatera zadaje obrażenia, ale bez wszystkich sojuszników nie da się wygrać.
+- [ ] Faza 1 — mechanika „niemożliwe bez drużyny” (np. HP Strażnika nie spada poniżej progu, dopóki ktoś z drużyny nie wrócił?).
 - [ ] Faza 2 — przebieg i mechanika.
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
 - [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
