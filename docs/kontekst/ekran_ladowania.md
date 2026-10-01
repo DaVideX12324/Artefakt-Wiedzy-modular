@@ -1,7 +1,12 @@
 # Ekran ładowania
 
 Scena `scenes/ui/loading_screen.tscn`, skrypt `scripts/ui/loading_screen.gd` (dawniej
-`generation_loading_overlay`, budowany w kodzie). Używa go `procedural_level.generate_level_async`.
+`generation_loading_overlay`, budowany w kodzie). Używają go `procedural_level.generate_level_async`
+(postęp generowania) i `level_manager.load_level_direct` (każda zmiana mapy: scena wczytywana w tle
+przez `load_threaded_request` + `track_resource_load`, klucz tła = nazwa pliku sceny). Ekran
+`level_manager` powstaje już w `_ready`, w pierwszej klatce sceny gry (wcześniej po „Nowa gra” było
+widać pustą scenę z graczem i HUD-em). Przy `ProceduralLevel` znika od razu (bez zanikania), bo poziom
+pokazuje własny ekran generowania. Gracz zamrożony (`PROCESS_MODE_DISABLED`) do postawienia na spawnie.
 
 ## API
 
@@ -56,5 +61,4 @@ Scena `scenes/ui/loading_screen.tscn`, skrypt `scripts/ui/loading_screen.gd` (da
 
 ## Niezrobione
 
-- Ekran nie jest podpięty pod mapy ręczne (`level_manager.load_level_direct` robi `load()` synchronicznie).
 - Grafiki z Gemini dla jaskini są w `loading_screens/cave/` (c205e80); pozostałe foldery puste.
