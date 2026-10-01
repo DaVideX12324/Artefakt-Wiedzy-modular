@@ -118,6 +118,13 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - Dla Strażnika to podwójny zysk: teleport prowadzi bohatera prosto na arcymaga, a podpis arcymaga robi ze zwoju fałszywy dowód jego winy.
 - Po otrzymaniu zwoju gracz **wybiera: teleportować się od razu albo nie**. Kto zostaje, może odkryć ukrytą moc i dotrzeć do małej maszyny — stoi w odludnym miejscu w mieście albo w piwnicy biblioteki (do ustalenia). Zwój dalej teleportuje (patrz „Scroll z Library → Garden”).
 
+### Bossfight ze Strażnikiem (pomysł, inspiracja: FNaFB)
+
+- **Faza 1 — bohater sam.** Na start walki Strażnik **zabiera wspomnienia wszystkim towarzyszom** bohatera — znikają z walki. Bohater zostaje solo i **wygrać się tego nie da**.
+- Strażnik w fazie 1 **nie używa potężnych skilli** — tylko zwykły atak i statusy (patrz todo „Statusy pozytywne i negatywne”).
+- Kluczem jest **przetrwanie**: gracz cały czas używa **obrony (guard)** i co jakiś czas **przedmiotów leczących**. Po kilku przetrwanych turach **wraca pierwszy sojusznik**, kilka tur dalej kolejny — aż wróci cała drużyna.
+- Z pełną drużyną gracz **pokonuje Strażnika po raz pierwszy**, po czym zaczyna się **faza 2**.
+
 ### Otwarte decyzje fabularne
 - [ ] Prawdziwy powód bariery: A) ukrycie testu zaklęcia przed światem (żeby się nie wydało / nie za szybko), B) spowolnienie maszyny arcymaga, czy oba naraz? Oba warianty pasują do fabuły i się nie wykluczają.
 - [x] Mechanika przepływu wiedzy — rozwiązane: maszyna wyłapuje wiedzę uwolnioną z bossów i oddaje ją ludziom; po jej zniszczeniu nie ma kontry na czar, arcymag osłania tylko drużynę, wszyscy NPC zapominają.
@@ -134,6 +141,9 @@ Boss fight z arcymagiem      → zniszczenie maszyny, koniec pamięci NPC
 - [x] Co z magią 9. poziomu w true endingu — arcymag przed śmiercią daje drużynie dużo silniejsze umiejętności.
 - [x] Jakie umiejętności z magii 9. poziomu — arcymag używa ich w swojej walce, w true endingu gracz wybiera jedną lub więcej (patrz „System skilli” → „Umiejętności 9. poziomu”).
 - [ ] Szczegóły true endingu po walce ze Strażnikiem.
+- [ ] Bossfight ze Strażnikiem, faza 1: arcymag osłonił drużynę przed czarem Strażnika — czemu towarzysze i tak tracą wspomnienia (bezpośredni, skupiony atak zamiast czaru na całe miasto?) i czemu wracają (słabnąca osłona arcymaga / magia 9. poziomu walczy z czarem?). Czemu bohater ich nie traci?
+- [ ] Faza 1 — reguły: co liczy się do powrotu sojusznika (przetrwane tury niezależnie od akcji, czy tylko tury z obroną?), ile tur na sojusznika, czy atak w ogóle zadaje obrażenia, jak gra podpowiada „przetrwaj” (komunikaty), gwarantowane leczenie, gdy gracz nie ma przedmiotów, czy umiejętności 9. poziomu są dostępne solo.
+- [ ] Faza 2 — przebieg i mechanika.
 - [ ] Fast travel po fragmencie 3: **A)** działa dalej czy **B)** potwory niszczą waypointy? Uwaga: „powrót do miasta bez fast travelu” po ostatnim fragmencie (wyżej) pasuje do B; przy A trzeba go zmienić.
 - [ ] Skąd teraz pierwsze otwarte podejrzenie wobec Strażnika (dotąd: wyłączenie jego sieci po fragmencie 3)?
 
