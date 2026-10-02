@@ -1,7 +1,7 @@
 # Otwarte sprawy
 
-- **NAJWAŻNIEJSZE — edytor pytań**: dodawanie, usuwanie, wybieranie (aktywne w grze), edycja pytań wszystkich
-  typów i import JSON (walidacja, duplikaty, zapis w `user://`) — opis w `docs/znane_problemy.md` („Do zrobienia”).
+- **Edytor pytań — zrobiony** (menu główne -> Pytania, Opcje -> Pytania; `docs/kontekst/pytania.md`). Do
+  sprawdzenia przez usera w grze: okna plików (import / eksport), przeciąganie pliku na okno.
 - **Nisze przy ścianie 3H**: bez narożników wewnętrznych na górze (przejście) i bez sekretnego pokoju —
   opis w `docs/znane_problemy.md`.
 - **Tryb walki**: losowe spotkania jak w JRPG; okna Umiejętności / Przedmioty w stylu RPG Makera — opis w

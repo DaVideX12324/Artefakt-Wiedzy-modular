@@ -8,6 +8,7 @@ Krótkie notatki na start nowej sesji. Moduł `modules/quiz_rpg`, Godot 4.7.2.
 | [sciany_i_kafle.md](sciany_i_kafle.md) | generator jaskiń: filary 2H, wypustki, fasady płaskowyżu |
 | [obiekty.md](obiekty.md) | generator obiektów: duże obiekty przy ścianach, dostęp do skrzyń |
 | [ekran_ladowania.md](ekran_ladowania.md) | scena ekranu ładowania, tła map, prompty do grafik |
+| [pytania.md](pytania.md) | zestawy pytań, wybór aktywnych, edytor pytań (menu główne, opcje) |
 | [walka.md](walka.md) | UI walki (RPG Maker, WYSIWYG), pola walki per tło, podgląd / edytor pól |
 | [wrogowie.md](wrogowie.md) | zasięg wykrywania, dziedziczenie scen, znane pułapki |
 | [narzedzia_diag.md](narzedzia_diag.md) | skrypty headless do renderów i porównań (katalog `tests/`, poza gitem) |
