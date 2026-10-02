@@ -70,3 +70,13 @@
   użyciu trzeba ponownie puścić build_ui_skins.gd (bez SKIP_BARS nie zadziała, bo scena nie ma już nadpisań —
   wtedy style pasków brać z historii gita).
 - Licencje paczek `_st` i Pixel UI pack 3 — do sprawdzenia (napisy końcowe).
+
+## Style pasków (5e0c9bb)
+- Opcje -> Motyw -> „Styl paskow” (klucz ui_bar_style, `QuizTheme.BAR_STYLES`), niezależnie od motywu okien;
+  warstwy: styl pasków > motyw okien > quiz_theme.tres. Motywy st_* nie mają już własnych pasków.
+- `QuizBar` (scripts/ui/quiz_bar.gd, ProgressBar ze skryptem na 23 paskach walki): ikony motywu
+  `bar_under` / `bar_progress` -> shader (środek rozciągany albo powtarzany przy `bar_tile`, końcówki stałe,
+  płynne przycinanie wiersz po wierszu); bez ikon — zwykłe style (klasyczne gradienty).
+- Tekstury: resources/ui/skins/bars/<styl>_<kolor>_full|empty.png z assets/UI/Pixel UI pack 3/Full.png
+  (+ 05.png); style budowane przez tests/build_ui_skins.gd (BAR_STYLES = kolory, BAR_TILED = modułowe).
+- Licencja Pixel UI pack 3 (bdragon1727): niekomercyjnie za darmo, komercyjnie — wpłata dowolnej kwoty.
