@@ -223,6 +223,15 @@ text = "Motyw interfejsu:"
 [node name="SkinOption" type="OptionButton" parent="Panel/Margin/VBox/Tabs/Motyw"]
 layout_mode = 2
 
+[node name="LblBars" type="Label" parent="Panel/Margin/VBox/Tabs/Motyw"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.8, 1)
+theme_override_font_sizes/font_size = 16
+text = "Styl paskow:"
+
+[node name="BarsOption" type="OptionButton" parent="Panel/Margin/VBox/Tabs/Motyw"]
+layout_mode = 2
+
 [node name="LblBrightness" type="Label" parent="Panel/Margin/VBox/Tabs/Motyw"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.7, 0.8, 1)
