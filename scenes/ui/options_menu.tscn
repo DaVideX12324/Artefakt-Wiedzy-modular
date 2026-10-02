@@ -301,8 +301,14 @@ autowrap_mode = 3
 [node name="Sep5" type="HSeparator" parent="Panel/Margin/VBox/Tabs/Sterowanie"]
 layout_mode = 2
 
-[node name="BindsList" type="VBoxContainer" parent="Panel/Margin/VBox/Tabs/Sterowanie"]
+[node name="BindsScroll" type="ScrollContainer" parent="Panel/Margin/VBox/Tabs/Sterowanie"]
 layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="BindsList" type="VBoxContainer" parent="Panel/Margin/VBox/Tabs/Sterowanie/BindsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
 [node name="Sep4" type="HSeparator" parent="Panel/Margin/VBox"]

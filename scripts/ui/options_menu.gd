@@ -35,7 +35,7 @@ signal closed
 @onready var _lbl_sets: Label = $Panel/Margin/VBox/Tabs/Pytania/LblSets
 @onready var _lbl_sets_hint: Label = $Panel/Margin/VBox/Tabs/Pytania/LblSetsHint
 
-@onready var _binds_list: VBoxContainer = $Panel/Margin/VBox/Tabs/Sterowanie/BindsList
+@onready var _binds_list: VBoxContainer = $Panel/Margin/VBox/Tabs/Sterowanie/BindsScroll/BindsList
 @onready var _lbl_info: Label = $Panel/Margin/VBox/Tabs/Sterowanie/LblInfo
 
 @onready var _panel: PanelContainer = $Panel
@@ -70,14 +70,6 @@ const BUS_SFX := "SFX"
 const SKIN_KEY := "ui_skin"
 const BRIGHTNESS_KEY := "ui_brightness"
 const BAR_STYLE_KEY := "ui_bar_style"
-
-const BINDS: Array = [
-	["Gracz 1 - ruch", ["p1_up", "p1_down", "p1_left", "p1_right", "move_up", "move_down", "move_left", "move_right"]],
-	["Gracz 1 - akcja", ["p1_bomb", "interact"]],
-	["Gracz 2 - ruch", ["p2_up", "p2_down", "p2_left", "p2_right"]],
-	["Gracz 2 - akcja", ["p2_bomb"]],
-	["Pauza", ["pause", "ui_cancel"]],
-]
 
 var _mode_btns: Array[Button] = []
 var _resolutions: Array[Vector2i] = []
@@ -171,6 +163,7 @@ func open() -> void:
 	_sync_audio_sliders()
 	_sync_skin_tab()
 	_populate_question_sets()
+	_populate_binds()  # aktywny moduł mógł się zmienić
 	_on_scale_changed(UIScaleService.scale_factor)  # czcionka aktywnego modułu (mógł się zmienić)
 	visible = true
 
@@ -377,31 +370,85 @@ func _populate_question_sets() -> void:
 		_sets_list.add_child(cb)
 
 
+## Zakładka „Sterowanie”: sekcje z manifestów modułów (pole "controls": [{label, actions, keys}]).
+## W menu głównym — wszystkie moduły pod ich nazwami, w trakcie gry — tylko aktywny moduł. Klawisze
+## z mapy wejścia (aktualne przypisania); gdy akcji jeszcze nie ma (moduł nieuruchomiony) — opis "keys".
 func _populate_binds() -> void:
 	for child in _binds_list.get_children():
 		child.queue_free()
-	for entry in BINDS:
-		var section: String = entry[0]
-		var actions: Array = entry[1]
-		var lbl_sec := Label.new()
-		lbl_sec.text = section
-		lbl_sec.add_theme_font_size_override("font_size", _fs(14))
-		lbl_sec.add_theme_color_override("font_color", Color(0.8, 0.8, 1.0))
-		_binds_list.add_child(lbl_sec)
-		var keys: Array[String] = []
-		for action in actions:
-			if not InputMap.has_action(action):
+	var core := get_node_or_null("/root/CoreManager")
+	var active_id: String = core.get_active_module_id() if core else ""
+	var manifests: Array = []
+	for m in ModuleRegistry.all():
+		var id := str(m.get("id", ""))
+		if id.begins_with("_") or not (m.get("controls", []) is Array) or (m.get("controls", []) as Array).is_empty():
+			continue
+		if active_id != "" and id != active_id:
+			continue
+		manifests.append(m)
+	if manifests.is_empty():
+		_lbl_info.text = "Ten tryb nie opisuje sterowania." if active_id != "" else "Brak opisu sterowania w modułach."
+		return
+	if active_id != "":
+		_lbl_info.text = "Sterowanie: %s" % str(manifests[0].get("name", active_id))
+	else:
+		_lbl_info.text = "Sterowanie w poszczególnych grach:"
+	for m in manifests:
+		if active_id == "":
+			var header := Label.new()
+			header.text = str(m.get("name", m.get("id", "")))
+			header.add_theme_font_size_override("font_size", _fs(18))
+			header.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))
+			header.set_meta(&"bind_size", 18)
+			_binds_list.add_child(header)
+		for entry in m["controls"]:
+			if not (entry is Dictionary):
 				continue
-			for event in InputMap.action_get_events(action):
-				if event is InputEventKey:
-					keys.append(event.as_text_physical_keycode())
-					break
-		var lbl_keys := Label.new()
-		lbl_keys.text = "  " + ", ".join(keys) if keys.size() > 0 else "  (brak)"
-		lbl_keys.add_theme_font_size_override("font_size", _fs(13))
-		lbl_keys.add_theme_color_override("font_color", Color(0.6, 0.9, 0.6))
-		_binds_list.add_child(lbl_keys)
+			var lbl_sec := Label.new()
+			lbl_sec.text = str(entry.get("label", ""))
+			lbl_sec.add_theme_font_size_override("font_size", _fs(14))
+			lbl_sec.add_theme_color_override("font_color", Color(0.8, 0.8, 1.0))
+			lbl_sec.set_meta(&"bind_size", 14)
+			_binds_list.add_child(lbl_sec)
+			var keys := _action_keys(entry.get("actions", []))
+			var text := ", ".join(keys) if not keys.is_empty() else str(entry.get("keys", "(brak)"))
+			var lbl_keys := Label.new()
+			lbl_keys.text = "  " + text
+			lbl_keys.add_theme_font_size_override("font_size", _fs(13))
+			lbl_keys.add_theme_color_override("font_color", Color(0.6, 0.9, 0.6))
+			lbl_keys.set_meta(&"bind_size", 13)
+			_binds_list.add_child(lbl_keys)
 
+
+## Polskie / krótsze nazwy klawiszy (OS.get_keycode_string zwraca angielskie).
+func _key_name(name: String) -> String:
+	var names := {"Space": "Spacja", "Up": "↑", "Down": "↓", "Left": "←", "Right": "→", "Escape": "Esc",
+		"Backspace": "Backspace", "Kp Enter": "Num Enter", "Kp Add": "Num +", "Kp Subtract": "Num -",
+		"Kp Multiply": "Num *", "Kp Divide": "Num /", "Kp Period": "Num ,"}
+	if names.has(name):
+		return names[name]
+	if name.begins_with("Kp "):
+		return "Num " + name.substr(3)
+	return name
+
+
+## Nazwy klawiszy przypisanych do akcji (wszystkie klawisze każdej akcji, bez powtórzeń).
+func _action_keys(actions: Variant) -> PackedStringArray:
+	var out := PackedStringArray()
+	if not (actions is Array):
+		return out
+	for action in actions:
+		if not InputMap.has_action(str(action)):
+			continue
+		for event in InputMap.action_get_events(str(action)):
+			if not (event is InputEventKey):
+				continue
+			var k := event as InputEventKey
+			var code := k.keycode if k.keycode != KEY_NONE else k.physical_keycode
+			var name := _key_name(OS.get_keycode_string(code))
+			if name != "" and not out.has(name):
+				out.append(name)
+	return out
 
 func _on_apply() -> void:
 	_play_click()
@@ -492,7 +539,7 @@ func _on_scale_changed(_scale: float) -> void:
 	_lbl_info.custom_minimum_size = Vector2(UIScaleService.px(200), 0)
 	for child in _binds_list.get_children():
 		if child is Label:
-			child.add_theme_font_size_override("font_size", _fs(14))
+			child.add_theme_font_size_override("font_size", _fs(int(child.get_meta(&"bind_size", 14))))
 	_btn_apply.add_theme_font_size_override("font_size", _fs(18))
 	_btn_close.add_theme_font_size_override("font_size", _fs(18))
 	_lbl_question.add_theme_font_size_override("font_size", _fs(18))
