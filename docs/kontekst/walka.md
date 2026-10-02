@@ -54,3 +54,19 @@
   przy wyborze celu po przeniesieniu slotów na `EnemyFieldLayer`.
 - Ostrzeżenia „invalid UID” przy ładowaniu prawie wszystkich `resources/enemies/*.tres` (orki, dzik,
   bandyci…) — stare, grafiki się ładują; osobna sprawa do uporządkowania.
+
+## Motywy UI (1c368e2)
+- Opcje hosta -> zakładka „Motyw”: lista z `get_ui_skins()` aktywnego modułu (module_root -> `QuizTheme.SKINS`),
+  suwak jasności 50–150 %. Zapis: `SettingsService.set_module("quiz_rpg", "ui_skin" / "ui_brightness")`,
+  zmiana na żywo przez sygnał `module_setting_changed`.
+- `QuizTheme.apply_skin(id, jasność)`: `resources/ui/skins/<id>.tres` nadpisuje style typów QuizWindow /
+  QuizLog / QuizMenuItem / QuizBar* w motywie modułu (w pamięci; „klasyczny” = sam quiz_theme.tres).
+  Jasność mnoży kolor okien i zaznaczenia (paski bez zmian).
+- Paski walki mają warianty motywu QuizBarLP / SP / TP / Timer / Enemy (dawniej nadpisania w scenie).
+- Motywy st_* (granatowy / jasny × zaokrąglony / kwadratowy × płaski / z głębią) buduje
+  `tests/build_ui_skins.gd` z wycinków w `resources/ui/skins/st/` (źródło: assets/UI/UI Assets pack_v.1_st,
+  paski: Pixel UI pack 3). Nowy motyw: plik `.tres` + wpis w `QuizTheme.SKINS`.
+- Uwaga: `tests/build_quiz_theme.gd` (stary generator quiz_theme.tres) nie zna typów QuizBar* — po jego
+  użyciu trzeba ponownie puścić build_ui_skins.gd (bez SKIP_BARS nie zadziała, bo scena nie ma już nadpisań —
+  wtedy style pasków brać z historii gita).
+- Licencje paczek `_st` i Pixel UI pack 3 — do sprawdzenia (napisy końcowe).
