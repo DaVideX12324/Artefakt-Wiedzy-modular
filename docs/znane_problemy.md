@@ -245,6 +245,12 @@
   „klatki przy ścianie” wahają się od ~30 do ~1300 / 3000 i sprawdzenia czasem nie przechodzą — także
   przed zmianami. Pojedynczy FAIL tam to jeszcze nie regresja; powtórzyć kilka razy.
 
+## Potencjalne problemy (do obserwacji)
+- **Tekst UI walki 36 px poza siatką Jersey 15** (2026-10-03, decyzja usera): czcionka pikselowa jest ostra
+  w wielokrotnościach 27 px (27 / 54 / 81); przy 36 px (4/3) piksel litery wypada na 1,33 px ekranu, więc
+  kreski mogą mieć raz 1, raz 2 px. User w testach nie widział różnicy. Jeśli wyjdą nierówne litery: zmienić
+  `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
+
 ## Rozwiązane (dla kontekstu)
 - Edytor pytań (2026-10-02, 278f906, 3866fb5, 3d2108c): menu główne hosta -> „Pytania” (zestawy:
   nowy / import JSON z raportem pominiętych / eksport / nazwa / usuń lub przywróć oryginał; pytania 5 typów:
