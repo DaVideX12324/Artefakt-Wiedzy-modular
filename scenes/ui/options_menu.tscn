@@ -246,6 +246,10 @@ max_value = 150.0
 step = 5.0
 value = 100.0
 
+[node name="ExtraOptions" type="VBoxContainer" parent="Panel/Margin/VBox/Tabs/Motyw"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
 [node name="LblNoSkins" type="Label" parent="Panel/Margin/VBox/Tabs/Motyw"]
 visible = false
 layout_mode = 2
