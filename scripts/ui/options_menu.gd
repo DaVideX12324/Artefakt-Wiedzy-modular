@@ -30,6 +30,7 @@ signal closed
 @onready var _lbl_no_skins: Label = $Panel/Margin/VBox/Tabs/Motyw/LblNoSkins
 @onready var _lbl_bars: Label = $Panel/Margin/VBox/Tabs/Motyw/LblBars
 @onready var _bars_option: OptionButton = $Panel/Margin/VBox/Tabs/Motyw/BarsOption
+@onready var _extra_options: VBoxContainer = $Panel/Margin/VBox/Tabs/Motyw/ExtraOptions
 
 @onready var _sets_list: VBoxContainer = $Panel/Margin/VBox/Tabs/Pytania/SetsScroll/SetsList
 @onready var _lbl_sets: Label = $Panel/Margin/VBox/Tabs/Pytania/LblSets
@@ -305,10 +306,32 @@ func _sync_skin_tab() -> void:
 	_lbl_no_skins.visible = not has_skins
 	_fill_option(_skin_option, _skins, SKIN_KEY)
 	_fill_option(_bars_option, _bar_styles, BAR_STYLE_KEY)
+	_build_extra_options(module if has_skins else null)
 	var brightness := float(SettingsService.get_module(_skin_module_id, BRIGHTNESS_KEY, 1.0)) if has_skins else 1.0
 	_slider_brightness.value = roundf(brightness * 100.0)
 	_update_brightness_label()
 	_syncing_skin = false
+
+
+## Dodatkowe przełączniki wyglądu modułu (get_ui_options: [{key, label, type: "bool", default}]) —
+## zapis w ustawieniach modułu, zmiana od razu (module_setting_changed).
+func _build_extra_options(module: Node) -> void:
+	for c in _extra_options.get_children():
+		c.queue_free()
+	if module == null or not module.has_method("get_ui_options"):
+		return
+	for opt in module.get_ui_options():
+		if str(opt.get("type", "bool")) != "bool":
+			continue
+		var key := str(opt.get("key", ""))
+		var cb := CheckBox.new()
+		cb.text = str(opt.get("label", key))
+		cb.button_pressed = bool(SettingsService.get_module(_skin_module_id, key, opt.get("default", false)))
+		cb.add_theme_font_size_override("font_size", _fs(18))
+		cb.toggled.connect(func(on: bool) -> void:
+			_play_click()
+			SettingsService.set_module(_skin_module_id, key, on))
+		_extra_options.add_child(cb)
 
 
 ## Lista [{id, name}] w przycisku; zaznaczona pozycja z ustawień modułu (`key`), domyślnie pierwsza.
