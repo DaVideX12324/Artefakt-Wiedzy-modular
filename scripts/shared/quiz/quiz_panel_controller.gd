@@ -43,6 +43,9 @@ var match_left: VBoxContainer
 var match_right: VBoxContainer
 var match_confirm: Button
 
+## > 0: rozmiar tekstu kafelków, luk i przycisków par (moduł z własną czcionką, np. pikselową);
+## 0 = dotychczasowe rozmiary.
+var text_size := 0
 var _current_question: Dictionary = {}
 var _answering := false
 var _time_left := 0.0
@@ -113,6 +116,10 @@ func setup(p_command_vbox: VBoxContainer, nodes: Dictionary = {}) -> void:
 		if _answering:
 			_submit_answer(answer_matching())
 	)
+
+
+func _ts(default_size: int) -> int:
+	return text_size if text_size > 0 else default_size
 
 
 func _pick(nodes: Dictionary, key: String, parent: Node, path: String) -> Node:
@@ -652,7 +659,7 @@ func _build_fill_tiles(question: Dictionary) -> void:
 			var label := Label.new()
 			label.text = parts[i]
 			label.autowrap_mode = TextServer.AUTOWRAP_OFF
-			label.add_theme_font_size_override("font_size", 18)
+			label.add_theme_font_size_override("font_size", _ts(18))
 			label.add_theme_color_override("font_color", TEXT_PRIMARY)
 			gap_row.add_child(label)
 		if i < gaps.size():
@@ -660,7 +667,7 @@ func _build_fill_tiles(question: Dictionary) -> void:
 			gap_button.text = "[ ___ ]"
 			gap_button.focus_mode = Control.FOCUS_NONE
 			gap_button.custom_minimum_size = Vector2(120, 36)
-			gap_button.add_theme_font_size_override("font_size", 16)
+			gap_button.add_theme_font_size_override("font_size", _ts(16))
 			var gap_index := i
 			gap_button.pressed.connect(func(): _on_gap_clicked(gap_index))
 			gap_row.add_child(gap_button)
@@ -670,7 +677,7 @@ func _build_fill_tiles(question: Dictionary) -> void:
 		tile_button.text = str(tile)
 		tile_button.focus_mode = Control.FOCUS_NONE
 		tile_button.custom_minimum_size = Vector2(90, 36)
-		tile_button.add_theme_font_size_override("font_size", 16)
+		tile_button.add_theme_font_size_override("font_size", _ts(16))
 		var tile_text := str(tile)
 		tile_button.pressed.connect(func(): _on_tile_clicked(tile_text, tile_button))
 		tile_row.add_child(tile_button)
@@ -951,7 +958,7 @@ func _apply_match_card_style(btn: Button, color: Color, is_matched: bool, is_sel
 		border_width = 1
 
 	btn.add_theme_color_override("font_color", font_color)
-	btn.add_theme_font_size_override("font_size", 16)
+	btn.add_theme_font_size_override("font_size", _ts(16))
 	btn.custom_minimum_size = Vector2(0, 42)
 	btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
 
