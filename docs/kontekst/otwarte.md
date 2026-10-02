@@ -5,15 +5,17 @@
   (opis w [walka.md](walka.md)).
 - **Sterowanie** — opcje pokazują klawisze per moduł, ale bez zmiany klawiszy (rebind z zapisem
   `SettingsService.set_module`).
-- **Menu Esc** — punkty i seria (dawniej w HUD) jeszcze niepokazane.
 - **Tekst walki 36 px** — obserwować, czy litery nie wychodzą nierówne (`docs/znane_problemy.md`).
 - Do sprawdzenia przez usera w grze: motywy / style pasków w menu Esc, tryb „UI walki na szerokość
   treści”, muzyka menu po wyjściu z gry.
 
 - **Edytor pytań — zrobiony** (menu główne -> Pytania, Opcje -> Pytania; `docs/kontekst/pytania.md`). Do
   sprawdzenia przez usera w grze: okna plików (import / eksport), przeciąganie pliku na okno.
-- **Nisze przy ścianie 3H**: bez narożników wewnętrznych na górze (przejście) i bez sekretnego pokoju —
-  opis w `docs/znane_problemy.md`.
+- **Nisze-przejścia** (ściana o głębokości 3 nad niszą): generator gotowy, kafle OUT z szerszym otworem
+  (alternatywa 1) są — **user robi wariant kafli RIM z innymi kolizjami jako alternatywę 1** (te same id
+  kafli co zwykły szczyt); bez niego szczyt nad przejściem blokuje. Opis w [sciany_i_kafle.md](sciany_i_kafle.md).
+  Przejść jest mało (geometria: na 6 mapach 2 miejsca) — user chce częściej; do ustalenia, jak (np. ścianka
+  o głębokości 3 za niszą wycinana celowo).
 - **Tryb walki**: losowe spotkania jak w JRPG; okna Umiejętności / Przedmioty w stylu RPG Makera — opis w
   `docs/znane_problemy.md` („Do zrobienia”).
 - **Każda nisza out z losową zawartością, sekretne pokoje, klucze i wytrychy (quiz wg tieru skrzyni)** — pomysł
@@ -22,6 +24,5 @@
   (ew. gęstość w `objects_caves.json`).
 - **Wypustki**: gdy nie da się podnieść, są usuwane — na razie nie wystąpiło; jeśli user woli usuwanie
   zamiast podnoszenia, zmiana w `ShortLedgeRaisePass`.
-- **`RigidBody2D` w `enemy.tscn`** (węzeł `Node2D`) — do decyzji usera.
 - **Tutorial**: instancje wrogów z `collision_mask = 5` (bez kolizji między wrogami) — do decyzji.
 - `docs/znane_problemy.md` — reszta zgłoszeń i historia rozwiązanych.

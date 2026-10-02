@@ -70,8 +70,8 @@
   `HP_BAR_SIZE` 96×16 — najwyższy styl pasków; zmierzone w grze).
 - Niesprawdzone w edytorze przez usera: Ctrl+D / Delete, `field_counts`; w grze — klikanie wrogów
   przy wyborze celu po przeniesieniu slotów na `EnemyFieldLayer`.
-- Ostrzeżenia „invalid UID” przy ładowaniu prawie wszystkich `resources/enemies/*.tres` (orki, dzik,
-  bandyci…) — stare, grafiki się ładują; osobna sprawa do uporządkowania.
+- Ostrzeżenia „invalid UID” we wrogach, obiektach i kafelkach pustyni — poprawione (e37c940: UID-y
+  z plików `.import`, które są już w repo).
 
 ## Motywy UI (1c368e2; menu Esc 3230daa — [menu_i_opcje.md](menu_i_opcje.md))
 - Opcje hosta -> zakładka „Motyw”: lista z `get_ui_skins()` aktywnego modułu (module_root -> `QuizTheme.SKINS`),

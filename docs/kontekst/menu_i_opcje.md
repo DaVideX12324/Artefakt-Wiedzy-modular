@@ -26,7 +26,9 @@
 - Panele w proporcji 1:5 (size flags stretch ratio — menu wąskie, rozciągane), tytuł „Menu” 66 px
   bez minimalnej szerokości (zmiana usera).
 - **HUD bez panelu statystyk** (8de6001): HP, XP, poziom, punkty, seria tylko w menu Esc. W `hud.gd`
-  zostały popup nagrody i `FadeOverlay`. Punkty / seria nie są jeszcze pokazane w menu Esc.
+  zostały popup nagrody i `FadeOverlay`. Punkty i seria — na dole lewego panelu menu Esc (`ScoreLabel`,
+  771e59f). Punkty: `PlayerStats.on_correct_answer()` = 10 + seria × 5 za dobrą odpowiedź (walka, zagadki);
+  zła zeruje serię. Nic nie odblokowują (nagrody liczą poprawne odpowiedzi, serię i poziom).
 
 ## Audio (a6b3314)
 - Powrót do menu / wyjście z gry przywraca muzykę menu: `modules/quiz_rpg/scripts/ui/main_menu.gd`
