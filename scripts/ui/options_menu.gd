@@ -22,6 +22,13 @@ signal closed
 @onready var _lbl_music: Label = $Panel/Margin/VBox/Tabs/Dzwiek/LblMusic
 @onready var _lbl_sfx: Label = $Panel/Margin/VBox/Tabs/Dzwiek/LblSfx
 
+@onready var _skin_tab: VBoxContainer = $Panel/Margin/VBox/Tabs/Motyw
+@onready var _skin_option: OptionButton = $Panel/Margin/VBox/Tabs/Motyw/SkinOption
+@onready var _slider_brightness: HSlider = $Panel/Margin/VBox/Tabs/Motyw/SliderBrightness
+@onready var _lbl_skin: Label = $Panel/Margin/VBox/Tabs/Motyw/LblSkin
+@onready var _lbl_brightness: Label = $Panel/Margin/VBox/Tabs/Motyw/LblBrightness
+@onready var _lbl_no_skins: Label = $Panel/Margin/VBox/Tabs/Motyw/LblNoSkins
+
 @onready var _binds_list: VBoxContainer = $Panel/Margin/VBox/Tabs/Sterowanie/BindsList
 @onready var _lbl_info: Label = $Panel/Margin/VBox/Tabs/Sterowanie/LblInfo
 
@@ -53,6 +60,10 @@ const BUS_MASTER := "Master"
 const BUS_MUSIC := "Music"
 const BUS_SFX := "SFX"
 
+## Ustawienia motywu UI w ustawieniach aktywnego modułu (moduł czyta te same klucze).
+const SKIN_KEY := "ui_skin"
+const BRIGHTNESS_KEY := "ui_brightness"
+
 const BINDS: Array = [
 	["Gracz 1 - ruch", ["p1_up", "p1_down", "p1_left", "p1_right", "move_up", "move_down", "move_left", "move_right"]],
 	["Gracz 1 - akcja", ["p1_bomb", "interact"]],
@@ -76,6 +87,10 @@ var _prev_scale: int = UIScaleService.ScaleMode.NORMAL
 var _prev_scale_user_picked := false
 var _prev_quizless_mode := false
 
+var _skins: Array = []          # [{id, name}] z aktywnego modułu (get_ui_skins)
+var _skin_module_id := ""
+var _syncing_skin := false
+
 var _countdown := 0.0
 var _confirming := false
 
@@ -96,6 +111,8 @@ func _ready() -> void:
 	_populate_resolutions(_monitor_option.selected)
 	_populate_scale()
 	_setup_audio_sliders()
+	_skin_option.item_selected.connect(_on_skin_selected)
+	_slider_brightness.value_changed.connect(_on_brightness_changed)
 	_populate_binds()
 	UIScaleService.scale_changed.connect(_on_scale_changed)
 	WindowService.resolution_changed.connect(func(_r: Vector2i) -> void: _on_scale_changed(UIScaleService.scale_factor))
@@ -143,6 +160,7 @@ func open() -> void:
 	_sync_scale()
 	_sync_quizless_mode()
 	_sync_audio_sliders()
+	_sync_skin_tab()
 	visible = true
 
 
@@ -260,6 +278,54 @@ func _on_bus_changed(bus_name: String, value: float) -> void:
 	SettingsService.set_bus_volume(bus_name, value, true)
 
 
+## Zakładka „Motyw”: motywy aktywnego modułu (get_ui_skins); bez nich — informacja zamiast listy.
+## Zmiana działa od razu i zapisuje się (jak głośność), moduł odświeża wygląd przez
+## SettingsService.module_setting_changed.
+func _sync_skin_tab() -> void:
+	_syncing_skin = true
+	_skins = []
+	_skin_module_id = ""
+	var core := get_node_or_null("/root/CoreManager")
+	var module: Node = core.get_active_module() if core else null
+	if module and module.has_method("get_ui_skins"):
+		_skins = module.get_ui_skins()
+		_skin_module_id = core.get_active_module_id()
+	var has_skins := not _skins.is_empty()
+	for n: Control in [_lbl_skin, _skin_option, _lbl_brightness, _slider_brightness]:
+		n.visible = has_skins
+	_lbl_no_skins.visible = not has_skins
+	_skin_option.clear()
+	var current := str(SettingsService.get_module(_skin_module_id, SKIN_KEY, "")) if has_skins else ""
+	for i in range(_skins.size()):
+		_skin_option.add_item(str(_skins[i].get("name", _skins[i].get("id", "?"))))
+		if str(_skins[i].get("id", "")) == current:
+			_skin_option.selected = i
+	if has_skins and _skin_option.selected < 0:
+		_skin_option.selected = 0
+	var brightness := float(SettingsService.get_module(_skin_module_id, BRIGHTNESS_KEY, 1.0)) if has_skins else 1.0
+	_slider_brightness.value = roundf(brightness * 100.0)
+	_update_brightness_label()
+	_syncing_skin = false
+
+
+func _on_skin_selected(index: int) -> void:
+	if _syncing_skin or index < 0 or index >= _skins.size():
+		return
+	_play_click()
+	SettingsService.set_module(_skin_module_id, SKIN_KEY, str(_skins[index].get("id", "")))
+
+
+func _on_brightness_changed(value: float) -> void:
+	_update_brightness_label()
+	if _syncing_skin or _skin_module_id == "":
+		return
+	SettingsService.set_module(_skin_module_id, BRIGHTNESS_KEY, value / 100.0)
+
+
+func _update_brightness_label() -> void:
+	_lbl_brightness.text = "Jasnosc motywu: %d%%" % roundi(_slider_brightness.value)
+
+
 func _populate_binds() -> void:
 	for child in _binds_list.get_children():
 		child.queue_free()
@@ -358,6 +424,11 @@ func _on_scale_changed(_scale: float) -> void:
 	_lbl_master.add_theme_font_size_override("font_size", main_size)
 	_lbl_music.add_theme_font_size_override("font_size", main_size)
 	_lbl_sfx.add_theme_font_size_override("font_size", main_size)
+	_lbl_skin.add_theme_font_size_override("font_size", main_size)
+	_lbl_brightness.add_theme_font_size_override("font_size", main_size)
+	_lbl_no_skins.add_theme_font_size_override("font_size", UIScaleService.px(14))
+	_skin_option.add_theme_font_size_override("font_size", main_size)
+	_scale_popup_font(_skin_option, main_size)
 	_lbl_info.add_theme_font_size_override("font_size", UIScaleService.px(14))
 	_lbl_info.custom_minimum_size = Vector2(UIScaleService.px(200), 0)
 	for child in _binds_list.get_children():

@@ -3,6 +3,8 @@ extends Node
 signal resolution_changed(new_resolution: Vector2i)
 signal settings_saved
 signal settings_loaded
+## Zmiana ustawienia modułu (set_module) — np. motyw UI z opcji, zmieniany na żywo.
+signal module_setting_changed(module_id: String, key: String, value: Variant)
 
 const CONFIG_PATH := "user://artefakt_wiedzy_settings.cfg"
 const SEC_DISPLAY := "display"
@@ -103,6 +105,7 @@ func set_module(module_id: String, key: String, value: Variant, save_now: bool =
 	_cfg.set_value("module:%s" % module_id, key, value)
 	if save_now:
 		save_settings()
+	module_setting_changed.emit(module_id, key, value)
 
 
 func get_bus_volume(bus_name: String) -> float:
