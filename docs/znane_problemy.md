@@ -9,6 +9,37 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
+### ⚠ WAŻNE: wymuszone ściany 2H tam, gdzie powinny być 3H
+- Zgłoszenie 2026-10-03 (user: „duży błąd”). Widać na renderze `docs/img/wymuszone_2h_103107_160.png`
+  (seed 103107 160×160, wycinek od (78, 100), 26×22 kratek, skala 2; z `tests/render_area.gd`, flagi z
+  `resources/maps/config/caves.json`, bez obiektów). Odtworzenie:
+  `AREA="103107,160,78,100,26,22" OUT=… SCALE=2 "$G" --headless --path . -s res://modules/quiz_rpg/tests/render_area.gd`.
+- **Najpierw ustalić, czy to globalne**: obejrzeć to samo miejsce w eksploratorze map / w grze (ten sam seed
+  i rozmiar). Jeśli tylko w `render_area.gd`, to różnica flag / ścieżki testu. Jeśli globalne — przejrzeć
+  źródła wymuszonego 2H: `ctx.force_2h_cells` (`EdgeAnalyzer.small_wall_islands`, flaga
+  `small_pillar_2h_max_area`), skosy 2H (`EdgeAnalyzer.slope_2h_end_side`, `StepPlacer.place_slope`) i
+  `StepPlacer` (user: „znowu walka ze step placerem”). Pomoce: `tests/dump_area.gd`, `diag_pillar_shape.gd`,
+  `diag_small_pillars.gd`, `diag_pillar_rule.gd`; po naprawie parytet + golden.
+
+### ⚠ WAŻNE: Quiz RPG jako samodzielny projekt i osobny submoduł
+- Zgłoszenie 2026-10-03 (user: „ważniejsza”). Cel: quiz_rpg da się uruchomić samodzielnie (ma dostęp do
+  wszystkich zasobów, których używa z hosta), a w Artefakcie Wiedzy kopie tych zasobów w module są ukryte
+  `.gdignore` (bez dublowania w edytorze i eksporcie). Potem **przenieść `modules/quiz_rpg` do osobnego repo
+  i podpiąć jako submoduł** (jak BitBomber).
+- Plan i stan ścieżek — wpis „Modularność assetów i autoloadów” niżej (lustrzany układ kopii, te same UID-y,
+  „make standalone”, `project.godot.off`). Pierwszy przykład kopii z `.gdignore`: fonty BitBombera (896ae62).
+  Pliki `.import` są już w repo, więc UID-y kopii mogą być takie same jak oryginałów.
+- Przy przenosinach: historia gita modułu (`git subtree split` / `filter-repo` na `modules/quiz_rpg`),
+  testy `modules/quiz_rpg/tests/` są poza gitem (przenieść ręcznie), docs dotyczące modułu.
+
+### Feature: ukryte przejścia między pokojami (tunel pod voidem)
+- Zgłoszenie 2026-10-03. Ukryte przejście może łączyć dwa pokoje — gracz wchodzi w nie (np. nisza-przejście,
+  sekretna nisza) i wychodzi w innym pokoju, jakby szedł tunelem pod voidem / litą skałą.
+- Do ustalenia: jak to pokazać (przejście przez ekran ładowania / ściemnienie i teleport, czy prawdziwy
+  korytarz na warstwie pod spodem), dobór par pokoi (odległość, osiągalność — skrót nie może omijać
+  zamkniętych drzwi / quizów), wejścia z obu stron, nawigacja wrogów (bez przejść), zapis w seedzie.
+  Powiązane: nisze-przejścia (`NichePlacer`, `ctx.passage_cells`), zawartość nisz out i sekretne pokoje.
+
 ### Nisze-przejścia: wariant kafli RIM i częstość
 - Generator i kafle OUT gotowe (patrz „Rozwiązane”, 2026-10-03). Zostało: **wariant kafli szczytu ściany (RIM)
   z innymi kolizjami jako alternatywa 1** w `caves.tres` — robi user; executor użyje go sam nad płytszą kolumną.
