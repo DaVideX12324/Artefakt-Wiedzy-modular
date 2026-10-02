@@ -30,6 +30,11 @@ func _ready() -> void:
 	_on_scale_changed(UIScaleService.scale_factor)
 	if AudioService:
 		AudioService.play_music("menu")
+	# Menu jest ukrywane na czas modułu i pokazywane po wyjściu z niego — wtedy wraca muzyka menu
+	# (inaczej grała dalej muzyka poziomu modułu).
+	visibility_changed.connect(func() -> void:
+		if visible and AudioService:
+			AudioService.play_music("menu"))
 
 
 func refresh_modules() -> void:
