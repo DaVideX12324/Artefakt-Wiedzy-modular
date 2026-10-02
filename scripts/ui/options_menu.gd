@@ -31,6 +31,10 @@ signal closed
 @onready var _lbl_bars: Label = $Panel/Margin/VBox/Tabs/Motyw/LblBars
 @onready var _bars_option: OptionButton = $Panel/Margin/VBox/Tabs/Motyw/BarsOption
 
+@onready var _sets_list: VBoxContainer = $Panel/Margin/VBox/Tabs/Pytania/SetsScroll/SetsList
+@onready var _lbl_sets: Label = $Panel/Margin/VBox/Tabs/Pytania/LblSets
+@onready var _lbl_sets_hint: Label = $Panel/Margin/VBox/Tabs/Pytania/LblSetsHint
+
 @onready var _binds_list: VBoxContainer = $Panel/Margin/VBox/Tabs/Sterowanie/BindsList
 @onready var _lbl_info: Label = $Panel/Margin/VBox/Tabs/Sterowanie/LblInfo
 
@@ -166,6 +170,7 @@ func open() -> void:
 	_sync_quizless_mode()
 	_sync_audio_sliders()
 	_sync_skin_tab()
+	_populate_question_sets()
 	_on_scale_changed(UIScaleService.scale_factor)  # czcionka aktywnego modułu (mógł się zmienić)
 	visible = true
 
@@ -352,6 +357,26 @@ func _update_brightness_label() -> void:
 	_lbl_brightness.text = "Jasnosc motywu: %d%%" % roundi(_slider_brightness.value)
 
 
+## Zakładka „Pytania”: zestawy (QuestionBank) z zaznaczeniem — aktywne trafiają do puli pytań w grze
+## (globalnie). Zmiana od razu: zapis wyboru + QuizService.reload_all().
+func _populate_question_sets() -> void:
+	for child in _sets_list.get_children():
+		child.queue_free()
+	var sel := QuestionBank.load_selection()
+	for s in QuestionBank.list_sets():
+		var id := str(s["id"])
+		var cb := CheckBox.new()
+		var count := (s["questions"] as Array).size()
+		var tag: String = {"builtin": "", "edited": "  (edytowany)", "user": "  (wlasny)"}.get(str(s["source"]), "")
+		cb.text = "%s  —  %d pytan%s" % [s["name"], count, tag]
+		cb.button_pressed = QuestionBank.is_set_enabled(id, sel)
+		cb.add_theme_font_size_override("font_size", _fs(18))
+		cb.toggled.connect(func(on: bool) -> void:
+			QuestionBank.set_set_enabled(id, on)
+			QuizService.reload_all())
+		_sets_list.add_child(cb)
+
+
 func _populate_binds() -> void:
 	for child in _binds_list.get_children():
 		child.queue_free()
@@ -459,6 +484,11 @@ func _on_scale_changed(_scale: float) -> void:
 	_bars_option.add_theme_font_size_override("font_size", main_size)
 	_scale_popup_font(_bars_option, main_size)
 	_lbl_info.add_theme_font_size_override("font_size", _fs(14))
+	_lbl_sets.add_theme_font_size_override("font_size", main_size)
+	_lbl_sets_hint.add_theme_font_size_override("font_size", _fs(14))
+	for child in _sets_list.get_children():
+		if child is CheckBox:
+			child.add_theme_font_size_override("font_size", main_size)
 	_lbl_info.custom_minimum_size = Vector2(UIScaleService.px(200), 0)
 	for child in _binds_list.get_children():
 		if child is Label:
