@@ -166,6 +166,7 @@ func open() -> void:
 	_sync_quizless_mode()
 	_sync_audio_sliders()
 	_sync_skin_tab()
+	_on_scale_changed(UIScaleService.scale_factor)  # czcionka aktywnego modułu (mógł się zmienić)
 	visible = true
 
 
@@ -359,7 +360,7 @@ func _populate_binds() -> void:
 		var actions: Array = entry[1]
 		var lbl_sec := Label.new()
 		lbl_sec.text = section
-		lbl_sec.add_theme_font_size_override("font_size", UIScaleService.px(14))
+		lbl_sec.add_theme_font_size_override("font_size", _fs(14))
 		lbl_sec.add_theme_color_override("font_color", Color(0.8, 0.8, 1.0))
 		_binds_list.add_child(lbl_sec)
 		var keys: Array[String] = []
@@ -372,7 +373,7 @@ func _populate_binds() -> void:
 					break
 		var lbl_keys := Label.new()
 		lbl_keys.text = "  " + ", ".join(keys) if keys.size() > 0 else "  (brak)"
-		lbl_keys.add_theme_font_size_override("font_size", UIScaleService.px(13))
+		lbl_keys.add_theme_font_size_override("font_size", _fs(13))
 		lbl_keys.add_theme_color_override("font_color", Color(0.6, 0.9, 0.6))
 		_binds_list.add_child(lbl_keys)
 
@@ -431,13 +432,13 @@ func _on_revert() -> void:
 
 
 func _on_scale_changed(_scale: float) -> void:
-	var main_size := UIScaleService.px(18)
-	_title_label.add_theme_font_size_override("font_size", UIScaleService.px(26))
-	_tabs.add_theme_font_size_override("font_size", UIScaleService.px(17))
+	var main_size := _fs(18)
+	_title_label.add_theme_font_size_override("font_size", _fs(26))
+	_tabs.add_theme_font_size_override("font_size", _fs(17))
 	_mode_label.add_theme_font_size_override("font_size", main_size)
 	_monitor_label.add_theme_font_size_override("font_size", main_size)
 	_res_label.add_theme_font_size_override("font_size", main_size)
-	_res_note.add_theme_font_size_override("font_size", UIScaleService.px(15))
+	_res_note.add_theme_font_size_override("font_size", _fs(15))
 	_scale_label.add_theme_font_size_override("font_size", main_size)
 	_quizless_mode.add_theme_font_size_override("font_size", main_size)
 	_monitor_option.add_theme_font_size_override("font_size", main_size)
@@ -451,25 +452,25 @@ func _on_scale_changed(_scale: float) -> void:
 	_lbl_sfx.add_theme_font_size_override("font_size", main_size)
 	_lbl_skin.add_theme_font_size_override("font_size", main_size)
 	_lbl_brightness.add_theme_font_size_override("font_size", main_size)
-	_lbl_no_skins.add_theme_font_size_override("font_size", UIScaleService.px(14))
+	_lbl_no_skins.add_theme_font_size_override("font_size", _fs(14))
 	_skin_option.add_theme_font_size_override("font_size", main_size)
 	_scale_popup_font(_skin_option, main_size)
 	_lbl_bars.add_theme_font_size_override("font_size", main_size)
 	_bars_option.add_theme_font_size_override("font_size", main_size)
 	_scale_popup_font(_bars_option, main_size)
-	_lbl_info.add_theme_font_size_override("font_size", UIScaleService.px(14))
+	_lbl_info.add_theme_font_size_override("font_size", _fs(14))
 	_lbl_info.custom_minimum_size = Vector2(UIScaleService.px(200), 0)
 	for child in _binds_list.get_children():
 		if child is Label:
-			child.add_theme_font_size_override("font_size", UIScaleService.px(14))
-	_btn_apply.add_theme_font_size_override("font_size", UIScaleService.px(20))
-	_btn_close.add_theme_font_size_override("font_size", UIScaleService.px(20))
-	_lbl_question.add_theme_font_size_override("font_size", UIScaleService.px(18))
+			child.add_theme_font_size_override("font_size", _fs(14))
+	_btn_apply.add_theme_font_size_override("font_size", _fs(18))
+	_btn_close.add_theme_font_size_override("font_size", _fs(18))
+	_lbl_question.add_theme_font_size_override("font_size", _fs(18))
 	_lbl_question.custom_minimum_size = Vector2(UIScaleService.px(220), 0)
-	_lbl_countdown.add_theme_font_size_override("font_size", UIScaleService.px(22))
-	_btn_confirm.add_theme_font_size_override("font_size", UIScaleService.px(20))
-	_btn_revert.add_theme_font_size_override("font_size", UIScaleService.px(20))
-	var mode_font_size := UIScaleService.px(15)
+	_lbl_countdown.add_theme_font_size_override("font_size", _fs(18))
+	_btn_confirm.add_theme_font_size_override("font_size", _fs(18))
+	_btn_revert.add_theme_font_size_override("font_size", _fs(18))
+	var mode_font_size := _fs(15)
 	for button in _mode_btns:
 		button.add_theme_font_size_override("font_size", mode_font_size)
 		button.custom_minimum_size = UIScaleService.sz2(BASE_BTN_MODE_SIZE.x, BASE_BTN_MODE_SIZE.y)
@@ -501,6 +502,17 @@ func _on_scale_changed(_scale: float) -> void:
 	_margin.add_theme_constant_override("margin_top", pad)
 	_margin.add_theme_constant_override("margin_right", pad)
 	_margin.add_theme_constant_override("margin_bottom", pad)
+
+
+## Rozmiar tekstu: skala UI, a gdy aktywny moduł ma własną czcionkę (np. pikselową) — dopasowanie
+## do niej (snap_font_size modułu; quiz_rpg: siatka pikseli Jersey 15).
+func _fs(base: int) -> int:
+	var size := UIScaleService.px(base)
+	var core := get_node_or_null("/root/CoreManager")
+	var module: Node = core.get_active_module() if core else null
+	if module and module.has_method("snap_font_size"):
+		return int(module.snap_font_size(size))
+	return size
 
 
 func _scale_popup_font(option: OptionButton, font_size: int) -> void:
