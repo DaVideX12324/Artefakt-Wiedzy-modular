@@ -41,7 +41,7 @@
 - 13 plików układu; trapezy z ręczną skalą tyłu 0.82 (wygląd jak przed trapezami). Plik
   `tutorial_area/variant_2_training_layout.tres` edytuje user (nie commitować bez prośby).
 
-## Podgląd / edytor pól: `scenes/tools/battle_layout_preview.tscn`
+## Podgląd / edytor pól: `scenes/tools/battle_layout_preview.tscn` (instrukcja: docs/battle_layout_preview.md)
 - Każde pole = `Polygon2D` „FieldN” — przeciąganie narożników, Ctrl+D nowe pole, Delete usuwa;
   zapis pliku 0,6 s po ostatniej zmianie.
 - 9b00207: blokada `_syncing` ustawiana PRZED zapisem do pól — wcześniej sygnał `changed` nadpisywał
