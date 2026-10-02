@@ -39,6 +39,15 @@
   korytarz na warstwie pod spodem), dobór par pokoi (odległość, osiągalność — skrót nie może omijać
   zamkniętych drzwi / quizów), wejścia z obu stron, nawigacja wrogów (bez przejść), zapis w seedzie.
   Powiązane: nisze-przejścia (`NichePlacer`, `ctx.passage_cells`), zawartość nisz out i sekretne pokoje.
+- Pomysł usera (2026-10-03) na pokazanie tunelu: shader z Amon-Ra robiący kafle częściowo przezroczystymi —
+  `assets/shaders/desert_town/desert_town.gdshader` (już skopiowany do hosta; w Amon-Ra materiał
+  `desert_town.tres`): koło wokół `player_position` o promieniu `circle_radius`, alfa od `min_alpha` (przy
+  graczu) do `max_alpha`, `smoothness`. Gracz idzie po prawdziwym korytarzu pod voidem / skałą, a kafle nad
+  nim (warstwa z materiałem, `player_position` ustawiany co klatkę) prześwitują wokół niego.
+- Wtedy **pod terenem voidu muszą się też generować ściany tunelu** (kolizje wzdłuż korytarza) — inaczej
+  pod voidem dałoby się chodzić po całej mapie. Czyli: korytarz tunelu wycięty w osobnej masce (nie w siatce
+  pokoi), własne kolizje ścian tunelu, warstwa voidu / skały nad tunelem z shaderem, wejścia przez
+  nisze-przejścia na obu końcach.
 
 ### Nisze-przejścia: wariant kafli RIM i częstość
 - Generator i kafle OUT gotowe (patrz „Rozwiązane”, 2026-10-03). Zostało: **wariant kafli szczytu ściany (RIM)
