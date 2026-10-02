@@ -4,6 +4,8 @@ signal quiz_source_registered(module_id: String, source_path: String)
 signal quiz_loaded(module_id: String, quiz_id: String)
 signal question_answered(module_id: String, quiz_id: String, correct: bool, question_data: Dictionary)
 signal quiz_completed(module_id: String, quiz_id: String, score: int, total: int)
+## Zmiana zestawów / wyboru aktywnych (edytor pytań, opcje) — po reload_all().
+signal questions_changed
 
 const GLOBAL_SOURCE_PATH := "res://resources/quizzes"
 const WORDS_PER_SEC := 0.35
@@ -20,6 +22,7 @@ var _sources: Dictionary = {}
 var _quizzes: Dictionary = {}
 var _answered_questions: Dictionary = {}
 var _sessions: Dictionary = {}
+var _selection: Dictionary = {}   # wybór aktywnych zestawów / pytań (QuestionBank.load_selection)
 
 
 func _ready() -> void:
@@ -34,6 +37,8 @@ func register_source(module_id: String, source_path: String, reload_now: bool = 
 
 func register_sources(module_id: String, source_paths: Array, reload_now: bool = true) -> void:
 	var cleaned_sources: Array[String] = []
+	# Zestawy własne (import, nowe, edycje wbudowanych) zawsze na końcu — ten sam id przesłania wbudowany.
+	source_paths = source_paths + [QuestionBank.USER_DIR]
 	for source_path_variant in source_paths:
 		var source_path := str(source_path_variant).trim_suffix("/")
 		if source_path == "":
@@ -149,14 +154,17 @@ func get_questions(
 	count: int = 5,
 	allowed_types: Array = []
 ) -> Array:
-	var effective_quiz_id := _resolve_quiz_id(module_id, quiz_id)
-	var module_quizzes := _get_module_quizzes(module_id)
-	if not module_quizzes.has(effective_quiz_id):
-		push_warning("QuizService: quiz '%s' (resolved '%s') not found for module '%s'" % [quiz_id, effective_quiz_id, module_id])
-		return []
+	var pool := _active_pool(module_id, quiz_id.strip_edges())
+	if pool.is_empty():
+		var effective_quiz_id := _resolve_quiz_id(module_id, quiz_id)
+		var module_quizzes := _get_module_quizzes(module_id)
+		if not module_quizzes.has(effective_quiz_id):
+			push_warning("QuizService: quiz '%s' (resolved '%s') not found for module '%s'" % [quiz_id, effective_quiz_id, module_id])
+			return []
+		pool = module_quizzes[effective_quiz_id]
 
 	var filtered: Array = []
-	for question in module_quizzes[effective_quiz_id]:
+	for question in pool:
 		var diff: int = question.get("difficulty", 1)
 		var qtype: String = question.get("type", "multiple_choice")
 		var diff_ok := diff >= difficulty_range.x and diff <= difficulty_range.y
@@ -165,13 +173,13 @@ func get_questions(
 			filtered.append(question)
 
 	# Jeśli filtr trudności/typów nie znalazł pytań, złagodź filtr:
-	if filtered.is_empty() and not module_quizzes[effective_quiz_id].is_empty():
-		for question in module_quizzes[effective_quiz_id]:
+	if filtered.is_empty() and not pool.is_empty():
+		for question in pool:
 			var qtype: String = question.get("type", "multiple_choice")
 			if allowed_types.is_empty() or (qtype in allowed_types):
 				filtered.append(question)
 		if filtered.is_empty():
-			filtered = module_quizzes[effective_quiz_id].duplicate()
+			filtered = pool.duplicate()
 
 	filtered.shuffle()
 	if filtered.size() > count:
@@ -188,7 +196,8 @@ func start_quiz(
 	session_id: String = "default"
 ) -> Dictionary:
 	var effective_quiz_id := _resolve_quiz_id(module_id, quiz_id)
-	var questions := get_questions(module_id, effective_quiz_id, difficulty_range, count, allowed_types)
+	# Losowanie z puli aktywnych (pierwotny quiz_id — nieznany zestaw = wszystkie aktywne).
+	var questions := get_questions(module_id, quiz_id, difficulty_range, count, allowed_types)
 	var key := _session_key(module_id, session_id)
 	_sessions[key] = {
 		"module_id": module_id,
@@ -441,7 +450,45 @@ func _load_quiz_file(module_id: String, quiz_id: String, path: String) -> void:
 		push_warning("QuizService: unsupported quiz format in %s" % path)
 		return
 
-	_quizzes[module_id][quiz_id] = _normalize_questions(raw_questions, path)
+	var normalized := _normalize_questions(raw_questions, path)
+	for q in normalized:
+		q["set_id"] = quiz_id
+	_quizzes[module_id][quiz_id] = normalized
+
+
+## Po zmianach w zestawach / wyborze (edytor pytań, opcje): wczytanie od nowa wszystkich modułów.
+func reload_all() -> void:
+	_selection = QuestionBank.load_selection()
+	for module_id in _sources:
+		reload_module(module_id)
+	questions_changed.emit()
+
+
+## Pytania do losowania: zestaw `quiz_id`, gdy istnieje i jest aktywny (jego aktywne pytania), inaczej
+## aktywne pytania wszystkich aktywnych zestawów (wybór: QuestionBank, opcje / edytor pytań).
+## Pusto, gdy nic nie jest aktywne — wtedy get_questions bierze dawny zestaw quiz_id bez filtra.
+func _active_pool(module_id: String, quiz_id: String) -> Array:
+	if _selection.is_empty():
+		_selection = QuestionBank.load_selection()
+	var quizzes := _get_module_quizzes(module_id)
+	var cheat_service := get_node_or_null("/root/CheatService")
+	if cheat_service and "active_quiz_override" in cheat_service:
+		var override_id := str(cheat_service.active_quiz_override).strip_edges()
+		if override_id != "" and quizzes.has(override_id):
+			return quizzes[override_id]  # menu deweloperskie: wymuszony zestaw, bez filtra
+	var ids: Array = []
+	if quizzes.has(quiz_id) and QuestionBank.is_set_enabled(quiz_id, _selection):
+		ids = [quiz_id]
+	else:
+		for id in quizzes:
+			if QuestionBank.is_set_enabled(str(id), _selection):
+				ids.append(id)
+	var pool: Array = []
+	for id in ids:
+		for q in quizzes[id]:
+			if QuestionBank.is_question_enabled(str(id), str(q.get("id", "")), _selection):
+				pool.append(q)
+	return pool
 
 
 func _check_answer(question: Dictionary, player_answer: Dictionary) -> bool:
