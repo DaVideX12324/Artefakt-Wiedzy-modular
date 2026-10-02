@@ -1,0 +1,42 @@
+# Menu, opcje, menu Esc, audio (stan na 2026-10-03)
+
+## Opcje hosta (`scenes/ui/options_menu.tscn`, `scripts/ui/options_menu.gd`)
+- Jedno okno dla menu głównego hosta, menu Quiz RPG (przycisk „Opcje”, 888d682) i menu Esc.
+- Zakładki: Ekran, Dźwięk, **Motyw**, **Pytania**, **Sterowanie**.
+- Rozmiar tekstu: `_fs(base)` dopasowuje do czcionki aktywnego modułu (`snap_font_size` w module_root —
+  quiz_rpg: siatka Jersey 15, 27 px). Wcześniej w skali 1x tekst był za mały (56692f5).
+- **Motyw** (wartości modułu przez `SettingsService.set_module`, zmiana na żywo przez sygnał
+  `module_setting_changed(module_id, key, value)`):
+  - „Motyw” — `get_ui_skins()` aktywnego modułu, klucz `ui_skin`,
+  - „Styl pasków” — `get_ui_bar_styles()`, klucz `ui_bar_style`,
+  - suwak jasności 50–150 %, klucz `ui_brightness`,
+  - `ExtraOptions` — przełączniki z `get_ui_options()` modułu (quiz_rpg: `ui_combat_compact` — UI walki tylko
+    na szerokość treści, 1bd9c8e). Szczegóły motywów i pasków: [walka.md](walka.md).
+- **Pytania** — zaznaczanie zestawów używanych w grze (QuestionBank) — [pytania.md](pytania.md).
+- **Sterowanie** (ba3d490) — sekcje z pola `controls` w `module_manifest.json`
+  (`[{label, actions, keys?}]`). Z menu głównego: wszystkie moduły (nagłówek na moduł); z modułu
+  (`CoreManager.get_active_module`): tylko jego. Klawisze z InputMap, nazwy po polsku (`_key_name`).
+  Tylko **podgląd** — zmiana klawiszy (rebind) jeszcze nie zrobiona.
+- BitBomber jest submodułem: manifest ze sterowaniem jest na jego gałęzi `main` (7c87f4f). Zmiana
+  w submodule = commit + push w nim (na gałęzi, nie detached HEAD), potem commit wskaźnika w repo głównym.
+
+## Menu Esc (`modules/quiz_rpg/scenes/ui/pause_menu.tscn`, 3230daa, 6f0e076)
+- Motyw modułu przypięty do sceny: panele LeftPanel / RightPanel mają typ QuizWindow, zaznaczenie
+  (`SelectionBox`) styl „selected”, paski statusu / drużyny / umiejętności / ekwipunku to `QuizBar`.
+- Panele w proporcji 1:5 (size flags stretch ratio — menu wąskie, rozciągane), tytuł „Menu” 66 px
+  bez minimalnej szerokości (zmiana usera).
+- **HUD bez panelu statystyk** (8de6001): HP, XP, poziom, punkty, seria tylko w menu Esc. W `hud.gd`
+  zostały popup nagrody i `FadeOverlay`. Punkty / seria nie są jeszcze pokazane w menu Esc.
+
+## Audio (a6b3314)
+- Powrót do menu / wyjście z gry przywraca muzykę menu: `modules/quiz_rpg/scripts/ui/main_menu.gd`
+  (przy pokazaniu menu) i `scripts/ui/main_menu.gd` hosta (przy zmianie widoczności).
+
+## Eksplorator map (9b54fc1)
+- `scripts/tools/map_generator_preview.gd` → `_ensure_module_singletons`: przy spacerze graczem tworzy
+  singletony modułu (PlayerStats, ekwipunek…). Bez nich gracz miał 0 HP i walka z podglądu nie działała
+  (tak wyglądał błąd „wybór postaci po Walcz nie działa”).
+
+## Git: puste zmiany po reimporcie (6c40d50)
+- Godot zapisuje pliki z LF, a `core.autocrlf=true` dawał w GitHub Desktop „zmienione” pliki bez różnic.
+  `.gitattributes`: `* text=auto eol=lf` + `git add --renormalize .`. Gdy znów się pojawią: renormalize.

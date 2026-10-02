@@ -114,19 +114,10 @@
 - Do ustalenia: krawędzie płaskowyżów pod drzewami (klify widoczne tylko na polanach?), wyjścia mapy w lesie
   (przecinka w pasie drzew), wygląd przejścia polana → las (krzaki, pojedyncze drzewa przed ścianą).
 
-### Ustawienia sterowania per moduł, wybór modułu w menu głównym
-- Zgłoszenie 2026-10-01. Dziś jedna lista w opcjach hosta (`scripts/ui/options_menu.gd`, `BINDS`) miesza
-  akcje BitBombera (`p1_*`, `p2_*`) i Quiz RPG (`move_*`, `interact`) i tylko je **wyświetla** (bez zmiany
-  klawiszy).
-- Cel: każdy moduł ma własną sekcję sterowania (lista akcji z modułu, np. w `module_manifest.json` albo
-  z prefiksu akcji — por. `docs/module_contract.md`: akcje z prefiksem gry), a w opcjach z menu głównego
-  jest **select modułu** (Quiz RPG / BitBomber / …), który przełącza listę.
-- Przy okazji: zmiana klawiszy (rebind) z zapisem per moduł w `SettingsService.set_module(...)`.
-
-### Ustawienia w menu Quiz RPG
-- Zgłoszenie 2026-10-01. Menu modułu (`modules/quiz_rpg/scenes/ui/main_menu.tscn`, `pause_menu.tscn`)
-  nie ma opcji. Dodać wejście do ustawień (najlepiej ten sam panel co z menu głównego hosta, od razu
-  z wybranym modułem Quiz RPG — patrz wpis wyżej) — także z pauzy w trakcie gry.
+### Zmiana klawiszy (rebind) per moduł
+- Sekcje sterowania per moduł są (ba3d490, patrz „Rozwiązane”), ale tylko **wyświetlają** klawisze. Do
+  zrobienia: zmiana klawiszy z zapisem per moduł w `SettingsService.set_module(...)` i wczytaniem do InputMap
+  przy starcie modułu.
 
 ### Modularność assetów i autoloadów (moduł samodzielny bez dublowania w eksporcie)
 - Zgłoszenie 2026-10-01. Pomysł: moduł trzyma też kopie assetów i autoloadów, które w hoście zapewnia
@@ -252,6 +243,9 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- Sterowanie per moduł (2026-10-02, ba3d490): Opcje -> „Sterowanie” — sekcje z pola `controls` w
+  `module_manifest.json`; z menu głównego wszystkie moduły, z modułu tylko jego (BitBomber: 7c87f4f).
+- Opcje w menu Quiz RPG (2026-10-02, 888d682): przycisk „Opcje” otwiera okno opcji hosta (jak z menu Esc).
 - Edytor pytań (2026-10-02, 278f906, 3866fb5, 3d2108c): menu główne hosta -> „Pytania” (zestawy:
   nowy / import JSON z raportem pominiętych / eksport / nazwa / usuń lub przywróć oryginał; pytania 5 typów:
   dodaj / edytuj / duplikuj / usuń / włącz-wyłącz), Opcje -> „Pytania” (zestawy używane w grze). Dane:

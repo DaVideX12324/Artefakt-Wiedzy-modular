@@ -1,4 +1,4 @@
-# Kontekst pracy (stan na 2026-09-30)
+# Kontekst pracy (stan na 2026-10-03)
 
 Krótkie notatki na start nowej sesji. Moduł `modules/quiz_rpg`, Godot 4.7.2.
 
@@ -9,7 +9,8 @@ Krótkie notatki na start nowej sesji. Moduł `modules/quiz_rpg`, Godot 4.7.2.
 | [obiekty.md](obiekty.md) | generator obiektów: duże obiekty przy ścianach, dostęp do skrzyń |
 | [ekran_ladowania.md](ekran_ladowania.md) | scena ekranu ładowania, tła map, prompty do grafik |
 | [pytania.md](pytania.md) | zestawy pytań, wybór aktywnych, edytor pytań (menu główne, opcje) |
-| [walka.md](walka.md) | UI walki (RPG Maker, WYSIWYG), pola walki per tło, podgląd / edytor pól |
+| [menu_i_opcje.md](menu_i_opcje.md) | opcje hosta (motyw, pytania, sterowanie per moduł), menu Esc, HUD, audio menu |
+| [walka.md](walka.md) | UI walki (RPG Maker, WYSIWYG), motywy i style pasków, pola walki per tło, podgląd / edytor pól, tła 16:9 |
 | [wrogowie.md](wrogowie.md) | zasięg wykrywania, dziedziczenie scen, znane pułapki |
 | [narzedzia_diag.md](narzedzia_diag.md) | skrypty headless do renderów i porównań (katalog `tests/`, poza gitem) |
 | [otwarte.md](otwarte.md) | co zostało do zrobienia / sprawdzenia |
@@ -23,3 +24,9 @@ UI walki (2026-09-30): scena `scenes/quiz/quiz_combat_ui.tscn` + motyw `resource
 Przypomnienia na start sesji Claude Code: hook `SessionStart` w `.claude/settings.json` uruchamia
 `.claude/hooks/przypomnienia.sh` — każde przypomnienie sprawdza stan repo i znika samo, gdy sprawa jest
 załatwiona (dziś: pliki `.import` poza repo). Nowe przypomnienie = nowy blok w tym skrypcie.
+
+Sesja 2026-10-02/03 (skrót): motywy UI `_st` i style pasków z Pixel UI pack 3 (opcje -> Motyw, także menu Esc),
+poprawki wyboru myszą w walce i kolejności rysowania wrogów, HUD bez statystyk, muzyka menu, przycisk
+„Opcje” w menu Quiz RPG, edytor pytań, sterowanie per moduł, `.gitattributes` eol=lf, pola walki na
+y = 765 i cień 35 px, węższe okna komend i tekst walki 36 px, tryb „UI walki na szerokość treści”, prompty
+teł 16:9 + korekcyjne, w podglądzie pól strefy UI / cienia i paski HP. Od teraz commity od razu pushowane.

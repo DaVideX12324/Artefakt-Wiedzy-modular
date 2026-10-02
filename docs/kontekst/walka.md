@@ -1,4 +1,4 @@
-# Walka: UI, pola walki, podgląd (stan na 2026-09-30)
+# Walka: UI, pola walki, podgląd (stan na 2026-10-03)
 
 ## UI walki (styl RPG Makera, WYSIWYG)
 - Scena `scenes/quiz/quiz_combat_ui.tscn`, kontroler `scripts/quiz/quiz_combat_controller.gd` tylko
@@ -17,6 +17,17 @@
 - Quiz (`scripts/shared/quiz/quiz_panel_controller.gd`): nawigacja odpowiedzi wg `MC_Box.columns`
   (w scenie 1 kolumna; wcześniej zakładała 2×2 i strzałka w dół skakała o 2).
 - **Asset UI od usera** (tło okien) -> jedno miejsce: `quiz_theme.tres`, typ QuizWindow.
+- **Wybór myszą** (aa47eaf, a7c4730): wiersz drużyny trafiany z `event.position`; `PartyVBox` ma
+  `mouse_filter = IGNORE` (przepuszcza mysz do wierszy listy celów), zejście ze sprite'a wroga kasuje
+  `_hovered_enemy_slot_index` — wcześniej klik na liście działał dopiero po najechaniu na sprite.
+- **Kolejność rysowania wrogów** (3dce68d): wg linii stóp — tylny rząd pod przednim.
+- **Szerokości okien** (44f69f4): komendy drużyny / postaci `party_command_width` / `actor_command_width`
+  = 15 % ekranu (szersze, gdy treść wymaga). Tryb „na szerokość treści” (opcja `ui_combat_compact`,
+  1bd9c8e): okno drużyny `compact_party_width` = 50 %, reszta pasa pusta — `_set_band_mode`.
+- **Tekst 36 px** (c47d88f): `QuizTheme.COMBAT_FONT_SIZE`, ekran walki ma własną kopię motywu
+  (`QuizTheme.combat_theme()`, odświeżaną w `apply_skin`), panel quizu `text_size = 36`
+  (`quiz_panel_controller._ts()` — kafelki, odstępy, dopasowanie). 36 to poza siatką 27 px — ryzyko
+  w `docs/znane_problemy.md` („Potencjalne problemy”).
 - XP dodawane tylko na ekranie walki; po wygranej gracz rusza od razu, 5 s nietykalności
   (`player.grant_encounter_immunity`, miganie). Komunikaty zwycięstwa czekają (Enter pomija) — decyzja usera.
 
@@ -35,6 +46,10 @@
 - `BattleField`: `quad` (4 narożniki, sortowane: przód-lewy, przód-prawy, tył-prawy, tył-lewy;
   NaN odrzucany), `rows` 1–3, `row_capacity`, `front_scale`, `auto_depth_scale` / `back_scale`.
   Współrzędne w px obszaru bitwy przy 1920 px (`REF_AREA` = 1920×830 nad paskiem 250 px).
+- **Wysokość pól** (0a7566e → 72c7b63): przedni rząd wszystkich 13 układów na y = 765 (narożniki przesunięte
+  wzdłuż boków trapezu), domyślny quad w `battle_field.gd` też. Cień nad dolnym paskiem UI o połowę
+  niższy: `FolderBackground.SHADOW_HEIGHT` = 35 px (`SHADOW_COLOR`). Pasek HP wroga (12 px pod stopami,
+  do 16 px wysoki) kończy się na ~793 — tuż nad cieniem (795). Pola niżej = paski w cieniu.
 - Rozstawienie: `assign()` losuje rzędy z wolnym miejscem (preferencje „front” / „back” z danych wroga);
   w rzędzie z n wrogami stopy k-tego w (k + 0,5) / n linii rzędu — skrajni nigdy na samym boku pola.
   Skala = `enemy_scale(liczba wrogów)` × skala rzędu.
@@ -50,12 +65,15 @@
   zastąpiło pojedyncze `enemy_frames`), `field_counts` (ilu wrogów na polu, po rzędach od przedniego;
   brak wpisu / -1 = `preview_per_row` w każdym rzędzie, 0 = puste), rysowanie od najdalszych.
   W grze rzędy są losowe — podgląd pokazuje przykładowy podział, ale miejsca i skala jak w grze.
+- 9420bb6, 29739f8: podgląd rysuje cień (35 px, przerywana linia) i dolny pasek UI walki (250 px, czerwony
+  obrys, „tu nie stawiaj wrogów”) — `_draw_ui_zones`, oraz paski HP pod wrogami (`HP_BAR_OFFSET` 12,
+  `HP_BAR_SIZE` 96×16 — najwyższy styl pasków; zmierzone w grze).
 - Niesprawdzone w edytorze przez usera: Ctrl+D / Delete, `field_counts`; w grze — klikanie wrogów
   przy wyborze celu po przeniesieniu slotów na `EnemyFieldLayer`.
 - Ostrzeżenia „invalid UID” przy ładowaniu prawie wszystkich `resources/enemies/*.tres` (orki, dzik,
   bandyci…) — stare, grafiki się ładują; osobna sprawa do uporządkowania.
 
-## Motywy UI (1c368e2)
+## Motywy UI (1c368e2; menu Esc 3230daa — [menu_i_opcje.md](menu_i_opcje.md))
 - Opcje hosta -> zakładka „Motyw”: lista z `get_ui_skins()` aktywnego modułu (module_root -> `QuizTheme.SKINS`),
   suwak jasności 50–150 %. Zapis: `SettingsService.set_module("quiz_rpg", "ui_skin" / "ui_brightness")`,
   zmiana na żywo przez sygnał `module_setting_changed`.
@@ -80,3 +98,20 @@
 - Tekstury: resources/ui/skins/bars/<styl>_<kolor>_full|empty.png z assets/UI/Pixel UI pack 3/Full.png
   (+ 05.png); style budowane przez tests/build_ui_skins.gd (BAR_STYLES = kolory, BAR_TILED = modułowe).
 - Licencja Pixel UI pack 3 (bdragon1727): niekomercyjnie za darmo, komercyjnie — wpłata dowolnej kwoty.
+- 099fd2a: „pas” jednostronny i dwustronny (`pas2` — wypełnienie od środka w obie strony, jak cały pasek
+  z paczki), cienkie paski ×3 (wyższe klasyczne), klasyczne paski w motywach pikselowych dostają ramkę.
+- Pułapki `QuizBar`: w shaderze `COLOR` zawiera już teksturę — kolor wierzchołka przez `varying`; natywny
+  ProgressBar ignoruje `_get_minimum_size` skryptu — wysokość przez marginesy `StyleBoxEmpty`; blokada
+  `_switching` przed rekurencją THEME_CHANGED; `_refresh_mode` liczy wysokość przy każdej zmianie stylu.
+- `assets/UI/` (surowe paczki) nie idzie do repo — licencja Pixel UI pack 3 zabrania redystrybucji;
+  w repo tylko wycinki w `resources/ui/skins/`. `tests/build_ui_skins.gd`: `SKIP_BARS=1` = bez pasków.
+
+## Tła walki: kadr 16:9 (0a09cba) — do dokończenia
+- Dziś tło rysowane „cover” w obszarze 1920×830 nad pasem UI (grafika 1376×768: skala ~1,395,
+  przesunięcie y ≈ −121) — pod pasem UI tła nie ma, stąd czarne pola obok okien w trybie „na szerokość treści”.
+- Prompty w `battle_backgrounds/pixel_crawler_prompts.md` i `tutorial_area_prompts.md` przepisane na
+  cały ekran 16:9: górne ~10 % spokojne, horyzont ~40–45 %, wrogowie 50–70 %, dolne ~25 % pod UI
+  z gładką podłogą. `correction_prompts.md` — prompty korekcyjne dla 12 istniejących grafik
+  (oddalenie: obecny obraz w górnych ~80 % + dorysowana podłoga, opcjonalne poprawki).
+- **Gdy user wrzuci poprawione grafiki**: rysować tło na cały ekran (`folder_battle_background.gd`)
+  i przestawić pola walki w podglądzie (współrzędne się przesuną).
