@@ -9,14 +9,11 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### Nisze przy ścianie 3H: bez narożników wewnętrznych na górze (przejście), bez sekretnego pokoju
-- Zgłoszenie 2026-09-29, przykład: `…/scratchpad/bulge_po_zmianach/bulge_103107_160_0.png` (seed 103107 160×160,
-  okolice (83–100, 104–119); przypadek jest po obu stronach porównania, więc występuje też bez spłaszczania
-  wybrzuszeń — ten seed nadaje się do testu).
-- W skrypcie nisz (`tiling/niche_placer.gd`, kandydaci w `EdgeAnalyzer` — `is_niche_candidate` /
-  `is_secret_niche_candidate`) dodać warunek: jeśli ściana ma wysokość 3 przynajmniej na jednej części niszy,
-  **nie stawiać narożników wewnętrznych na górze** — powstaje wtedy ładne przejście.
-- Taka nisza **nie może mieć sekretnego pokoju** (ani przejścia do niego) — por. wpis o zawartości nisz out.
+### Nisze-przejścia: wariant kafli RIM i częstość
+- Generator i kafle OUT gotowe (patrz „Rozwiązane”, 2026-10-03). Zostało: **wariant kafli szczytu ściany (RIM)
+  z innymi kolizjami jako alternatywa 1** w `caves.tres` — robi user; executor użyje go sam nad płytszą kolumną.
+- Przejść jest mało (seed 103107 160×160 ma 2, pięć innych map 0) — user chce, żeby pojawiały się częściej.
+  Sposób do ustalenia (np. celowe wycięcie ściany do głębokości 3 za kandydatem niszy).
 
 ### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, losowe spotkania
 - Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
@@ -156,12 +153,11 @@
   - Sprawdzone 2026-10-01 (Godot 4.7.2): `.tres` też przyjmuje względne `path="../…"` przy wczytaniu (ten sam
     format tekstowy co `.tscn`), ale zapis zmienia je na `res://…` — w praktyce zostają pełne ścieżki.
     Scena z błędną ścieżką do skryptu, ale poprawnym UID, wczytuje właściwy skrypt (fallback po UID działa).
-  - **Blokada: `*.import` jest w `.gitignore`** (w repo tylko 4 pliki `.import`, `.uid` — 191). UID obrazków,
-    fontów i dźwięków żyje w `.import`, więc każdy świeży klon generuje własne, losowe UID-y — odwołania
-    `uid://` do assetów w scenach / `.tres` są wtedy nieważne („invalid UID - using text path”) i działa tylko
-    ścieżka. Ginęłyby też ustawienia importu per plik. Godot zaleca commitować `.import`; zrobić to
-    **z maszyny autora** (tam UID-y zgadzają się ze scenami) — usunąć `*.import` z `.gitignore`
-    i dodać pliki `.import`. Bez tego fallback po UID nie obejmie własnych assetów modułu.
+  - Pliki `.import` są już w repo (zrobione przez usera, 2026-10) — UID-y assetów są wspólne dla klonów.
+  - Pierwsza kopia z `.gdignore`: `modules/BitBomber/resources/fonts/` (kopia fontów hosta, te same UID-y —
+    896ae62 / ea23bf9). Zostało: `modules/BitBomber/resources/icon.png` ma ten sam UID co `resources/icon.png`
+    hosta (ostrzeżenie „UID duplicate” przy imporcie) — leży obok `quizzes/`, więc nie da się ukryć całego
+    folderu.
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
@@ -203,9 +199,6 @@
 - **Kształtowanie masek terenu** (`TerrainMaskPlanner.shape_mask`) ~130 ms na 250×250 (dwie maski).
 - **Etap `entities`** jest ciężki przez odtwarzanie sceny `slime_tutorial` przy każdej instancji
   (ostrzeżenie „re-save this scene”) — po ponownym zapisie sceny w edytorze powinno spaść.
-- `closed_chest_tutorial.tscn` ma nieaktualny UID tekstury (ostrzeżenie „invalid UID … using text path”)
-  — do ponownego zapisu w edytorze. To samo dotyczy prawie wszystkich `resources/enemies/*.tres`
-  (SpriteFrames orków, dzika, bandytów, slime'ów…, sprawdzone 2026-09-30) — grafiki ładują się po ścieżce.
 
 ## Pułapki konfiguracji (działa zgodnie z założeniem, ale łatwo się naciąć)
 - Wróg z przypisanym `enemy_data` bierze `detection_radius` (i inne statystyki) z niego, nie z inspektora
@@ -243,6 +236,11 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- Nisze przy ścianie o głębokości 3 (2026-10-03, 8649546, 4788812, 56b329f): rząd -3 to tam szczyt ściany,
+  a korona niszy wycinała w nim ciemny ząbek (seed 103107 160×160, (85, 113)). Teraz to nisza OUT bez korony,
+  nigdy sekretna, będąca przejściem (szansa `passage_niche_spawn_chance`); kafle przejścia dostają alternatywę 1.
+- Ostrzeżenia „invalid UID” (2026-10-03, e37c940): 293 odwołania w 37 plikach (wrogowie, kafelki pustyni,
+  obiekty, gracz) poprawione na UID-y z `.import`.
 - Sterowanie per moduł (2026-10-02, ba3d490): Opcje -> „Sterowanie” — sekcje z pola `controls` w
   `module_manifest.json`; z menu głównego wszystkie moduły, z modułu tylko jego (BitBomber: 7c87f4f).
 - Opcje w menu Quiz RPG (2026-10-02, 888d682): przycisk „Opcje” otwiera okno opcji hosta (jak z menu Esc).

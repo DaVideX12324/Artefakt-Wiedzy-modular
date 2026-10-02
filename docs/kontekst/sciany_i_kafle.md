@@ -21,6 +21,20 @@ narożnik schodka 3H (3 kafle). Płaska kolumna fasady (grubość 3–5) z sąsi
 strony to górny koniec skosu — też kafel skosu 2H (`EdgeAnalyzer.slope_2h_end_side`, `StepPlacer.place_slope`);
 szczyt (niżej z obu stron) zostaje 3H.
 
+## Nisze-przejścia (2026-10-03)
+
+- Nisza (`tiling/niche_placer.gd`) = 2 kolumny × rzędy 0..-2 (BASE / MID / TOP) + korona w rzędzie -3.
+  Gdy nad którąś kolumną ściana ma głębokość <= 3 (`EdgeAnalyzer.measure_solid_depth`), rząd -3 to szczyt
+  ściany: nisza jest typu OUT, **bez korony** (szczyt kładzie RimPlacer, kolumna głębsza dostaje zwykłą koronę
+  lica 3H — `FacadePlacer.place_3h_crown`), nigdy sekretna, z szansą `passage_niche_spawn_chance`.
+- Kratki przejścia (`ctx.passage_cells`: OUT obu kolumn + szczyt nad kolumną o głębokości 3) oznacza
+  `NichePlacer.mark_passages` po wszystkich placerach; `TilePlacementExecutor` wstawia tam alternatywę
+  `NichePlacer.PASSAGE_ALT` (1), jeśli TileSet ją ma — inne kolizje, ta sama grafika. W `caves.tres` są
+  alternatywy kafli OUT (skała i korzenie): TOP z wąskim paskiem z zewnątrz, MID / BASE obcięte do zewnętrznej
+  połowy. Wariant RIM (alternatywa 1) robi user.
+- Test: `tests/diag_passage_niche.gd` (`CASES="seed,size;…"`) — kratki z alternatywą i jak wysoko dochodzi
+  kapsuła gracza idąca na północ.
+
 ## Siatka po preprocessingu
 
 - `DiagonalTouchPass` (koniec P11a, po `ShortLedgeRaisePass`): skośny styk podłóg przez ścianę
