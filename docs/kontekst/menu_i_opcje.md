@@ -47,7 +47,12 @@
 - **Sterowanie** (ba3d490) — sekcje z pola `controls` w `module_manifest.json`
   (`[{label, actions, keys?}]`). Z menu głównego: lista „Gra:” (OptionButton) wybiera jeden moduł
   (dada72e, 2026-10-04); z modułu (`CoreManager.get_active_module`): tylko jego, bez listy. Tekst wierszy
-  w rozmiarze innych zakładek (18, f5e31ea). Nazwy akcji z opcjonalnego pola manifestu
+  w rozmiarze innych zakładek (18, f5e31ea).
+- **Opcje sterowania z manifestu** (a5bd148, 2026-10-04): `"control_options": [{key, label, default, options: [{id, name}]}]`
+  — listy wyboru nad klawiszami modułu w zakładce Sterowanie, zapis od razu (`SettingsService.set_module`).
+  Cień Mgły: `move_default` (walk / run) i `sprint_mode` (hold / toggle) + akcja `sprint` (Shift). Klawisz
+  odwraca domyślny ruch (domyślny bieg + przytrzymanie = chód); bieg = `run_speed_mult` (1,6x), drużyna
+  biegnie z liderem (`player.gd`, CienMgly 427fdbb). Test: `diag_sprint`. Nazwy akcji z opcjonalnego pola manifestu
   `action_labels` (`{akcja: nazwa}`), bez niego id akcji.
   **Zmiana klawiszy (2026-10-03)**: każda akcja ma 2 pola — klik -> „Naciśnij…”, Esc anuluje, Backspace
   czyści pole; klawisz zajęty przez inną akcję tego samego modułu przechodzi do nowej (komunikat w nagłówku);
