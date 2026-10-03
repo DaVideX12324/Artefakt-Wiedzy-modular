@@ -22,8 +22,9 @@
     na szerokość treści, 1bd9c8e). Szczegóły motywów i pasków: [walka.md](walka.md).
 - **Pytania** — zaznaczanie zestawów używanych w grze (QuestionBank) — [pytania.md](pytania.md).
 - **Sterowanie** (ba3d490) — sekcje z pola `controls` w `module_manifest.json`
-  (`[{label, actions, keys?}]`). Z menu głównego: wszystkie moduły (nagłówek na moduł); z modułu
-  (`CoreManager.get_active_module`): tylko jego. Nazwy akcji z opcjonalnego pola manifestu
+  (`[{label, actions, keys?}]`). Z menu głównego: lista „Gra:” (OptionButton) wybiera jeden moduł
+  (dada72e, 2026-10-04); z modułu (`CoreManager.get_active_module`): tylko jego, bez listy. Tekst wierszy
+  w rozmiarze innych zakładek (18, f5e31ea). Nazwy akcji z opcjonalnego pola manifestu
   `action_labels` (`{akcja: nazwa}`), bez niego id akcji.
   **Zmiana klawiszy (2026-10-03)**: każda akcja ma 2 pola — klik -> „Naciśnij…”, Esc anuluje, Backspace
   czyści pole; klawisz zajęty przez inną akcję tego samego modułu przechodzi do nowej (komunikat w nagłówku);
