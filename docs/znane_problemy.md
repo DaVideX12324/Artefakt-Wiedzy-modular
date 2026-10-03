@@ -257,7 +257,10 @@
   dostaje cały ukośny ciąg kolumn schodzących po 1 rząd, jeśli któraś ma 3 kratki nad stopą INNER_CORNER w
   kierunku skosu (NORTH_WEST schodzący w lewo, NORTH_EAST w prawo). Do tego `SlopeThicknessPass` (P11a):
   ukośna ściana o grubości 3 -> 4 (ciąg >= 3 stóp, bez „zębów”), bo klin seeda 119 160×160 (71–72) nie
-  pasował do okna 100/000/001. Kafli skosu na 10 mapach testowych 56 -> 15; decyzje usera.
+  pasował do okna 100/000/001. Potem (CienMgly, „reguła narożnika zastępuje regułę grubości”) usunięty
+  warunek grubości 3–5 i „schodka o 1” — skos wyłącznie z narożnika (seed 118945 160×160, (16,53) grubości 6).
+  Flagi do porównań: `slope_2h_corner_rule`, `enable_slope_thickness` (caves.json; obie false = stan sprzed zmian).
+  Kafli skosu na 10 mapach testowych 56 -> 17; decyzje usera.
 - **Cień Mgły (quiz_rpg) samodzielny i jako submoduł** (2026-10-03): ścieżki niezależne od korzenia
   (`scripts/quiz_rpg_paths.gd`, UID w każdym `ext_resource`), kopie hosta w `_host/` z `.gdignore`
   (`tools/sync_host_copies.gd`, opis w `docs/module_contract.md`), `tools/make_standalone.sh`; potem
