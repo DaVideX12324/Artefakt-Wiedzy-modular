@@ -256,6 +256,10 @@
   `MapGeneratorBase.arrival_cell` (podłoga, ta sama wysokość, bez barier i obiektów), w samouczku
   `Spawns/Tutorial-Caves` (marker usera; `cave.tscn` `previous_spawn_name`). Przejście działa od razu po wejściu;
   obszar, w którym gracz stoi po wczytaniu, dopiero po wyjściu. Testy: `diag_level_back`, `diag_arrival_cells`.
+- **Przejścia pod E** (2026-10-04): tryb per przejście — w scenie ręcznej metadane Area2D `portal_use_key` (bool)
+  i `portal_prompt` (tekst, domyślnie „Przejdź”), na mapach dziedziczonych eksporty `procedural_level`
+  `next/previous_portal_use_key` i `next/previous_portal_prompt` (np. drabina w ściekach). Podpowiedź „[E] …”
+  nad środkiem kształtu obszaru (`portal_key_listener.gd`). Test: `diag_portal_key`.
 - **Zmiana klawiszy (rebind) per moduł** (2026-10-03): zakładka „Sterowanie” w opcjach — 2 pola na akcję,
   przejmowanie klawisza w konflikcie, „Przywróć domyślne”; `InputBinds` + `SettingsService.set_module(…, "binds")`,
   nazwy akcji z `action_labels` w manifestach. Opis: `docs/kontekst/menu_i_opcje.md`.
