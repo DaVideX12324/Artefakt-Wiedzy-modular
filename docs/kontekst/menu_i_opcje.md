@@ -11,6 +11,11 @@
 - Okno — ręczna zmiana rozmiaru (przeciąganie, maksymalizacja): po 0,4 s spokoju rozmiar i monitor do ustawień,
   zapis, `resolution_changed` (+ SettingsService dla skali UI) i `window_resized_by_user`; w opcjach pozycja
   „(własny)”, otwarte opcje odświeżają listę bez odliczania.
+- Okno zmaksymalizowane: `window_maximized` w ustawieniach (display); start / „Zastosuj” z tym samym rozmiarem
+  przywraca maksymalizację, inny rozmiar = zwykłe okno. W opcjach pozycja „(zmaksymalizowane)”; brak wartości
+  na liście -> najbliższa pozycja (nie pierwsza).
+- Okno bez ramki na cały ekran Godot zgłasza jako EXCLUSIVE_FULLSCREEN i cofa przejście do okna, dopóki flaga
+  „bez ramki” jest włączona — `_to_plain_window()` zdejmuje flagę przed zmianą trybu.
 - Bez ramki: po zdjęciu ramki Windows potrafi zmaksymalizować okno — `_leave_fullscreen()` przed rozmiarem.
 - Pełny ekran: `window_set_current_screen` + EXCLUSIVE_FULLSCREEN, UI w rozdzielczości (stretch canvas_items);
   zmiana rozdzielczości w pełnym ekranie bez przechodzenia przez okno.
