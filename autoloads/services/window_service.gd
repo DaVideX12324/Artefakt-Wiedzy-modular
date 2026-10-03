@@ -2,6 +2,8 @@ extends Node
 
 signal resolution_changed(new_resolution: Vector2i)
 signal window_mode_changed(mode_idx: int)
+## Użytkownik sam zmienił rozmiar okna (tryb okienkowy) — po resolution_changed.
+signal window_resized_by_user(new_size: Vector2i)
 
 const MODE_WINDOWED := 0
 const MODE_BORDERLESS := 1
@@ -17,6 +19,22 @@ var resolution := Vector2i(1920, 1080)
 var monitor_idx := 0
 ## Ramka zmierzona na oknie z dekoracjami (ZERO = jeszcze nie).
 var _frame := Vector2i.ZERO
+## apply_settings w toku — zmiany rozmiaru okna to nie ręczna zmiana użytkownika.
+var _applying := false
+var _resize_timer: Timer
+
+## Po ręcznej zmianie rozmiaru okna (przeciąganie, maksymalizacja) zapis dopiero po tylu sekundach spokoju.
+const RESIZE_SETTLE_SEC := 0.4
+
+
+func _ready() -> void:
+	_resize_timer = Timer.new()
+	_resize_timer.one_shot = true
+	_resize_timer.wait_time = RESIZE_SETTLE_SEC
+	_resize_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	_resize_timer.timeout.connect(_on_resize_settled)
+	add_child(_resize_timer)
+	get_tree().root.size_changed.connect(_on_root_size_changed)
 
 
 ## Ustawia tryb okna, rozdzielczość i monitor. Okno ląduje zawsze na wybranym monitorze:
@@ -31,6 +49,7 @@ func apply_settings(mode_idx: int, res: Vector2i, screen: int, save_now: bool = 
 	window_mode_idx = clampi(mode_idx, MODE_WINDOWED, MODE_FULLSCREEN)
 	resolution = res
 	monitor_idx = clampi(screen, 0, maxi(0, DisplayServer.get_screen_count() - 1))
+	_applying = true
 
 	if DisplayServer.get_name() != "headless":
 		match window_mode_idx:
@@ -59,11 +78,40 @@ func apply_settings(mode_idx: int, res: Vector2i, screen: int, save_now: bool = 
 					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 				_enable_stretch(res)
 
+	_applying = false
+	if _resize_timer:
+		_resize_timer.stop()
 	if save_now:
 		SettingsService.save_settings()
 	window_mode_changed.emit(window_mode_idx)
 	if resolution != previous_resolution:
 		resolution_changed.emit(resolution)
+
+
+## Tryb okienkowy: użytkownik może dowolnie zmieniać rozmiar okna — po chwili spokoju faktyczny obszar
+## roboczy (i monitor) trafia do resolution / monitor_idx, zapis i resolution_changed (prośba usera 2026-10-04).
+## Zmaksymalizowane okno liczy się tak samo (obszar roboczy po maksymalizacji).
+func _on_root_size_changed() -> void:
+	if _applying or window_mode_idx != MODE_WINDOWED or DisplayServer.get_name() == "headless":
+		return
+	_resize_timer.start()
+
+
+func _on_resize_settled() -> void:
+	if _applying or window_mode_idx != MODE_WINDOWED:
+		return
+	var mode := DisplayServer.window_get_mode()
+	if mode != DisplayServer.WINDOW_MODE_WINDOWED and mode != DisplayServer.WINDOW_MODE_MAXIMIZED:
+		return
+	var size := DisplayServer.window_get_size()
+	if size == resolution or size.x <= 0 or size.y <= 0:
+		return
+	resolution = size
+	monitor_idx = DisplayServer.window_get_current_screen()
+	SettingsService.save_settings()
+	resolution_changed.emit(resolution)
+	SettingsService.resolution_changed.emit(resolution)  # UIScaleService słucha SettingsService
+	window_resized_by_user.emit(resolution)
 
 
 func center_on_cursor_screen() -> void:
