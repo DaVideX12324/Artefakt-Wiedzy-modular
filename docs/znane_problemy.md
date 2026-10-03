@@ -279,7 +279,8 @@
   `MixedRoomCarver`; wejście `edge` (domyślnie, wnęka przy krawędzi) / `center` — `PortalGenerator.carve_portal_in_room`:
   strefa 5×5 w pokoju najbliżej środka mapy (pokoje o boku ≥ 10, gdy są), bez wnęki; wyjście przy krawędzi w
   pokoju najdalszym od wejścia. Obie flagi w JSON-ie biomu (`flags`), domyślne = wynik bez zmian (MD5 topologii
-  3 seedów identyczne). Ścieki (`sewer.json`) nadal z domyślnymi — do ustawienia przez autora.
+  3 seedów identyczne). Ścieki (`sewer.json`) używają `entrance_mode: center`
+  (decyzja autora, 2026-10-03).
 - Etap `entities` i ostrzeżenie „re-save this scene” przy `slime_tutorial` (sprawdzone 2026-10-04): scena
   zapisana ponownie w edytorze (028bafc, c205e80); Godot 4.7.2 tworzy ją bez ostrzeżeń, ~0,2 ms na instancję.
 - Kolizje wrogów w `tutorial_area.tscn` (sprawdzone 2026-10-04): nadpisania `collision_mask = 5` usunięte
