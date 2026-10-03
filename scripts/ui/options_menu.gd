@@ -99,6 +99,8 @@ var _capture: Dictionary = {}
 var _syncing_skin := false
 
 var _countdown := 0.0
+## Treść okna przeniesiona do panelu modułu (embed_in) albo null (zwykłe okno).
+var _embedded_content: Control = null
 var _confirming := false
 
 
@@ -153,6 +155,37 @@ func _input(event: InputEvent) -> void:
 		else:
 			_on_close()
 		get_viewport().set_input_as_handled()
+
+
+## Tryb wbudowany (np. prawy panel menu Esc / menu głównego Cienia Mgły): zakładki i „Zastosuj” trafiają do
+## kontenera modułu, bez tytułu, tła i „Zamknij” — wyjście jak z innych pozycji menu modułu (Esc -> closed).
+## Widoczność treści idzie za widocznością tej warstwy (open / close); okno potwierdzenia zmian ekranu zostaje
+## na tej warstwie, nad wszystkim. Prośba usera 2026-10-04.
+func embed_in(container: Control) -> void:
+	if _embedded_content != null:
+		return
+	var vbox := _tabs.get_parent() as Control
+	vbox.reparent(container, false)
+	vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_title_label.visible = false
+	var sep := vbox.get_node_or_null("Sep0") as Control
+	if sep:
+		sep.visible = false
+	_btn_close.visible = false
+	_panel.visible = false
+	var overlay := get_node_or_null("Overlay") as CanvasItem
+	if overlay:
+		overlay.visible = false
+	_embedded_content = vbox
+	vbox.visible = visible
+	visibility_changed.connect(func() -> void:
+		if is_instance_valid(_embedded_content):
+			_embedded_content.visible = visible)
+
+
+func is_embedded() -> bool:
+	return _embedded_content != null
 
 
 func open() -> void:
