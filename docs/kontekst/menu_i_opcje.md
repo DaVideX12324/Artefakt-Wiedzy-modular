@@ -23,6 +23,11 @@
   więc zapisane ustawienia okna i tak je nadpisują.
 - Test na żywym oknie: `tests/diag_window_service.gd` (z `--screen 1 --windowed`).
 
+## Menu deweloperskie (`autoloads/services/dev_menu.gd`, F1 / ~; 2026-10-04, c71bcee)
+- Własny motyw z czcionką hosta (`gui/theme/custom_font`) — nie dziedziczy pikselowej czcionki modułu.
+- Rozmiary bazowe przy 1x (tekst 18, opisy 15, karty 18, tytuł 22, okno 880x600) przez `_font` / `_min_height`
+  (meta) i `UIScaleService.px`; `_apply_scale` po `scale_changed` i zmianie rozmiaru okna.
+
 ## Opcje hosta (`scenes/ui/options_menu.tscn`, `scripts/ui/options_menu.gd`)
 - Jedna treść opcji dla menu głównego hosta (osobne okno), BitBombera (okno) i Cienia Mgły: w menu Esc
   w prawym panelu, w menu głównym gry na ekranie treści — **wbudowana** (`embed_in(kontener)` — zakładki i „Zastosuj” w panelu modułu,
