@@ -103,15 +103,6 @@
   generatorowi wymuszoną krawędź wejścia (= przeciwna do wyjścia poprzedniej) oraz dozwolone krawędzie
   wyjścia (nie w stronę już odwiedzonych pól siatki).
 
-### Nowe flagi generatora: kształt pokoi, wejście na środku mapy
-- Zgłoszenie 2026-09-30.
-- **Kształt pokoi** do wyboru flagą (np. organiczne jak dziś / prostokątne / okrągłe / mieszane) — dziś
-  pokoje rzeźbi `OrganicCaveRoomCarver` przez `RoomCarverFactory`; flaga w `GenerationFlags` + `caves.json`
-  i wybór carvera w fabryce.
-- **Wejście na środku mapy** (zamiast przy krawędzi) — szczególnie dla map ścieków (np. zejście włazem
-  z góry). Dziś `PortalGenerator.carve_portal_alcove` zawsze wycina wnękę przy krawędzi mapy; potrzebny
-  tryb portalu w pokoju (strefa wejścia bez wnęki), zgodny z płaskowyżami (`_portal_area`) i spawnami.
-
 ### Minimapa z fog of war
 - Zgłoszenie 2026-09-30. W projekcie nie ma jeszcze minimapy.
 - Minimapa w rogu ekranu (opcjonalnie pełna mapa pod klawiszem), odkrywana w miarę chodzenia: kratki
@@ -283,6 +274,12 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- Flagi generatora `room_shape` i `entrance_mode` (2026-10-04): kształt pokoi `organic` (domyślnie, jak dotąd) /
+  `rect` / `round` / `mixed` (losowo per pokój) — `RoomCarverFactory` + `RectRoomCarver`, `RoundRoomCarver`,
+  `MixedRoomCarver`; wejście `edge` (domyślnie, wnęka przy krawędzi) / `center` — `PortalGenerator.carve_portal_in_room`:
+  strefa 5×5 w pokoju najbliżej środka mapy (pokoje o boku ≥ 10, gdy są), bez wnęki; wyjście przy krawędzi w
+  pokoju najdalszym od wejścia. Obie flagi w JSON-ie biomu (`flags`), domyślne = wynik bez zmian (MD5 topologii
+  3 seedów identyczne). Ścieki (`sewer.json`) nadal z domyślnymi — do ustawienia przez autora.
 - Etap `entities` i ostrzeżenie „re-save this scene” przy `slime_tutorial` (sprawdzone 2026-10-04): scena
   zapisana ponownie w edytorze (028bafc, c205e80); Godot 4.7.2 tworzy ją bez ostrzeżeń, ~0,2 ms na instancję.
 - Kolizje wrogów w `tutorial_area.tscn` (sprawdzone 2026-10-04): nadpisania `collision_mask = 5` usunięte
