@@ -5,9 +5,6 @@
 - **⚠ WAŻNE — wymuszone ściany 2H** tam, gdzie powinny być 3H (seed 103107 160×160, okolice (78–104, 100–122),
   `docs/img/wymuszone_2h_103107_160.png`). Najpierw sprawdzić, czy globalne czy tylko w `render_area.gd` —
   szczegóły w `docs/znane_problemy.md`.
-- **Dźwięk kliknięcia w menu gry** (zgłoszenie 2026-10-03): menu główne i menu Esc Cienia Mgły nigdy nie grały
-  `AudioService.play_sfx_by_name("click")` (menu hosta tak). Dodać w submodule; do ustalenia, czy też `"hover"`
-  przy zmianie zaznaczenia.
 - **Feature — ukryte przejścia między pokojami** (tunel pod voidem) — `docs/znane_problemy.md`.
 
 - **Tła walki 16:9** — prompty gotowe (`battle_backgrounds/*_prompts.md`, `correction_prompts.md`); gdy user
