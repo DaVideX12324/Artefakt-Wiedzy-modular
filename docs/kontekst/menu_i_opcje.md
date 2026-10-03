@@ -1,5 +1,17 @@
 # Menu, opcje, menu Esc, audio (stan na 2026-10-04)
 
+## Okno (`autoloads/services/window_service.gd`, autoload `WindowService`; 2026-10-04)
+- Jeden autoload (zdublowany `WindowManager` usunięty, 9ce79cc). Start: okno na **zapisanym** monitorze;
+  monitor pod kursorem tylko przy pierwszym uruchomieniu (brak pliku ustawień).
+- Okno: obszar roboczy = rozdzielczość, całe okno z ramką w obszarze roboczym ekranu (nad paskiem zadań),
+  wyśrodkowane. `window_set_position` ustawia róg obszaru roboczego — pozycja przez `_set_outer_position`.
+- Bez ramki: po zdjęciu ramki Windows potrafi zmaksymalizować okno — `_leave_fullscreen()` przed rozmiarem.
+- Pełny ekran: `window_set_current_screen` + EXCLUSIVE_FULLSCREEN, UI w rozdzielczości (stretch canvas_items);
+  zmiana rozdzielczości w pełnym ekranie bez przechodzenia przez okno.
+- Flagi `--windowed/--resolution/--screen` są zjadane przez silnik (nie ma ich w `OS.get_cmdline_args`),
+  więc zapisane ustawienia okna i tak je nadpisują.
+- Test na żywym oknie: `tests/diag_window_service.gd` (z `--screen 1 --windowed`).
+
 ## Opcje hosta (`scenes/ui/options_menu.tscn`, `scripts/ui/options_menu.gd`)
 - Jedna treść opcji dla menu głównego hosta (osobne okno), BitBombera (okno) i Cienia Mgły: w menu Esc
   w prawym panelu, w menu głównym gry na ekranie treści — **wbudowana** (`embed_in(kontener)` — zakładki i „Zastosuj” w panelu modułu,
