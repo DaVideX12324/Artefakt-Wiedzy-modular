@@ -102,8 +102,8 @@
 - Tekstury: resources/ui/skins/bars/<styl>_<kolor>_full|empty.png z assets/UI/Pixel UI pack 3/Full.png
   (+ 05.png); style budowane przez tests/build_ui_skins.gd (BAR_STYLES = kolory, BAR_TILED = modułowe).
 - Licencja Pixel UI pack 3 (bdragon1727): niekomercyjnie za darmo, komercyjnie — wpłata dowolnej kwoty.
-- 099fd2a: „pas” jednostronny i dwustronny (`pas2` — cały pasek z paczki; od d76eacf ubywa od prawej do lewej jak inne, wcześniej od środka w obie strony
-  z paczki), cienkie paski ×3 (wyższe klasyczne), klasyczne paski w motywach pikselowych dostają ramkę.
+- 099fd2a: „pas” jednostronny i dwustronny (`pas2` — cały pasek z paczki; od d76eacf ubywa od prawej do lewej jak inne, wcześniej od środka
+  w obie strony), cienkie paski ×3 (wyższe klasyczne), klasyczne paski w motywach pikselowych dostają ramkę.
 - Pułapki `QuizBar`: w shaderze `COLOR` zawiera już teksturę — kolor wierzchołka przez `varying`; natywny
   ProgressBar ignoruje `_get_minimum_size` skryptu — wysokość przez marginesy `StyleBoxEmpty`; blokada
   `_switching` przed rekurencją THEME_CHANGED; `_refresh_mode` liczy wysokość przy każdej zmianie stylu.
