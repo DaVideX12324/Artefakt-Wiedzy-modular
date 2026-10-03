@@ -9,6 +9,15 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
+### ⚠ WAŻNE: tilesety kolejnych map
+- Zgłoszenie 2026-10-03. **Do zrobienia przez autora:** tilesety (TileSet `.tres` + companion-JSON zachowania
+  w `resources/maps/config/`, jak `caves.tres` / `caves.json`) dla kolejnych map z generatora.
+- Są: jaskinie (`resources/maps/caves.tres`), ścieki (`resources/maps/sewer.tres`, `config/sewer.json` — na razie
+  z profilem kafli jaskiń). Kolejne wg kolejności stref (`docs/game_design.md`): Cemetery, Fairy Forest
+  (las — por. wpis „Mapy otwarte z uniwersalnego generatora”), Desert / Desert Temple, Volcano / Forge,
+  Dense Forest / biom zimowy, Library, Garden, Castle.
+- Przypomnienie na start sesji (hook) znika, gdy ten nagłówek zniknie albo straci znacznik „⚠ WAŻNE”.
+
 ### ⚠ WAŻNE: wymuszone ściany 2H tam, gdzie powinny być 3H
 - Zgłoszenie 2026-10-03 (user: „duży błąd”). Widać na renderze `docs/img/wymuszone_2h_103107_160.png`
   (seed 103107 160×160, wycinek od (78, 100), 26×22 kratek, skala 2; z `tests/render_area.gd`, flagi z
