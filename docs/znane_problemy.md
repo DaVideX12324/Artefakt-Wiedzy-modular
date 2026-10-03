@@ -251,6 +251,11 @@
   miasto, potem ścieki). Jeden seed na zapis (`LevelStateManager.world_seed`), seed mapy = hash(seed zapisu,
   nazwa sceny); reroll = nowy seed zapisu i czyste mapy. Wejście mapy (`enter_previous_level`) prowadzi na
   poprzedni poziom do markera `FromNext` przy jego wyjściu (`scripts/maps/level_portal.gd`).
+- **Punkty pojawienia się odsunięte od przejść** (2026-10-04, CienMgly 99b3cd4): gracz nie pojawia się w Area2D
+  przejścia, tylko przy markerze >= 3 kratki od niego — na mapach generowanych `Spawn` / `FromNext` z
+  `MapGeneratorBase.arrival_cell` (podłoga, ta sama wysokość, bez barier i obiektów), w samouczku
+  `Spawns/Tutorial-Caves` (marker usera; `cave.tscn` `previous_spawn_name`). Przejście działa od razu po wejściu;
+  obszar, w którym gracz stoi po wczytaniu, dopiero po wyjściu. Testy: `diag_level_back`, `diag_arrival_cells`.
 - **Zmiana klawiszy (rebind) per moduł** (2026-10-03): zakładka „Sterowanie” w opcjach — 2 pola na akcję,
   przejmowanie klawisza w konflikcie, „Przywróć domyślne”; `InputBinds` + `SettingsService.set_module(…, "binds")`,
   nazwy akcji z `action_labels` w manifestach. Opis: `docs/kontekst/menu_i_opcje.md`.
