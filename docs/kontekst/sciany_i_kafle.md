@@ -15,11 +15,26 @@ Spłaszczanie wybrzuszeń (`ShortBulgeFlattenPass`) **usunięte** 2026-09-29 —
 
 `EdgeAnalyzer` przebieg 4 klasyfikuje każdą stopę fasady osobno, patrząc na sąsiadów:
 2H gdy grubość 2 (albo wymuszone); łącznik CONNECTOR przy przejściu 2H↔3H; narożnik out; STEP
-(`step_placer`): grubość 3–5 i schodek o 1 z przynajmniej jednej strony (skok 1 do wyższego sąsiada
-albo sąsiad naprzeciw o 1 niżej — `EdgeAnalyzer.slope_2h_steps`, od 2026-09-30) → skos 2H, w innym razie
-narożnik schodka 3H (3 kafle). Płaska kolumna fasady (grubość 3–5) z sąsiadem o 1 niżej z dokładnie jednej
-strony to górny koniec skosu — też kafel skosu 2H (`EdgeAnalyzer.slope_2h_end_side`, `StepPlacer.place_slope`);
-szczyt (niżej z obu stron) zostaje 3H.
+(`step_placer`) → skos 2H (`WALL_2H_SLOPE`, `StepPlacer.place_slope`) albo narożnik schodka 3H (3 kafle).
+
+**Reguła skosu 2H (od 2026-10-03, decyzja usera)** — `EdgeAnalyzer.slope_2h_step` / `slope_2h_end_side` →
+`slope_2h_run`: skos dostaje cały ukośny ciąg kolumn schodzących po 1 rząd (fasada / schodek 3H), jeśli
+któraś kolumna ciągu ma w (x, y-3) narożnik wewnętrzny w kierunku skosu — NORTH_WEST dla skosu schodzącego
+w lewo, NORTH_EAST w prawo. Dotyczy schodka (wyższy sąsiad z jednej strony) i górnego końca skosu (płaska
+kolumna z sąsiadem o 1 niżej z dokładnie jednej strony); szczyt (niżej z obu stron) zostaje 3H. Bez warunku
+grubości. Do tego `SlopeThicknessPass` (flaga `enable_slope_thickness`, P11a po `DiagonalTouchPass`): stopa w
+ukośnym ciągu >= 3 stóp z dokładnie 3 kratkami ściany dostaje ścianę w (x, y-4), gdy nad nią są 2 kratki
+podłogi i nie powstaje „ząb” ponad sąsiada po wyższej stronie. Przykłady: seed 103107 160×160 (82–83 i 89–90,
+113–114) — pojedyncze schodki na poziomej fasadzie → 3H; seed 119 160×160 (69–72, 56–59) — cały klin skosem
+(prepass pogrubił 71–72); seed 118945 160×160 (15–17, 52–54) — skos mimo grubości 6.
+
+**Dawna reguła (usunięta 2026-10-03 — gdyby trafił się edge case, w którym była lepsza)**: skos 2H, gdy
+grubość ściany 3–5 (`slope_2h_depth`) i schodek o 1 z przynajmniej jednej strony (skok 1 do wyższego sąsiada
+albo sąsiad naprzeciw o 1 niżej — `slope_2h_steps`); górny koniec: płaska kolumna o grubości 3–5 z sąsiadem o 1
+niżej z dokładnie jednej strony. Bez narożnika i bez ciągu, więc łapała też pojedyncze schodki (zgłoszenie
+103107) i odrzucała grube ukosy (118945). Ostatnia wersja z nią: CienMgly `cce3314` — za flagą
+`slope_2h_corner_rule = false` (razem z `enable_slope_thickness = false` = stan sprzed zmian co do kafla).
+Porównania renderów: `tests/render_area.gd` (lokalnie).
 
 ## Nisze-przejścia (2026-10-03)
 
