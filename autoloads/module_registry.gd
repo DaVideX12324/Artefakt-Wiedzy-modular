@@ -3,6 +3,8 @@ extends Node
 signal modules_changed
 
 const MODULES_ROOT := "res://modules"
+## Moduł otwarty samodzielnie (repo modułu jako projekt Godota) ma manifest w korzeniu projektu.
+const STANDALONE_ROOT := "res://"
 const MANIFEST_FILE := "module_manifest.json"
 const REQUIRED_FIELDS := ["id", "name", "entry_scene"]
 
@@ -15,9 +17,14 @@ func _ready() -> void:
 
 func reload() -> void:
 	_modules.clear()
+	var standalone := _load_manifest(STANDALONE_ROOT)
+	if not standalone.is_empty():
+		_modules.append(standalone)
 	var dir := DirAccess.open(MODULES_ROOT)
 	if dir == null:
-		push_warning("ModuleRegistry: missing modules folder: %s" % MODULES_ROOT)
+		if standalone.is_empty():
+			push_warning("ModuleRegistry: missing modules folder: %s" % MODULES_ROOT)
+		_register_modules_in_services()
 		modules_changed.emit()
 		return
 
@@ -51,7 +58,7 @@ func get_by_id(module_id: String) -> Dictionary:
 
 
 func _load_manifest(root_path: String) -> Dictionary:
-	var manifest_path := "%s/%s" % [root_path, MANIFEST_FILE]
+	var manifest_path := "%s/%s" % [root_path.trim_suffix("/"), MANIFEST_FILE]
 	if not FileAccess.file_exists(manifest_path):
 		return {}
 
@@ -82,7 +89,7 @@ func _load_manifest(root_path: String) -> Dictionary:
 func _resolve_module_path(root_path: String, value: String) -> String:
 	if value.begins_with("res://") or value.begins_with("user://"):
 		return value
-	return "%s/%s" % [root_path, value.trim_prefix("/")]
+	return "%s/%s" % [root_path.trim_suffix("/"), value.trim_prefix("/")]
 
 
 func _register_modules_in_services() -> void:
