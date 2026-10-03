@@ -18,18 +18,6 @@
   Dense Forest / biom zimowy, Library, Garden, Castle.
 - Przypomnienie na start sesji (hook) znika, gdy ten nagłówek zniknie albo straci znacznik „⚠ WAŻNE”.
 
-### ⚠ WAŻNE: wymuszone ściany 2H tam, gdzie powinny być 3H
-- Zgłoszenie 2026-10-03 (user: „duży błąd”). Widać na renderze `docs/img/wymuszone_2h_103107_160.png`
-  (seed 103107 160×160, wycinek od (78, 100), 26×22 kratek, skala 2; z `tests/render_area.gd`, flagi z
-  `resources/maps/config/caves.json`, bez obiektów). Odtworzenie:
-  `AREA="103107,160,78,100,26,22" OUT=… SCALE=2 "$G" --headless --path . -s res://modules/quiz_rpg/tests/render_area.gd`.
-- **Najpierw ustalić, czy to globalne**: obejrzeć to samo miejsce w eksploratorze map / w grze (ten sam seed
-  i rozmiar). Jeśli tylko w `render_area.gd`, to różnica flag / ścieżki testu. Jeśli globalne — przejrzeć
-  źródła wymuszonego 2H: `ctx.force_2h_cells` (`EdgeAnalyzer.small_wall_islands`, flaga
-  `small_pillar_2h_max_area`), skosy 2H (`EdgeAnalyzer.slope_2h_end_side`, `StepPlacer.place_slope`) i
-  `StepPlacer` (user: „znowu walka ze step placerem”). Pomoce: `tests/dump_area.gd`, `diag_pillar_shape.gd`,
-  `diag_small_pillars.gd`, `diag_pillar_rule.gd`; po naprawie parytet + golden.
-
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
 - Zgłoszenie 2026-10-03. Ukryte przejście może łączyć dwa pokoje — gracz wchodzi w nie (np. nisza-przejście,
   sekretna nisza) i wychodzi w innym pokoju, jakby szedł tunelem pod voidem / litą skałą.
@@ -263,6 +251,13 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- **Wymuszone 2H tam, gdzie powinno być 3H** (2026-10-03, seed 103107 160×160, (82–83, 113–114) i (89–90,
+  113–114)): to była reguła skosu 2H (`WALL_2H_SLOPE`) — dostawał go każdy schodek o 1 przy grubości 3–5,
+  także pojedyncze schodki na poziomej fasadzie. Teraz (`EdgeAnalyzer.slope_2h_run`, CienMgly b9b0cae) skos
+  dostaje cały ukośny ciąg kolumn schodzących po 1 rząd, jeśli któraś ma 3 kratki nad stopą INNER_CORNER w
+  kierunku skosu (NORTH_WEST schodzący w lewo, NORTH_EAST w prawo). Do tego `SlopeThicknessPass` (P11a):
+  ukośna ściana o grubości 3 -> 4 (ciąg >= 3 stóp, bez „zębów”), bo klin seeda 119 160×160 (71–72) nie
+  pasował do okna 100/000/001. Kafli skosu na 10 mapach testowych 56 -> 15; decyzje usera.
 - **Cień Mgły (quiz_rpg) samodzielny i jako submoduł** (2026-10-03): ścieżki niezależne od korzenia
   (`scripts/quiz_rpg_paths.gd`, UID w każdym `ext_resource`), kopie hosta w `_host/` z `.gdignore`
   (`tools/sync_host_copies.gd`, opis w `docs/module_contract.md`), `tools/make_standalone.sh`; potem
