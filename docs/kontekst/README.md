@@ -22,8 +22,9 @@ UI walki (2026-09-30): scena `scenes/quiz/quiz_combat_ui.tscn` + motyw `resource
 (czcionka Jersey 15, typy QuizWindow / QuizLog / QuizMenuItem) są WYSIWYG; pola walki per tło —
 `assets/textures/battle_backgrounds/**/<grafika>_layout.tres`, edycja w `scenes/tools/battle_layout_preview.tscn`.
 Przypomnienia na start sesji Claude Code: hook `SessionStart` w `.claude/settings.json` uruchamia
-`.claude/hooks/przypomnienia.sh` — każde przypomnienie sprawdza stan repo i znika samo, gdy sprawa jest
-załatwiona (dziś: pliki `.import` poza repo). Nowe przypomnienie = nowy blok w tym skrypcie.
+`.claude/hooks/przypomnienia.sh`, który wypisuje wszystkie nagłówki `### ⚠ WAŻNE: …` z
+`docs/znane_problemy.md`. Nowe ważne todo = nowy nagłówek z tym znacznikiem; po załatwieniu usunąć nagłówek
+albo znacznik — przypomnienie znika samo.
 
 Sesja 2026-10-02/03 (skrót): motywy UI `_st` i style pasków z Pixel UI pack 3 (opcje -> Motyw, także menu Esc),
 poprawki wyboru myszą w walce i kolejności rysowania wrogów, HUD bez statystyk, muzyka menu, przycisk
