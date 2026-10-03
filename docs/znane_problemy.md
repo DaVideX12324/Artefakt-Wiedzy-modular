@@ -128,11 +128,6 @@
 - Do ustalenia: krawędzie płaskowyżów pod drzewami (klify widoczne tylko na polanach?), wyjścia mapy w lesie
   (przecinka w pasie drzew), wygląd przejścia polana → las (krzaki, pojedyncze drzewa przed ścianą).
 
-### Zmiana klawiszy (rebind) per moduł
-- Sekcje sterowania per moduł są (ba3d490, patrz „Rozwiązane”), ale tylko **wyświetlają** klawisze. Do
-  zrobienia: zmiana klawiszy z zapisem per moduł w `SettingsService.set_module(...)` i wczytaniem do InputMap
-  przy starcie modułu.
-
 ### Modularność assetów i autoloadów (moduł samodzielny bez dublowania w eksporcie)
 - Zgłoszenie 2026-10-01. Pomysł: moduł trzyma też kopie assetów i autoloadów, które w hoście zapewnia
   główny projekt (żeby dało się go uruchomić samodzielnie), a w hoście te kopie są ignorowane — nie ma
@@ -251,6 +246,9 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- **Zmiana klawiszy (rebind) per moduł** (2026-10-03): zakładka „Sterowanie” w opcjach — 2 pola na akcję,
+  przejmowanie klawisza w konflikcie, „Przywróć domyślne”; `InputBinds` + `SettingsService.set_module(…, "binds")`,
+  nazwy akcji z `action_labels` w manifestach. Opis: `docs/kontekst/menu_i_opcje.md`.
 - **Wymuszone 2H tam, gdzie powinno być 3H** (2026-10-03, seed 103107 160×160, (82–83, 113–114) i (89–90,
   113–114)): to była reguła skosu 2H (`WALL_2H_SLOPE`) — dostawał go każdy schodek o 1 przy grubości 3–5,
   także pojedyncze schodki na poziomej fasadzie. Teraz (`EdgeAnalyzer.slope_2h_run`, CienMgly b9b0cae) skos
