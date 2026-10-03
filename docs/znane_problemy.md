@@ -30,26 +30,6 @@
   `StepPlacer` (user: „znowu walka ze step placerem”). Pomoce: `tests/dump_area.gd`, `diag_pillar_shape.gd`,
   `diag_small_pillars.gd`, `diag_pillar_rule.gd`; po naprawie parytet + golden.
 
-### ⚠ WAŻNE: Quiz RPG jako samodzielny projekt i osobny submoduł
-- Zgłoszenie 2026-10-03 (user: „ważniejsza”). Cel: quiz_rpg da się uruchomić samodzielnie (ma dostęp do
-  wszystkich zasobów, których używa z hosta), a w Artefakcie Wiedzy kopie tych zasobów w module są ukryte
-  `.gdignore` (bez dublowania w edytorze i eksporcie). Potem **przenieść `modules/quiz_rpg` do osobnego repo
-  i podpiąć jako submoduł** (jak BitBomber).
-- **Samodzielność zrobiona (2026-10-03, ff5f3f9 + 242691f)**: ścieżki modułu niezależne od korzenia
-  (`scripts/quiz_rpg_paths.gd`, względne preload, UID w każdym `ext_resource`), kopie hosta w `_host/`
-  (decyzja usera: jeden folder `_host/` zamiast lustra — `.gdignore` działa tylko na foldery, a lustro
-  kolidowało z `scenes/ui`, `scripts/ui`, `autoloads` modułu), `tools/sync_host_copies.gd`,
-  `tools/make_standalone.sh`, `standalone/standalone_main.tscn`. Opis: `docs/module_contract.md`
-  („Kopie zasobów hosta”). Sprawdzone na kopii samodzielnej (menu, opcje, nowa gra, poziom jaskiń, walka).
-  Bez kopii: wtyczka edytora `addons/object_catalog_sync` (tylko w hoście). Pierwszy import kopii
-  samodzielnej zgłasza raz brak czcionki projektu (ładowana przed importem) — znika po imporcie.
-- **Zostało: osobne repo + submoduł.**
-- Plan i stan ścieżek — wpis „Modularność assetów i autoloadów” niżej (lustrzany układ kopii, te same UID-y,
-  „make standalone”, `project.godot.off`). Pierwszy przykład kopii z `.gdignore`: fonty BitBombera (896ae62).
-  Pliki `.import` są już w repo, więc UID-y kopii mogą być takie same jak oryginałów.
-- Przy przenosinach: historia gita modułu (`git subtree split` / `filter-repo` na `modules/quiz_rpg`),
-  testy `modules/quiz_rpg/tests/` są poza gitem (przenieść ręcznie), docs dotyczące modułu.
-
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
 - Zgłoszenie 2026-10-03. Ukryte przejście może łączyć dwa pokoje — gracz wchodzi w nie (np. nisza-przejście,
   sekretna nisza) i wychodzi w innym pokoju, jakby szedł tunelem pod voidem / litą skałą.
@@ -283,6 +263,13 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- **Cień Mgły (quiz_rpg) samodzielny i jako submoduł** (2026-10-03): ścieżki niezależne od korzenia
+  (`scripts/quiz_rpg_paths.gd`, UID w każdym `ext_resource`), kopie hosta w `_host/` z `.gdignore`
+  (`tools/sync_host_copies.gd`, opis w `docs/module_contract.md`), `tools/make_standalone.sh`; potem
+  `git subtree split` (353 commity) -> repo https://github.com/DaVideX12324/CienMgly, podpięte jako submoduł
+  `modules/quiz_rpg` (d32a856). W submodule własne `.gitignore` (`/.godot/`, `/tests/`, `/project.godot`) i
+  `.gitattributes` (LF) — reguły hosta go nie obejmują. Diagnostyki `tests/` dalej tylko lokalnie.
+  Praca: commit + push w submodule, potem wskaźnik w hoście; po zmianach zasobów hosta — ponowny sync.
 - Flagi generatora `room_shape` i `entrance_mode` (2026-10-04): kształt pokoi `organic` (domyślnie, jak dotąd) /
   `rect` / `round` / `mixed` (losowo per pokój) — `RoomCarverFactory` + `RectRoomCarver`, `RoundRoomCarver`,
   `MixedRoomCarver`; wejście `edge` (domyślnie, wnęka przy krawędzi) / `center` — `PortalGenerator.carve_portal_in_room`:
