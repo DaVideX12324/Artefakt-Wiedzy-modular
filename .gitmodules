@@ -4,3 +4,6 @@
 [submodule "modules/BitBomber"]
 	path = modules/BitBomber
 	url = https://github.com/DaVideX12324/BitBomber
+[submodule "modules/quiz_rpg"]
+	path = modules/quiz_rpg
+	url = https://github.com/DaVideX12324/CienMgly.git
