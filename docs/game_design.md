@@ -1,4 +1,7 @@
-# Quiz RPG — Dokument Projektowy
+# Cień Mgły — Dokument Projektowy
+
+> Tytuł gry (2026-10-03, decyzja autora): **Cień Mgły** — nawiązanie do hot16 Andrzeja Dudy; w fabule „cień” to
+> ten, kto kryje się za mgłą (Strażnik). Techniczna nazwa modułu zostaje `quiz_rpg`.
 
 
 ## Przegląd

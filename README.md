@@ -9,11 +9,11 @@ Platforma edukacyjno-techniczna zbudowana w **Godot 4.x**. Host wykrywa i urucha
 | Moduł | Repo | Status |
 |-------|------|--------|
 | **BitBomber** | [github.com/DaVideX12324/BitBomber](https://github.com/DaVideX12324/BitBomber) | W migracji |
-| **Quiz RPG** | `modules/quiz_rpg` (natywny, brak osobnego repo) | W rozwoju |
+| **Cień Mgły** (Quiz RPG) | `modules/quiz_rpg` (natywny, brak osobnego repo) | W rozwoju |
 
 BitBomber to gra 2D typu bomberman-like z wbudowanym systemem quizów edukacyjnych — pierwszy artefakt wykonawczy platformy.
 
-Quiz RPG to gra RPG z eksploracją, walką turową i quizami edukacyjnymi wplecionymi w mechanikę — party, ekwipunek, save sloty, generowany świat.
+Cień Mgły (moduł Quiz RPG) to gra RPG z eksploracją, walką turową i quizami edukacyjnymi wplecionymi w mechanikę — party, ekwipunek, save sloty, generowany świat.
 
 ## Edytor quizów
 
