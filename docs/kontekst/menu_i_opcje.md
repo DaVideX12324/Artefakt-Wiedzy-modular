@@ -2,13 +2,14 @@
 
 ## Opcje hosta (`scenes/ui/options_menu.tscn`, `scripts/ui/options_menu.gd`)
 - Jedna treść opcji dla menu głównego hosta (osobne okno), BitBombera (okno) i Cienia Mgły: w menu Esc
-  i menu głównym gry **wbudowana w prawy panel** (`embed_in(kontener)` — zakładki i „Zastosuj” w panelu modułu,
+  w prawym panelu, w menu głównym gry na ekranie treści — **wbudowana** (`embed_in(kontener)` — zakładki i „Zastosuj” w panelu modułu,
   bez tytułu / tła / „Zamknij”; Esc -> `closed`), 2026-10-04.
 - **Zatwierdzanie tylko ustawień ekranu** (2026-10-04): „Zastosuj” wyłącznie na zakładce Ekran, odliczanie
   „Zachować?” tylko gdy zmienił się tryb okna / monitor / rozdzielczość / skalowanie (porównanie wyborów
   w kontrolkach z chwili otwarcia); „Gra bez quizów”, dźwięk, motyw, pytania, sterowanie — zapis od razu.
-- **Menu główne Cienia Mgły** (2026-10-04): układ jak menu Esc — lewy panel QuizWindow z przyciskami, prawy
-  panel z „Wczytaj grę” (sloty), „Statystyki”, „Opcje”; ponowny klik / Esc zamyka panel.
+- **Menu główne Cienia Mgły** (2026-10-04, wzór FNaFB): menu niezależne od wybranej opcji — sam panel na środku
+  (`Center/Panel`). „Wczytaj grę” (sloty), „Statystyki”, „Opcje” otwierają osobny ekran na całe okno
+  (`ScreenPanel`, QuizWindow, tytuł + treść), menu znika; Esc wraca do menu. Lewa lista + prawy panel tylko w menu Esc.
 - Zakładki: Ekran, Dźwięk, **Motyw**, **Pytania**, **Sterowanie**.
 - Rozmiar tekstu: `_fs(base)` dopasowuje do czcionki aktywnego modułu (`snap_font_size` w module_root —
   quiz_rpg: siatka Jersey 15, 27 px). Wcześniej w skali 1x tekst był za mały (56692f5).
