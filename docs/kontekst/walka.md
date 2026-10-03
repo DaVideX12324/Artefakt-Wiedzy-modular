@@ -80,6 +80,10 @@
 - `QuizTheme.apply_skin(id, jasność)`: `resources/ui/skins/<id>.tres` nadpisuje style typów QuizWindow /
   QuizLog / QuizMenuItem / QuizBar* w motywie modułu (w pamięci; „klasyczny” = sam quiz_theme.tres).
   Jasność mnoży kolor okien i zaznaczenia (paski bez zmian).
+  Zmiana jasności (suwak) idzie przez `QuizTheme.set_brightness`: kopie stylów zmieniane w miejscu z
+  zablokowanym sygnałem `changed` + `queue_redraw` kontrolek — bez przebudowy motywu (ta cięła grę; 2026-10-04).
+  Suwak zapisuje plik po 0,4 s spokoju. Test: `diag_brightness` (piksele tekstu / pasków bez zmian, koszt).
+  Menu Esc przygasza wiersze tylko podczas wybierania (bez wyboru — pełne kolory).
 - Paski walki mają warianty motywu QuizBarLP / SP / TP / Timer / Enemy (dawniej nadpisania w scenie).
 - Motywy st_* (granatowy / jasny × zaokrąglony / kwadratowy × płaski / z głębią) buduje
   `tests/build_ui_skins.gd` z wycinków w `resources/ui/skins/st/` (źródło: assets/UI/UI Assets pack_v.1_st,
