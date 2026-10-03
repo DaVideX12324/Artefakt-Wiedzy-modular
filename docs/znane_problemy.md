@@ -246,8 +246,6 @@
   (~3,4 tys. obiektów z towarzyszami) ~340 ms — w wątku roboczym, ale wydłuża ładowanie. Najdroższe:
   cechy mapy (`ObjectFeatures`, ~40 ms), BFS rezerwacji przejść, pętle kandydatów dla gęstych DECAL-i.
 - **Kształtowanie masek terenu** (`TerrainMaskPlanner.shape_mask`) ~130 ms na 250×250 (dwie maski).
-- **Etap `entities`** jest ciężki przez odtwarzanie sceny `slime_tutorial` przy każdej instancji
-  (ostrzeżenie „re-save this scene”) — po ponownym zapisie sceny w edytorze powinno spaść.
 
 ## Pułapki konfiguracji (działa zgodnie z założeniem, ale łatwo się naciąć)
 - Wróg z przypisanym `enemy_data` bierze `detection_radius` (i inne statystyki) z niego, nie z inspektora
@@ -285,6 +283,10 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- Etap `entities` i ostrzeżenie „re-save this scene” przy `slime_tutorial` (sprawdzone 2026-10-04): scena
+  zapisana ponownie w edytorze (028bafc, c205e80); Godot 4.7.2 tworzy ją bez ostrzeżeń, ~0,2 ms na instancję.
+- Kolizje wrogów w `tutorial_area.tscn` (sprawdzone 2026-10-04): nadpisania `collision_mask = 5` usunięte
+  w c205e80 — instancje biorą 39 z `enemy.tscn`.
 - Nisze przy ścianie o głębokości 3 (2026-10-03, 8649546, 4788812, 56b329f): rząd -3 to tam szczyt ściany,
   a korona niszy wycinała w nim ciemny ząbek (seed 103107 160×160, (85, 113)). Teraz to nisza OUT bez korony,
   nigdy sekretna, będąca przejściem (szansa `passage_niche_spawn_chance`); kafle przejścia dostają alternatywę 1.
