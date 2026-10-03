@@ -26,4 +26,6 @@
   (ew. gęstość w `objects_caves.json`).
 - **Wypustki**: gdy nie da się podnieść, są usuwane — na razie nie wystąpiło; jeśli user woli usuwanie
   zamiast podnoszenia, zmiana w `ShortLedgeRaisePass`.
+- **Drzwi z zagadką** (`scripts/quiz/quiz_door.gd`, tylko na starej `world_map.tscn`): zostają (decyzja usera
+  2026-10-04) — do ewentualnego recyklingu, np. jako sekcja quizu przy otwieraniu skrzyni wytrychem.
 - `docs/znane_problemy.md` — reszta zgłoszeń i historia rozwiązanych.
