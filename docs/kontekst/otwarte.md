@@ -7,8 +7,6 @@
 - **Tła walki 16:9** — prompty gotowe (`battle_backgrounds/*_prompts.md`, `correction_prompts.md`); gdy user
   wrzuci poprawione grafiki: tło na cały ekran w `folder_battle_background.gd` + przestawić pola walki
   (opis w [walka.md](walka.md)).
-- **Sterowanie** — opcje pokazują klawisze per moduł, ale bez zmiany klawiszy (rebind z zapisem
-  `SettingsService.set_module`).
 - **Tekst walki 36 px** — obserwować, czy litery nie wychodzą nierówne (`docs/znane_problemy.md`).
 - Do sprawdzenia przez usera w grze: motywy / style pasków w menu Esc, tryb „UI walki na szerokość
   treści”, muzyka menu po wyjściu z gry.

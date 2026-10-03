@@ -15,8 +15,15 @@
 - **Pytania** — zaznaczanie zestawów używanych w grze (QuestionBank) — [pytania.md](pytania.md).
 - **Sterowanie** (ba3d490) — sekcje z pola `controls` w `module_manifest.json`
   (`[{label, actions, keys?}]`). Z menu głównego: wszystkie moduły (nagłówek na moduł); z modułu
-  (`CoreManager.get_active_module`): tylko jego. Klawisze z InputMap, nazwy po polsku (`_key_name`).
-  Tylko **podgląd** — zmiana klawiszy (rebind) jeszcze nie zrobiona.
+  (`CoreManager.get_active_module`): tylko jego. Nazwy akcji z opcjonalnego pola manifestu
+  `action_labels` (`{akcja: nazwa}`), bez niego id akcji.
+  **Zmiana klawiszy (2026-10-03)**: każda akcja ma 2 pola — klik -> „Naciśnij…”, Esc anuluje, Backspace
+  czyści pole; klawisz zajęty przez inną akcję tego samego modułu przechodzi do nowej (komunikat w nagłówku);
+  „Przywróć domyślne” per moduł (decyzje usera). `scripts/core/input_binds.gd` (`InputBinds`): zapis
+  `SettingsService.set_module(<id>, "binds", {akcja: [physical_keycode]})` — tylko akcje różne od domyślnych
+  z `project.godot`; nakładanie na InputMap przy starcie (`SettingsService.apply_input_binds`) i po starcie
+  modułu (`ModuleHost` — BitBomber dopisuje swoje domyślne klawisze w `_ensure_key_action`). Sekcje bez
+  `actions` (sam opis `keys`, np. strzałki w menu) — tylko tekst.
 - BitBomber jest submodułem: manifest ze sterowaniem jest na jego gałęzi `main` (7c87f4f). Zmiana
   w submodule = commit + push w nim (na gałęzi, nie detached HEAD), potem commit wskaźnika w repo głównym.
 
