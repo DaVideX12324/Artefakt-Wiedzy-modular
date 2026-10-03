@@ -246,6 +246,11 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- **Mapy jako sceny dziedziczone + seed per zapis + powrót do poprzedniego poziomu** (2026-10-03, CienMgly):
+  `procedural_level.tscn` to baza, mapy w `scenes/maps/levels/` (na razie `cave.tscn`; w przyszłości po jaskini
+  miasto, potem ścieki). Jeden seed na zapis (`LevelStateManager.world_seed`), seed mapy = hash(seed zapisu,
+  nazwa sceny); reroll = nowy seed zapisu i czyste mapy. Wejście mapy (`enter_previous_level`) prowadzi na
+  poprzedni poziom do markera `FromNext` przy jego wyjściu (`scripts/maps/level_portal.gd`).
 - **Zmiana klawiszy (rebind) per moduł** (2026-10-03): zakładka „Sterowanie” w opcjach — 2 pola na akcję,
   przejmowanie klawisza w konflikcie, „Przywróć domyślne”; `InputBinds` + `SettingsService.set_module(…, "binds")`,
   nazwy akcji z `action_labels` w manifestach. Opis: `docs/kontekst/menu_i_opcje.md`.
