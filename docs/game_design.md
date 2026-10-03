@@ -312,7 +312,7 @@ Każda postać ma **4 aktywne skille** + **1 skill combo (5.)** korzystający z 
 - **Atakowanie** też daje TP, ale **dużo mniej**.
 - **Obrona (guard)** zmniejsza otrzymane obrażenia, ale **TP rośnie tak, jakby obrony nie było** (liczone z obrażeń przed redukcją) — dlatego obrona jest dobrym sposobem na nabijanie TP.
 - Dokładne proporcje — do ustalenia balansem.
-- Stan kodu (2026-10-01): TP rośnie tylko z otrzymanych obrażeń i o tyle punktów, ile wynoszą obrażenia, a przy obronie z obrażeń już zmniejszonych (`_gain_party_tp` w `quiz_combat_controller.gd`); atak TP nie daje. Do przerobienia pod zasady wyżej.
+- Stan kodu (2026-10-04): zasady wyżej są w `quiz_combat_controller.gd` — `TP_PER_FULL_HP_LOST` = 80 (TP za utratę 100% HP, z obrażeń bez redukcji obrony, także przy pełnym bloku), `TP_PER_ATTACK` = 5 (za każdy atak, trafiony czy nie). Liczby do strojenia przy balansie.
 
 > Konkretna lista skilli per postać i balans Tech Pointów — do opracowania osobno.
 
