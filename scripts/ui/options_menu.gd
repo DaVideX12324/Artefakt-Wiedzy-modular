@@ -241,8 +241,14 @@ func _on_close() -> void:
 
 func _select_mode(mode: int) -> void:
 	_play_click()
+	var picked: Vector2i = _resolutions[_res_option.selected] if _res_option.selected in range(_resolutions.size()) else WindowService.resolution
 	_sel_mode = mode
 	_sync_mode_buttons()
+	# Lista zależy od trybu (okno: tylko to, co z ramką mieści się nad paskiem zadań); ten sam wybór
+	# albo największa pozycja.
+	_populate_resolutions(_monitor_option.selected)
+	var index := _resolutions.find(picked)
+	_res_option.selected = index if index >= 0 else _resolutions.size() - 1
 
 
 func _sync_mode_buttons() -> void:
@@ -279,13 +285,16 @@ func _on_monitor_changed(index: int) -> void:
 
 
 func _populate_resolutions(screen: int) -> void:
-	_resolutions = WindowService.get_available_resolutions(screen)
+	_resolutions = WindowService.get_available_resolutions(screen, _sel_mode)
 	_res_option.clear()
 	var screen_size := DisplayServer.screen_get_size(screen)
+	var max_window := WindowService.get_max_windowed_size(screen)
 	for resolution in _resolutions:
 		var label := "%d x %d" % [resolution.x, resolution.y]
 		if resolution == screen_size:
 			label += " (natywna)"
+		elif _sel_mode == WindowService.MODE_WINDOWED and resolution == max_window:
+			label += " (maks. okno)"
 		_res_option.add_item(label)
 
 

@@ -9,10 +9,14 @@ const MODE_FULLSCREEN := 2
 
 ## Najmniejszy obszar roboczy okna (bez ramki) w trybie okienkowym.
 const MIN_WINDOW_SIZE := Vector2i(320, 240)
+## Ramka okna (z niewidocznymi krawędziami Windows) zanim da się ją zmierzyć — np. gdy gra startuje w pełnym ekranie.
+const DEFAULT_FRAME := Vector2i(16, 39)
 
 var window_mode_idx := MODE_FULLSCREEN
 var resolution := Vector2i(1920, 1080)
 var monitor_idx := 0
+## Ramka zmierzona na oknie z dekoracjami (ZERO = jeszcze nie).
+var _frame := Vector2i.ZERO
 
 
 ## Ustawia tryb okna, rozdzielczość i monitor. Okno ląduje zawsze na wybranym monitorze:
@@ -81,9 +85,28 @@ func get_screen_at_cursor() -> int:
 	return _get_screen_at(DisplayServer.mouse_get_position())
 
 
-func get_available_resolutions(screen: int = -1) -> Array[Vector2i]:
+## Największy obszar roboczy okna z ramką, które mieści się nad paskiem zadań monitora.
+func get_max_windowed_size(screen: int = -1) -> Vector2i:
+	var target_screen := monitor_idx if screen < 0 else screen
+	return (_usable_rect(target_screen).size - get_frame_size()).max(MIN_WINDOW_SIZE)
+
+
+## Ramka okna: zmierzona, a jeśli okno nie ma teraz ramki i jeszcze jej nie mierzono — typowa dla Windows.
+func get_frame_size() -> Vector2i:
+	if DisplayServer.get_name() != "headless" and DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED 			and not DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS):
+		var border := DisplayServer.window_get_size_with_decorations() - DisplayServer.window_get_size()
+		if border.x > 0 or border.y > 0:
+			_frame = border
+	return _frame if _frame != Vector2i.ZERO else DEFAULT_FRAME
+
+
+## Rozdzielczości do wyboru. Dla trybu okienkowego (mode = MODE_WINDOWED) tylko takie, które z ramką mieszczą
+## się nad paskiem zadań, i na końcu największe okno (get_max_windowed_size) — prośba usera 2026-10-04.
+func get_available_resolutions(screen: int = -1, mode: int = -1) -> Array[Vector2i]:
 	var target_screen := monitor_idx if screen < 0 else screen
 	var screen_size := DisplayServer.screen_get_size(target_screen)
+	if mode == MODE_WINDOWED:
+		screen_size = get_max_windowed_size(target_screen)
 	var candidates: Array[Vector2i] = [
 		Vector2i(640, 480),
 		Vector2i(800, 600),
@@ -118,10 +141,11 @@ func get_available_resolutions(screen: int = -1) -> Array[Vector2i]:
 func _place_windowed(res: Vector2i) -> void:
 	var rect := _usable_rect(monitor_idx)
 	DisplayServer.window_set_size(res.max(MIN_WINDOW_SIZE))
-	var border := DisplayServer.window_get_size_with_decorations() - DisplayServer.window_get_size()
+	var border := get_frame_size()
 	var inner := res.clamp(MIN_WINDOW_SIZE, (rect.size - border).max(MIN_WINDOW_SIZE))
 	if inner != DisplayServer.window_get_size():
 		DisplayServer.window_set_size(inner)
+	resolution = inner  # zapis = faktyczny obszar roboczy (np. 1920x1080 na ekranie 1080p -> maks. okno)
 	var decorated := inner + border
 	_set_outer_position(rect.position + (rect.size - decorated) / 2)
 
