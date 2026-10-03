@@ -33,5 +33,4 @@
   (ew. gęstość w `objects_caves.json`).
 - **Wypustki**: gdy nie da się podnieść, są usuwane — na razie nie wystąpiło; jeśli user woli usuwanie
   zamiast podnoszenia, zmiana w `ShortLedgeRaisePass`.
-- **Tutorial**: instancje wrogów z `collision_mask = 5` (bez kolizji między wrogami) — do decyzji.
 - `docs/znane_problemy.md` — reszta zgłoszeń i historia rozwiązanych.

@@ -8,7 +8,7 @@
 - **Dziedziczenie**: wszystkie sceny wrogów dziedziczą po `enemy.tscn` — nie zmieniać; zmiany wspólne
   w bazie. Kod `@tool` w bazie nie działa w edytorze dla pochodnych bez `@tool`.
 - **Nie zbijają się w punkt**, bo kolidują fizycznie (maska 39 = Player + Enemies + Ground + Objects,
-  `move_and_slide`); RVO wyłączone. W `tutorial_area.tscn` instancje mają `collision_mask = 5` (bez Enemies).
+  `move_and_slide`); RVO wyłączone. W `tutorial_area.tscn` nadpisania `collision_mask = 5` usunięte w c205e806 — instancje biorą 39 z bazy.
 - **Podejrzany węzeł**: `Node2D` w `enemy.tscn` to `RigidBody2D` (warstwa/maska 1 = Player) z grawitacją —
   spada ~488 px/s spod wroga. Z commitu usera f5ef8d0; do decyzji usera, czy usunąć.
 - Wróg poza navmeshem wraca do nav area — zamierzone.
