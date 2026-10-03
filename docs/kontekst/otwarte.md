@@ -1,5 +1,7 @@
 # Otwarte sprawy
 
+- **⚠ WAŻNE — tilesety kolejnych map** (autor): Cemetery, Fairy Forest, Desert, Forge, Dense Forest / zima,
+  Library, Garden, Castle — `docs/znane_problemy.md`.
 - **⚠ WAŻNE — wymuszone ściany 2H** tam, gdzie powinny być 3H (seed 103107 160×160, okolice (78–104, 100–122),
   `docs/img/wymuszone_2h_103107_160.png`). Najpierw sprawdzić, czy globalne czy tylko w `render_area.gd` —
   szczegóły w `docs/znane_problemy.md`.
