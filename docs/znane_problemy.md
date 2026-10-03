@@ -35,6 +35,15 @@
   wszystkich zasobów, których używa z hosta), a w Artefakcie Wiedzy kopie tych zasobów w module są ukryte
   `.gdignore` (bez dublowania w edytorze i eksporcie). Potem **przenieść `modules/quiz_rpg` do osobnego repo
   i podpiąć jako submoduł** (jak BitBomber).
+- **Samodzielność zrobiona (2026-10-03, ff5f3f9 + 242691f)**: ścieżki modułu niezależne od korzenia
+  (`scripts/quiz_rpg_paths.gd`, względne preload, UID w każdym `ext_resource`), kopie hosta w `_host/`
+  (decyzja usera: jeden folder `_host/` zamiast lustra — `.gdignore` działa tylko na foldery, a lustro
+  kolidowało z `scenes/ui`, `scripts/ui`, `autoloads` modułu), `tools/sync_host_copies.gd`,
+  `tools/make_standalone.sh`, `standalone/standalone_main.tscn`. Opis: `docs/module_contract.md`
+  („Kopie zasobów hosta”). Sprawdzone na kopii samodzielnej (menu, opcje, nowa gra, poziom jaskiń, walka).
+  Bez kopii: wtyczka edytora `addons/object_catalog_sync` (tylko w hoście). Pierwszy import kopii
+  samodzielnej zgłasza raz brak czcionki projektu (ładowana przed importem) — znika po imporcie.
+- **Zostało: osobne repo + submoduł.**
 - Plan i stan ścieżek — wpis „Modularność assetów i autoloadów” niżej (lustrzany układ kopii, te same UID-y,
   „make standalone”, `project.godot.off`). Pierwszy przykład kopii z `.gdignore`: fonty BitBombera (896ae62).
   Pliki `.import` są już w repo, więc UID-y kopii mogą być takie same jak oryginałów.
