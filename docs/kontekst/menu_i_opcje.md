@@ -5,6 +5,12 @@
   monitor pod kursorem tylko przy pierwszym uruchomieniu (brak pliku ustawień).
 - Okno: obszar roboczy = rozdzielczość, całe okno z ramką w obszarze roboczym ekranu (nad paskiem zadań),
   wyśrodkowane. `window_set_position` ustawia róg obszaru roboczego — pozycja przez `_set_outer_position`.
+- Okno — lista rozdzielczości (2f6cbe3): tylko takie, które z ramką mieszczą się nad paskiem zadań, na końcu
+  „maks. okno” (`get_max_windowed_size`; ramka mierzona z okna, domyślnie typowa Windows 16x39). Zapisana
+  rozdzielczość = faktyczny obszar roboczy.
+- Okno — ręczna zmiana rozmiaru (przeciąganie, maksymalizacja): po 0,4 s spokoju rozmiar i monitor do ustawień,
+  zapis, `resolution_changed` (+ SettingsService dla skali UI) i `window_resized_by_user`; w opcjach pozycja
+  „(własny)”, otwarte opcje odświeżają listę bez odliczania.
 - Bez ramki: po zdjęciu ramki Windows potrafi zmaksymalizować okno — `_leave_fullscreen()` przed rozmiarem.
 - Pełny ekran: `window_set_current_screen` + EXCLUSIVE_FULLSCREEN, UI w rozdzielczości (stretch canvas_items);
   zmiana rozdzielczości w pełnym ekranie bez przechodzenia przez okno.
