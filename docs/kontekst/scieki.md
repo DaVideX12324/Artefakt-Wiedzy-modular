@@ -57,7 +57,14 @@ malował ręcznie — przed merge cofnąć jego zmiany w niej (jeśli jeszcze s�
 - Do decyzji / dalej: skrzyżowania kanałów (+, T) mało przetestowane, kładki bywają parami (dokładane dla
   spójności), mech (teren foliage), filary w licu, barierki (Props 5–9 × 4).
 
-## Obiekty
+## Puste koryto (2026-10-05)
+- Flaga `canal_dry_chance` (ścieki 0.4): sieć kanałów (odcinki połączone skrzyżowaniem) bez kwasu —
+  `CanalLayout.dry`, rola `CANAL_BED` (warianty jak kwas). Kolizja / kładki bez zmian (koryto nieprzechodnie).
+- Kafle nie istnieją w atlasach paczki — są tylko na ukrytej dolnej warstwie `MockUp-01` (pod kwasem) i na
+  reklamie Extended; wycięte z makiety do `Tiles.png` 17–20 × 7–11 (9-slice dna, narożniki wewnętrzne —
+  NE z makiety, reszta odbiciami, kafle dołów 17–20 × 10 / 17–18 × 11 jeszcze nieużyte — reguły dołów
+  w makiecie niejasne).
+
 - Katalog `objects_sewer.json` (włączony w `sewer.json`): skrzynie (alias `chest`), stół + krzesła
   (towarzysze), skrzynki / beczki przy ścianach (skupiska), wraki, bloki miedzi, kratki ściekowe 2×2–4×4
   (DECAL na całej podstawie), otwory w posadzce, drobnica, butelki / kubki — wszystko kafle `sewer.tres`; na licu (`mount: facade`):
