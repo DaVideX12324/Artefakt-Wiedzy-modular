@@ -36,9 +36,16 @@ Nie oglądane jeszcze w grze.
   (szerokość w kratkach). Bez kolizji i zajętości. Realizer sortuje je tuż nad podłogą pod licem
   (`WALL_SORT_DROP`). Origin sceny = środek kratki cokołu.
 - `pebble_large` przeniesiony do sprite'ów bez kolizji (main 4480fff, baseline parytetu zaktualizowany).
-- Katalog ścieków `resources/maps/config/objects_sewer.json` + sceny `scenes/objects/sewer/{static,sprites,wall}`
-  (wycięte skryptem z `Props.png` / `Tiles.png` ścieków; dół grafiki przy podstawie, kolizja przy podstawie).
-  Render z obiektami: `tests/render_sewer.gd` (rysuje wypieczone sceny; `RS_CROP=x,y,w,h` = zbliżenie ×2).
+- Katalog ścieków `resources/maps/config/objects_sewer.json` — **wszystko jako kafle** `sewer.tres` (decyzja
+  autora: w ściekach obiekty są na siatce z y-sortem). Pola katalogu: `"source"` (źródło atlasu; Props.png = 1),
+  `"tiles": [[dx, dy, x, y], …]` (moduł z kilku kafli, np. kratka ściekowa 9-slice, łuki). W `sewer.tres`
+  (edycja tekstowa): kafle wielokratkowe Props z kotwicą w lewym-dolnym rogu (`texture_origin` =
+  (-(w-1)·8, (h-1)·8)), `y_sort_origin` (płaska drobnica / kratki -8, lico 7, górny rząd łuku 23), kolizja na
+  `physics_layer_1` = ObjectCollisions (32). Poligony kafla liczą się od środka kratki kotwicy (Godot nie
+  przesuwa ich o texture_origin — test `tests/diag_tile_object_physics.gd`); `"shape"` w katalogu = ten sam
+  obrys względem punktu obiektu (planer, nawigacja). Lico (`mount: facade`) zawsze na warstwie Props.
+  Render z obiektami: `tests/render_sewer.gd` (`RS_CROP=x,y,w,h` = zbliżenie ×2); runtime w eksploratorze:
+  `tests/diag_sewer_objects_runtime.gd`.
 
 Zostało w planie generatora: F5 (niszczalne beczki, dźwignie, leniwe sceny), podgląd (nakładka zajętości /
 przejść, statystyki), obejrzenie kafli wielokratkowych na `Props`. Dla ścieków: barierki przy kanałach,
