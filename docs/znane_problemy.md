@@ -75,11 +75,10 @@
    Nie ma warunku `OS.is_debug_build()` — działa też w eksporcie. Do ustalenia: tylko klawisze F albo skrót
    z modyfikatorem, przełącznik „tryb deweloperski” w opcjach, wyłączenie w buildzie wydaniowym.
 2. ~~**Układ ekranu pytania w walce:** pytanie na samej górze, odpowiedzi na dole — wzrok skacze po ekranie.~~
-   Zrobione (2026-10-04, CienMgly 13fa303 + host 793109f): układ u góry to decyzja autora (styl RPG Makera), więc
-   doszła opcja Opcje -> Motyw -> „Pytanie w walce”: „U góry ekranu” (domyślnie) / „Nad odpowiedziami” — okno
-   pytania, czasu i logu przypięte tuż nad oknem odpowiedzi (`_apply_question_position`, odstęp
-   `question_window_gap`). Menu opcji hosta obsługuje teraz opcje modułu typu `choice`. Do obserwacji: w trybie
-   „na dole” okno może zasłaniać dolny rząd wrogów na polu walki.
+   Zrobione (2026-10-04, CienMgly 13fa303, f79c808 + host 793109f): układ u góry to decyzja autora (styl RPG
+   Makera), więc doszła opcja Opcje -> Motyw -> „Pytanie w walce”: „W oknie logu (u góry)” (domyślnie) /
+   „W menu walki (nad odpowiedziami)” — pytanie i pasek czasu w panelu quizu pod tytułem, jak przed oknem logu
+   (`_apply_question_position`). Menu opcji hosta obsługuje teraz opcje modułu typu `choice`.
 3. **Kliknięcie wroga na polu walki nie atakuje**, choć cel się zmienia (podświetlenie działa). Obsługa kliknięcia:
    `_handle_hovered_enemy_click` (tylko w fazie `TARGET_SELECT`: ustawia cel i woła `_confirm_target_selection`).
    Do sprawdzenia: czy klik w ogóle tam dociera (może go przechwytywać GUI albo inna faza).
