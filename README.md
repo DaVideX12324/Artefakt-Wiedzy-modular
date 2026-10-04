@@ -4,6 +4,13 @@ Platforma edukacyjno-techniczna zbudowana w **Godot 4.x**. Host wykrywa i urucha
 
 > Repo: [github.com/DaVideX12324/Artefakt-Wiedzy-modular](https://github.com/DaVideX12324/Artefakt-Wiedzy-modular)
 
+Moduły są submodułami gita — klonuj razem z nimi:
+
+```bash
+git clone --recurse-submodules https://github.com/DaVideX12324/Artefakt-Wiedzy-modular.git
+# istniejąca kopia: git submodule update --init --recursive
+```
+
 ## Moduły
 
 | Moduł | Repo | Status |
@@ -13,7 +20,7 @@ Platforma edukacyjno-techniczna zbudowana w **Godot 4.x**. Host wykrywa i urucha
 
 BitBomber to gra 2D typu bomberman-like z wbudowanym systemem quizów edukacyjnych — pierwszy artefakt wykonawczy platformy.
 
-Cień Mgły (moduł Quiz RPG) to gra RPG z eksploracją, walką turową i quizami edukacyjnymi wplecionymi w mechanikę — party, ekwipunek, save sloty, generowany świat.
+Cień Mgły (moduł Quiz RPG) to gra RPG z eksploracją, walką turową i quizami edukacyjnymi wplecionymi w mechanikę — party, ekwipunek, save sloty, generowany świat. Opis: [`modules/quiz_rpg/README.md`](modules/quiz_rpg/README.md).
 
 ## Edytor quizów
 
@@ -48,18 +55,23 @@ Artefakt-Wiedzy-modular/
 │   │   ├── settings_service.gd  # Ustawienia globalne i per moduł
 │   │   ├── asset_service.gd     # Ładowanie assetów z katalogu modułu
 │   │   ├── ui_scale_service.gd  # Wspólne skalowanie UI
-│   │   └── window_service.gd    # Tryb okna, rozdzielczość, monitor
+│   │   ├── window_service.gd    # Tryb okna, rozdzielczość, monitor, rozmiar okna
+│   │   ├── audio_service.gd     # Muzyka i efekty (szyny Master / Music / SFX)
+│   │   ├── cheat_service.gd     # Cheaty deweloperskie
+│   │   └── dev_menu.gd          # Menu deweloperskie (F1 / ~)
 │   └── compat/                  # Adaptery kompatybilności dla modułów legacy
 ├── modules/
 │   ├── BitBomber/               # Git submodule → github.com/DaVideX12324/BitBomber
-│   ├── quiz_rpg/                # Moduł natywny — RPG z systemem quizów
+│   ├── quiz_rpg/                # Git submodule → github.com/DaVideX12324/CienMgly (Cień Mgły)
 │   └── _template/               # Szablon startowy do tworzenia nowych modułów
-├── scenes/                      # Sceny hosta (launcher, menu modułów, edytor quizów)
-├── scripts/                     # Skrypty hosta
+├── scenes/                      # Sceny hosta (launcher, menu modułów, okno opcji, edytor quizów)
+├── scripts/                     # Skrypty hosta (m.in. core/input_binds.gd — zmiana klawiszy)
 ├── resources/                   # Zasoby hosta
 ├── docs/
 │   ├── module_contract.md       # Kontrakt modułu — co musi zawierać
-│   └── migration_plan.md        # Plan migracji istniejących modułów
+│   ├── migration_plan.md        # Plan migracji istniejących modułów
+│   ├── kontekst/                # Bieżący stan prac (na start sesji), opisy tematyczne
+│   └── znane_problemy.md        # Do zrobienia, pułapki, rozwiązane
 └── project.godot
 ```
 
@@ -73,8 +85,18 @@ Moduły **nie tworzą własnych** `QuizManager`, `SettingsManager`, `UIScaleMana
 | `SettingsService` | Ustawienia globalne i per moduł |
 | `AssetService` | Ładowanie assetów z katalogu modułu |
 | `UIScaleService` | Skalowanie UI |
-| `WindowService` | Tryb okna, rozdzielczość, monitor |
+| `WindowService` | Tryb okna (okno / bez ramki / pełny ekran), rozdzielczość, monitor; zapamiętuje ręczny rozmiar i maksymalizację okna |
+| `AudioService` | Muzyka i efekty dźwiękowe, głośności szyn |
+| `CheatService` | Cheaty i menu deweloperskie (F1 / ~) |
 | `ModuleRegistry` | Wykrywanie i rejestracja modułów |
+| `InputBinds` (klasa) | Zmienione klawisze akcji per moduł (zakładka „Sterowanie”) |
+
+## Okno opcji
+
+Wspólne okno opcji hosta (`scenes/ui/options_menu.tscn`) ma zakładki Ekran, Dźwięk, Motyw, Pytania i Sterowanie.
+Zmiany ekranu wymagają potwierdzenia z odliczaniem, reszta zapisuje się od razu. Moduł może wbudować treść
+okna we własne menu (`embed_in(kontener)`); zakładki Motyw i Sterowanie biorą dane z aktywnego modułu
+(metody `get_ui_skins` / `get_ui_options` / `get_ui_bar_styles` i pola manifestu poniżej).
 
 ## Kontrakt modułu
 
@@ -88,6 +110,13 @@ Każdy moduł musi zawierać `module_manifest.json`:
   "entry_scene": "scenes/module_entry_embedded.tscn"
 }
 ```
+
+Pola opcjonalne używane przez okno opcji:
+
+- `controls` — sekcje zakładki „Sterowanie”: `[{label, actions: [akcje InputMap]}]` albo `{label, keys: "opis"}`;
+- `action_labels` — nazwy akcji do wyświetlenia (`{akcja: nazwa}`);
+- `control_options` — listy wyboru nad klawiszami (`[{key, label, default, options: [{id, name}]}]`), zapis
+  w `SettingsService.set_module(<id>, key, …)` (np. domyślny chód / bieg w Cieniu Mgły).
 
 Szczegóły kontraktu: [`docs/module_contract.md`](docs/module_contract.md)
 
@@ -123,6 +152,10 @@ Jeśli moduł ma działać standalone, przechowuje `standalone_project.godot.exa
 
 > **Uwaga:** Host ignoruje podfolder jeśli wykryje w nim aktywny `project.godot`.
 
+Cień Mgły robi to inaczej: zamiast `ModuleConfig` ma `QuizRpgPaths`, kopie usług hosta w `_host/` i
+`project.godot.off`, a samodzielny projekt tworzy `modules/quiz_rpg/tools/make_standalone.sh` — opis w
+[`modules/quiz_rpg/README.md`](modules/quiz_rpg/README.md).
+
 ## Tworzenie nowego modułu
 
 Nowe moduły startują z gotowego szablonu w [`modules/_template/`](modules/_template/README.md):
@@ -143,5 +176,5 @@ Kolejność:
 
 ## Wymagania
 
-- Godot 4.x (GL Compatibility renderer)
+- Godot 4.7 (GL Compatibility renderer)
 - Brak zewnętrznych zależności
