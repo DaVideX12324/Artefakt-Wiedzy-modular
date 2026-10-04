@@ -52,7 +52,8 @@ malował ręcznie — przed merge cofnąć jego zmiany w niej (jeśli jeszcze s�
 - `tiling/canal_placer.gd`: kwas + lico na Floor, obrzeża + kładki na FloorDecor (kolizja tylko obrzeży i boków
   kładek — kwas bez kolizji, decyzja autora). FloorDecor wykonywany po terenie (cave_generator + procedural_level).
 - Zrobione i zweryfikowane renderem (seedy 119 / 7 / 42, 200×200); wrogowie nie wpadają do kanału (diag).
-  **Nie zacommitowane w chwili zapisu** — commit + parytet + test w grze (kolizje, chodzenie po kładce).
+  Zacommitowane na `sewer-tileset` (ec6745f generator, f2096be ścieki), parytet jaskini 42/42.
+  Zostało: test w grze (kolizje obrzeży, chodzenie po kładce, wrogowie przy kanale).
 - Do decyzji / dalej: skrzyżowania kanałów (+, T) mało przetestowane, kładki bywają parami (dokładane dla
   spójności), mech (teren foliage), filary w licu, barierki (Props 5–9 × 4).
 
