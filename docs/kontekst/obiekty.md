@@ -26,5 +26,23 @@ Wynik na 21 mapach (bez spłaszczania): duże obiekty na ścianie 2421 → 0, za
 Dużych obiektów ~20% mniej (7919 zamiast 10029) — jeśli za pusto, podnieść gęstość w katalogu.
 Nie oglądane jeszcze w grze.
 
+## Obiekty na licu ściany i katalog ścieków (2026-10-04, gałąź `sewer-tileset`)
+
+- `"mount": "facade"` w katalogu -> `ObjectCatalog.wall_defs` (planer podłogi ich nie widzi), stawia je
+  `objects/wall_decor_planner.gd` po `ObjectPlanner` (dopisuje do tego samego `ObjectPlan`). Kotwica = dolna
+  kratka lica nad podłogą (z `facade_base_on_wall`; bez niej pierwsza kratka podłogi — nieużywane w
+  jaskiniach). Wymaga ciągłego lica (ściana >= 3) w kolumnach obiektu i 1 kolumnie po bokach, poza
+  portalami; tagi `over_floor` / `over_canal`; `density` (na 100 kolumn lica) / `count`, `spacing`, `size`
+  (szerokość w kratkach). Bez kolizji i zajętości. Realizer sortuje je tuż nad podłogą pod licem
+  (`WALL_SORT_DROP`). Origin sceny = środek kratki cokołu.
+- `pebble_large` przeniesiony do sprite'ów bez kolizji (main 4480fff, baseline parytetu zaktualizowany).
+- Katalog ścieków `resources/maps/config/objects_sewer.json` + sceny `scenes/objects/sewer/{static,sprites,wall}`
+  (wycięte skryptem z `Props.png` / `Tiles.png` ścieków; dół grafiki przy podstawie, kolizja przy podstawie).
+  Render z obiektami: `tests/render_sewer.gd` (rysuje wypieczone sceny; `RS_CROP=x,y,w,h` = zbliżenie ×2).
+
+Zostało w planie generatora: F5 (niszczalne beczki, dźwignie, leniwe sceny), podgląd (nakładka zajętości /
+przejść, statystyki), obejrzenie kafli wielokratkowych na `Props`. Dla ścieków: barierki przy kanałach,
+mech (teren foliage), filary w licu, skrzynia w grafice ścieków.
+
 Test: `tests/diag_object_access.gd` (w zestawie `run_plateau_suite.sh`). Parytet: zmieniło się tylko
 pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.

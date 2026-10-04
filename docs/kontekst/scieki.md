@@ -57,6 +57,14 @@ malował ręcznie — przed merge cofnąć jego zmiany w niej (jeśli jeszcze s�
 - Do decyzji / dalej: skrzyżowania kanałów (+, T) mało przetestowane, kładki bywają parami (dokładane dla
   spójności), mech (teren foliage), filary w licu, barierki (Props 5–9 × 4).
 
+## Obiekty
+- Katalog `objects_sewer.json` (włączony w `sewer.json`): skrzynie (alias `chest`), stół + krzesła
+  (towarzysze), skrzynki / beczki przy ścianach (skupiska), wraki, bloki miedzi, kratki ściekowe 2×2–4×4
+  (DECAL na całej podstawie), otwory w posadzce, drobnica, butelki / kubki; na licu (`mount: facade`):
+  lampy, okrągłe kratki, przełączniki, łuki odpływów. Opis mechanizmu: `kontekst/obiekty.md`.
+- Nieużyte z atlasu: regał / schody (Props 0–1 × 6–8 — wygląda na wyjście, może grafika portalu),
+  skrzynia ścieków (8–9 × 0–3), barierki (6–9 × 4), łańcuch (10, 0–2), filar (Tiles 7, 3–6), rury.
+
 ## Testy lokalne (tests/, poza gitem)
 `render_sewer.gd` (RS_SEEDS / RS_SIZES / RS_FLAGS / RS_LAYOUT / RS_TAG), `diag_wall_steps.gd` (uskoki),
 `diag_spawn_cells.gd`, `diag_enemy_drift.gd` (wrogowie poza podłogą w eksploratorze), `shot_preview_sewer.gd`,
