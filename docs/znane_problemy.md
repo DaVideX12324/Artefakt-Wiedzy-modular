@@ -19,6 +19,8 @@
   z profilem kafli jaskiń). Kolejne wg kolejności stref (`docs/game_design.md`): Cemetery, Fairy Forest
   (las — por. wpis „Mapy otwarte z uniwersalnego generatora”), Desert / Desert Temple, Volcano / Forge,
   Dense Forest / biom zimowy, Library, Garden, Castle.
+- **Stan 2026-10-04:** ścieki w toku na gałęzi `sewer-tileset` (CienMgly) — tileset, profil, układ, ściany 3H/4H,
+  podłoga z terenu, kanały z kładkami; szczegóły i lista flag: [kontekst/scieki.md](kontekst/scieki.md).
 - Przypomnienie na start sesji (hook) znika, gdy ten nagłówek zniknie albo straci znacznik „⚠ WAŻNE”.
 
 ### ⚠ WAŻNE: (2) dokończyć generator obiektów + kamyki bez kolizji
