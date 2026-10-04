@@ -9,14 +9,29 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### ⚠ WAŻNE: tilesety kolejnych map
-- Zgłoszenie 2026-10-03. **Do zrobienia przez autora:** tilesety (TileSet `.tres` + companion-JSON zachowania
+### ⚠ WAŻNE: (1) tilesety kolejnych map — najpierw ścieki
+- Zgłoszenie 2026-10-03, priorytet z 2026-10-04: **pierwsze z trzech ważnych todo, przede wszystkim ścieki
+  (sewer)**. Kolejność map w grze: jaskinia -> miasto -> ścieki; w ściekach przejście raczej drabiną, pod E
+  (`next/previous_portal_use_key` + `_prompt` w scenie dziedziczonej po `procedural_level`).
+- **Do zrobienia przez autora:** tilesety (TileSet `.tres` + companion-JSON zachowania
   w `resources/maps/config/`, jak `caves.tres` / `caves.json`) dla kolejnych map z generatora.
 - Są: jaskinie (`resources/maps/caves.tres`), ścieki (`resources/maps/sewer.tres`, `config/sewer.json` — na razie
   z profilem kafli jaskiń). Kolejne wg kolejności stref (`docs/game_design.md`): Cemetery, Fairy Forest
   (las — por. wpis „Mapy otwarte z uniwersalnego generatora”), Desert / Desert Temple, Volcano / Forge,
   Dense Forest / biom zimowy, Library, Garden, Castle.
 - Przypomnienie na start sesji (hook) znika, gdy ten nagłówek zniknie albo straci znacznik „⚠ WAŻNE”.
+
+### ⚠ WAŻNE: (2) dokończyć generator obiektów + kamyki bez kolizji
+- Zgłoszenie 2026-10-04 (drugie z trzech ważnych todo). Generator obiektów: dalsze fazy F2–F5 wg
+  `docs/plan_generator_obiektow.md` (stan: [kontekst/obiekty.md](kontekst/obiekty.md)).
+- **Kamyki bez kolizji:** `scenes/objects/caves/static/pebble_large.tscn` -> sprite w
+  `scenes/objects/caves/sprites/` (bez StaticBody2D i kształtu, jak pebble_mini / small / medium / brown),
+  poprawić odwołania w `resources/maps/config/objects_caves.json` (`tools/sync_object_catalogs.gd`).
+
+### ⚠ WAŻNE: (3) grywalne postacie — teammate'owie
+- Zgłoszenie 2026-10-04 (trzecie z ważnych todo). Dziś jest tylko Bohater. Zaczątki: `player.gd` ma tryb
+  członka drużyny (`is_party_follower`, podążanie po śladzie lidera, bieg razem z liderem — `is_running()`),
+  menu Esc ma wiersze drużyny, komunikaty walki piszą „Bohater i drużyna”.
 
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
 - Zgłoszenie 2026-10-03. Ukryte przejście może łączyć dwa pokoje — gracz wchodzi w nie (np. nisza-przejście,

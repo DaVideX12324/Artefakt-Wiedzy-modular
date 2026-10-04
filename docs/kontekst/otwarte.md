@@ -1,7 +1,16 @@
 # Otwarte sprawy
 
-- **⚠ WAŻNE — tilesety kolejnych map** (autor): Cemetery, Fairy Forest, Desert, Forge, Dense Forest / zima,
-  Library, Garden, Castle — `docs/znane_problemy.md`.
+Trzy ważne todo (2026-10-04, w tej kolejności; opis i przypomnienie hookiem — `docs/znane_problemy.md`):
+1. **⚠ Tilesety kolejnych map — najpierw ścieki** (potem Cemetery, Fairy Forest, Desert, Forge, Dense Forest /
+   zima, Library, Garden, Castle). W ściekach przejście drabiną pod E (opcje przejść w `procedural_level`).
+2. **⚠ Dokończyć generator obiektów** (F2–F5) **+ `pebble_large` jako sprite bez kolizji**.
+3. **⚠ Grywalne postacie — teammate'owie.**
+
+- Do sprawdzenia przez usera w grze (2026-10-04): przejścia z odsuniętymi spawnami (samouczek <-> jaskinia),
+  bieg / chód (opcje w Sterowaniu), okno zmaksymalizowane / bez ramki / ręczny rozmiar, menu deweloperskie
+  w różnych skalach UI.
+- Niescommitowane zmiany usera (nie ruszać): `window/size/mode=2` w `project.godot` hosta,
+  `scenes/player/player.tscn` w CienMgly.
 - **Feature — ukryte przejścia między pokojami** (tunel pod voidem) — `docs/znane_problemy.md`.
 
 - **Tła walki 16:9** — prompty gotowe (`battle_backgrounds/*_prompts.md`, `correction_prompts.md`); gdy user
