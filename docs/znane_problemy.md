@@ -52,6 +52,20 @@
   członka drużyny (`is_party_follower`, podążanie po śladzie lidera, bieg razem z liderem — `is_running()`),
   menu Esc ma wiersze drużyny, komunikaty walki piszą „Bohater i drużyna”.
 
+### ⚠ WAŻNE: (4) miasto z modularnych zasobów paczki free
+- Zgłoszenie 2026-10-05 (ostatnie z ważnych todo). Mapa miasta (kolejność map: jaskinia → miasto → ścieki,
+  [game_design.md](game_design.md)) zbudowana ze skomplikowanych, modularnych zasobów
+  `assets/pixel_crawler/packs/free_pack_2.11/Pixel Crawler - Free Pack/Environment/`:
+  - budynki składane z modułów: `Structures/Buildings/` — `Walls`, `Roofs`, `Props`, `Shadows`,
+    wnętrza (`Interior/Interior_Walls_01`, `Interior_Props_01`);
+  - stacje rzemieślnicze (`Structures/Stations/`: kowadło, piec, ognisko, kuchnia, tartak, alchemia, warsztat —
+    część animowana `-Sheet.png`);
+  - tilesety `Tilesets/` (`Floors_Tiles`, `Wall_Tiles`, `Wall_Variations`, `Water_tiles`, `Dungeon_Tiles`),
+    rekwizyty `Props/Static` (meble, farma, drzewa w rozmiarach, roślinność), animowane `Props/Animated`.
+- Przed startem rozłożyć `.aseprite` budynków na warstwy (parser jak przy ściekach) — zasady składania modułów
+  (ściana + dach + cień, warianty) wyczytać z warstw, nie zgadywać z PNG. Obiekty przez generator obiektów
+  ([kontekst/obiekty.md](kontekst/obiekty.md)), podgląd przez MCP `godot-runtime`.
+
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
 - Zgłoszenie 2026-10-03. Ukryte przejście może łączyć dwa pokoje — gracz wchodzi w nie (np. nisza-przejście,
   sekretna nisza) i wychodzi w innym pokoju, jakby szedł tunelem pod voidem / litą skałą.
