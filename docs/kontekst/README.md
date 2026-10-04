@@ -1,4 +1,4 @@
-# Kontekst pracy (stan na 2026-10-03)
+# Kontekst pracy (stan na 2026-10-04)
 
 Krótkie notatki na start nowej sesji. Moduł `modules/quiz_rpg`, Godot 4.7.2.
 
@@ -31,3 +31,18 @@ poprawki wyboru myszą w walce i kolejności rysowania wrogów, HUD bez statysty
 „Opcje” w menu Quiz RPG, edytor pytań, sterowanie per moduł, `.gitattributes` eol=lf, pola walki na
 y = 765 i cień 35 px, węższe okna komend i tekst walki 36 px, tryb „UI walki na szerokość treści”, prompty
 teł 16:9 + korekcyjne, w podglądzie pól strefy UI / cienia i paski HP. Od teraz commity od razu pushowane.
+
+Sesja 2026-10-03/04 (skrót; szczegóły w plikach tematycznych i `docs/znane_problemy.md` „Rozwiązane”):
+- Cień Mgły = submoduł CienMgly (kopie hosta w `_host/`, sync `tools/sync_host_copies.gd`, potem
+  `git checkout -- project.godot.off`), jeden seed na zapis, mapy jako sceny dziedziczone (`levels/cave.tscn`),
+  powrót do poprzedniego poziomu, rebind klawiszy, podpowiedź „[E] …” nad skrzyniami.
+- Menu: główne menu gry na środku, „Wczytaj / Statystyki / Opcje” na osobnym ekranie (wzór FNaFB); opcje
+  wbudowane w prawy panel menu Esc; potwierdzanie tylko zmian ekranu; Sterowanie z listą „Gra:”, czcionka 18,
+  opcje z manifestu (`control_options`) — bieg / chód (`sprint`, Shift). Menu deweloperskie skalowane.
+- Okno (`WindowService`): jeden autoload, start na zapisanym monitorze, poprawna pozycja okna z ramką,
+  lista rozdzielczości okna z ramką + „maks. okno”, ręczny rozmiar / maksymalizacja zapamiętywane,
+  wyjście z „bez ramki” na cały ekran — [menu_i_opcje.md](menu_i_opcje.md).
+- Przejścia: spawny odsunięte od Area2D (`MapGeneratorBase.arrival_cell`, w samouczku marker
+  `Spawns/Tutorial-Caves`), opcjonalnie pod E (`portal_use_key` / `portal_prompt`).
+- Motyw: jasność bez przebudowy motywu (`QuizTheme.set_brightness`), styl pasków „Pas, dwustronny” ubywa
+  od prawej, menu Esc nie przygasza wierszy bez wyboru — [walka.md](walka.md).
