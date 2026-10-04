@@ -47,12 +47,24 @@
   beczki, dźwignie, leniwe sceny), nakładka podglądu (zajętość / przejścia, statystyki).
 - Kamyki bez kolizji — zrobione 2026-10-05 (`pebble_large` w `sprites/`, CienMgly 4480fff).
 
-### ⚠ WAŻNE: (3) grywalne postacie — teammate'owie
-- Zgłoszenie 2026-10-04 (trzecie z ważnych todo). Dziś jest tylko Bohater. Zaczątki: `player.gd` ma tryb
+### ⚠ WAŻNE: (3) tła walki — user robi resztę grafik, gra rysuje je na cały ekran 16:9
+- Zgłoszenie 2026-10-05 (przed teammate'ami). User generuje pozostałe tła walki w kadrze 16:9 na cały ekran
+  (prompty: `battle_backgrounds/*_prompts.md`, `correction_prompts.md`). Nowe już są: `cave/` i
+  `tutorial_area/` `Gemini_Generated_Image_*.jpg` (2752×1536).
+- **Dlaczego w edytorze 16:9, a w grze nie:** `folder_battle_background.gd` rysuje tło „cover” tylko
+  w obszarze walki nad dolnym paskiem UI (1920×830, proporcje ~2,31:1). Grafika 16:9 jest skalowana do
+  szerokości, a góra i dół ucinane (~12 % z każdej strony przy 1376×768); pod paskiem UI tła nie ma.
+- Do zrobienia po stronie kodu: rysować tło na cały ekran (1920×1080, pod paskiem UI), przestawić pola
+  walki w `<grafika>_layout.tres` (współrzędne się przesuną). Stare grafiki skomponowane pod obcięty kadr —
+  albo podmienić je wszystkie, albo flaga w układzie (np. `full_screen`), żeby przejście szło stopniowo.
+  Opis stanu: [kontekst/walka.md](kontekst/walka.md) „Tła walki: kadr 16:9”.
+
+### ⚠ WAŻNE: (4) grywalne postacie — teammate'owie
+- Zgłoszenie 2026-10-04 (przesunięte za tła walki 2026-10-05). Dziś jest tylko Bohater. Zaczątki: `player.gd` ma tryb
   członka drużyny (`is_party_follower`, podążanie po śladzie lidera, bieg razem z liderem — `is_running()`),
   menu Esc ma wiersze drużyny, komunikaty walki piszą „Bohater i drużyna”.
 
-### ⚠ WAŻNE: (4) miasto z modularnych zasobów paczki free
+### ⚠ WAŻNE: (5) miasto z modularnych zasobów paczki free
 - Zgłoszenie 2026-10-05 (ostatnie z ważnych todo). Mapa miasta (kolejność map: jaskinia → miasto → ścieki,
   [game_design.md](game_design.md)) zbudowana ze skomplikowanych, modularnych zasobów
   `assets/pixel_crawler/packs/free_pack_2.11/Pixel Crawler - Free Pack/Environment/`:
