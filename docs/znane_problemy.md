@@ -81,7 +81,8 @@
    `_handle_hovered_enemy_click` (tylko w fazie `TARGET_SELECT`: ustawia cel i woła `_confirm_target_selection`).
    Do sprawdzenia: czy klik w ogóle tam dociera (może go przechwytywać GUI albo inna faza).
 4. **Mysz nie działa w części menu walki** — „Przedmioty” i „Umiejętności” obsługują tylko klawiaturę, pewnie też
-   inne listy (`_list_menu_mode`). Wymaganie: każde menu i myszą, i klawiaturą.
+   inne listy (`_list_menu_mode`). Te dwa okna i tak czekają na przeróbkę w stylu RPG Makera (wpis „Tryb walki”) —
+   załatwić przy niej; wymaganie dla nowych okien: obsługa i myszą, i klawiaturą.
 5. **Brak znacznika celu na starcie wyboru przeciwnika** — pojawia się dopiero po pierwszej zmianie celu.
    Do sprawdzenia: odświeżenie znacznika (`_refresh_target_selection`) przy otwarciu panelu celu.
 6. **Kliknięcie w okno, żeby wróciło skupienie (np. z Discorda), wykonało atak.** Klik przywracający fokus idzie
