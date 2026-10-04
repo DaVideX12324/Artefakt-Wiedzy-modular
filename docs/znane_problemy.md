@@ -23,12 +23,29 @@
   podłoga z terenu, kanały z kładkami; szczegóły i lista flag: [kontekst/scieki.md](kontekst/scieki.md).
 - Przypomnienie na start sesji (hook) znika, gdy ten nagłówek zniknie albo straci znacznik „⚠ WAŻNE”.
 
-### ⚠ WAŻNE: (2) dokończyć generator obiektów + kamyki bez kolizji
+### ⚠ WAŻNE: (1a) przebudowa generowania ścieków — osobna sesja na dużo wyższym effort
+- Zgłoszenie 2026-10-05. Autor chce przerobić generowanie ścieków w osobnej sesji z **dużo wyższym effort**
+  (max lub podobnym), z **MCP Godota** (autor go dodaje — podgląd sceny / gry zamiast samych renderów headless).
+- Obecny wynik (eksplorator, seed 119, 160×160) jest pusty w porównaniu z makietami autora paczki
+  (`sewer/Social/MockUp-01`, `MockUp-02`; warstwy podejrzysz w Eksploratorze Aseprite). Różnice zauważone
+  przy porównaniu:
+  - lico: makiety dzielą długie ściany **filarami** (Tiles 7, 3–6) z łańcuchem / lampą na filarze, łuki
+    odpływów między filarami, pionowe rury z lica na posadzkę (Tiles 6–8 × 8–9), rura przy ścianie bocznej;
+  - kanały: **barierki** wzdłuż brzegu (Props 6–9 × 4, przerwa i zagięte końce przy kładce), zakręty L i T,
+    kanał wzdłuż ściany (brzeg tylko z jednej strony), szersza sieć; puste koryto już jest (`canal_dry_chance`);
+  - posadzka: ciemniejsze plamy (teren `dark_floor`), **mech** (teren `foliage`) w kątach i przy ścianach,
+    rzędy otworów 2 × N, gruz w małych skupiskach;
+  - rekwizyty w kompozycjach: stół + krzesła + regał / schody (Props 0–1 × 6–8) przy ścianie, stosy skrzynek
+    2 × 2, grupy beczek, skrzynia ścieków (Props 8–9 × 2–3) i otwarta (8–9 × 0–1); dzbany / worki z makiety
+    nie występują w atlasach paczki;
+  - skala: makieta 25 × 25 kratek mieści kilka pokoi i kanały, u nas sale 16–28 kratek są puste.
+- Stan wyjściowy i flagi: [kontekst/scieki.md](kontekst/scieki.md), obiekty: [kontekst/obiekty.md](kontekst/obiekty.md).
+
+### ⚠ WAŻNE: (2) dokończyć generator obiektów
 - Zgłoszenie 2026-10-04 (drugie z trzech ważnych todo). Generator obiektów: dalsze fazy F2–F5 wg
-  `docs/plan_generator_obiektow.md` (stan: [kontekst/obiekty.md](kontekst/obiekty.md)).
-- **Kamyki bez kolizji:** `scenes/objects/caves/static/pebble_large.tscn` -> sprite w
-  `scenes/objects/caves/sprites/` (bez StaticBody2D i kształtu, jak pebble_mini / small / medium / brown),
-  poprawić odwołania w `resources/maps/config/objects_caves.json` (`tools/sync_object_catalogs.gd`).
+  `docs/plan_generator_obiektow.md` (stan: [kontekst/obiekty.md](kontekst/obiekty.md)). Zostało: F5 (niszczalne
+  beczki, dźwignie, leniwe sceny), nakładka podglądu (zajętość / przejścia, statystyki).
+- Kamyki bez kolizji — zrobione 2026-10-05 (`pebble_large` w `sprites/`, CienMgly 4480fff).
 
 ### ⚠ WAŻNE: (3) grywalne postacie — teammate'owie
 - Zgłoszenie 2026-10-04 (trzecie z ważnych todo). Dziś jest tylko Bohater. Zaczątki: `player.gd` ma tryb
