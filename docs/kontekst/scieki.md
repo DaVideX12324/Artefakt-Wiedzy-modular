@@ -1,12 +1,11 @@
-# Ścieki (sewer) — stan na 2026-10-04
+# Ścieki (sewer) — stan na 2026-10-05
 
-Gałąź **`sewer-tileset`** w submodule CienMgly (`modules/quiz_rpg`), wypchnięta, **jeszcze nie na `main`**
-(czeka na review / akceptację autora). `main` CienMgly ma z tej serii tylko: opcje walki (pytanie w logu /
-w menu walki, odpowiedzi lista / siatka, okno quizu na szerokość treści) i poprawkę spawnów (osobne kratki).
-W hoście niezacommitowane: `assets/pixel_crawler/environments/sewer/Assets/Tiles.png` (4 narożniki kanału,
-kopia w `_host/` już na gałęzi). Lokalnie u autora niezacommitowany rozmiar panelu w
-`scenes/tools/map_generator_preview.tscn` — nie ruszać. Scenę testową `procedural_level.tscn` autor
-malował ręcznie — przed merge cofnąć jego zmiany w niej (jeśli jeszcze są).
+Gałąź **`sewer-gen-v2`** w submodule CienMgly (`modules/quiz_rpg`), wypchnięta na remote (commit `22864c4`).
+Zawiera nową architekturę strukturalnego generatora ścieków (Structured Generator v2), pełny determinizm PRNG,
+separację koryt suchych i ścieków szumem 0/1, gwarancję 1 składowej spójnej przez `BridgeConnectivityResolver`,
+oraz ochronę prepassów ścian 3H i prostych koryt przy ścianach.
+
+W hoście niezacommitowane (zastrzeżone, nie dotykać!): `Tiles.png`, `Props.png`, `Gemini_Generated_Image_*`.
 
 ## Pliki
 - `resources/maps/sewer.tres` — TileSet (UID `c73m68vj3lqr3`), źródło 0 = `sewer/Assets/Tiles.png`, źródło 1 =
@@ -15,8 +14,13 @@ malował ręcznie — przed merge cofnąć jego zmiany w niej (jeśli jeszcze s�
   przepisywać ResourceSaverem; builder robi to tylko z `BUILD_TILESET=1`).
 - `resources/maps/profile/sewer_map_tiles.tres` — profil Named TileSet (`sewer`), budowany przez
   `tests/build_sewer_resources.gd` (tests/ poza gitem). Moduły lica z przesunięciem -1 (`FS`).
-- `resources/maps/config/sewer.json` — flagi (niżej). Eksplorator map: pozycja „Ścieki” (F4).
-- Atlas z rolami (obrazek): scratchpad sesji `atlas_sewer_z_modulami.png`, skrypt `atlas_sewer.py` (do odtworzenia).
+- `resources/maps/config/sewer.json` — flagi i parametry układu ścieków. Eksplorator map: pozycja „Ścieki” (F4).
+- `scripts/generation/structured/structured_layout_generator.gd` — główny pipeline strukturalnego układu ścieków.
+- `scripts/generation/structured/linear_network_generator.gd` — generator szkieletu sieci koryt i tuneli.
+- `scripts/generation/structured/structured_zoning.gd` — strefowanie sal, kompleksów i koryt.
+- `scripts/generation/structured/bridge_connectivity_resolver.gd` — gwarancja osiągalności i kładek o dł. 6.
+- `scripts/generation/topology/canal_pass.gd` — wyznaczanie odcinków koryta, kładek i podziału na suche/ścieki.
+- `scripts/generation/tiling/canal_placer.gd` — kafelkowanie wody, brzegów, dna suchego koryta i kładek.
 
 ## Kafle (atlas Tiles.png)
 - Lico 3H: wiersze 5 (góra = dół bloku) / 6 (krata) / 7 (cokół), końce kol. 0 i 2. Lico 4H: wiersze 8–11
@@ -28,42 +32,39 @@ malował ręcznie — przed merge cofnąć jego zmiany w niej (jeśli jeszcze s�
   Obrzeża na podłodze: 4,10 (kanał na N), 4,12 (na S), 5,11 (na E), 3,11 (na W), rogi 3,10 / 5,10 / 3,12 /
   5,12, wklęsłe 13,12 / 14,12 / 13,13 / 14,13 (dodane przez nas do PNG), ciemne końce przy ścianie 6,11 / 8,11,
   6,12 / 8,12, 9,3 / 9,5, 10,3 / 10,5. Kładki (Props.png): pionowa 4–5 × 9–14, pozioma 6–10 × 12–13.
-- Moduł 6,3–6,5 = zacienione lico w szczelinie filar–ściana (nieużyty). `Social/exc.aseprite` to reklama
-  płatnego „Extended” — nie brać z niej kafli. `.aseprite` rozkładamy własnym parserem Pythona.
 
-## Flagi generatora dodane w tej serii (domyślnie wyłączone — parytet jaskini 42/42)
-- Układ: `room_shape: poly` (L / T / plus), `room_density`, `room_layout: random|grid` (+ `grid_cell_size`,
-  `grid_room_chance`, `grid_loop_chance`), `corridor_shape: straight` (L) + `corridor_diagonal_45`,
-  `corridor_diagonal_30_60`, `corridor_corner_room_chance`.
-- Ściany: `enforce_3h_walls` (Wall3HPass), `align_wall_tops` (WallTopAlignPass), `enable_4h_facades` +
-  `facade_4h_chance` (całe odcinki lica), `facade_base_on_wall` (lico na kratkach ściany).
-- Podłoga: `floor_terrain`, `floor_area: near|walkable|all`, `floor_edges_by_walkable`, `terrain_mud_index`,
-  `terrain_grass_index`.
-- Kanały: `canal_count`, `canal_min_length`, `canal_bridge_spacing`.
-- Ścieki używają: poly, gęstość 0.6, pokoje 16–28, korytarz 8, L bez skosów, pokoje na zakrętach 0.3, bez
-  wygładzania styków, wejście center, 4H 35%, lico na ścianie, podłoga all + brzegi z maski, kanały 3.
+## Architektura i kluczowe reguły (2026-10-05)
 
-## Kanały (w toku)
-- `topology/canal_pass.gd` → `core/canal_layout.gd` (water, bridges, bridge_cells, blocked); grid zostaje
-  FLOOR. Oś kanału wybierana spośród najdłuższych odcinków (TOP_CHOICES), kładki co `canal_bridge_spacing`,
-  dokładanie kładek / usuwanie kanału do spójności z wejściem.
-- Konsumenci `canals.blocked`: nawigacja (NavOutlines), spawny, obiekty (kładki = FORBID), arrival_cell;
-  podłoga / teren pomijają water.
-- `tiling/canal_placer.gd`: kwas + lico na Floor, obrzeża + kładki na FloorDecor (kolizja tylko obrzeży i boków
-  kładek — kwas bez kolizji, decyzja autora). FloorDecor wykonywany po terenie (cave_generator + procedural_level).
-- Zrobione i zweryfikowane renderem (seedy 119 / 7 / 42, 200×200); wrogowie nie wpadają do kanału (diag).
-  Zacommitowane na `sewer-tileset` (ec6745f generator, f2096be ścieki), parytet jaskini 42/42.
-  Zostało: test w grze (kolizje obrzeży, chodzenie po kładce, wrogowie przy kanale).
-- Do decyzji / dalej: skrzyżowania kanałów (+, T) mało przetestowane, kładki bywają parami (dokładane dla
-  spójności), mech (teren foliage), filary w licu, barierki (Props 5–9 × 4).
+### 1. 100% Determinizm generatora
+- Wszystkie wywołania `Array.shuffle()` (wbudowane, nieseedowane) zastąpiono deterministycznym Fisher-Yates
+  `MapGeneratorBase.shuffle_array(arr, rng)` w `linear_network_generator.gd`, `structured_zoning.gd`,
+  `structured_room_packer.gd` i `canal_pass.gd`. Identyczny seed daje 100% identyczny wynik.
 
-## Puste koryto (2026-10-05)
-- Flaga `canal_dry_chance` (ścieki 0.4): sieć kanałów (odcinki połączone skrzyżowaniem) bez kwasu —
-  `CanalLayout.dry`, rola `CANAL_BED` (warianty jak kwas). Kolizja / kładki bez zmian (koryto nieprzechodnie).
-- Kafle nie istnieją w atlasach paczki — są tylko na ukrytej dolnej warstwie `MockUp-01` (pod kwasem) i na
-  reklamie Extended; wycięte z makiety do `Tiles.png` 17–20 × 7–11 (9-slice dna, narożniki wewnętrzne —
-  NE z makiety, reszta odbiciami, kafle dołów 17–20 × 10 / 17–18 × 11 jeszcze nieużyte — reguły dołów
-  w makiecie niejasne).
+### 2. Spójność koryt i brak zakręcania w ścianę
+- **Przyczyna skręcania w ścianę:** w `canal_placer.gd` pomocnicza funkcja `_acid` zwracała `not GridUtils.is_walkable`,
+  co powodowało traktowanie ściany sąsiadującej z korytem jako kwasu i wywijanie piany/narożników w mur.
+  Zmieniono na `return false` — brzeg koryta przy ścianie jest idealnie prosty (W/E).
+- **Dowolna szerokość korytarzy wokół koryta (w tym 0 = styk ze ścianą):**
+  - Chodniki `lanes` o stałej szerokości obowiązują wyłącznie dla tuneli tranzytowych (`kind == "tunnel"`).
+  - W salach i kompleksach dopuszczalne jest `want[pk] = 0` (brak chodnika, woda dochodzi do litej ściany).
+  - Całkowicie wycięto funkcję `_ensure_canal_clearance` z `structured_layout_generator.gd`, która wymuszała sztuczny
+    pas podłogi wokół wszystkich koryt i niszczyła prepassy ścian.
+
+### 3. Prepassy ścian 1H i 2H (Wall3HPass, Remove1hWallsPass, WallThicknessPass)
+- Reguły prepassów działają w `_run_wall_shape_passes` przed kładkami.
+- W `wall_3h_pass.gd` funkcja `_can_fill` sprawdza `not canals.cells.has(p)` — zapobiega to wylewaniu się ścian
+  w koryto, dzięki czemu ściany 2H powiększają się do 3H wyłącznie w stronę podłogi pokoju (z dala od wody).
+- Usunięcie `_ensure_canal_clearance` sprawiło, że po prepassach nie powstają już nowe niepoprawione ściany 1H/2H.
+
+### 4. Podwójny szum (suche koryto vs ścieki)
+- Zastosowano dwupoziomowy szum binarny (0 i 1) do partycjonowania sieci kanałów na poziomie skrzyżowań:
+  koryta z poziomem 1 są puste (`dry_cells`), a z poziomem 0 zawierają ścieki.
+- Suche koryta są całkowicie odseparowane od kwasu (min dystans $\ge 17.0$ kratek w testach).
+
+### 5. Gwarancja przejść i kładek
+- `BridgeConnectivityResolverScript.resolve(ctx, canal_layout)` uruchamia się przed dresingiem i nawigacją.
+- Gwarantuje dokładnie 1 składową spójną całej mapy. Wszystkie kładki mają stałą długość 6 kratek i opierają się
+  stabilnie na podłodze `FLOOR`.
 
 - Katalog `objects_sewer.json` (włączony w `sewer.json`): skrzynie (alias `chest`), stół + krzesła
   (towarzysze), skrzynki / beczki przy ścianach (skupiska), wraki, bloki miedzi, kratki ściekowe 2×2–4×4
@@ -72,7 +73,14 @@ malował ręcznie — przed merge cofnąć jego zmiany w niej (jeśli jeszcze s�
 - Nieużyte z atlasu: regał / schody (Props 0–1 × 6–8 — wygląda na wyjście, może grafika portalu),
   skrzynia ścieków (8–9 × 0–3), barierki (6–9 × 4), łańcuch (10, 0–2), filar (Tiles 7, 3–6), rury.
 
-## Testy lokalne (tests/, poza gitem)
-`render_sewer.gd` (RS_SEEDS / RS_SIZES / RS_FLAGS / RS_LAYOUT / RS_TAG), `diag_wall_steps.gd` (uskoki),
-`diag_spawn_cells.gd`, `diag_enemy_drift.gd` (wrogowie poza podłogą w eksploratorze), `shot_preview_sewer.gd`,
-`shot_question_position.gd`, `build_sewer_resources.gd`. Wzorzec parytetu zaktualizowany po poprawce spawnów.
+## Testy diagnostyczne i integracyjne
+- `tests/diag_sewer_full_test.gd`:
+  - Weryfikuje determinizm 100%, zasięg kanałów (>= 50%), separację suche koryto <-> kwas (odległość >= 17 kratek),
+    kładki o długości 6 oparte na podłodze, oraz pełną spójność mapy (dokładnie 1 składowa).
+  - Wynik: **PASS** na seedach 119, 42, 777, 2026 (rozmiary 160x160 i 250x250).
+- `tests/diag_sewer_slice_fixture.gd`:
+  - Weryfikacja 13 asercji integracyjnych: filary lica, barierki z przerwami na kładkach, winieta z wolną strefą dojścia,
+    osiągalność geometryczna wejście-wyjście, kolizje barierek i poprawność bakingu NavMesh (ścieżka wejście-wyjście).
+  - Wynik: **PASS 13 / FAIL 0**.
+- Lokalne skrypty pomocnicze: `render_sewer.gd`, `diag_wall_steps.gd`, `diag_spawn_cells.gd`, `diag_enemy_drift.gd`.
+

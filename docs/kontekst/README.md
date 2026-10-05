@@ -47,3 +47,13 @@ Sesja 2026-10-03/04 (skrót; szczegóły w plikach tematycznych i `docs/znane_pr
   `Spawns/Tutorial-Caves`), opcjonalnie pod E (`portal_use_key` / `portal_prompt`).
 - Motyw: jasność bez przebudowy motywu (`QuizTheme.set_brightness`), styl pasków „Pas, dwustronny” ubywa
   od prawej, menu Esc nie przygasza wierszy bez wyboru — [walka.md](walka.md).
+
+Sesja 2026-10-05 (ścieki na gałęzi `sewer-gen-v2` w submodule `modules/quiz_rpg`):
+- Nowa architektura Structured Generator v2: determinizm PRNG (Fisher-Yates `shuffle_array`), podwójny szum binarny
+  0/1 do podziału na suche koryto i ścieki kwasowe.
+- Spójność i naprawa koryt przy ścianach: `canal_placer.gd` nie traktuje ścian jako kwasu (proste brzegi), koryto może
+  bezpośrednio przylegać do ściany (`want[pk] = 0`), usunięto rozcinające ściany `_ensure_canal_clearance`.
+- Prepassy ścian 3H chronią koryta (`_can_fill` w `Wall3HPass` sprawdza `canals.cells`), eliminacja ścian 1H i 2H.
+- `BridgeConnectivityResolver` gwarantuje dokładnie 1 składową spójną oraz kładki o długości 6 oparte na `FLOOR`.
+- Testy: `diag_sewer_full_test.gd` PASS (160x160, 250x250), `diag_sewer_slice_fixture.gd` PASS (13/0).
+
