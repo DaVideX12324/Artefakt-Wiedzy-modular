@@ -41,6 +41,7 @@
   - skala: makieta 25 × 25 kratek mieści kilka pokoi i kanały, u nas sale 16–28 kratek są puste.
 - Stan wyjściowy i flagi: [kontekst/scieki.md](kontekst/scieki.md), obiekty: [kontekst/obiekty.md](kontekst/obiekty.md).
 
+
 ### ⚠ WAŻNE: (2) dokończyć generator obiektów
 - Zgłoszenie 2026-10-04 (drugie z trzech ważnych todo). Generator obiektów: dalsze fazy F2–F5 wg
   `docs/plan_generator_obiektow.md` (stan: [kontekst/obiekty.md](kontekst/obiekty.md)). Zostało: F5 (niszczalne
@@ -331,6 +332,12 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- **Kładki na osobnej warstwie i ciągłość opuszczonej krawędzi (ścieki)** (2026-10-05, CienMgly): kładki
+  (`BRIDGE_V`, `BRIDGE_H`) wydzielone na dedykowaną warstwę TileMapLayer `Bridges` (`z_index = -1`, y-sort);
+  kładka pozioma `BRIDGE_H` rozszerzona w atlasie `Props.png` do 6×2 (kolumny 5–10, `origin = Vector2i(5, 12)`,
+  `size = Vector2i(6, 2)`); w `canal_placer.gd` funkcja `_is_face` uniezależniona od przechodniości północnego
+  sąsiada (`not water.has(n)`), co gwarantuje 100% ciągłości lica uskoku `CANAL_FACE` (4, 13) wzdłuż całego biegu
+  koryta (w tym na seedzie 324091 przy kafelku (74, 241)) bez wcięć kwasu w mur.
 - **Mapy jako sceny dziedziczone + seed per zapis + powrót do poprzedniego poziomu** (2026-10-03, CienMgly):
   `procedural_level.tscn` to baza, mapy w `scenes/maps/levels/` (na razie `cave.tscn`; w przyszłości po jaskini
   miasto, potem ścieki). Jeden seed na zapis (`LevelStateManager.world_seed`), seed mapy = hash(seed zapisu,
