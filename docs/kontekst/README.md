@@ -55,5 +55,8 @@ Sesja 2026-10-05 (ścieki na gałęzi `sewer-gen-v2` w submodule `modules/quiz_r
   bezpośrednio przylegać do ściany (`want[pk] = 0`), usunięto rozcinające ściany `_ensure_canal_clearance`.
 - Prepassy ścian 3H chronią koryta (`_can_fill` w `Wall3HPass` sprawdza `canals.cells`), eliminacja ścian 1H i 2H.
 - `BridgeConnectivityResolver` gwarantuje dokładnie 1 składową spójną oraz kładki o długości 6 oparte na `FLOOR`.
+- Kładki na dedykowanej warstwie TileMapLayer `Bridges` (`z_index = -1`, y-sort) wydzielone z `FloorDecor`.
+- 100% ciągłości krawędzi opuszczonej `CANAL_FACE` (4, 13) w `canal_placer.gd` (uniezależnienie `_is_face` od przechodniości pola na północ).
+- Rozszerzenie kładki poziomej `BRIDGE_H` w atlasie `Props.png` do pełnego formatu 6×2 (kolumny 5–10, `origin = Vector2i(5, 12)`).
 - Testy: `diag_sewer_full_test.gd` PASS (160x160, 250x250), `diag_sewer_slice_fixture.gd` PASS (13/0).
 

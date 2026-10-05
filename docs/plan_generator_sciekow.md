@@ -333,3 +333,32 @@ generatora układu w `scripts/generation/structured/`**.
   `diag_sewer_objects_runtime`, `diag_spawn_cells`, `diag_enemy_drift`.
 - Czas: dane i pełna scena ≤ obecny + 20 %.
 - Kryterium uniwersalności: szkic konfiguracji miasta bez zmian w `scripts/generation/structured/`.
+
+---
+
+## Status realizacji (stan na 2026-10-05)
+
+- [x] **F0a Dokumenty** — plan zatwierdzony i zaktualizowany o uniwersalną architekturę `structured`.
+- [x] **F1a Portale** — wydzielony wybór wejścia / wyjścia ze wspólnym algorytmem, zachowany parytet jaskini.
+- [x] **F1b Uniwersalny silnik układu `structured`** — wdrożone moduły w `scripts/generation/structured/`:
+  - `LinearNetworkGenerator`, `StructuredZoning`, `StructuredRoomPacker`, `StructuredReservations`, `LinearFeatureLayout`, `CanalLayout`.
+  - Integracja w `cave_generator.gd` pod flagą `"layout": "structured"` i konfiguracja w `sewer.json`.
+  - 100% determinizmu PRNG we wszystkich passach (Fisher-Yates `shuffle_array`).
+  - Separacja suchego koryta od kwasu na poziomie skrzyżowań (min dystans $\ge 17.0$ kratek).
+  - Usunięcie rozcinającego ściany `_ensure_canal_clearance` i zachowanie prepassów ścian 3H przy korytach.
+  - `BridgeConnectivityResolver` gwarantujący 1 składową spójną całej mapy.
+- [x] **F1c Pionowy wycinek (test integracyjny architektury)** — `diag_sewer_slice_fixture.gd` (PASS 13 / FAIL 0):
+  - Kładki w obu osiach, barierki z przerwami i zawiniętymi końcami, przęsło lica, winieta z dojściem, baking NavMesh i synchronizacja.
+- [x] **Kładki i krawędzie (poprawki F1)**:
+  - Kładki na dedykowanej, osobnej warstwie `Bridges` (`z_index = -1`, y-sort) w generatorze i `ProceduralLevel`.
+  - 100% ciągłości opuszczonej krawędzi `CANAL_FACE` (4, 13) w `canal_placer.gd` (usunięcie zbędnego warunku przechodniości pola na północ).
+  - Rozszerzenie kładki poziomej `BRIDGE_H` w atlasie `Props.png` do pełnego rozmiaru 6×2 (kolumny 5–10, `origin = Vector2i(5, 12)`).
+- [ ] **F2 Skalowanie sieci liniowej i dressing kanałów** *(NASTĘPNY ETAP)*:
+  - Czarne doły z krawędzią (`pits`) w suchym korycie.
+  - Pełny dressing barierek ochronnych na całej mapie (`CanalDressing`).
+- [ ] **F3 Lico** (ogólny `FacadeRhythm`: filary, przęsła, czapki, rury).
+- [ ] **F4 Posadzka** (ogólny `FloorDetail`: maski terenu, kratki, rzędy otworów).
+- [ ] **F5 Winiety i gruz** (`VignettePlanner` + `ScatterPlanner` + kontrola B).
+- [ ] **F6 Rozgrywka i wydajność** (spawny, weryfikacja navmesh, budżet czasu).
+- [ ] **F7 Strojenie i walidacja uniwersalności** (galeria 12 seedów, konfiguracja miasta).
+
