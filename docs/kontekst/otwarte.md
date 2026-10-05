@@ -2,9 +2,9 @@
 
 Trzy ważne todo (2026-10-04, w tej kolejności; opis i przypomnienie hookiem — `docs/znane_problemy.md`):
 1. **⚠ Tilesety kolejnych map — najpierw ścieki** (potem Cemetery, Fairy Forest, Desert, Forge, Dense Forest /
-   zima, Library, Garden, Castle). W ściekach przejście drabiną pod E (opcje przejść w `procedural_level`).
-   - ~~**Kładki na osobnej, własnej warstwie** (wydzielenie z FloorDecor na dedykowaną warstwę `Bridges`) oraz **ciągłość opuszczonej krawędzi** kanału (seed 324091, kafelek 74, 241)~~ — zrobione 2026-10-05.
-2. **⚠ Dokończyć generator obiektów** (F2–F5) **+ `pebble_large` jako sprite bez kolizji**.
+   - ~~**Kładki na osobnej, własnej warstwie** oraz **ciągłość opuszczonej krawędzi** kanału~~ — zrobione 2026-10-05.
+   - ~~**Faza F2 generatora ścieków**: barierki ochronne na całej mapie (`Walls`), czarne doły (`pits`) w suchym korycie (`Floor`), determinizm 100%~~ — zrobione 2026-10-05.
+   - **Następny krok: Faza F3 (Lico)** — ogólny `FacadeRhythm`: filary, przęsła, czapki, rury.
 3. **⚠ Grywalne postacie — teammate'owie.**
 
 - Do sprawdzenia przez usera w grze (2026-10-04): przejścia z odsuniętymi spawnami (samouczek <-> jaskinia),

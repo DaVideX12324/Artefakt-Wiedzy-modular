@@ -353,10 +353,11 @@ generatora układu w `scripts/generation/structured/`**.
   - Kładki na dedykowanej, osobnej warstwie `Bridges` (`z_index = -1`, y-sort) w generatorze i `ProceduralLevel`.
   - 100% ciągłości opuszczonej krawędzi `CANAL_FACE` (4, 13) w `canal_placer.gd` (usunięcie zbędnego warunku przechodniości pola na północ).
   - Rozszerzenie kładki poziomej `BRIDGE_H` w atlasie `Props.png` do pełnego rozmiaru 6×2 (kolumny 5–10, `origin = Vector2i(5, 12)`).
-- [ ] **F2 Skalowanie sieci liniowej i dressing kanałów** *(NASTĘPNY ETAP)*:
-  - Czarne doły z krawędzią (`pits`) w suchym korycie.
-  - Pełny dressing barierek ochronnych na całej mapie (`CanalDressing`).
-- [ ] **F3 Lico** (ogólny `FacadeRhythm`: filary, przęsła, czapki, rury).
+- [x] **F2 Skalowanie sieci liniowej i dressing kanałów**:
+  - Czarne doły z krawędzią (`pits`) w suchym korycie (rola `CANAL_PIT` w `TileModuleRole`, warianty `TOP` (18, 10), `TOP_B` (19, 10), `VOID` (17, 10), `BOTTOM` (18, 11) w `sewer_map_tiles.tres`).
+  - Pełny dressing barierek ochronnych na całej mapie (`CanalDressing`): barierki nanoszone na warstwę `Walls` z kolizjami i y-sortem; dopuszczenie rezerwacji `RAIL` na chodnikach `LANE` (wzrost z 2 do 36–44 odcinków barierek, 400–700 kratek na planszę).
+  - 100% determinizmu PRNG, separacja od kwasu ($\ge 17.0$ kratek), zachowanie ciągłości `CANAL_FACE` i 1 spójna składowa.
+- [ ] **F3 Lico** *(NASTĘPNY ETAP)* (ogólny `FacadeRhythm`: filary, przęsła, czapki, rury).
 - [ ] **F4 Posadzka** (ogólny `FloorDetail`: maski terenu, kratki, rzędy otworów).
 - [ ] **F5 Winiety i gruz** (`VignettePlanner` + `ScatterPlanner` + kontrola B).
 - [ ] **F6 Rozgrywka i wydajność** (spawny, weryfikacja navmesh, budżet czasu).
