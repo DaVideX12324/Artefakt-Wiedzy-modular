@@ -79,12 +79,26 @@ W hoście niezacommitowane (zastrzeżone, nie dotykać!): `Tiles.png`, `Props.pn
 - Po poprawce lico uskoku biegnie w sposób w 100% ciągły wzdłuż całego północnego biegu koryta, a tafla kwasu
   poniżej (`CANAL_WATER N`, kafel 12, 0) układa się w prostą, nieprzerwaną linię brzegową.
 
+### 7. Skalowanie sieci liniowej i dressing kanałów (Faza F2)
+- **Barierki ochronne na całej mapie (`CanalDressing`):**
+  - W `StructuredReservations._can_claim_cell` odblokowano stawianie obiektów `RAIL` na pasach ruchu `LANE` (`blocks_movement = true`). Dzięki temu barierki generują się wzdłuż wszystkich chodników przy korycie (wzrost z 2 odcinków do 36–44 odcinków, 400–700 kratek na planszę).
+  - W `CanalPlacer` barierki nanoszone są na warstwę `Walls` z y-sortem i kolizjami `physics_layer_0` z atlasu `Props.png`, nie kolidując z obrzeżem `CANAL_BANK` na `FloorDecor`.
+- **Czarne doły (`pits`) w suchym korycie:**
+  - Dodano pola `pits: Array[Rect2i]` oraz `pit_cells: Dictionary` w `LinearFeatureLayout`.
+  - W `CanalDressing._place_pits` wprowadzono bezpieczny algorytm generowania dołów w suchych segmentach koryta z zachowaniem marginesów od kładek, prześwitów i skrzyżowań.
+  - Zdefiniowano nową rolę `CANAL_PIT` w `TileModuleRole` oraz profilu `sewer_map_tiles.tres` z wariantami:
+    - `TOP`: `Vector2i(18, 10)` (górna krawędź uskoku w dół),
+    - `TOP_B`: `Vector2i(19, 10)` (wariant alternatywny górnej krawędzi),
+    - `VOID`: `Vector2i(17, 10)` (czarna otchłań / dno dołu),
+    - `BOTTOM`: `Vector2i(18, 11)` (dolna krawędź dna dołu).
+  - `CanalPlacer` nanosi kafle dołów na warstwie `Floor`, zachowując pełną ciągłość `CANAL_FACE`.
+
 - Katalog `objects_sewer.json` (włączony w `sewer.json`): skrzynie (alias `chest`), stół + krzesła
   (towarzysze), skrzynki / beczki przy ścianach (skupiska), wraki, bloki miedzi, kratki ściekowe 2×2–4×4
   (DECAL na całej podstawie), otwory w posadzce, drobnica, butelki / kubki — wszystko kafle `sewer.tres`; na licu (`mount: facade`):
   lampy, okrągłe kratki, przełączniki, łuki odpływów. Opis mechanizmu: `kontekst/obiekty.md`.
 - Nieużyte z atlasu: regał / schody (Props 0–1 × 6–8 — wygląda na wyjście, może grafika portalu),
-  skrzynia ścieków (8–9 × 0–3), barierki (6–9 × 4), łańcuch (10, 0–2), filar (Tiles 7, 3–6), rury.
+  skrzynia ścieków (8–9 × 0–3), łańcuch (10, 0–2), filar (Tiles 7, 3–6), rury.
 
 ## Testy diagnostyczne i integracyjne
 - `tests/diag_sewer_full_test.gd`:
