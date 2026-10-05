@@ -68,7 +68,16 @@ W hoście niezacommitowane (zastrzeżone, nie dotykać!): `Tiles.png`, `Props.pn
   - Warstwa jest w pełni obsługiwana przez `CaveGenerator` (`prepare_cave_layers`, `execute_cave_tiles`), `ProceduralLevel` (`_prepare_layers`, `_apply_job_async`) oraz podgląd eksploratora (`MapGeneratorPreview` posiada checkbox widoczności oraz inspekcję kafla kładki w HUD).
 - `BridgeConnectivityResolverScript.resolve(ctx, canal_layout)` uruchamia się przed dresingiem i nawigacją.
 - Gwarantuje dokładnie 1 składową spójną całej mapy. Wszystkie kładki mają stałą długość 6 kratek i opierają się
-  stabilnie na podłodze `FLOOR`.
+  stabilnie na podłodze `FLOOR`. Kładka pozioma `BRIDGE_H` ma w atlasie `Props.png` pełne 6 kratek szerokości
+  (`origin = Vector2i(5, 12)`, `size = Vector2i(6, 2)`), zapewniając oparcie z obu stron 4-kratkowego koryta.
+
+### 6. Ciągłość opuszczonej krawędzi kanału (CANAL_FACE)
+- W `canal_placer.gd` funkcja `_is_face(ctx, water, p)` sprawdza wyłącznie `not water.has(n)` (gdzie `n = p + (0, -1)`).
+- Wcześniejszy warunek `and GridUtils.is_walkable(ctx.grid, n)` powodował, że gdy koryto biegło wzdłuż ściany
+  budynku, lico uskoku (`CANAL_FACE`, kafel 4, 13) nie było generowane, a kwas wdzierał się 1 kratkę wyżej aż pod sam
+  mur, tworząc dziurę w krawędzi (np. seed 324091, kafelek 74, 241).
+- Po poprawce lico uskoku biegnie w sposób w 100% ciągły wzdłuż całego północnego biegu koryta, a tafla kwasu
+  poniżej (`CANAL_WATER N`, kafel 12, 0) układa się w prostą, nieprzerwaną linię brzegową.
 
 - Katalog `objects_sewer.json` (włączony w `sewer.json`): skrzynie (alias `chest`), stół + krzesła
   (towarzysze), skrzynki / beczki przy ścianach (skupiska), wraki, bloki miedzi, kratki ściekowe 2×2–4×4
