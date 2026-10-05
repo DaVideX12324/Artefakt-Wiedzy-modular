@@ -61,7 +61,11 @@ W hoście niezacommitowane (zastrzeżone, nie dotykać!): `Tiles.png`, `Props.pn
   koryta z poziomem 1 są puste (`dry_cells`), a z poziomem 0 zawierają ścieki.
 - Suche koryta są całkowicie odseparowane od kwasu (min dystans $\ge 17.0$ kratek w testach).
 
-### 5. Gwarancja przejść i kładek
+### 5. Gwarancja przejść i kładki na osobnej warstwie (Bridges)
+- **Dedykowana warstwa kładek (`Bridges`):**
+  - Kładki (`BRIDGE_V`, `BRIDGE_H`) zostały wydzielone ze wspólnej warstwy `FloorDecor` na osobną warstwę TileMapLayer `Bridges` (`z_index = -1`, `y_sort_enabled = true`).
+  - Kolejność nanoszenia warstw: `Floor` -> `FloorDecor` (obrzeża/dekoracje) -> `Bridges` (kładki nad korytem) -> `Walls` -> `Platforms`.
+  - Warstwa jest w pełni obsługiwana przez `CaveGenerator` (`prepare_cave_layers`, `execute_cave_tiles`), `ProceduralLevel` (`_prepare_layers`, `_apply_job_async`) oraz podgląd eksploratora (`MapGeneratorPreview` posiada checkbox widoczności oraz inspekcję kafla kładki w HUD).
 - `BridgeConnectivityResolverScript.resolve(ctx, canal_layout)` uruchamia się przed dresingiem i nawigacją.
 - Gwarantuje dokładnie 1 składową spójną całej mapy. Wszystkie kładki mają stałą długość 6 kratek i opierają się
   stabilnie na podłodze `FLOOR`.
