@@ -49,17 +49,15 @@
   beczki, dźwignie, leniwe sceny), nakładka podglądu (zajętość / przejścia, statystyki).
 - Kamyki bez kolizji — zrobione 2026-10-05 (`pebble_large` w `sprites/`, CienMgly 4480fff).
 
-### ⚠ WAŻNE: (3) tła walki — user robi resztę grafik, gra rysuje je na cały ekran 16:9
-- Zgłoszenie 2026-10-05 (przed teammate'ami). User generuje pozostałe tła walki w kadrze 16:9 na cały ekran
-  (prompty: `battle_backgrounds/*_prompts.md`, `correction_prompts.md`). Nowe już są: `cave/` i
-  `tutorial_area/` `Gemini_Generated_Image_*.jpg` (2752×1536).
-- **Dlaczego w edytorze 16:9, a w grze nie:** `folder_battle_background.gd` rysuje tło „cover” tylko
-  w obszarze walki nad dolnym paskiem UI (1920×830, proporcje ~2,31:1). Grafika 16:9 jest skalowana do
-  szerokości, a góra i dół ucinane (~12 % z każdej strony przy 1376×768); pod paskiem UI tła nie ma.
-- Do zrobienia po stronie kodu: rysować tło na cały ekran (1920×1080, pod paskiem UI), przestawić pola
-  walki w `<grafika>_layout.tres` (współrzędne się przesuną). Stare grafiki skomponowane pod obcięty kadr —
-  albo podmienić je wszystkie, albo flaga w układzie (np. `full_screen`), żeby przejście szło stopniowo.
-  Opis stanu: [kontekst/walka.md](kontekst/walka.md) „Tła walki: kadr 16:9”.
+### Tła walki: kadr 16:9 (kod zrobiony 2026-10-06, commit `deb8866`)
+- Kod gotowy: tło rysowane na pełny ekran 1920×1080 (`Background` pod `Root`), pas `BattleWindow` ma
+  `StyleBoxEmpty` (w trybie kompaktowym widać posadzkę zamiast pustki), cień nad UI w grze na y = 795,
+  edytor `battle_layout_preview.gd` pokazuje pełny kadr 16:9 z półprzezroczystym pasem UI.
+- User generuje pozostałe tła walki w kadrze 16:9 na cały ekran (prompty: `battle_backgrounds/*_prompts.md`,
+  `correction_prompts.md`). Nowe już są: `cave/` i `tutorial_area/` `Gemini_Generated_Image_*.jpg` (2752×1536).
+  Dopasowywanie trapezów pól walki do nowych grafik odbywa się w `scenes/tools/battle_layout_preview.tscn`.
+- Opis stanu: [kontekst/walka.md](kontekst/walka.md) „Tła walki: kadr 16:9”.
+
 
 ### ⚠ WAŻNE: (4) grywalne postacie — teammate'owie
 - Zgłoszenie 2026-10-04 (przesunięte za tła walki 2026-10-05). Dziś jest tylko Bohater. Zaczątki: `player.gd` ma tryb
