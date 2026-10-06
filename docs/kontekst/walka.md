@@ -110,12 +110,18 @@
 - `assets/UI/` (surowe paczki) nie idzie do repo — licencja Pixel UI pack 3 zabrania redystrybucji;
   w repo tylko wycinki w `resources/ui/skins/`. `tests/build_ui_skins.gd`: `SKIP_BARS=1` = bez pasków.
 
-## Tła walki: kadr 16:9 (0a09cba) — do dokończenia
-- Dziś tło rysowane „cover” w obszarze 1920×830 nad pasem UI (grafika 1376×768: skala ~1,395,
-  przesunięcie y ≈ −121) — pod pasem UI tła nie ma, stąd czarne pola obok okien w trybie „na szerokość treści”.
+## Tła walki: kadr 16:9 (zrealizowane 2026-10-06, commit `deb8866`)
+- **Pełnoekranowe tło 1920×1080**: Węzeł `Background` w `quiz_combat_ui.tscn` przeniesiony bezpośrednio do `Root`
+  (za `DimOverlay`, przed `Battlefield` i `BattleWindow`), rozciągnięty na całe okno (`anchors_preset = 15`).
+  Grafika 16:9 nie jest już obcinana z góry i dołu o 125 px, lecz pokrywa w 100% cały ekran 1920×1080.
+- **Przejrzysty pas dolny w trybie kompaktowym**: Styl panelu `BattleWindow` zmieniony na `StyleBoxEmpty`.
+  W trybie „na szerokość treści” (`ui_combat_compact`) po bokach wyśrodkowanych okien widoczna jest posadzka
+  z tła zamiast czarnej pustki.
+- **Cień nad UI w grze i w edytorze**: `folder_battle_background.gd` rysuje cień na `y = 795` (35 px nad dolnym
+  paskiem UI 250 px, `y = 830`), identycznie jak w edytorze podglądu `battle_layout_preview.gd`.
+- **Podgląd / edytor pól (`battle_layout_preview.gd`)**: Rysuje pełny kadr 1920×1080 (bez ucinania), a dolny pasek
+  250 px jest półprzezroczysty z czerwoną ramką informacyjną, pozwalając na precyzyjne ustawianie pól walki na widocznej posadzce.
 - Prompty w `battle_backgrounds/pixel_crawler_prompts.md` i `tutorial_area_prompts.md` przepisane na
   cały ekran 16:9: górne ~10 % spokojne, horyzont ~40–45 %, wrogowie 50–70 %, dolne ~25 % pod UI
-  z gładką podłogą. `correction_prompts.md` — prompty korekcyjne dla 12 istniejących grafik
-  (oddalenie: obecny obraz w górnych ~80 % + dorysowana podłoga, opcjonalne poprawki).
-- **Gdy user wrzuci poprawione grafiki**: rysować tło na cały ekran (`folder_battle_background.gd`)
-  i przestawić pola walki w podglądzie (współrzędne się przesuną).
+  z gładką podłogą. `correction_prompts.md` — prompty korekcyjne dla 12 istniejących grafik.
+

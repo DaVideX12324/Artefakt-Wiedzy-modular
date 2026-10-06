@@ -6,7 +6,7 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
    - ~~**Korytarze serwisowe, separacja ścianą, A* Manhattan, blokada kładek na zakrętach**~~ — zrobione technicznie 2026-10-06 (commit `cbe4b35`).
    - **Odłożone do sesji z Claude Opus:** Dopracowanie układu przestrzennego korytarzy wzdłuż koryt ścieków (oddzielenie ścianą, omijanie zakrętów).
 2. **Generator obiektów** — dokończyć fazę F5 (niszczalne obiekty, dźwignie, podgląd).
-3. **Tła walki 16:9** — wyświetlanie na pełny ekran (1920×1080) w `folder_battle_background.gd` i korekta pól w `_layout.tres`.
+3. ~~**Tła walki 16:9** — wyświetlanie na pełny ekran (1920×1080) w `folder_battle_background.gd`, przezroczysty pas dolny w `quiz_combat_ui.tscn` i podgląd 16:9~~ — zrobione 2026-10-06 (commit `deb8866`).
 4. **Grywalne postacie — teammate'owie** (`player.gd`, followerzy, menu).
 5. **Miasto z modularnych zasobów paczki free**.
 
@@ -17,9 +17,8 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
   `scenes/player/player.tscn` w CienMgly.
 - **Feature — ukryte przejścia między pokojami** (tunel pod voidem) — `docs/znane_problemy.md`.
 
-- **Tła walki 16:9** — prompty gotowe (`battle_backgrounds/*_prompts.md`, `correction_prompts.md`); gdy user
-  wrzuci poprawione grafiki: tło na cały ekran w `folder_battle_background.gd` + przestawić pola walki
-  (opis w [walka.md](walka.md)).
+- **Tła walki 16:9** — kod gotowy ([walka.md](walka.md)). User generuje kolejne grafiki wg promptów
+  (`battle_backgrounds/*_prompts.md`, `correction_prompts.md`) i dopasowuje pola w edytorze `battle_layout_preview.tscn`.
 - **Tekst walki 36 px** — obserwować, czy litery nie wychodzą nierówne (`docs/znane_problemy.md`).
 - Do sprawdzenia przez usera w grze: motywy / style pasków w menu Esc, tryb „UI walki na szerokość
   treści”, muzyka menu po wyjściu z gry.
