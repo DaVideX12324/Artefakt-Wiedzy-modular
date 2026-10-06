@@ -60,3 +60,11 @@ Sesja 2026-10-05 (ścieki na gałęzi `sewer-gen-v2` w submodule `modules/quiz_r
 - Rozszerzenie kładki poziomej `BRIDGE_H` w atlasie `Props.png` do pełnego formatu 6×2 (kolumny 5–10, `origin = Vector2i(5, 12)`).
 - Testy: `diag_sewer_full_test.gd` PASS (160x160, 250x250), `diag_sewer_slice_fixture.gd` PASS (13/0).
 
+Sesja 2026-10-06 (ścieki: korytarze serwisowe, separacja ścianą, pauza generowania terenu):
+- Przywrócenie sekwencji sal `['hall', 'walled', 'hall']` (`proto_layout10.py`) i drążenie równoległych korytarzy serwisowych z bramami.
+- Separacja korytarzy serwisowych od koryt ścieków litą ścianą (`extra_forb` wokół `WALL_H`/`WALL_V`), kandydaci `prev_valid`/`next_valid`.
+- Wzmocnienie A* (`MinHeap` z heurystyką Manhattan $f = g + h$, `forbid_water = true` bez wchodzenia w koryto).
+- Bezwzględna blokada kładek na zakrętach/narożnikach kanałów (margines $\ge 4$ od końców segmentu) oraz w strefach `walled`.
+- Commit `cbe4b35` w submodule, commit `46e3b1f` w hoście. Wszystkie testy PASS.
+- Generowanie terenu/układu odłożone do sesji z Claude Opus (dopracowanie modelu mentalnego oddzielenia ścianami i korytarzy). Przejście do kolejnych zadań z listy.
+
