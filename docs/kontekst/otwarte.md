@@ -1,11 +1,14 @@
 # Otwarte sprawy
 
-Trzy ważne todo (2026-10-04, w tej kolejności; opis i przypomnienie hookiem — `docs/znane_problemy.md`):
-1. **⚠ Tilesety kolejnych map — najpierw ścieki** (potem Cemetery, Fairy Forest, Desert, Forge, Dense Forest /
-   - ~~**Kładki na osobnej, własnej warstwie** oraz **ciągłość opuszczonej krawędzi** kanału~~ — zrobione 2026-10-05.
-   - ~~**Faza F2 generatora ścieków**: barierki ochronne na całej mapie (`Walls`), czarne doły (`pits`) w suchym korycie (`Floor`), determinizm 100%~~ — zrobione 2026-10-05.
-   - **Następny krok: Faza F3 (Lico)** — ogólny `FacadeRhythm`: filary, przęsła, czapki, rury.
-3. **⚠ Grywalne postacie — teammate'owie.**
+Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `docs/znane_problemy.md`):
+1. **Ścieki (sewer)**:
+   - ~~**Kładki na osobnej warstwie**, **ciągłość opuszczonej krawędzi**, **Faza F2 (barierki, pits, 100% determinizm)**~~ — zrobione 2026-10-05.
+   - ~~**Korytarze serwisowe, separacja ścianą, A* Manhattan, blokada kładek na zakrętach**~~ — zrobione technicznie 2026-10-06 (commit `cbe4b35`).
+   - **Odłożone do sesji z Claude Opus:** Dopracowanie układu przestrzennego korytarzy wzdłuż koryt ścieków (oddzielenie ścianą, omijanie zakrętów).
+2. **Generator obiektów** — dokończyć fazę F5 (niszczalne obiekty, dźwignie, podgląd).
+3. **Tła walki 16:9** — wyświetlanie na pełny ekran (1920×1080) w `folder_battle_background.gd` i korekta pól w `_layout.tres`.
+4. **Grywalne postacie — teammate'owie** (`player.gd`, followerzy, menu).
+5. **Miasto z modularnych zasobów paczki free**.
 
 - Do sprawdzenia przez usera w grze (2026-10-04): przejścia z odsuniętymi spawnami (samouczek <-> jaskinia),
   bieg / chód (opcje w Sterowaniu), okno zmaksymalizowane / bez ramki / ręczny rozmiar, menu deweloperskie

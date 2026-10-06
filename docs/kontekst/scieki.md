@@ -1,9 +1,10 @@
-# Ścieki (sewer) — stan na 2026-10-05
+# Ścieki (sewer) — stan na 2026-10-06
 
-Gałąź **`sewer-gen-v2`** w submodule CienMgly (`modules/quiz_rpg`), wypchnięta na remote (commit `22864c4`).
+Gałąź **`sewer-gen-v2`** w submodule CienMgly (`modules/quiz_rpg`), najnowszy commit `cbe4b35` (host: commit `46e3b1f`).
 Zawiera nową architekturę strukturalnego generatora ścieków (Structured Generator v2), pełny determinizm PRNG,
 separację koryt suchych i ścieków szumem 0/1, gwarancję 1 składowej spójnej przez `BridgeConnectivityResolver`,
-oraz ochronę prepassów ścian 3H i prostych koryt przy ścianach.
+ochronę prepassów ścian 3H, oddzielenie korytarzy serwisowych ścianami oraz blokadę kładek na zakrętach.
+Generowanie terenu / układu korytarzy wstrzymane do dalszej pracy z Claude Opus.
 
 W hoście niezacommitowane (zastrzeżone, nie dotykać!): `Tiles.png`, `Props.png`, `Gemini_Generated_Image_*`.
 
@@ -99,6 +100,25 @@ W hoście niezacommitowane (zastrzeżone, nie dotykać!): `Tiles.png`, `Props.pn
   lampy, okrągłe kratki, przełączniki, łuki odpływów. Opis mechanizmu: `kontekst/obiekty.md`.
 - Nieużyte z atlasu: regał / schody (Props 0–1 × 6–8 — wygląda na wyjście, może grafika portalu),
   skrzynia ścieków (8–9 × 0–3), łańcuch (10, 0–2), filar (Tiles 7, 3–6), rury.
+
+### 8. Korytarze serwisowe, separacja ścianą i blokada kładek na zakrętach (2026-10-06, commit `cbe4b35`)
+- **Sekwencje kompleksów z korytarzami (`proto_layout10.py`):**
+  - W `structured_zoning.gd` przywrócono logikę sekwencji `['hall', 'walled', 'hall']` generującą hale rozdzielone wąskimi sekcjami obmurowanych koryt (`walled`).
+  - Zaimplementowano drążenie równoległych korytarzy serwisowych z bramami (`gates`) łączących sąsiednie kompleksy.
+- **Oddzielenie korytarza serwisowego od ścieków ścianą:**
+  - Zdefiniowano strefę ochronną `extra_forb` obejmującą obmurowane koryto (`WALL_H` / `WALL_V`), która wymusza pas litej ściany między korytem a korytarzem serwisowym.
+  - Podzielono wybór punktów granicznych na `prev_valid` i `next_valid` leżących po właściwych stronach osi koryta, zapobiegając konieczności przecinania wody.
+- **Wzmocnienie A\* pathfindera (`structured_pathfinder.gd`):**
+  - Dodano heurystykę Manhattan ($f = g + h$) do kolejki priorytetowej `MinHeap` w A\*, co wyeliminowało błędy wyczerpania limitu 8000 iteracji przy długich trasach.
+  - Wprowadzono flagę `forbid_water = true` (aktywną dla korytarzy serwisowych) — A\* bezwzględnie omija komórki wody, a prostoliniowy wlot drzwiowy sprawdza kolizje z wodą i `extra_forb`.
+- **Bezwzględny zakaz kładek na zakrętach, narożnikach i w sekcjach `walled`:**
+  - W `_add_crossing_bridges` wprowadzono całkowitą blokadę stawiania kładek na segmentach kanału typu `walled`.
+  - Wprowadzono margines bezpieczeństwa $\ge 4$ kratek od obu końców segmentu kanału (`seg.from` i `seg.to`), co uniemożliwia generowanie kładek na załamaniach, narożnikach i skrzyżowaniach koryt.
+  - Wyłączono generowanie kładek dla korytarzy serwisowych (`is_service == true`).
+  - W `canal_dressing.gd` i `bridge_connectivity_resolver.gd` dodano pomijanie odcinków `walled` przy montażu barierek oraz kładek awaryjnych.
+- **Status prac nad terenem:**
+  - Mimo przejścia testów technicznych (13/13 i 6/6 PASS, 100% determinizm), układ przestrzenny korytarzy wzdłuż koryt nie spełnił jeszcze oczekiwań wizualnych usera (wymaga doprecyzowania oddzielenia ścianami i relacji korytarz-ścieki).
+  - Prace nad generowaniem terenu ścieków zostały wstrzymane — zostaną podjęte w kolejnej sesji z modelem Claude Opus.
 
 ## Testy diagnostyczne i integracyjne
 - `tests/diag_sewer_full_test.gd`:
