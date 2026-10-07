@@ -24,6 +24,9 @@
 - Przypomnienie na start sesji (hook) znika, gdy ten nagłówek zniknie albo straci znacznik „⚠ WAŻNE”.
 
 ### ⚠ WAŻNE: (1a) przebudowa generowania ścieków — osobna sesja na dużo wyższym effort
+- **Plan:** [plan_generator_sciekow.md](plan_generator_sciekow.md) (układ ogólny `structured`, ścieki = pierwsza
+  konfiguracja; reguły R1–R7 z prototypu `docs/prototypy/structured_layout/`; ocena gałęzi `sewer-gen-v2`
+  2026-10-07: korytarze serwisowe niezgodne, regresja ścian jaskini — nie mergować).
 - Zgłoszenie 2026-10-05. Autor chce przerobić generowanie ścieków w osobnej sesji z **dużo wyższym effort**
   (max lub podobnym), z **MCP Godota** (autor go dodaje — podgląd sceny / gry zamiast samych renderów headless).
 - Obecny wynik (eksplorator, seed 119, 160×160) jest pusty w porównaniu z makietami autora paczki

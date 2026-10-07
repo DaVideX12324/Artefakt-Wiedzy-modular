@@ -34,6 +34,16 @@ Dlatego tworzymy **uniwersalny generator układów strukturalnych (`structured`)
   miękkie progi, test kafli osobno od pikseli, pionowy wycinek przed F2–F5, portale osobnym commitem.
 - **Uogólnienie generatora:** kod układu w `scripts/generation/structured/`, flaga `layout: "structured"`,
   ścieki jako konfiguracja JSON (patrz sekcja Podejście architektoniczne).
+- **Wzorzec układu = prototyp v11** (2026-10-05, user: „praktycznie idealnie”): `docs/prototypy/structured_layout/`
+  (`proto_layout.py`, podglądy `podglad_seed119_160.png` / `podglad_seed42_160.png`). Reguły spisane niżej
+  w sekcji „Reguły układu (wzorzec z prototypu)” — implementacja ma je odtworzyć, nie interpretować.
+- **Wymiary — uzasadnienie liczbowe:** w prototypie 160² woda zajmuje 26–30 % otwartej przestrzeni,
+  chodliwe jest 23–28 % mapy; ta sama powierzchnia chodliwa co bez kanałów wymaga ~1,4× pola (≈ 1,2× boku).
+- **Ścieki mokre i puste koryta rozdzielone szumem** (z `sewer-gen-v2`, do zachowania): sieć mokra i sucha nigdy
+  się nie stykają (kwas nie „wpływa” do pustego koryta) — szczegóły w regułach niżej.
+- **Kod jaskini nietknięty** poza F1a (wydzielenie wyboru portali). Każdy commit dotykający wspólnego kodu
+  (`edge/`, `tiling/`, `preprocess/`, `topology/`, `cave_generator.gd`) = parytet jaskini 42/42 przed pushem.
+  Powód: `sewer-gen-v2` zmienił kafle ścian i płaskowyży jaskini w 21/21 układach (ocena 2026-10-07).
 
 ## Analiza makiet (gramatyka do odtworzenia)
 
@@ -232,6 +242,87 @@ w `objects_sewer.json`.
 
 ---
 
+## Reguły układu (wzorzec z prototypu)
+
+Źródło: `docs/prototypy/structured_layout/proto_layout.py` (Python + numpy, ~700 linii; uruchomienie:
+`python proto_layout.py 160 160 <seed> out.json`, render: `proto_render.py`, przejścia czyszczące gry:
+`proto_sewer_prepass.gd` z env `PP_IN` / `PP_OUT`). Parametry poniżej idą do JSON konfiguracji (`structured_layout`).
+Ściany: `WALL_H` = 5 (ściana z podłogą nad i pod — lico 3H + grzbiet), `WALL_V` = 2 (ściana boczna);
+**najcieńsza ściana między fragmentami jednego wielokąta = 2 kratki** (limit assetu, decyzja usera).
+
+### R1. Sieć elementów liniowych (pień + odnogi od odnóg)
+- Wędrowiec: odcinki proste 16–34 kratki (krótsze 12–20 / 10, gdy dłuższy się nie mieści), po odcinku skręt
+  z prawdopodobieństwem 0,35 (pień) / 0,6 (odnogi); zablokowany — próba skrętu, inaczej koniec.
+- Pień od lewej krawędzi (środkowa 1/3 wysokości); odnogi startują z **dowolnego** istniejącego odcinka
+  (też odnogi), ≥ 8 kratek od jego końców, prostopadle; liczba ≈ max(4, W·H / 2300), 2–5 odcinków każda.
+- Szerokość kanału 4 (`CW`); odstęp od innych kanałów ≥ `CLEAR` = 16 (krawędź–krawędź) poza złączem
+  (otoczenie bloku startowego). **Kanał nigdy szerszy niż 4:** odcinek, po którym gdziekolwiek w jego okolicy
+  powstałby kwadrat 5 × 5 samej wody, jest odrzucany (sklejanie równoległych kanałów).
+- **Mokre / puste rozdzielone szumem** (z `sewer-gen-v2`, `linear_network_generator.gd`): FastNoiseLite
+  simplex FBM, częstotliwość 0,005, 2 oktawy, próg `lerp(0,4; −0,4; canal_dry_chance)` → poziom 0 = ścieki,
+  1 = puste koryto. Odcinek musi w całości (narożniki + środki boków, bufor 4) leżeć w strefie swojego typu;
+  typ odnogi = strefa w punkcie startu; w odstępie `CLEAR` od odcinka nie ma kratek drugiego typu.
+
+### R2. Odcinki: tunel albo część kompleksu
+- Domyślnie **tunel**: chodnik 3 kratki po obu stronach (pasy ruchu), obudowany ścianami — główny korytarz,
+  łączy odległe części mapy.
+- **Kompleks** = sale **przecinane kanałem**: ciąg 1–4 kolejnych odcinków jednej linii (najpierw najdłuższy,
+  który się mieści; ciąg 1 tylko na węźle), **min. odstęp między kompleksami 20 kratek** (env `CPLX_GAP`),
+  liczba ≤ max(2, W·H / 5500) — na 160² wychodzi 4.
+
+### R3. Kompleks = jeden wielokąt
+- Brzegi budowane kawałkami po 4–8 kratek wzdłuż kanału; szerokość brzegu z każdej strony to błądzenie losowe
+  (±3 na kawałek, 0 albo 2–10; brzeg 1 kratki = 0), dopasowane do miejsca (nie wchodzi na obce kanały, ściana
+  `WALL_V+1` / `WALL_H+1` od sal innych kompleksów; kanał skręcający / krzyżujący się **w** sali nie jest obcy).
+- Spójność: w każdym kawałku ≥ 1 brzeg ≥ 2; **ciągłość** — brzeg istnieje po tej samej stronie co w poprzednim
+  kawałku (chodnik nie przeskakuje kanału bez kładki); w środku każdego odcinka **oba brzegi ≥ 2 + kładka**.
+- Szczeliny ścienne 1 kratki między fragmentami wielokąta → podłoga (min. ściana 2).
+
+### R4. Zwężenie z korytarzem serwisowym (kluczowe — źle zrobione w `sewer-gen-v2`)
+- Na odcinku kompleksu ≥ 18 (szansa 0,8): środek odcinka (od +6 do −6 od końców) ma brzeg po stronie *k* = 0
+  (kanał przy ścianie), drugi brzeg ≥ 2 (kompleks dalej spójny); przed i za zwężeniem po stronie *k* zatoki
+  szerokości ≥ ściana + 4 (wejścia korytarza).
+- **Korytarz serwisowy** z części kompleksu **przed** zwężeniem do części **za** nim (ten sam kompleks),
+  po stronie *k*, A* po środkach korytarza 3 kratki:
+  - **wyłącznie przez lity mur:** środek nie może wejść w dylatację *każdej* obcej podłogi o (`WALL_V`+2, `WALL_H`+2)
+    — dotyczy też reszty kompleksu (wszystko poza częścią startową i docelową) i koryta zwężenia
+    (dodatkowa strefa zakazu = dylatacja koryta o (`WALL_V`+2, `WALL_H`+2));
+  - **cel = pierścień** dylatacji części docelowej o (`WALL_V`+3, `WALL_H`+3) poza strefą zakazu; z pierścienia
+    **jedno proste wejście** prostopadle do celu (drzwi przez ścianę); start z losowej kratki części startowej
+    po stronie *k*, nie przy wodzie;
+  - koszt: +4 za skręt, +3 poza pasem 16 / 18 kratek od koryta, +50 po złej stronie koryta;
+  - korytarz **nigdy nie maluje istniejącej podłogi** — kratki korytarza to wyłącznie dotychczasowy mur;
+  - brama: 3 kratki w poprzek korytarza przy pierwszej kratce poza częścią startową; dźwignia w miejscu
+    osiągalnym bez bramy (~18 kratek od niej).
+- Nie znaleziono drogi → w implementacji zwężenie znika (brzeg *k* jak w reszcie kompleksu); prototyp zostawia
+  wtedy zwężenie bez korytarza — tego nie odtwarzać (user: koryto przy ścianie tylko, gdy obok jest korytarz).
+
+### R5. Pokoje wolnostojące i korytarze
+- Pokoje 10–17 × 9–14, liczba ≈ max(5, W·H / 2000), odstęp ≥ 9 (poziomo) / 12 (pionowo) od każdej podłogi,
+  ≤ 30 od sieci.
+- Łączniki: ten sam A* co R4 (zakaz obcej podłogi z dylatacją ściany, pierścień + proste wejście), cel = chodniki
+  tuneli albo sale kompleksów; korytarze **nie przecinają pokoi**, ale mogą mieć doklejone pokoiki (7–10 × 6–9,
+  przy korytarzach ≥ 22 kratek, szansa 0,5).
+- **Przecięcia kanałów**: korytarz może przeciąć odnogę **tylko prostopadle** (przy kanale poziomym ruch pionowy
+  i odwrotnie, strefa = dylatacja kanału + chodników o (`WALL_V`+2, `WALL_H`+2); węzeł = obie strefy → zakaz);
+  w miejscu, gdzie **środek** korytarza jest na wodzie, kładka 3 kratki.
+- Pętle: z brzegu kompleksu na zewnątrz (≥ ściana + 3) i z powrotem do części tego samego kompleksu oddalonej
+  o > 26 (Manhattan); ≤ max(2, W·H / 7000). Dodatkowe połączenia pokój–pokój (szansa 0,35), odrzucane, gdy
+  > 50 % korytarza leży w promieniu 9 od własnej sali (obieganie własnego pokoju).
+
+### R6. Kładki
+- Nigdy w **strefie zakrętu / węzła** = wspólny blok kanału poziomego i pionowego + `CW` (4) kratki wokół;
+  wylosowana pozycja przesuwana wzdłuż kanału (±6), inaczej brak.
+- Tylko gdy po obu stronach wody jest podłoga (nie w ścianę zwężenia); ≥ 2 kratki od innej kładki;
+  co ~20 (kanał poziomy) / ~18 (pionowy); pierwsza kładka odcinka kompleksu w jego środku (R3).
+
+### R7. Kontrole i czyszczenie
+- Spójność: komponenty odcięte łączone A* (jak R5); awaryjne L nie może przejść przez strefę zakrętu —
+  wtedy fragment jest zgłaszany (w prototypie zostają 1–2 końce chodnika ≤ 30 kratek przy ślepych końcach
+  kanału — w implementacji: nie tworzyć chodnika przy ślepym końcu albo usuwać takie końce).
+- Przejścia czyszczące gry (sewer.json) zmieniają w prototypie 80–136 kratek na 25 600 — implementacja ma
+  generować grid już zgodny (cel: < 1 % kratek zmienionych przez prepass).
+
 ## Okna oceny i metryki
 
 - **Okno kwalifikujące się:** 25 × 25 w granicach mapy z ≥ 60 % powierzchni grywalnej (podłoga + kanał).
@@ -248,7 +339,12 @@ w `objects_sewer.json`.
 
 ---
 
-## Fazy (commit + push po każdym kroku; gałąź `sewer-gen-v2` z `sewer-tileset`)
+## Fazy (commit + push po każdym kroku; gałąź do decyzji — patrz „Status”)
+
+Każda faza dotykająca wspólnego kodu generacji: parytet jaskini 42/42 (`run_plateau_suite.sh`) **przed** pushem.
+F1b–F2 odtwarzają reguły R1–R7; akceptacja układu = maska z gry (eksplorator, `Pokaż maskę Floor / Wall`)
+obok podglądu prototypu dla seedów 119 / 42 / 7 — korytarze serwisowe muszą wyglądać jak w prototypie
+(osobny korytarz w murze, wejścia tylko na końcach), nie jak pas przemalowanej podłogi.
 
 - **F0a dokumenty** — zatwierdzenie i commit zaktualizowanego `docs/plan_generator_sciekow.md`
   o uniwersalną architekturę `structured` oraz decyzje i recenzje.
@@ -321,6 +417,8 @@ generatora układu w `scripts/generation/structured/`**.
   - Testy lokalne: `tests/sewer_showcase.gd`.
 - Dokumentacja:
   - `docs/plan_generator_sciekow.md`, `docs/kontekst/scieki.md`.
+- Wzorzec (tylko odniesienie, nie kod gry): `docs/prototypy/structured_layout/` — `proto_layout.py`,
+  `proto_render.py`, `proto_sewer_prepass.gd` (test przejść czyszczących; kopiować do `tests/`), podglądy PNG.
 
 ---
 
@@ -329,6 +427,9 @@ generatora układu w `scripts/generation/structured/`**.
   raport `diag_structured_metrics.gd` (twarde = zielone; miękkie = mediana i najgorsze 10 % w zakresie makiet).
 - F0c zielony (kafle), piksele w granicach wyjątków.
 - F1c: ruch postaci i wrogów na działającej scenie (MCP `simulate_input`, `run_script` z pozycją gracza).
+- Zgodność z wzorcem: maska układu z gry vs `docs/prototypy/structured_layout/podglad_seed*_160.png`
+  (seedy 119 / 42 / 7); twardo: korytarz serwisowy nie dotyka żadnej podłogi poza końcami (ściana ≥ 2 / 5),
+  żadnej kładki w strefie zakrętu, brak kwadratu 5 × 5 wody, sieć mokra i sucha bez styku.
 - Regresja: `run_plateau_suite.sh` (parytet jaskini 42/42), `diag_objects`, `diag_tile_object_physics`,
   `diag_sewer_objects_runtime`, `diag_spawn_cells`, `diag_enemy_drift`.
 - Czas: dane i pełna scena ≤ obecny + 20 %.
@@ -336,7 +437,27 @@ generatora układu w `scripts/generation/structured/`**.
 
 ---
 
-## Status realizacji (stan na 2026-10-05)
+## Status realizacji
+
+### Ocena gałęzi `sewer-gen-v2` (2026-10-07)
+Wdrożenie z sesji Antigravity (2026-10-05/06, CienMgly `sewer-gen-v2`, 63 commity ponad `main`, oparte na
+`sewer-tileset`). Lista „[x]” niżej to jego raport — **nie odbiór**. Ocena:
+- **Korytarze serwisowe niezgodne z R4** (`structured_zoning.gd::_carve_service`, `structured_pathfinder.gd`):
+  cel A* = dowolna kratka z prostą linią ≤ 11 do hali docelowej (bez pierścienia za ścianą); zakaz przy korycie
+  tylko ±1–2 kratki z zamienionymi `wall_h` / `wall_v`; własna i docelowa hala dozwolone w całości; hale A i B
+  stykają się podłogą wzdłuż „obmurowanego” koryta → korytarz to przemalowana podłoga hali (rendery usera).
+- **Regresja jaskini:** parytet 42/42 różny (`walls` 21/21, `plat` 21/21; siatka / podłoga / spawny / dekor
+  identyczne) — na `sewer-tileset` 42/42 IDENTICAL. Źródło: poprawki „fix(sewer)” we wspólnym kodzie
+  (`edge_analyzer.gd` — szczyt fasady o 3 / 4 od stopy bez warunku flagi; też `corner_placer.gd`, `wall_3h_pass.gd`,
+  prawdopodobnie `4da6941` / `16d169f`). F1a (`5ed7945`) i F1b (`1750e23`) miały jeszcze parytet.
+- Commitował wskaźniki submodułu na `sewer-gen-v2` na `main` hosta (później cofnięte na `main` CienMgly).
+- **Do przeniesienia** (po sprawdzeniu parytetu): F1a `5ed7945` (portale), `tools/mockup_extract.py`
+  + `resources/maps/mockups/*.json`, rozdzielenie mokre / puste szumem (R1), warstwa `Bridges` (`38179cb`),
+  doły `CANAL_PIT`, kładka pozioma 6 × 2, `LinearFeatureLayout`.
+- **Rekomendacja:** nowa gałąź z `sewer-tileset`, implementacja R1–R7 + przeniesienie listy wyżej;
+  `sewer-gen-v2` zostaje jako odniesienie (nie merge). Decyzja usera.
+
+### Raport sesji Antigravity (stan na 2026-10-05, bez odbioru)
 
 - [x] **F0a Dokumenty** — plan zatwierdzony i zaktualizowany o uniwersalną architekturę `structured`.
 - [x] **F1a Portale** — wydzielony wybór wejścia / wyjścia ze wspólnym algorytmem, zachowany parytet jaskini.
