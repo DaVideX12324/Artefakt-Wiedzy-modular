@@ -1,4 +1,4 @@
-# Ścieki (sewer) — stan na 2026-10-06
+# Ścieki (sewer) — stan na 2026-10-08 (paczka v2: sekcja „Paczka Sewer v2”)
 
 Gałąź **`sewer-gen-v2`** w submodule CienMgly (`modules/quiz_rpg`), najnowszy commit `cbe4b35` (host: commit `46e3b1f`).
 Zawiera nową architekturę strukturalnego generatora ścieków (Structured Generator v2), pełny determinizm PRNG,
@@ -119,6 +119,45 @@ W hoście niezacommitowane (zastrzeżone, nie dotykać!): `Tiles.png`, `Props.pn
 - **Status prac nad terenem:**
   - Mimo przejścia testów technicznych (13/13 i 6/6 PASS, 100% determinizm), układ przestrzenny korytarzy wzdłuż koryt nie spełnił jeszcze oczekiwań wizualnych usera (wymaga doprecyzowania oddzielenia ścianami i relacji korytarz-ścieki).
   - Prace nad generowaniem terenu ścieków zostały wstrzymane — zostaną podjęte w kolejnej sesji z modelem Claude Opus.
+
+## Paczka Sewer v2 (2026-10-08, gałąź `sewer-structured`, CienMgly do `def6ce1`)
+Nowa wersja paczki autora obok v1 — **gra dalej na v1** (`sewer.json` / `sewer.tres`); v2 to osobny zestaw:
+`resources/maps/sewer_v2.tres` (źródła: 0 Tiles, 1 Props, 2 Water, 3 Dungeon_Tiles free packa = puste koryto,
+4 `Extras.png` = ręczne kafle z v1, 5 Furniture free packa = dzbany / worki), profil
+`profile/sewer_v2_map_tiles.tres`, `config/sewer_v2.json`, katalog `config/objects_sewer_v2.json`. Grafika paczki
+w hoście `assets/pixel_crawler/environments/sewer_v2/Assets/` (user commituje sam). Znaczenie kafli atlasu —
+pamięć `quiz-rpg-sewer-v2-atlas`.
+
+- **Edytor przypisań** `scenes/tools/tile_profile_editor.tscn` (@tool, od strony atlasu: kafel -> rola / wariant /
+  przesunięcie / warstwa / alternatywa / waga): nowy profil, kopia profilu, zmiana TileSetu zestawu, podgląd
+  wzoru (np. profil v1). Zasoby nie-@tool są w edytorze atrapami — narzędzie działa na polach, nie metodach.
+- **Ściany:** lico 3H / 4H bez topu (top z krzyża pełnej ściany), warianty A/B, końce, **lico z cieniem**
+  `SHADE_L / SHADE_R / SHADE_LR` (`FacadePlacer.recess_shade`): we wnęce (sąsiedni mur wystaje do przodu) na
+  całej wysokości; przy filarze — lico za filarem LR, kolumny obok od strony filara, **tylko w rzędach, do
+  których filar sięga** (`ctx.pillar_feet` = stopa -> najwyższy rząd filara; `_try_shaded_module` składa
+  wariant cienia część po części). Narożniki zewnętrzne zwykłe / z cieniem (`SHADE`), łącznik 3H↔4H złożony
+  skryptowo (2 dolne kafle narożnika 4H + środek 3H + płaska krawędź), boki ściany wariant C (co ~3.,
+  hash pozycji), brak lic 2H w profilu. Wariant z cieniem zawsze za `FacadePlacer.has_variant` — brakujący
+  wymuszony wariant dałby legacy kafel wpisu (parytet v1).
+- **Kanał:** woda z `Water.png` bez kolizji; brzeg w układzie ścian (miedziany krzyż), lico kanału z rimem jako
+  jeden moduł (1×2: a / b / c, zacienione L / R / LR, końce proste, narożniki OUT NW / NE); kolizje tylko na
+  oteksturowanej miedzi, pod kładką wersje `_OPEN` bez kolizji. Barierki = moduły 2-kaflowe na nowej warstwie
+  **`Rails`** (y-sort / z jak `Walls`), od północy wariant `_N` kafel wyżej; przy murze mogą wejść za ścianę,
+  przed fasadą losowo (`rail_wall_front_chance` 0.5).
+- **Obiekty** (`objects_sewer_v2.json`, bez krat podłogowych — user robi je terenem): obiekty > 1×1 są w TileSecie
+  JEDNYM kaflem `size_in_atlas` (realizer stawia kotwicę); skrzynie / beczki 1×2 z `stack` (alternatywa 1,
+  y-sort +17 — tylna rysuje się nad przednią), wraki, szafa, drobiazgi, zamki i ramki na licu, dziura tunelu
+  (dekor lica 3H). Katalog: klucz `stack`, montaż `rim`, kafel `tiles` z opcjonalną alternatywą (5. element).
+  Dekory lica filtrowane `facade_h`. Grafika obiektu może zasłaniać wodę / barierki — blokują tylko kratki
+  zajętości (woda / kładki / barierki = zakaz).
+- **Filary:** 3 stany (pełny / lekko / bardzo zniszczony, wagi gęstością) przy licu 3H i 4H (kratkę niżej niż
+  wcześniej), wolnostojące (podstawa alternatywa 1 z kolizją), od strony rimu moduł 1×2 (y-sort 39 / 23) w
+  rytmie `[4, 5]`.
+- **Do zrobienia v2:** lico drewniane jako wariant kaflowego (osobny szum, odcinki między filarami), ściana
+  szerokości 1 (wypustki), krawężniki (12–14,8 N/S; kol. 15 E/W), krzyż platform + schody na platformę, top
+  lica jako osobna rola, skrzynia quizu otwarta / zamknięta, rury z cieniem zależnym od wysokości (na końcu),
+  potem przełączenie gry na v2 i galeria seedów. Do wyjaśnienia przez usera: Props (0,4) zielony kamień,
+  Props (1,10–12) kształt U; foliage v2 nieprzejrzany.
 
 ## Testy diagnostyczne i integracyjne
 - `tests/diag_sewer_full_test.gd`:
