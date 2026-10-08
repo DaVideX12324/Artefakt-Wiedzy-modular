@@ -5,6 +5,9 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
    - ~~**Kładki na osobnej warstwie**, **ciągłość opuszczonej krawędzi**, **Faza F2 (barierki, pits, 100% determinizm)**~~ — zrobione 2026-10-05.
    - ~~**Korytarze serwisowe, separacja ścianą, A* Manhattan, blokada kładek na zakrętach**~~ — zrobione technicznie 2026-10-06 (commit `cbe4b35`).
    - **Odłożone do sesji z Claude Opus:** Dopracowanie układu przestrzennego korytarzy wzdłuż koryt ścieków (oddzielenie ścianą, omijanie zakrętów).
+   - **Paczka Sewer v2** (2026-10-08, `sewer-structured`): ściany z cieniem, kanał, barierki, obiekty i filary
+     przeniesione; następne: lico drewniane między filarami, ściana szer. 1, krawężniki, platformy — lista w
+     [scieki.md](scieki.md) („Paczka Sewer v2”). Gra dalej na v1.
 2. **Generator obiektów** — dokończyć fazę F5 (niszczalne obiekty, dźwignie, podgląd).
 3. ~~**Tła walki 16:9** — wyświetlanie na pełny ekran (1920×1080) w `folder_battle_background.gd`, przezroczysty pas dolny w `quiz_combat_ui.tscn` i podgląd 16:9~~ — zrobione 2026-10-06 (commit `deb8866`).
 4. **Grywalne postacie — teammate'owie** (`player.gd`, followerzy, menu).

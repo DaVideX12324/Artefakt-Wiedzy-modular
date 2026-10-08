@@ -44,6 +44,22 @@
   - skala: makieta 25 × 25 kratek mieści kilka pokoi i kanały, u nas sale 16–28 kratek są puste.
 - Stan wyjściowy i flagi: [kontekst/scieki.md](kontekst/scieki.md), obiekty: [kontekst/obiekty.md](kontekst/obiekty.md).
 - **Aktualizacja 2026-10-06:** wdrożono technicznie korytarze serwisowe z bramami (`proto_layout10.py`), separację ścianą, A* Manhattan i blokadę kładek na zakrętach (commit `cbe4b35`). Dopracowanie układu przestrzennego i mentalnego korytarzy wzdłuż koryt odłożone do kolejnej sesji z Claude Opus.
+- **Aktualizacja 2026-10-08:** `sewer-gen-v2` porzucona; nowa gałąź **`sewer-structured`** (CienMgly, z `sewer-tileset`
+  + main + F0b/F1a/F1b z v2) — port prototypu v11 i strojenie układu z autorem (stan w pamięci / commitach gałęzi).
+- **Potencjalny problem (do sprawdzenia, gdy układ będzie widać w podglądzie mapy z kaflami):** przejścia
+  czyszczące (Remove1h, WallThickness, Wall3H, WallTopAlign, Spike / ThinBridge / Staircase, ShortLedge, DiagonalTouch,
+  SlopeThickness) zmieniają w ściekach **1,3–1,6 % kratek** (cel planu R7: < 1 %; przed pokojami dostawionymi
+  do chodników 0,6–0,9 %). Prawdopodobna przyczyna: uskoki 1–2 kratek i krótkie ścianki przy rogach pokoi
+  dostawionych do chodnika / sali, prostowane potem przez Wall3H / WallTopAlign. Skutki do obejrzenia: dziwne
+  wcięcia lica przy pokojach, ścięte rogi. Spójność jest chroniona (`GenerationContext.protected_floor` + bezpiecznik
+  `_restore_cuts`), więc nie odcina mapy. Naprawa docelowa: pokoje dostawiane równo z krawędzią chodnika albo
+  z odstępem zgodnym z wysokością lica, żeby przejścia nie miały czego prostować. Statystyka:
+  `preprocess_stats["structured"]["prepass_changed"]`, test `tests/diag_structured_layout.gd`.
+  **Aktualizacja 2026-10-08 (noc):** po usunięciu wypustek ściany o 1 kratkę (chodniki losowane na łańcuchu
+  odcinków, bez zmiany szerokości 2 ↔ 3 i krótkich końcówek, chodnik liczony z miejsca do ramki, górna ramka
+  +1, korytarz serwisowy bez pasa wzdłuż sali — CienMgly `0ea2cd2`, `f133c17`) przejścia czyszczące zmieniają
+  **0–1,1 %** kratek (15 seedów 160²), wypustek 0–1 na mapę. Zostaje do obejrzenia w podglądzie: pojedyncze
+  uskoki lica o 1 przy pokojach dostawionych (detektor: `tests/diag_sewer_thin_walls.gd`).
 
 
 ### ⚠ WAŻNE: (2) dokończyć generator obiektów
