@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj1ls1s53q4hr"
-path="res://.godot/imported/MockUp-02.png-90bbbc35c62a95ede783da3d21988771.ctex"
+uid="uid://dtwsqa7k5d5m5"
+path="res://.godot/imported/MockUp-01.png-769d581d5ff75951262faa4f02777540.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pixel_crawler/environments/sewer/Social/MockUp-02.png"
-dest_files=["res://.godot/imported/MockUp-02.png-90bbbc35c62a95ede783da3d21988771.ctex"]
+source_file="res://assets/pixel_crawler/environments/sewer_old/Social/MockUp-01.png"
+dest_files=["res://.godot/imported/MockUp-01.png-769d581d5ff75951262faa4f02777540.ctex"]
 
 [params]
 

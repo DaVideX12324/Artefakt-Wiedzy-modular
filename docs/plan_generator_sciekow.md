@@ -2,7 +2,7 @@
 
 Zatwierdzony 2026-10-05 (po dwóch rundach recenzji i uogólnieniu architektury). Ważne todo (1a) z [znane_problemy.md](znane_problemy.md).
 Stan wyjściowy: [kontekst/scieki.md](kontekst/scieki.md), obiekty: [kontekst/obiekty.md](kontekst/obiekty.md).
-Makiety: `assets/pixel_crawler/environments/sewer/Social/` — warstwy w Eksploratorze Aseprite.
+Makiety: `assets/pixel_crawler/environments/sewer_old/Social/` — warstwy w Eksploratorze Aseprite.
 
 ## Kontekst
 Ważne todo (1a). Wynik generatora ścieków (seed 119) to duże jednolite podłogi, void dookoła, jeden prosty
