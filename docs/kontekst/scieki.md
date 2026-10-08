@@ -125,7 +125,7 @@ Nowa wersja paczki autora obok v1 — **gra dalej na v1** (`sewer.json` / `sewer
 `resources/maps/sewer_v2.tres` (źródła: 0 Tiles, 1 Props, 2 Water, 3 Dungeon_Tiles free packa = puste koryto,
 4 `Extras.png` = ręczne kafle z v1, 5 Furniture free packa = dzbany / worki), profil
 `profile/sewer_v2_map_tiles.tres`, `config/sewer_v2.json`, katalog `config/objects_sewer_v2.json`. Grafika paczki
-w hoście `assets/pixel_crawler/environments/sewer_v2/Assets/` (user commituje sam). Znaczenie kafli atlasu —
+w hoście `assets/pixel_crawler/environments/sewer/Assets/` (user commituje sam). Znaczenie kafli atlasu —
 pamięć `quiz-rpg-sewer-v2-atlas`.
 
 - **Edytor przypisań** `scenes/tools/tile_profile_editor.tscn` (@tool, od strony atlasu: kafel -> rola / wariant /
