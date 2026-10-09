@@ -15,10 +15,16 @@
 - Stan dziś: przegrana walka (`QuizCombatController._end_combat(false)`, gdy `PlayerStats.is_alive()` == false)
   pokazuje tylko komunikat „Porażka...”, wróg wraca do patrolu, a gracz chodzi dalej z 0 HP — śmierć nie ma skutków.
   Pułapki poza walką (kolce, `PlayerStats.damage_party_percent`) celowo nie zabijają (HP min. 1).
-- Do zrobienia: ekran śmierci po wybiciu drużyny (lider 0 HP / wszyscy członkowie 0 HP — do ustalenia) z wyborem
-  np. „Wczytaj ostatni zapis” / „Wróć do menu głównego” (ewentualnie „Spróbuj ponownie”); co dzieje się z postępem
-  (seed zapisu, otwarte skrzynie, pokonani bossowie — [game_design.md](game_design.md)) i czy pułapki mogą zabić.
-  Do ustalenia z userem przed implementacją.
+- Decyzje usera (2026-10-09):
+  - śmierć = **wszyscy członkowie drużyny mają 0 HP** (nie sam lider);
+  - ekran: dwa przyciski **„Menu główne”** i **„Wczytaj zapis”** (wariant prostszy: od razu powrót do menu
+    głównego, gracz wczytuje zapis stamtąd);
+  - postęp (otwarte skrzynie, pokonani bossowie, seed zapisu) powinien być już zapisywany — **sprawdzić**, że tak
+    jest ([game_design.md](game_design.md));
+  - pułapki poza walką (kolce) **nie zabijają** — zbijają HP do 1 (`PlayerStats.damage_party_percent`).
+- Powiązane — **trucizna w świecie**: postać, która w walce dostała efekt trucizny, traci HP także w eksploracji
+  (DoT), dopóki nie użyje się przedmiotu leczącego statusy. Do ustalenia: tempo DoT i czy może zabić (jak pułapki —
+  do 1 HP?). Wymaga przeniesienia statusów z walki do stanu drużyny (`PlayerStats.party`).
 
 ### ⚠ WAŻNE: (1) tilesety kolejnych map — najpierw ścieki
 - Zgłoszenie 2026-10-03, priorytet z 2026-10-04: **pierwsze z trzech ważnych todo, przede wszystkim ścieki
