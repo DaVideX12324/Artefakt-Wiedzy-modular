@@ -1,6 +1,8 @@
 # Otwarte sprawy
 
 Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `docs/znane_problemy.md`):
+0. **#1 NAJWAŻNIEJSZE (2026-10-09): ekran śmierci drużyny** — dziś przegrana kończy się komunikatem
+   „Porażka...”, a gracz chodzi dalej z 0 HP. Opis: `docs/znane_problemy.md` „(#1)”.
 1. **Ścieki (sewer)**:
    - ~~**Kładki na osobnej warstwie**, **ciągłość opuszczonej krawędzi**, **Faza F2 (barierki, pits, 100% determinizm)**~~ — zrobione 2026-10-05.
    - ~~**Korytarze serwisowe, separacja ścianą, A* Manhattan, blokada kładek na zakrętach**~~ — zrobione technicznie 2026-10-06 (commit `cbe4b35`).

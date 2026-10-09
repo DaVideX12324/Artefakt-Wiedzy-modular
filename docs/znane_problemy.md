@@ -9,6 +9,17 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
+### ⚠ WAŻNE: (#1) ekran śmierci drużyny — NAJWAŻNIEJSZE
+- Zgłoszenie usera 2026-10-09: „najbardziej podstawowa funkcja gry” — **priorytet #1, przed wszystkimi innymi
+  ważnymi todo**.
+- Stan dziś: przegrana walka (`QuizCombatController._end_combat(false)`, gdy `PlayerStats.is_alive()` == false)
+  pokazuje tylko komunikat „Porażka...”, wróg wraca do patrolu, a gracz chodzi dalej z 0 HP — śmierć nie ma skutków.
+  Pułapki poza walką (kolce, `PlayerStats.damage_party_percent`) celowo nie zabijają (HP min. 1).
+- Do zrobienia: ekran śmierci po wybiciu drużyny (lider 0 HP / wszyscy członkowie 0 HP — do ustalenia) z wyborem
+  np. „Wczytaj ostatni zapis” / „Wróć do menu głównego” (ewentualnie „Spróbuj ponownie”); co dzieje się z postępem
+  (seed zapisu, otwarte skrzynie, pokonani bossowie — [game_design.md](game_design.md)) i czy pułapki mogą zabić.
+  Do ustalenia z userem przed implementacją.
+
 ### ⚠ WAŻNE: (1) tilesety kolejnych map — najpierw ścieki
 - Zgłoszenie 2026-10-03, priorytet z 2026-10-04: **pierwsze z trzech ważnych todo, przede wszystkim ścieki
   (sewer)**. Kolejność map w grze: jaskinia -> miasto -> ścieki; w ściekach przejście raczej drabiną, pod E
