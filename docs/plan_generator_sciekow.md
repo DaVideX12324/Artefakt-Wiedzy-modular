@@ -439,6 +439,24 @@ generatora układu w `scripts/generation/structured/`**.
 
 ## Status realizacji
 
+### Gałąź `sewer-structured` (stan na 2026-10-09)
+Nowa gałąź z `sewer-tileset` wg rekomendacji niżej; z `sewer-gen-v2` przeniesione F0b (ekstraktor makiet), F1a
+(portale, parytet 42/42) i F1b, reguły R1–R7 z prototypu zaimplementowane od nowa. Gra na nowej paczce Sewer.
+Szczegóły stanu: `docs/kontekst/scieki.md`.
+- [x] **F0b / F1a / F1b** — ekstraktor makiet, wspólny wybór portali, silnik `structured` (R1–R7).
+- [x] **F2 kanały** — sieć mokra / pusta szumem stref, kładki z prześwitem, barierki (warstwa `Rails`), doły,
+  puste koryto terenem, końce kanałów pod ścianą z licem nad / pod wodą i kratą w łuku.
+- [x] **F3 lico** — warianty A / B, niezależny top, cienie wnęk i filarów, materiał lica (kaflowe / drewniane),
+  filary w rytmie przęseł, ozdoby przęseł, łańcuchy. Rury z cieniem — nie.
+- [x] **F4 posadzka** — teren podłogi, `dark_floor`, `foliage` (posadzka i dno pustego koryta), kratownice,
+  krawężniki, rzędy otworów pod przęsłami.
+- [~] **F5** — zestawy obiektów, ściany działowe kompleksów (L / U), kolce, bramy z zagadkami (płyty, zamki
+  z kluczem, płyty-skróty), **kontrola B** z bramami. Winiety z biblioteki i gruz skupiskami — nie.
+- [~] **F6** — navmesh z przeszkodami i kolcami bram, spawny poza przeszkodami. Budżet czasu nie mierzony
+  (160²: ~2 s danych, 250²: ~4–9 s).
+- [ ] **F7** — galeria 12 seedów, kryterium uniwersalności (szkic miasta).
+- Nie z planu, zrobione: ściany szerokości 1, kolce-pułapki, skrzynia quizu ścieków. Platformy ze schodami — nie.
+
 ### Ocena gałęzi `sewer-gen-v2` (2026-10-07)
 Wdrożenie z sesji Antigravity (2026-10-05/06, CienMgly `sewer-gen-v2`, 63 commity ponad `main`, oparte na
 `sewer-tileset`). Lista „[x]” niżej to jego raport — **nie odbiór**. Ocena:

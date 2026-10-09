@@ -1,172 +1,97 @@
-# Ścieki (sewer) — stan na 2026-10-08 (paczka v2: sekcja „Paczka Sewer v2”)
+# Ścieki (sewer) — stan na 2026-10-09
 
-Gałąź **`sewer-gen-v2`** w submodule CienMgly (`modules/quiz_rpg`), najnowszy commit `cbe4b35` (host: commit `46e3b1f`).
-Zawiera nową architekturę strukturalnego generatora ścieków (Structured Generator v2), pełny determinizm PRNG,
-separację koryt suchych i ścieków szumem 0/1, gwarancję 1 składowej spójnej przez `BridgeConnectivityResolver`,
-ochronę prepassów ścian 3H, oddzielenie korytarzy serwisowych ścianami oraz blokadę kładek na zakrętach.
-Generowanie terenu / układu korytarzy wstrzymane do dalszej pracy z Claude Opus.
-
-W hoście niezacommitowane (zastrzeżone, nie dotykać!): `Tiles.png`, `Props.png`, `Gemini_Generated_Image_*`.
+Gałąź **`sewer-structured`** w submodule CienMgly (`modules/quiz_rpg`), założona z `sewer-tileset`; z `sewer-gen-v2`
+przeniesione tylko wybrane elementy (F0b / F1a / F1b), `sewer-gen-v2` zostaje jako odniesienie — nie mergować.
+Gra używa **nowej paczki Sewer** (pliki bez dopisku wersji: `sewer.tres`, `sewer.json`, `sewer_map_tiles.tres`,
+`objects_sewer.json`); stara paczka jako `sewer_old.*`, grafika w hoście `assets/pixel_crawler/environments/sewer`
+(nowa) i `environments/sewer_old` (stara). Plan i reguły układu: `docs/plan_generator_sciekow.md`. Znaczenie kafli
+atlasu: pamięć `quiz-rpg-sewer-v2-atlas`.
 
 ## Pliki
-- `resources/maps/sewer.tres` — TileSet (UID `c73m68vj3lqr3`), źródło 0 = `sewer/Assets/Tiles.png`, źródło 1 =
-  `Props.png` (kładki). Tereny autora: `floor` (0), `void`, `dark_floor`, `foliage` (mech), `ridges`.
-  Kolizje ścian / obrzeży kanału dopisywane wprost w tekście pliku (autor edytuje go w edytorze — nie
-  przepisywać ResourceSaverem; builder robi to tylko z `BUILD_TILESET=1`).
-- `resources/maps/profile/sewer_map_tiles.tres` — profil Named TileSet (`sewer`), budowany przez
-  `tests/build_sewer_resources.gd` (tests/ poza gitem). Moduły lica z przesunięciem -1 (`FS`).
-- `resources/maps/config/sewer.json` — flagi i parametry układu ścieków. Eksplorator map: pozycja „Ścieki” (F4).
-- `scripts/generation/structured/structured_layout_generator.gd` — główny pipeline strukturalnego układu ścieków.
-- `scripts/generation/structured/linear_network_generator.gd` — generator szkieletu sieci koryt i tuneli.
-- `scripts/generation/structured/structured_zoning.gd` — strefowanie sal, kompleksów i koryt.
-- `scripts/generation/structured/bridge_connectivity_resolver.gd` — gwarancja osiągalności i kładek o dł. 6.
-- `scripts/generation/topology/canal_pass.gd` — wyznaczanie odcinków koryta, kładek i podziału na suche/ścieki.
-- `scripts/generation/tiling/canal_placer.gd` — kafelkowanie wody, brzegów, dna suchego koryta i kładek.
+- `resources/maps/sewer.tres` — TileSet. Źródła: 0 `Tiles.png`, 1 `Props.png`, 2 `Water.png`, 3 `Dungeon_Tiles`
+  free packa (puste koryto), 4 `Extras.png` (ręczne kafle), 5 `Furniture` free packa, 6 „Filary” (`Tiles.png`).
+  Tereny: `floor`, `void`, `dark_floor`, `foliage` (3), `grating` (5), `empty_canal` (6). User edytuje plik
+  w edytorze — zmiany tekstowe, nie przez ResourceSaver.
+- `resources/maps/profile/sewer_map_tiles.tres` — profil Named TileSet; edytor przypisań
+  `scenes/tools/tile_profile_editor.tscn` (@tool, od strony atlasu: kafel -> rola / wariant / przesunięcie / warstwa).
+- `resources/maps/config/sewer.json` — `"layout": "structured"`, sekcje `structured_layout`, `facade_rhythm`,
+  `facade_material`, `tiling`, `scenes` (m.in. `chest` = skrzynia ścieków). Eksplorator map: „Ścieki” (F4).
+- `resources/maps/config/objects_sewer.json` — katalog obiektów, sekcja `gates`, `big_canal_gap`, `area_weights`.
+- Układ: `scripts/generation/structured/` — `structured_layout_generator.gd` (pipeline), `linear_network_generator.gd`,
+  `structured_zoning.gd`, `structured_room_packer.gd`, `structured_pathfinder.gd`, `structured_reservations.gd`,
+  `core/linear_feature_layout.gd` (nakładka `canals`), `core/structured_state.gd`.
+- Kafle: `scripts/generation/tiling/` — `canal_placer.gd`, `facade_placer.gd`, `facade_material_planner.gd`,
+  `rim_placer.gd`, `curb_placer.gd`, `grating_planner.gd`, `wall_1w_placer.gd`, `terrain_mask_planner.gd`.
+- Obiekty: `scripts/generation/objects/` — `object_planner.gd`, `wall_decor_planner.gd`, `gate_planner.gd`;
+  sceny `scenes/objects/sewer/` (kolce, bariery bram, zamek, klucz, płyta naciskowa, skrzynia ścieków).
+- Interaktywne: `scripts/interactables/` — `spike_trap.gd`, `gate_state.gd`, `gate_key.gd`, `gate_lock.gd`,
+  `pressure_plate.gd`.
 
-## Kafle (atlas Tiles.png)
-- Lico 3H: wiersze 5 (góra = dół bloku) / 6 (krata) / 7 (cokół), końce kol. 0 i 2. Lico 4H: wiersze 8–11
-  (top, krata, krata, cokół), końce kol. 0 i 2. Kap (ściana z podłogą na N): 1,3 / 4,3; końce 0,3 / 2,3.
-  Boki: 3,1-3,2 (podłoga na E), 5,1-5,2 (na W). Rama pokoju: 3,0 / 5,0 / 3,3 / 5,3. Pustka 1,4.
-- Podłoga: teren `floor` (blok 3–5 × 4–9 z brzegami); środek pełną maską mają tylko 4,5 i 6,6.
-- Kanał: kwas 9-slice 11–13 × 0–2 (z własną szyną od brzegu), narożniki wewnętrzne 14,0 / 16,0 / 14,2 / 16,2,
-  animacja 4 klatek (co 3 wiersze). Lico brzegu 4,13 (końce 3,13 / 5,13, przy ścianie 6,13 / 8,13).
-  Obrzeża na podłodze: 4,10 (kanał na N), 4,12 (na S), 5,11 (na E), 3,11 (na W), rogi 3,10 / 5,10 / 3,12 /
-  5,12, wklęsłe 13,12 / 14,12 / 13,13 / 14,13 (dodane przez nas do PNG), ciemne końce przy ścianie 6,11 / 8,11,
-  6,12 / 8,12, 9,3 / 9,5, 10,3 / 10,5. Kładki (Props.png): pionowa 4–5 × 9–14, pozioma 6–10 × 12–13.
+## Układ (structured)
+Kolejność: strefy (`StructuredZoning`: kompleksy, brzegi jako komnaty) -> pakowanie pokoi -> ściany działowe
+(`StructuredZoning.partitions`, po pakowaniu, własny RNG — nie zmienia reszty układu) -> siatka -> kanały
+(`LinearFeatureLayout`) -> przejścia czyszczące -> `_drop_walled_canal_cells` -> `_fill_dead_end_slivers` ->
+obiekty (`GatePlanner.select` -> `ObjectPlanner` -> `WallDecorPlanner` -> `GatePlanner.emit`) -> spawny.
+- **Kanały:** sieć pień + odnogi (R1–R7 z prototypu), mokre / puste wg szumu stref (`zone_frequency` 0.006 —
+  drobniejszy dawał błędy zwężeń z korytarzem serwisowym), kładki co 24–28 kratek z prześwitem, barierki z
+  przerwami i urwaniami (warstwa `Rails`), doły w pustym korycie, puste koryto terenem `empty_canal` + `foliage`.
+- **Końce kanałów:** mogą wpływać pod ścianę we wszystkich kierunkach (`canal_end_under_wall`); 30 % zamkniętych
+  (`canal_end_face_chance`), puste zawsze zamknięte. Każdy koniec ma lico kanału — „nad wodą” (zamknięty) albo
+  „pod wodą” (widoczny tylko górny rant, `canal_end_face_rim_over_wall`), narożniki ramy IN_SE / IN_SW na `Rails`.
+  Nad północnym końcem duża krata w łuku: zwykła, zatopiona (otwarty mokry koniec, przykryta ściekiem) albo
+  obniżona na licu kanału (pusty koniec).
+- **Kompleksy:** ściany działowe (`complex_partitions`): poprzeczne co 4–7 kratek, równoległe pasy, zawinięcia
+  L / U (pokoiki z małym wejściem — decyzja usera: „mogą być, a nawet często”), drzwi 1–3, jedna widoczna grubość
+  na ścianę (2 albo 3; pozioma o `facade_extra` 2 kratki grubsza, bo dół zajmuje lico). Grubość 1 user zrobi ręcznie.
+- **Pokoje:** 10–17 × 9–14, korytarze z pokojami na zakrętach, ściany szerokości 1 (`wall_1w_*`), krawężniki
+  na progach, kratownice w posadzce (`grating`).
 
-## Architektura i kluczowe reguły (2026-10-05)
+## Ściany i lico
+Lico 3H / 4H z wariantami A / B, niezależny top, lico z cieniem we wnęce i przy filarze (tylko w rzędach, do których
+filar sięga), łącznik 3H↔4H z kafli paczki, boki ścian wariant C, materiał lica (kaflowe / drewniane) na cały
+obszar albo ciąg lica. Filary w rytmie przęseł (3 stany), wolnostojące i od strony rimu; ozdoby przęseł (łuki,
+kratki, lampy, ramki), łańcuchy na filarach, rzędy otworów w posadzce pod przęsłami. Narożnik rimu bez wariantu B
+bierze A (nie kafel jaskini).
 
-### 1. 100% Determinizm generatora
-- Wszystkie wywołania `Array.shuffle()` (wbudowane, nieseedowane) zastąpiono deterministycznym Fisher-Yates
-  `MapGeneratorBase.shuffle_array(arr, rng)` w `linear_network_generator.gd`, `structured_zoning.gd`,
-  `structured_room_packer.gd` i `canal_pass.gd`. Identyczny seed daje 100% identyczny wynik.
+## Obiekty
+- Duże obiekty (meble, skrzynie, beczki, wraki, filary wolnostojące, skrzynia quizu) co najmniej kratkę od wody
+  (`big_canal_gap` 1; przy ścianie wolno), głównie w pokojach i komnatach (`area_weights`, `room_density`,
+  `per_chamber`), zestawy z odstępem (jadalnia / magazyn / złom / szafa), krzesła przodem do stołu.
+- Wraki (grupa `wrecks`) to duże obiekty, gęstość 0.15. Połamane skrzynie z Furniture (`debris_src5`) usunięte —
+  duplikat wraków z Props. Drobnica (`clutter`: deski, patyki, miedź) bez ograniczeń.
+- Wyłączone: przełączniki na ścianie (`wall_switches`), bloki miedzi (miedziane kwadraty to płyty naciskowe).
+- Kontrola osiągalności (`ObjectPlanner._verify_reach`): przeszkody odcinające teren zdejmowane (model wroga,
+  promień 7 px); **kontrola B** z bramami — niżej.
 
-### 2. Spójność koryt i brak zakręcania w ścianę
-- **Przyczyna skręcania w ścianę:** w `canal_placer.gd` pomocnicza funkcja `_acid` zwracała `not GridUtils.is_walkable`,
-  co powodowało traktowanie ściany sąsiadującej z korytem jako kwasu i wywijanie piany/narożników w mur.
-  Zmieniono na `return false` — brzeg koryta przy ścianie jest idealnie prosty (W/E).
-- **Dowolna szerokość korytarzy wokół koryta (w tym 0 = styk ze ścianą):**
-  - Chodniki `lanes` o stałej szerokości obowiązują wyłącznie dla tuneli tranzytowych (`kind == "tunnel"`).
-  - W salach i kompleksach dopuszczalne jest `want[pk] = 0` (brak chodnika, woda dochodzi do litej ściany).
-  - Całkowicie wycięto funkcję `_ensure_canal_clearance` z `structured_layout_generator.gd`, która wymuszała sztuczny
-    pas podłogi wokół wszystkich koryt i niszczyła prepassy ścian.
+## Kolce i bramy
+- **Kolce** (`SpikeTrap`): TIMER (cykl z fazą z pozycji), PROXIMITY (jednorazowo), BARRIER (brama). Obrażenia:
+  procent HP drużyny, bez zabijania. Otwory w posadzce zawsze widoczne pod kolcami, bez przesunięcia. Dźwięk
+  pozycyjny (`sword-unsheathe2`, zasięg 240 px), przy schowaniu bramy niżej.
+- **Bramy** (`GatePlanner`): w korytarzach serwisowych i na zwykłych korytarzach (odcinek prosty 2–4, odcina
+  ≥ 40 kratek z pokojem, odstęp 20, `min_gates` 2). Najpierw brama, potem przełącznik ~14 kratek od niej po
+  stronie bliższej wejściu (łańcuch: przełącznik dalszej bramy za bliższą). Otwieracz: płyta naciskowa
+  (`plate_chance` 0.5) albo zamek na licu + klucz (klucz pokazuje się w zamku po włożeniu). Za każdą bramą
+  płyta-skrót (~4 kratki, strona z geometrii bramy), bramy w okolicy (`plate_share_radius` 12) dzielą płytę.
+  Kolce bram: zwykłe w siatce (wariant z przesunięciem wyłączony — nachodził na ściany).
+- **Stan:** `GateState` w `LevelStateManager` — klucze `gate_key:<id>`, zużyte `gate_key_used:<id>`, bramy
+  `sewer_gate:<id>`; kolce bramy w grupie `gate:<id>`; płyta może mieć kilka id po przecinku.
+- **Kontrola B:** przejście z wejścia przy zamkniętych bramach (brama otwiera się po dojściu do płyty albo klucza
+  i zamka); brama, której nic osiągalnego nie otwiera, nie powstaje (`gates_dropped_plan` / `_objects`).
+- **Nawigacja:** kolce bram SOLID — navmesh je omija, spawny nie lądują na kolcach; siatka stała, więc wrogowie
+  nie przechodzą przez bramę także po otwarciu (zostają w swojej strefie).
 
-### 3. Prepassy ścian 1H i 2H (Wall3HPass, Remove1hWallsPass, WallThicknessPass)
-- Reguły prepassów działają w `_run_wall_shape_passes` przed kładkami.
-- W `wall_3h_pass.gd` funkcja `_can_fill` sprawdza `not canals.cells.has(p)` — zapobiega to wylewaniu się ścian
-  w koryto, dzięki czemu ściany 2H powiększają się do 3H wyłącznie w stronę podłogi pokoju (z dala od wody).
-- Usunięcie `_ensure_canal_clearance` sprawiło, że po prepassach nie powstają już nowe niepoprawione ściany 1H/2H.
+## Do zrobienia
+- Winiety (biblioteka kompozycji z makiet) i gruz skupiskami; platformy ze schodami; rury z cieniem.
+- Mniej zdejmowania obiektów przy osiągalności na 250² (seed 7: 56 zdjętych).
+- Opcjonalnie: region nawigacji przez bramę włączany przy otwarciu; strefy mapy oddzielone bramami (pomysł usera
+  — tylko feedback, bez kodu).
+- Do wyjaśnienia przez usera: Props (0,4), Props (1,10–12).
 
-### 4. Podwójny szum (suche koryto vs ścieki)
-- Zastosowano dwupoziomowy szum binarny (0 i 1) do partycjonowania sieci kanałów na poziomie skrzyżowań:
-  koryta z poziomem 1 są puste (`dry_cells`), a z poziomem 0 zawierają ścieki.
-- Suche koryta są całkowicie odseparowane od kwasu (min dystans $\ge 17.0$ kratek w testach).
-
-### 5. Gwarancja przejść i kładki na osobnej warstwie (Bridges)
-- **Dedykowana warstwa kładek (`Bridges`):**
-  - Kładki (`BRIDGE_V`, `BRIDGE_H`) zostały wydzielone ze wspólnej warstwy `FloorDecor` na osobną warstwę TileMapLayer `Bridges` (`z_index = -1`, `y_sort_enabled = true`).
-  - Kolejność nanoszenia warstw: `Floor` -> `FloorDecor` (obrzeża/dekoracje) -> `Bridges` (kładki nad korytem) -> `Walls` -> `Platforms`.
-  - Warstwa jest w pełni obsługiwana przez `CaveGenerator` (`prepare_cave_layers`, `execute_cave_tiles`), `ProceduralLevel` (`_prepare_layers`, `_apply_job_async`) oraz podgląd eksploratora (`MapGeneratorPreview` posiada checkbox widoczności oraz inspekcję kafla kładki w HUD).
-- `BridgeConnectivityResolverScript.resolve(ctx, canal_layout)` uruchamia się przed dresingiem i nawigacją.
-- Gwarantuje dokładnie 1 składową spójną całej mapy. Wszystkie kładki mają stałą długość 6 kratek i opierają się
-  stabilnie na podłodze `FLOOR`. Kładka pozioma `BRIDGE_H` ma w atlasie `Props.png` pełne 6 kratek szerokości
-  (`origin = Vector2i(5, 12)`, `size = Vector2i(6, 2)`), zapewniając oparcie z obu stron 4-kratkowego koryta.
-
-### 6. Ciągłość opuszczonej krawędzi kanału (CANAL_FACE)
-- W `canal_placer.gd` funkcja `_is_face(ctx, water, p)` sprawdza wyłącznie `not water.has(n)` (gdzie `n = p + (0, -1)`).
-- Wcześniejszy warunek `and GridUtils.is_walkable(ctx.grid, n)` powodował, że gdy koryto biegło wzdłuż ściany
-  budynku, lico uskoku (`CANAL_FACE`, kafel 4, 13) nie było generowane, a kwas wdzierał się 1 kratkę wyżej aż pod sam
-  mur, tworząc dziurę w krawędzi (np. seed 324091, kafelek 74, 241).
-- Po poprawce lico uskoku biegnie w sposób w 100% ciągły wzdłuż całego północnego biegu koryta, a tafla kwasu
-  poniżej (`CANAL_WATER N`, kafel 12, 0) układa się w prostą, nieprzerwaną linię brzegową.
-
-### 7. Skalowanie sieci liniowej i dressing kanałów (Faza F2)
-- **Barierki ochronne na całej mapie (`CanalDressing`):**
-  - W `StructuredReservations._can_claim_cell` odblokowano stawianie obiektów `RAIL` na pasach ruchu `LANE` (`blocks_movement = true`). Dzięki temu barierki generują się wzdłuż wszystkich chodników przy korycie (wzrost z 2 odcinków do 36–44 odcinków, 400–700 kratek na planszę).
-  - W `CanalPlacer` barierki nanoszone są na warstwę `Walls` z y-sortem i kolizjami `physics_layer_0` z atlasu `Props.png`, nie kolidując z obrzeżem `CANAL_BANK` na `FloorDecor`.
-- **Czarne doły (`pits`) w suchym korycie:**
-  - Dodano pola `pits: Array[Rect2i]` oraz `pit_cells: Dictionary` w `LinearFeatureLayout`.
-  - W `CanalDressing._place_pits` wprowadzono bezpieczny algorytm generowania dołów w suchych segmentach koryta z zachowaniem marginesów od kładek, prześwitów i skrzyżowań.
-  - Zdefiniowano nową rolę `CANAL_PIT` w `TileModuleRole` oraz profilu `sewer_map_tiles.tres` z wariantami:
-    - `TOP`: `Vector2i(18, 10)` (górna krawędź uskoku w dół),
-    - `TOP_B`: `Vector2i(19, 10)` (wariant alternatywny górnej krawędzi),
-    - `VOID`: `Vector2i(17, 10)` (czarna otchłań / dno dołu),
-    - `BOTTOM`: `Vector2i(18, 11)` (dolna krawędź dna dołu).
-  - `CanalPlacer` nanosi kafle dołów na warstwie `Floor`, zachowując pełną ciągłość `CANAL_FACE`.
-
-- Katalog `objects_sewer.json` (włączony w `sewer.json`): skrzynie (alias `chest`), stół + krzesła
-  (towarzysze), skrzynki / beczki przy ścianach (skupiska), wraki, bloki miedzi, kratki ściekowe 2×2–4×4
-  (DECAL na całej podstawie), otwory w posadzce, drobnica, butelki / kubki — wszystko kafle `sewer.tres`; na licu (`mount: facade`):
-  lampy, okrągłe kratki, przełączniki, łuki odpływów. Opis mechanizmu: `kontekst/obiekty.md`.
-- Nieużyte z atlasu: regał / schody (Props 0–1 × 6–8 — wygląda na wyjście, może grafika portalu),
-  skrzynia ścieków (8–9 × 0–3), łańcuch (10, 0–2), filar (Tiles 7, 3–6), rury.
-
-### 8. Korytarze serwisowe, separacja ścianą i blokada kładek na zakrętach (2026-10-06, commit `cbe4b35`)
-- **Sekwencje kompleksów z korytarzami (`proto_layout10.py`):**
-  - W `structured_zoning.gd` przywrócono logikę sekwencji `['hall', 'walled', 'hall']` generującą hale rozdzielone wąskimi sekcjami obmurowanych koryt (`walled`).
-  - Zaimplementowano drążenie równoległych korytarzy serwisowych z bramami (`gates`) łączących sąsiednie kompleksy.
-- **Oddzielenie korytarza serwisowego od ścieków ścianą:**
-  - Zdefiniowano strefę ochronną `extra_forb` obejmującą obmurowane koryto (`WALL_H` / `WALL_V`), która wymusza pas litej ściany między korytem a korytarzem serwisowym.
-  - Podzielono wybór punktów granicznych na `prev_valid` i `next_valid` leżących po właściwych stronach osi koryta, zapobiegając konieczności przecinania wody.
-- **Wzmocnienie A\* pathfindera (`structured_pathfinder.gd`):**
-  - Dodano heurystykę Manhattan ($f = g + h$) do kolejki priorytetowej `MinHeap` w A\*, co wyeliminowało błędy wyczerpania limitu 8000 iteracji przy długich trasach.
-  - Wprowadzono flagę `forbid_water = true` (aktywną dla korytarzy serwisowych) — A\* bezwzględnie omija komórki wody, a prostoliniowy wlot drzwiowy sprawdza kolizje z wodą i `extra_forb`.
-- **Bezwzględny zakaz kładek na zakrętach, narożnikach i w sekcjach `walled`:**
-  - W `_add_crossing_bridges` wprowadzono całkowitą blokadę stawiania kładek na segmentach kanału typu `walled`.
-  - Wprowadzono margines bezpieczeństwa $\ge 4$ kratek od obu końców segmentu kanału (`seg.from` i `seg.to`), co uniemożliwia generowanie kładek na załamaniach, narożnikach i skrzyżowaniach koryt.
-  - Wyłączono generowanie kładek dla korytarzy serwisowych (`is_service == true`).
-  - W `canal_dressing.gd` i `bridge_connectivity_resolver.gd` dodano pomijanie odcinków `walled` przy montażu barierek oraz kładek awaryjnych.
-- **Status prac nad terenem:**
-  - Mimo przejścia testów technicznych (13/13 i 6/6 PASS, 100% determinizm), układ przestrzenny korytarzy wzdłuż koryt nie spełnił jeszcze oczekiwań wizualnych usera (wymaga doprecyzowania oddzielenia ścianami i relacji korytarz-ścieki).
-  - Prace nad generowaniem terenu ścieków zostały wstrzymane — zostaną podjęte w kolejnej sesji z modelem Claude Opus.
-
-## Paczka Sewer v2 (2026-10-08, gałąź `sewer-structured`, CienMgly do `def6ce1`)
-Nowa wersja paczki autora obok v1 — **gra dalej na v1** (`sewer.json` / `sewer.tres`); v2 to osobny zestaw:
-`resources/maps/sewer_v2.tres` (źródła: 0 Tiles, 1 Props, 2 Water, 3 Dungeon_Tiles free packa = puste koryto,
-4 `Extras.png` = ręczne kafle z v1, 5 Furniture free packa = dzbany / worki), profil
-`profile/sewer_v2_map_tiles.tres`, `config/sewer_v2.json`, katalog `config/objects_sewer_v2.json`. Grafika paczki
-w hoście `assets/pixel_crawler/environments/sewer/Assets/` (user commituje sam). Znaczenie kafli atlasu —
-pamięć `quiz-rpg-sewer-v2-atlas`.
-
-- **Edytor przypisań** `scenes/tools/tile_profile_editor.tscn` (@tool, od strony atlasu: kafel -> rola / wariant /
-  przesunięcie / warstwa / alternatywa / waga): nowy profil, kopia profilu, zmiana TileSetu zestawu, podgląd
-  wzoru (np. profil v1). Zasoby nie-@tool są w edytorze atrapami — narzędzie działa na polach, nie metodach.
-- **Ściany:** lico 3H / 4H bez topu (top z krzyża pełnej ściany), warianty A/B, końce, **lico z cieniem**
-  `SHADE_L / SHADE_R / SHADE_LR` (`FacadePlacer.recess_shade`): we wnęce (sąsiedni mur wystaje do przodu) na
-  całej wysokości; przy filarze — lico za filarem LR, kolumny obok od strony filara, **tylko w rzędach, do
-  których filar sięga** (`ctx.pillar_feet` = stopa -> najwyższy rząd filara; `_try_shaded_module` składa
-  wariant cienia część po części). Narożniki zewnętrzne zwykłe / z cieniem (`SHADE`), łącznik 3H↔4H złożony
-  skryptowo (2 dolne kafle narożnika 4H + środek 3H + płaska krawędź), boki ściany wariant C (co ~3.,
-  hash pozycji), brak lic 2H w profilu. Wariant z cieniem zawsze za `FacadePlacer.has_variant` — brakujący
-  wymuszony wariant dałby legacy kafel wpisu (parytet v1).
-- **Kanał:** woda z `Water.png` bez kolizji; brzeg w układzie ścian (miedziany krzyż), lico kanału z rimem jako
-  jeden moduł (1×2: a / b / c, zacienione L / R / LR, końce proste, narożniki OUT NW / NE); kolizje tylko na
-  oteksturowanej miedzi, pod kładką wersje `_OPEN` bez kolizji. Barierki = moduły 2-kaflowe na nowej warstwie
-  **`Rails`** (y-sort / z jak `Walls`), od północy wariant `_N` kafel wyżej; przy murze mogą wejść za ścianę,
-  przed fasadą losowo (`rail_wall_front_chance` 0.5).
-- **Obiekty** (`objects_sewer_v2.json`, bez krat podłogowych — user robi je terenem): obiekty > 1×1 są w TileSecie
-  JEDNYM kaflem `size_in_atlas` (realizer stawia kotwicę); skrzynie / beczki 1×2 z `stack` (alternatywa 1,
-  y-sort +17 — tylna rysuje się nad przednią), wraki, szafa, drobiazgi, zamki i ramki na licu, dziura tunelu
-  (dekor lica 3H). Katalog: klucz `stack`, montaż `rim`, kafel `tiles` z opcjonalną alternatywą (5. element).
-  Dekory lica filtrowane `facade_h`. Grafika obiektu może zasłaniać wodę / barierki — blokują tylko kratki
-  zajętości (woda / kładki / barierki = zakaz).
-- **Filary:** 3 stany (pełny / lekko / bardzo zniszczony, wagi gęstością) przy licu 3H i 4H (kratkę niżej niż
-  wcześniej), wolnostojące (podstawa alternatywa 1 z kolizją), od strony rimu moduł 1×2 (y-sort 39 / 23) w
-  rytmie `[4, 5]`.
-- **Do zrobienia v2:** lico drewniane jako wariant kaflowego (osobny szum, odcinki między filarami), ściana
-  szerokości 1 (wypustki), krawężniki (12–14,8 N/S; kol. 15 E/W), krzyż platform + schody na platformę, top
-  lica jako osobna rola, skrzynia quizu otwarta / zamknięta, rury z cieniem zależnym od wysokości (na końcu),
-  potem przełączenie gry na v2 i galeria seedów. Do wyjaśnienia przez usera: Props (0,4) zielony kamień,
-  Props (1,10–12) kształt U; foliage v2 nieprzejrzany.
-
-## Testy diagnostyczne i integracyjne
-- `tests/diag_sewer_full_test.gd`:
-  - Weryfikuje determinizm 100%, zasięg kanałów (>= 50%), separację suche koryto <-> kwas (odległość >= 17 kratek),
-    kładki o długości 6 oparte na podłodze, oraz pełną spójność mapy (dokładnie 1 składowa).
-  - Wynik: **PASS** na seedach 119, 42, 777, 2026 (rozmiary 160x160 i 250x250).
-- `tests/diag_sewer_slice_fixture.gd`:
-  - Weryfikacja 13 asercji integracyjnych: filary lica, barierki z przerwami na kładkach, winieta z wolną strefą dojścia,
-    osiągalność geometryczna wejście-wyjście, kolizje barierek i poprawność bakingu NavMesh (ścieżka wejście-wyjście).
-  - Wynik: **PASS 13 / FAIL 0**.
-- Lokalne skrypty pomocnicze: `render_sewer.gd`, `diag_wall_steps.gd`, `diag_spawn_cells.gd`, `diag_enemy_drift.gd`.
-
+## Testy (lokalne, `modules/quiz_rpg/tests/` poza gitem)
+- `render_sewer_level.gd` — render poziomu jak w grze (okno, `--screen 1`): `RS_SEED`, `RS_SIZE`, `RS_ENT`,
+  `RS_FULL`, `RS_SCALE`, `RS_CROPS`, `RS_OUT`.
+- `check_gates.gd` — fizyka bram (bariera, zamek bez klucza, klucz, płyta, zapis stanu); `--fixed-fps 60`.
+- `probe_gate_reach.gd` (kontrola B, navmesh na kolcach — `NAV=1`, płyty-skróty po złej stronie),
+  `check_gate_drop.gd` (wymuszone odrzucenie bramy), `probe_gates.gd`, `probe_gate_objs.gd`, `probe_partitions.gd`,
+  `probe_slivers.gd`, `probe_big_gap.gd`, `probe_edge_gap.gd`, `probe_count.gd`, `probe_region.gd` (mapa znakowa).
+- Przed testem `--check-only` (błąd parsowania = test wisi), krótkie timeouty.
