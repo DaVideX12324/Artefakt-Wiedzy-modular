@@ -182,6 +182,10 @@
   - Klucz: otwiera skrzynię od razu.
   - Wytrych: otwarcie uruchamia **sekcję quizu**; **tier skrzyni** wyznacza trudność i liczbę pytań
     (porażka — do ustalenia: wytrych przepada / skrzynia się blokuje / można spróbować znowu).
+- **TODO (priorytet, zgłoszenie 2026-10-10): przedmioty „klucz uniwersalny” i „wytrych uniwersalny”** — na pewno do
+  zrobienia. Jako przedmioty z ekwipunku (`ItemData`) działają na **dowolnej** zamkniętej skrzyni (bez dopasowania
+  `lock_id`), w odróżnieniu od kluczy fabularnych. Klucz otwiera od razu, wytrych odpala quiz skrzyni (tier skrzyni =
+  trudność). Wypadają z wrogów (`loot_manager.gd`), klucze dużo rzadziej; dodać do paska/menu użycia przy skrzyni.
 - Punkty zaczepienia: `scripts/interactables/chest.gd` (`lock_id`, `is_locked`, `chest_item_id`),
   skrzynie z generatora obiektów (INTERACTIVE `chest`, `unique_id` "<id>_<x>_<y>"), loot z wrogów
   (`autoloads/loot_manager.gd`, `enemy_data.encounter_tier`), quiz (`scripts/quiz/` — kontrolery
