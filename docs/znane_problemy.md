@@ -179,6 +179,15 @@
   teksty walki i menu są po polsku wprost w zasobach i skryptach. Do ustalenia: format kluczy (np. `item.potion.name`),
   jedno miejsce wczytywania (autoload tłumaczeń), migracja istniejących `.tres`.
 
+### Skalowanie wrogów przy kilkunastu mapach (system tierów)
+- **TODO (zgłoszenie 2026-10-11):** dziś są 4 tiery wrogów (HP 100 / 350 / 900 / 2200, ATK 26 / 52 / 85 / 150, DEF 30 / 60 / 95 / 140;
+  umiejętności = tier − 1, boss 3; XP 200 × 2^(tier−1)) — wystarcza na 2–3 mapy, nie na kilkanaście. XP rosnące 2^tier wybuchnie,
+  a stałe skoki ×2–3 nie pasują do krzywej gracza (HP 334 → 1402, poziomy 1–20, później do 100).
+- **Kierunek do rozważenia:** staty z **poziomu wroga** (`enemy_level`) po jednej krzywej dopasowanej do krzywej bohatera, a archetyp
+  (wojownik / łotrzyk / mag / boss) jako mnożniki HP / ATK / DEF zamiast ręcznych liczb w ~75 plikach; `encounter_tier` zostaje jako klasa
+  trudności (liczba umiejętności, XP, wielkość grup); mapa = zakres poziomów wrogów; XP jako ułamek XP potrzebnego graczowi na kolejny poziom.
+  Generator `.tres` z krzywej zamiast edycji ręcznej. To zadanie projektowe (Opus), razem z kalibracją na FNaFB.
+
 ### Zawartość nisz out, sekretne pokoje, klucze i wytrychy do skrzyń
 - Zgłoszenie 2026-09-29. Dziś nisze z modułów out (`tiling/niche_placer.gd`, szansa
   `secret_niche_spawn_chance`, kandydaci `EdgeContext.is_secret_niche_candidate`) są tylko kaflami ścian.
