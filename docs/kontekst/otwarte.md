@@ -12,8 +12,9 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
      [scieki.md](scieki.md) („Paczka Sewer v2”). Gra dalej na v1.
 2. **Generator obiektów** — dokończyć fazę F5 (niszczalne obiekty, dźwignie, podgląd).
 3. ~~**Tła walki 16:9** — wyświetlanie na pełny ekran (1920×1080) w `folder_battle_background.gd`, przezroczysty pas dolny w `quiz_combat_ui.tscn` i podgląd 16:9~~ — zrobione 2026-10-06 (commit `deb8866`).
-4. **Grywalne postacie — teammate'owie** (`player.gd`, followerzy, menu).
+4. **Grywalne postacie — teammate'owie, klasy i 16 broni per strefa** — specyfikacja w [klasy_postaci_i_bronie.md](klasy_postaci_i_bronie.md). Do wdrożenia w kodzie przez **Claude Opus**: pole `character_class` w `HeroData`, `allowed_classes` w `ItemData`, podział `PlayerStats` na aktywną drużynę (max 4) i rezerwę (`reserve_party`), orszak followerów w `player.gd`, ekran zarządzania składem. Gemini przygotowuje zasoby `.tres` broni i wycięte ikony.
 5. **Miasto z modularnych zasobów paczki free**.
+6. **Balans i skalowanie walki (HP, ATK, DEF, TTK)** — specyfikacja i diagnoza w [balans_i_skalowanie.md](balans_i_skalowanie.md). Do wdrożenia w sesji z **Claude Opus**: rekalibracja mnożników w `QuizRpgSkillMath` (DEF ×1.8 zamiast ×2.0), korekta burst damage wczesnych skilli (Rzut Cylindrem), rebalans statystyk przeciwników pod tiery stref i symulator TTK (`simulate_combat_balance.gd`).
 
 - Do sprawdzenia przez usera w grze (2026-10-04): przejścia z odsuniętymi spawnami (samouczek <-> jaskinia),
   bieg / chód (opcje w Sterowaniu), okno zmaksymalizowane / bez ramki / ręczny rozmiar, menu deweloperskie
@@ -35,8 +36,7 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
   kafli co zwykły szczyt); bez niego szczyt nad przejściem blokuje. Opis w [sciany_i_kafle.md](sciany_i_kafle.md).
   Przejść jest mało (geometria: na 6 mapach 2 miejsca) — user chce częściej; do ustalenia, jak (np. ścianka
   o głębokości 3 za niszą wycinana celowo).
-- **Tryb walki**: losowe spotkania jak w JRPG; okna Umiejętności / Przedmioty w stylu RPG Makera — opis w
-  `docs/znane_problemy.md` („Do zrobienia”).
+- **Tryb walki**: ~~okna Umiejętności / Przedmioty w stylu RPG Makera~~ — zrealizowane w modelu danych i UI (patrz [walka.md](walka.md)), gotowe zasoby skilli gracza i wrogów, statusy i przedmioty. Pozostało dopracowanie logiki losowych spotkań w terenie wg `docs/znane_problemy.md`.
 - **Każda nisza out z losową zawartością, sekretne pokoje, klucze i wytrychy (quiz wg tieru skrzyni)** — pomysł
   usera, opis w `docs/znane_problemy.md` („Do zrobienia”).
 - **Obiekty**: obejrzeć w eksploratorze map, czy duże grzyby nie są za rzadkie przy ścianach
