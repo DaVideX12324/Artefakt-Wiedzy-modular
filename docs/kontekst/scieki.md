@@ -73,6 +73,14 @@ Podwyższona część pomieszczenia pod jego ścianą — wspólny `PlateauPass`
   licem i schodami bez terenu, poza górnym rzędem (krawędź krzyża, nad licem wystają tylko poręcze).
 - **Obiekty:** nie na barierach, obwódka wokół schodów, rysunek dużych obiektów nie wchodzi na lico ani schody.
 
+## Korytarze-schody i efekt wysokości
+- `StructuredStairs` (`structured_layout.corridor_stairs`): prosty pionowy korytarz (ściany po obu stronach, szer. ≤ 4,
+  dł. ≥ 4), który jest jedynym przejściem do obszaru na północ (bez wejścia mapy, 30–900 kratek) -> cały to schody
+  w górę (`canals.stair_corridors` / `stair_cells`; stopnie L / M / R modułu schodów platform, `CorridorStairsPlacer`).
+  Bez obiektów, bram i ich otwieraczy, kratownic, krawężników, platform, mchu.
+- `HeightVeil` (`scripts/maps/height_veil.gd`): po wejściu `veil_rows` (4) kratek schodów w górę albo w obszarze nad
+  nimi reszta mapy znika pod kolorem voidu (płynnie); widać obszar, schody i ich ściany.
+
 ## Ściany i lico
 Lico 3H / 4H z wariantami A / B, niezależny top, lico z cieniem we wnęce i przy filarze (tylko w rzędach, do których
 filar sięga), łącznik 3H↔4H z kafli paczki, boki ścian wariant C, materiał lica (kaflowe / drewniane) na cały
@@ -90,8 +98,11 @@ bierze A (nie kafel jaskini).
 - Wraki (grupa `wrecks`) to duże obiekty, gęstość 0.15. Połamane skrzynie z Furniture (`debris_src5`) usunięte —
   duplikat wraków z Props. Drobnica (`clutter`: deski, patyki, miedź) bez ograniczeń.
 - Wyłączone: przełączniki na ścianie (`wall_switches`), bloki miedzi (miedziane kwadraty to płyty naciskowe).
-- Kontrola osiągalności (`ObjectPlanner._verify_reach`): przeszkody odcinające teren zdejmowane (model wroga,
-  promień 7 px); **kontrola B** z bramami — niżej.
+- Na licu: ramki (`wall_frames`) tylko na licu 4H, kratkę nad bazą (`facade_dy` -1). Części obiektów nad bazą lica
+  z niższym `y_sort_origin` niż lico (22) idą na warstwę `<warstwa>_up` (y_sort_origin 24) — lico ich nie przykrywa.
+- Kontrola osiągalności (`ObjectPlanner._verify_reach`): z każdego odciętego kawałka zdejmowana jedna przeszkoda
+  (najmocniej przylegająca), potem od nowa (model wroga, promień 7 px); ostatnie rundy po staremu (wszystko
+  w promieniu 2); **kontrola B** z bramami — niżej.
 
 ## Kolce i bramy
 - **Kolce** (`SpikeTrap`): TIMER (cykl z fazą z pozycji), PROXIMITY (jednorazowo), BARRIER (brama). Obrażenia:
@@ -107,13 +118,15 @@ bierze A (nie kafel jaskini).
   `sewer_gate:<id>`; kolce bramy w grupie `gate:<id>`; płyta może mieć kilka id po przecinku.
 - **Kontrola B:** przejście z wejścia przy zamkniętych bramach (brama otwiera się po dojściu do płyty albo klucza
   i zamka); brama, której nic osiągalnego nie otwiera, nie powstaje (`gates_dropped_plan` / `_objects`).
-- **Nawigacja:** kolce bram SOLID — navmesh je omija, spawny nie lądują na kolcach; siatka stała, więc wrogowie
-  nie przechodzą przez bramę także po otwarciu (zostają w swojej strefie).
+- **Nawigacja:** kolce bram SOLID — navmesh omija zamkniętą bramę, spawny nie lądują na kolcach. Po otwarciu
+  `GateNav` (`scripts/maps/gate_nav.gd`) przebudowuje kawałki siatki z bramą bez kolców otwartych bram
+  (`NavOutlines.rebake_chunks`) — wrogowie przechodzą; bramy otwarte w zapisie od razu przy wczytaniu.
 
 ## Do zrobienia
 - Rury z cieniem; kolejne winiety (wyjście ze schodami między filarami, skrzynia przy ścianie, dzbany / worki przy
-  barierce); platformy: korytarz = schody, schody N / E / W (gdy będą kafle).
-- Mniej zdejmowania obiektów przy osiągalności (250² seed 7: 56; 160² seed 6: 17).
+  barierce); schody platform N / E / W (kafle robi user — wtedy role w `platform_tiles`); dziura w licu jako
+  odpowiednik nisz OUT (user da przezroczystą teksturę).
+- Zdejmowanie obiektów: 250² seed 7 19 (było 56), 160² 0–6.
 - Podpięcie ścieków do gry (scena w `levels/`, szczury w puli wrogów).
 - Opcjonalnie: region nawigacji przez bramę włączany przy otwarciu; strefy mapy oddzielone bramami (pomysł usera
   — tylko feedback, bez kodu).
