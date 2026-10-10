@@ -155,7 +155,7 @@ Wszystkie parametry determinujące charakter planszy przenosimy do sekcji w comp
   - `pillar_spacing_options`: [4, 5];
   - `patterns`: ["A-A-A", "A-B-A", "A-B-B-A"];
   - `pillar_cap`: true;
-- `"vignettes_catalog"`: `"res://modules/quiz_rpg/resources/maps/vignettes/sewer_vignettes.json"`.
+- winiety: klucz `"vignettes"` w katalogu obiektów (`objects_sewer.json`; osobny `vignettes_catalog` usunięty).
 
 Dzięki temu konfiguracja kolejnej mapy strukturalnej (np. Miasta) wymaga jedynie nowego pliku JSON oraz
 katalogu obiektów/winiet, bez dopisywania nowego kodu układu.
@@ -404,7 +404,7 @@ generatora układu w `scripts/generation/structured/`**.
 
 ### Warstwa specyficzna dla ścieków
 - Nowe pliki danych:
-  - `resources/maps/vignettes/sewer_vignettes.json` (szablony kompozycji dla ścieków);
+  - szablony kompozycji (winiety) w `resources/maps/config/objects_sewer.json` (`"vignettes"`);
   - `resources/maps/mockups/sewer_m1.json`, `sewer_m2.json`, `sewer_ext.json`.
 - Istniejące / modyfikowane moduły:
   - `cave_generator.gd` (rozpoznawanie flagi `"layout": "structured"`);
