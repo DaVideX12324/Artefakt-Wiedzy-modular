@@ -139,7 +139,7 @@ Wprowadzony i zintegrowany model umiejętności bazuje na strukturze z FNaFB / R
   - `variance`: losowy rozrzut obrażeń (np. `0.2` = ±20%).
   - `hits` i `hit_interval`: serie wielokrotnych trafień z odstępem czasowym.
   - `success_rate`: bazowa szansa trafienia (u gracza modyfikowana poprawnością odpowiedzi w quizie).
-  - `bonus_vs_status` oraz `bonus_multiplier`: zwielokrotnienie obrażeń, jeśli cel ma określony status (np. `lead_stinger` zadaje ×2,1 obrażeń na zatrutym wrogu).
+  - `bonus_vs_status` oraz `bonus_multiplier`: zwielokrotnienie obrażeń, jeśli cel ma określony status (np. `piercing_shriek` zadaje ×2,1 obrażeń na zatrutym wrogu).
 - **Cele umiejętności (`Target`)**:
   - `ONE_OPPONENT` (0): pojedynczy wróg.
   - `ALL_OPPONENTS` (1): wszyscy wrogowie.
@@ -181,26 +181,26 @@ Pula umiejętności bohatera liczy dokładnie 12 pozycji (2 startowe, 3 z poziom
 |---|---|---|---|---|---|
 | `leczenie` | Leczenie | Poziom 1 | 20 SP | Pojedynczy sojusznik | Leczy 30% maks. HP celu. Działa także w menu (`ALWAYS`). |
 | `mocny_atak` | Mocny Atak | Poziom 1 | 25 TP | 1 wróg | Cios z mnożnikiem obrażeń ×1,5. |
-| `tophat_toss` | Rzut Cylindrem | Poziom 5 | 24 SP | 1 wróg | 2 trafienia. Wzór: `(100 + ATK×3.4 - DEF×2) × 1.35`. |
-| `lead_stinger` | Krzyk Prowadzącego | Poziom 10 | 29 SP | 1 wróg | Wzór: `(105 + ATK×3.5 - DEF×1.6) × 2.0`. Szansa 15% na zatrucie. Zadaje ×2,1 obrażeń celom z trucizną. |
-| `toreador_march` | Marsz Toreadora | Poziom 15 | 25 TP | 1 wróg | 9 trafień po 0,15 obrażeń. Szansa 70% na uśpienie celu przy każdym ciosie. |
-| `bunny_hop` | Królicze Skoki | NPC / Zdarzenie | 10 SP | 1 wróg | 5 trafień po `(20 + ATK×1.6 - DEF×0.8)`. 4% szansy na ogłuszenie per hit. |
-| `backup_bash` | Cios Zapasowy | NPC / Zdarzenie | 50 SP | 1 wróg | Stałe 25 000 obrażeń. Niska szansa trafienia (8% sukcesu). |
-| `fearless_flight` | Nieustraszony Lot | NPC / Zdarzenie | 30 SP | 1 wróg | Atak magiczno-fizyczny: `(400 + MAT×2.0 - MDF×2.0)`. |
-| `plank_walk` | Spacer po Desce | NPC / Zdarzenie | 50 SP | 1 wróg | `(100 + ATK×1.6 - DEF×0.8)`. 50% szansy na nałożenie paraliżu. |
-| `rushdown` | Szturm | NPC / Zdarzenie | 80 SP | 1 wróg | 6 uderzeń pazurami: `(200 + ATK×1.6 - DEF×0.8)`. |
-| `pizza_pass` | Podanie Pizzy | NPC / Zdarzenie | 50 SP | Pojedynczy sojusznik | Stałe leczenie 1000 HP. Działa także w menu (`ALWAYS`). |
-| `caffeine_revival`| Kofeinowe Ożywienie | NPC / Zdarzenie | 100 SP | Poległy sojusznik | Wskrzeszenie poległego sojusznika i uleczenie 250 HP. Działa w menu. |
+| `double_throw` | Podwójny Rzut | Poziom 5 | 24 SP | 1 wróg | 2 trafienia. Wzór: `(100 + ATK×3.4 - DEF×2) × 1.35`. |
+| `piercing_shriek` | Przeszywający Krzyk | Poziom 10 | 29 SP | 1 wróg | Wzór: `(105 + ATK×3.5 - DEF×1.6) × 2.0`. Szansa 15% na zatrucie. Zadaje ×2,1 obrażeń celom z trucizną. |
+| `lullaby` | Usypiająca Melodia | Poziom 15 | 25 TP | 1 wróg | 9 trafień po 0,15 obrażeń. Szansa 70% na uśpienie celu przy każdym ciosie. |
+| `leap_series` | Seria Skoków | NPC / Zdarzenie | 10 SP | 1 wróg | 5 trafień po `(20 + ATK×1.6 - DEF×0.8)`. 4% szansy na ogłuszenie per hit. |
+| `reckless_blow` | Ryzykowny Cios | NPC / Zdarzenie | 50 SP | 1 wróg | Stałe 25 000 obrażeń. Niska szansa trafienia (8% sukcesu). |
+| `aerial_strike` | Atak z Powietrza | NPC / Zdarzenie | 30 SP | 1 wróg | Atak magiczno-fizyczny: `(400 + MAT×2.0 - MDF×2.0)`. |
+| `shove` | Zepchnięcie | NPC / Zdarzenie | 50 SP | 1 wróg | `(100 + ATK×1.6 - DEF×0.8)`. 50% szansy na nałożenie paraliżu. |
+| `onslaught` | Natarcie | NPC / Zdarzenie | 80 SP | 1 wróg | 6 uderzeń pazurami: `(200 + ATK×1.6 - DEF×0.8)`. |
+| `hearty_meal` | Pożywny Posiłek | NPC / Zdarzenie | 50 SP | Pojedynczy sojusznik | Stałe leczenie 1000 HP. Działa także w menu (`ALWAYS`). |
+| `revive_tonic`| Tonik Ożywienia | NPC / Zdarzenie | 100 SP | Poległy sojusznik | Wskrzeszenie poległego sojusznika i uleczenie 250 HP. Działa w menu. |
 
 ## Umiejętności Towarzyszy w `resources/skills/`
 Umiejętności przygotowane dla pozostałych członków drużyny:
-- **Bonnie**: `riff_wave` (Fala Riffu, lv 10, zatrucie), `motivation_jam` (Motywacyjny Jam, lv 20, buff atk_up).
-- **Chica**: `mama_bird` (Matka Ptaków, lv 20, leczenie obszarowe 40% HP dla wszystkich sojuszników).
-- **Foxy**: `speed_share` (Podział Szybkości, lv 15, podbicie TP drużyny), `sea_shanty` (Szanta Żeglarska, lv 20, uciszenie i debuff wroga).
+- **Bonnie**: `sound_wave` (Fala Dźwięku, lv 10, zatrucie), `rousing_tune` (Porywająca Melodia, lv 20, buff atk_up).
+- **Chica**: `nurturing_care` (Matka Ptaków, lv 20, leczenie obszarowe 40% HP dla wszystkich sojuszników).
+- **Foxy**: `share_tempo` (Podział Szybkości, lv 15, podbicie TP drużyny), `sea_chant` (Szanta Żeglarska, lv 20, uciszenie i debuff wroga).
 - **Balloon Boy (BB)**:
-  - `token_throw` (Rzut Żetonami, lv 5, 3 losowe cele, 3 trafienia).
-  - `flying_fright` (Latający Postrach, lv 10, silne uderzenie śmigłem, mnożnik 1.5).
-  - `smoke_ring` (Pierścień Dymu, lv 15, 50% szansy na oślepienie).
+  - `coin_barrage` (Grad Monet, lv 5, 3 losowe cele, 3 trafienia).
+  - `dive_attack` (Atak Nurkujący, lv 10, silne uderzenie śmigłem, mnożnik 1.5).
+  - `smoke_cloud` (Chmura Dymu, lv 15, 50% szansy na oślepienie).
   - `death_enrage` (Szał Zniszczenia, lv 20, combo: 9 trafień obszarowych po wszystkich wrogach za 50 SP i 50 TP).
 
 
