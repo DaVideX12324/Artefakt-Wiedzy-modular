@@ -172,6 +172,13 @@
    do gry jak zwykłe wejście (przycisk akcji albo wróg pod kursorem). Pomysł: ignorować kliknięcia przez chwilę
    po `NOTIFICATION_APPLICATION_FOCUS_IN` (albo gdy okno nie miało fokusu w chwili kliknięcia).
 
+### Nazwy w zmiennych / stałych i tłumaczenia w JSON-ach
+- **TODO (zgłoszenie 2026-10-10):** wszystkie nazwy własne w grze (przedmioty, umiejętności, statusy, wrogowie, postacie,
+  nazwy menu i komunikaty) mają pochodzić ze **zmiennej / stałej / makra**, a nie być wpisane na sztywno w kodzie i
+  `.tres`, oraz mieć **tłumaczenia w plikach JSON** (klucz -> tekst per język). Dziś `display_name`, `description`,
+  teksty walki i menu są po polsku wprost w zasobach i skryptach. Do ustalenia: format kluczy (np. `item.potion.name`),
+  jedno miejsce wczytywania (autoload tłumaczeń), migracja istniejących `.tres`.
+
 ### Zawartość nisz out, sekretne pokoje, klucze i wytrychy do skrzyń
 - Zgłoszenie 2026-09-29. Dziś nisze z modułów out (`tiling/niche_placer.gd`, szansa
   `secret_niche_spawn_chance`, kandydaci `EdgeContext.is_secret_niche_candidate`) są tylko kaflami ścian.
