@@ -204,3 +204,12 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
   - `death_enrage` (Szał Zniszczenia, lv 20, combo: 9 trafień obszarowych po wszystkich wrogach za 50 SP i 50 TP).
 
 
+
+## Obrona i statusy w wierszu drużyny
+- **Obrona** (`_resolve_defend`, stałe w `quiz_combat_controller.gd`): przepuszcza `GUARD_DAMAGE_FACTOR_CORRECT` = 1/4 obrażeń po dobrej
+  odpowiedzi na quiz i `GUARD_DAMAGE_FACTOR_WRONG` = 1/2 po złej (wzór: Guard w FNaFB — tam połowa, bez quizu). Dotyczy zwykłego ataku wroga
+  i umiejętności z `can_be_blocked` (domyślnie tak). Zawsze przechodzi co najmniej 1 punkt obrażeń.
+- **Statusy a obrona:** broniąca się postać ma szansę na status od umiejętności wroga razy `GUARD_STATUS_CHANCE_FACTOR` = 0,5
+  (`_guarded_status_chance`); status wchodzi więc nadal, tylko rzadziej (obrażenia zawsze przechodzą w części, nie ma pełnego bloku).
+- **Statusy w wierszu drużyny:** `StatusLabel` (RichTextLabel) w każdym `PartyRow0..3` ekranu walki (`quiz_combat_ui.tscn`) pokazuje
+  nazwy statusów postaci w kolorach z `QuizRpgStatusData.color` (`_set_party_row_statuses`, odświeżane w `_refresh_stats_panel`).
