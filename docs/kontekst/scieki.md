@@ -2,6 +2,7 @@
 
 Gałąź **`sewer-structured`** w submodule CienMgly (`modules/quiz_rpg`), założona z `sewer-tileset`; z `sewer-gen-v2`
 przeniesione tylko wybrane elementy (F0b / F1a / F1b), `sewer-gen-v2` zostaje jako odniesienie — nie mergować.
+(Uwaga: bieżący rozwój systemu drużyny, skilli i przedmiotów prowadzony jest na gałęzi `druzyna-balans`, która zawiera te zmiany).
 Gra używa **nowej paczki Sewer** (pliki bez dopisku wersji: `sewer.tres`, `sewer.json`, `sewer_map_tiles.tres`,
 `objects_sewer.json`); stara paczka jako `sewer_old.*`, grafika w hoście `assets/pixel_crawler/environments/sewer`
 (nowa) i `environments/sewer_old` (stara). Plan i reguły układu: `docs/plan_generator_sciekow.md`. Znaczenie kafli

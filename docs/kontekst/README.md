@@ -14,6 +14,8 @@ Krótkie notatki na start nowej sesji. Moduł `modules/quiz_rpg`, Godot 4.7.2.
 | [walka.md](walka.md) | UI walki (RPG Maker, WYSIWYG), motywy i style pasków, pola walki per tło, podgląd / edytor pól, tła 16:9 |
 | [wrogowie.md](wrogowie.md) | zasięg wykrywania, dziedziczenie scen, znane pułapki |
 | [narzedzia_diag.md](narzedzia_diag.md) | skrypty headless do renderów i porównań (katalog `tests/`, poza gitem) |
+| [klasy_postaci_i_bronie.md](klasy_postaci_i_bronie.md) | 4 klasy postaci, 16 broni per strefa (Pixel Crawler), rozszerzona drużyna i rezerwa (specyfikacja dla Claude Opus) |
+| [balans_i_skalowanie.md](balans_i_skalowanie.md) | balans i skalowanie walki: HP, ATK, DEF, porównanie z FNaFB1 FM, plan symulacji (specyfikacja dla Claude Opus) |
 | [otwarte.md](otwarte.md) | co zostało do zrobienia / sprawdzenia |
 
 Pełniejsze listy: `docs/znane_problemy.md` (sekcje „Do zrobienia” i „Rozwiązane”),

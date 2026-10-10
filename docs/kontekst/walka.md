@@ -125,3 +125,82 @@
   cały ekran 16:9: górne ~10 % spokojne, horyzont ~40–45 %, wrogowie 50–70 %, dolne ~25 % pod UI
   z gładką podłogą. `correction_prompts.md` — prompty korekcyjne dla 12 istniejących grafik.
 
+## Model Umiejętności i Obrażeń (FNaFB / RPG Maker)
+Wprowadzony i zintegrowany model umiejętności bazuje na strukturze z FNaFB / RPG Makera:
+- Klasy bazowe: `QuizRpgSkillBase` (`scripts/skills/skill_base.gd`), dziedziczone przez:
+  - `QuizRpgSkillData` (`scripts/skills/skill_data.gd`) – umiejętności drużyny (koszty SP/TP, poziom nauki `learn_level`, okazje `occasion`, combo).
+  - `QuizRpgEnemySkill` (`scripts/skills/enemy_skill.gd`) – umiejętności wrogów (cooldown, warunki użycia, szanse).
+- **Formuła obrażeń** (wyliczana przez `QuizRpgSkillMath`):
+  `Obrażenia = (base_damage + ATK × atk_coeff + MAT × mat_coeff − DEF × def_coeff − MDF × mdf_coeff) × damage_multiplier`
+  - Tryby obrażeń (`DamageMode`):
+    - `FORMULA` (0): powyższy wzór, redukowany przez pancerz celu (`DEF` i `MDF`).
+    - `FIXED` (1): stałe obrażenia `fixed_damage` ignorujące pancerz.
+    - `NONE` (2): brak bezpośrednich obrażeń (leczenie, nakładanie statusów, buffy).
+  - `variance`: losowy rozrzut obrażeń (np. `0.2` = ±20%).
+  - `hits` i `hit_interval`: serie wielokrotnych trafień z odstępem czasowym.
+  - `success_rate`: bazowa szansa trafienia (u gracza modyfikowana poprawnością odpowiedzi w quizie).
+  - `bonus_vs_status` oraz `bonus_multiplier`: zwielokrotnienie obrażeń, jeśli cel ma określony status (np. `lead_stinger` zadaje ×2,1 obrażeń na zatrutym wrogu).
+- **Cele umiejętności (`Target`)**:
+  - `ONE_OPPONENT` (0): pojedynczy wróg.
+  - `ALL_OPPONENTS` (1): wszyscy wrogowie.
+  - `RANDOM_OPPONENTS` (2): losowi wrogowie (ilość losowań zdefiniowana przez `random_count`).
+  - `SELF` (3): rzucający.
+  - `ONE_ALLY` (4): pojedynczy żywy sojusznik.
+  - `ALL_ALLIES` (5): wszyscy żywi sojusznicy.
+  - `DEAD_ALLY` (6): poległy sojusznik (wskrzeszanie).
+- **Leczenie (`HealMode`)**:
+  - `NONE` (0): brak leczenia.
+  - `FIXED` (1): leczenie o stałą wartość `heal_amount` HP.
+  - `PERCENT` (2): leczenie o procent maksymalnego HP celu (`heal_percent`).
+
+## Statystyki Magiczne: MAT i MDF
+Wprowadzone dla wsparcia ataków magicznych, leczenia i obrony przed magią:
+- `MAT` (Magic Attack): siła zaklęć i umiejętności magicznych. Bohater: bazowo 20, +2.0 per poziom.
+- `MDF` (Magic Defense): redukcja obrażeń magicznych. Bohater: bazowo 12, +1.1 per poziom.
+- Sprzęt może modyfikować `mat_bonus` i `mdf_bonus` (np. nakrycia głowy maga, różdżki, szaty).
+
+## System Statusów (`QuizRpgStatusData`, `QuizRpgStatusCatalog`)
+Statusy ładowane automatycznie z katalogu `resources/statuses/*.tres`:
+- **Ograniczenia (`Restriction`)**:
+  - `NONE` (0): pełna swoboda akcji.
+  - `SKIP_TURN` (1): pominięcie tury (ogłuszenie `stun`, paraliż `paralysis`, sen `sleep`).
+  - `CONFUSED` (2): chaos/zamroczenie (`confusion`, `charm`, `lunatic`) – losowy cel ataku, czasem sojusznik.
+  - `SILENCED` (3): zablokowane używanie umiejętności (`silence`).
+- **Modyfikatory statystyk**: `atk_mult`, `def_mult`, `mat_mult`, `mdf_mult`, `hit_mult` (np. oślepienie `blind` redukuje trafienie do 40%).
+- **Efekty co turę**: `turn_hp_percent` (np. trucizna `poison` -5% HP na turę, regeneracja `regen` +5% HP).
+- **Czas trwania**: `min_turns` i `max_turns` (lub 0/0 dla trwałej trucizny do wyleczenia).
+- **Zdejmowanie**: `remove_on_damage_chance` (np. sen zdejmuje się w 100% po otrzymaniu ciosu, zamroczenie w 50%).
+- **Dostępne statusy**:
+  - Negatywne: `poison` (Zatrucie), `sleep` (Sen), `stun` (Ogłuszenie), `paralysis` (Paraliż), `blind` (Oślepienie), `confusion` (Zamroczenie), `silence` (Cisza), `lunatic` (Obłęd), `charm` (Urok), `provoke` (Prowokacja), `spooked` (Przestrach), `bleed` (Krwawienie), `curse` (Klątwa).
+  - Pozytywne / Modyfikujące: `atk_up` (Zwiększenie Ataku), `atk_down` (Obniżenie Ataku), `def_up` (Zwiększenie Obrony), `def_down` (Obniżenie Obrony), `regen` (Regeneracja).
+
+## Tabela Umiejętności Bohatera (`hero_bohater.tres`)
+Pula umiejętności bohatera liczy dokładnie 12 pozycji (2 startowe, 3 z poziomów CC, 7 odblokowywanych fabularnie / przez NPC):
+
+| ID Umiejętności | Nazwa | Typ / Źródło | Koszt | Cel | Trafienia / Wzór / Efekt |
+|---|---|---|---|---|---|
+| `leczenie` | Leczenie | Poziom 1 | 20 SP | Pojedynczy sojusznik | Leczy 30% maks. HP celu. Działa także w menu (`ALWAYS`). |
+| `mocny_atak` | Mocny Atak | Poziom 1 | 25 TP | 1 wróg | Cios z mnożnikiem obrażeń ×1,5. |
+| `tophat_toss` | Rzut Cylindrem | Poziom 5 | 24 SP | 1 wróg | 2 trafienia. Wzór: `(100 + ATK×3.4 - DEF×2) × 1.35`. |
+| `lead_stinger` | Krzyk Prowadzącego | Poziom 10 | 29 SP | 1 wróg | Wzór: `(105 + ATK×3.5 - DEF×1.6) × 2.0`. Szansa 15% na zatrucie. Zadaje ×2,1 obrażeń celom z trucizną. |
+| `toreador_march` | Marsz Toreadora | Poziom 15 | 25 TP | 1 wróg | 9 trafień po 0,15 obrażeń. Szansa 70% na uśpienie celu przy każdym ciosie. |
+| `bunny_hop` | Królicze Skoki | NPC / Zdarzenie | 10 SP | 1 wróg | 5 trafień po `(20 + ATK×1.6 - DEF×0.8)`. 4% szansy na ogłuszenie per hit. |
+| `backup_bash` | Cios Zapasowy | NPC / Zdarzenie | 50 SP | 1 wróg | Stałe 25 000 obrażeń. Niska szansa trafienia (8% sukcesu). |
+| `fearless_flight` | Nieustraszony Lot | NPC / Zdarzenie | 30 SP | 1 wróg | Atak magiczno-fizyczny: `(400 + MAT×2.0 - MDF×2.0)`. |
+| `plank_walk` | Spacer po Desce | NPC / Zdarzenie | 50 SP | 1 wróg | `(100 + ATK×1.6 - DEF×0.8)`. 50% szansy na nałożenie paraliżu. |
+| `rushdown` | Szturm | NPC / Zdarzenie | 80 SP | 1 wróg | 6 uderzeń pazurami: `(200 + ATK×1.6 - DEF×0.8)`. |
+| `pizza_pass` | Podanie Pizzy | NPC / Zdarzenie | 50 SP | Pojedynczy sojusznik | Stałe leczenie 1000 HP. Działa także w menu (`ALWAYS`). |
+| `caffeine_revival`| Kofeinowe Ożywienie | NPC / Zdarzenie | 100 SP | Poległy sojusznik | Wskrzeszenie poległego sojusznika i uleczenie 250 HP. Działa w menu. |
+
+## Umiejętności Towarzyszy w `resources/skills/`
+Umiejętności przygotowane dla pozostałych członków drużyny:
+- **Bonnie**: `riff_wave` (Fala Riffu, lv 10, zatrucie), `motivation_jam` (Motywacyjny Jam, lv 20, buff atk_up).
+- **Chica**: `mama_bird` (Matka Ptaków, lv 20, leczenie obszarowe 40% HP dla wszystkich sojuszników).
+- **Foxy**: `speed_share` (Podział Szybkości, lv 15, podbicie TP drużyny), `sea_shanty` (Szanta Żeglarska, lv 20, uciszenie i debuff wroga).
+- **Balloon Boy (BB)**:
+  - `token_throw` (Rzut Żetonami, lv 5, 3 losowe cele, 3 trafienia).
+  - `flying_fright` (Latający Postrach, lv 10, silne uderzenie śmigłem, mnożnik 1.5).
+  - `smoke_ring` (Pierścień Dymu, lv 15, 50% szansy na oślepienie).
+  - `death_enrage` (Szał Zniszczenia, lv 20, combo: 9 trafień obszarowych po wszystkich wrogach za 50 SP i 50 TP).
+
+
