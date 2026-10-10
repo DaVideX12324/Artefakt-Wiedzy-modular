@@ -14,7 +14,7 @@
 ## 1. Problem i Diagnoza (Zgłoszenie z testów)
 
 ### Zgłoszone objawy:
-1. **Wrogowie padają za szybko**: umiejętności bohatera (np. *Rzut Cylindrem* / `tophat_toss`) zadają ogromny burst damage, eliminując przeciwników jednym ciosem.
+1. **Wrogowie padają za szybko**: umiejętności bohatera (np. *Podwójny Rzut* / `double_throw`) zadają ogromny burst damage, eliminując przeciwników jednym ciosem.
 2. **Wrogowie zadają za mało obrażeń**: ataki wrogów ledwo uszkadzają drużynę (kilkanaście do kilkudziesięciu HP przy puli gracza 334+ HP). Drużyna jest niemal nietykalna, zwłaszcza przy używaniu obrony / quizu.
 3. **Dysproporcja skalowania**: formuła RPG Makera / FNaFB (`ATK × 4 − DEF × 2`) jest silnie nieliniowa – niewielki wzrost pancerza drastycznie neutralizuje ataki wrogów, a wzrost ataku broni potęguje obrażenia gracza czterokrotnie.
 
@@ -44,8 +44,8 @@ Nawet bez użycia jakiejkolwiek umiejętności, **zwykły atak gracza regularnie
      $$45 \times 4.0 - 5 \times 2.0 = 180 - 10 = 170\text{ DMG zwykłym atakiem!}$$
    - Przy HP wrogów rzędu 60–160 (np. `knowledge_guardian` 60 HP, `bandit_2` 160 HP), gracz zabija wrogów **jednym zwykłym atakiem**, bez używania jakichkolwiek umiejętności!
 
-### A. Rzut Cylindrem i skille przeniesione z CC (Complete Collection)
-W `resources/skills/tophat_toss.tres`:
+### A. Podwójny Rzut i skille przeniesione z CC (Complete Collection)
+W `resources/skills/double_throw.tres`:
 - `hits`: 2
 - `base_damage`: 100
 - `atk_coeff`: 3.4
@@ -55,7 +55,7 @@ W `resources/skills/tophat_toss.tres`:
 - Dla bohatera na lv 1 z mieczem treningowym (ATK = 30) przeciw wrogowi o DEF = 12:
   $$\text{Dmg na trafienie} = 1.35 \times (100 + 85 - 24) = 1.35 \times 161 \approx 217$$
   $$\text{Łączny atak (2 trafienia)} = 434\text{ HP!}$$
-- W efekcie Rzut Cylindrem na lv 1 zadaje ponad 400 DMG, co deklasuje każdego zwykłego przeciwnika.
+- W efekcie Podwójny Rzut na lv 1 zadaje ponad 400 DMG, co deklasuje każdego zwykłego przeciwnika.
 
 ### B. Atak wrogów a pancerz drużyny
 W `resources/enemies/enemy_data.gd` / `scenes/enemies/plant_1.tscn`:
@@ -105,7 +105,7 @@ Dane wyciągnięte z dekompilacji FNaFB1 FM (`fnafb_skille/1_fnafb1_FM_sojusznic
 Wzorzec rozgrywki quizowo-taktycznej:
 1. **Zwykły wróg pojedynczy**:
    - Zwykły atak gracza: **2 do 3 trafień** na zabicie wroga.
-   - Skill ofensywny (np. Rzut Cylindrem, Mocny Atak): **1 do 2 trafień** (nagroda za SP/TP i dobrą odpowiedź w quizie).
+   - Skill ofensywny (np. Podwójny Rzut, Mocny Atak): **1 do 2 trafień** (nagroda za SP/TP i dobrą odpowiedź w quizie).
 2. **Grupa wrogów (2–3 przeciwników)**:
    - Łączne obrażenia grupy wrogów w 1 rundzie bez bloku: **~25–35% maks. HP postaci**.
    - Po 3–4 turach bez leczenia postać powinna być bliska śmierci.
@@ -146,11 +146,11 @@ Dopasowanie statystyk wrogów do poziomów postaci i tierów sprzętu:
 2. **Korekta formuły bazowej w `skill_math.gd`** (Dla Claude Opus):
    - Ewentualna zmiana mnożnika obrony na `1.8` jak w FNaFB FM (`ATK × 4 − DEF × 1.8`).
 3. **Korekta mnożników umiejętności startowych** (Dla Claude Opus):
-   - W `tophat_toss.tres`: opcjonalne zdjęcie zewnętrznego mnożnika 1.35 z wersji CC lub obniżenie bazowego dmg.
+   - W `double_throw.tres`: opcjonalne zdjęcie zewnętrznego mnożnika 1.35 z wersji CC lub obniżenie bazowego dmg.
 4. **Skrypt symulacji balansu (`tests/simulate_combat_balance.gd`)** (Dla Claude Opus):
    - Bezuruchomieniowy test headless symulujący 100 walk dla poziomów 1, 5, 10, 20.
 
-   - W `tophat_toss.tres`:
+   - W `double_throw.tres`:
      - Opcja A (wzór FM): usunięcie `damage_multiplier = 1.35` (ustawienie `1.0`), baza `100`, `atk_coeff = 3.2`, `def_coeff = 1.6`. Wtedy 2 trafienia dają łącznie `~220 HP` zamiast `434 HP`.
      - Opcja B: zachowanie mnożnika, ale obniżenie `base_damage` z 100 do 30–40.
 3. **Skrypt symulacji balansu (`tests/simulate_combat_balance.gd`)**:
