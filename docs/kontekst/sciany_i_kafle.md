@@ -74,8 +74,8 @@ Porównania renderów: `tests/render_area.gd` (lokalnie).
   20–22) + `"middle"` (kolumna środków: W (8,19), E (9,19), wiersze 19–21, decyzja usera). `CorridorStairsPlacer._plan_copy`.
   **Nowe kafle z Tiles.png trzeba dodać do `resources/maps/caves.tres`** (inaczej gra ich nie rysuje; render_area kopiuje
   piksele z atlasu i tego nie pokaże). Test `check_portal_stairs_middle` sprawdza istnienie kafli.
-- Przejście na inny poziom (`MapGeneratorBase._setup_portal_trigger` + `_portal_top_row`): Area2D na całym najwyższym
-  stopniu (rząd przy voidzie). Test `check_portal_trigger_row`.
+- Przejście na inny poziom (`MapGeneratorBase._setup_portal_trigger` + `_portal_top_row`): Area2D na rzędzie voidu tuż za
+  najwyższym stopniem (za gradientem), cały na szerokość schodów. Test `check_portal_trigger_row`.
 - `GridSight`: tolerancja narożnika 1e-6 (było 1e-9 — fałszywe zasłony na dokładnym narożniku).
 - (2026-10-11, później) Gradient w stronę voidu: stopień przy voidzie zostaje kaflem środkowym, na nim gradient (6,22)
   z alternatywami TileSetu (E 0, W 1, S 2, N 3; `caves.json portal_stairs_shade`) na warstwie `PortalShade`
