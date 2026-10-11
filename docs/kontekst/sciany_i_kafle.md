@@ -77,3 +77,9 @@ Porównania renderów: `tests/render_area.gd` (lokalnie).
 - Przejście na inny poziom (`MapGeneratorBase._setup_portal_trigger` + `_portal_top_row`): Area2D na całym najwyższym
   stopniu (rząd przy voidzie). Test `check_portal_trigger_row`.
 - `GridSight`: tolerancja narożnika 1e-6 (było 1e-9 — fałszywe zasłony na dokładnym narożniku).
+- (2026-10-11, później) Gradient w stronę voidu: stopień przy voidzie zostaje kaflem środkowym, na nim gradient (6,22)
+  z alternatywami TileSetu (E 0, W 1, S 2, N 3; `caves.json portal_stairs_shade`) na warstwie `PortalShade`
+  (z_index 10 — nad ścianami i postaciami, decyzja usera); E / W także 4 kratki lica w górę, N / S po kratce w bok.
+  Za schodami (`PortalClearPlacer.behind_stairs_cells`) kafel voidu zamiast lica / krawędzi ściany i bez rantu płaskowyżu.
+  Zmiany Gemini (2026-10-11): E / W o rząd w dół pod dolną ścianę, podłoga i teren wymazane pod najwyższym stopniem,
+  zamiana kafli W↔E na wyjściu.
