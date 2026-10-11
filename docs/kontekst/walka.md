@@ -213,3 +213,17 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
   (`_guarded_status_chance`); status wchodzi więc nadal, tylko rzadziej (obrażenia zawsze przechodzą w części, nie ma pełnego bloku).
 - **Statusy w wierszu drużyny:** `StatusLabel` (RichTextLabel) w każdym `PartyRow0..3` ekranu walki (`quiz_combat_ui.tscn`) pokazuje
   nazwy statusów postaci w kolorach z `QuizRpgStatusData.color` (`_set_party_row_statuses`, odświeżane w `_refresh_stats_panel`).
+
+## Zmiany 2026-10-11 (sesja z Opusem)
+- **Listy umiejętności / przedmiotów w walce**: wiersz `combat_list_row.tscn` ma szerokość ze sceny (min. 340) albo
+  nazwa + odstęp + koszt; `_fit_list_columns` dobiera kolumny (1–4, najwyżej tyle, ile pozycji) do miejsca obok okna
+  drużyny. `ListPanel` nie rozciąga się w poziomie, sięga do dołu pasa; `ContentRow` centruje okna, po bokach tło bitwy.
+  Później (decyzja usera): może przewijana lista zamiast siatki.
+- **Stała wysokość dolnego pasa** (`_get_desired_battle_window_height`): max(pas ze sceny + dodatek quizu, najwyższe okno
+  ze wszystkich trybów). Długie pytanie podnosi pas tylko na ten czas (okno rośnie do treści i wraca; pole bitwy i cień
+  za `battle_window.resized`). Test lokalny `check_band_height`.
+- **Grupowanie walk zawsze** (`EnemyBase._group_joiners`): dołączają wszyscy wrogowie tej samej frakcji w 96 px z czystą
+  linią (najbliżsi pierwsi, razem ≤ GROUP_MAX 4). Liczba jednostek zawsze losowana z `min..max_encounter_size` głównego,
+  grupa = minimum, dopełnienie = kopie głównego z jego XP (`_roll_enemy_party`). Testy `check_enemy_group(_always)`.
+- Hover: `QuizTheme.set_menu_item_selected` nic nie robi bez zmiany stanu (`force` przy zmianie motywu) — wcześniej
+  ~1,5 ms / hover. `_find_pause_menu_node` = grupa `quiz_pause_menu` (pause_menu.gd `_enter_tree`) zamiast find_child.

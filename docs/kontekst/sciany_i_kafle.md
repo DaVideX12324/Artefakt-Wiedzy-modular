@@ -61,3 +61,19 @@ Porównania renderów: `tests/render_area.gd` (lokalnie).
 - `scripts/generation/edge/edge_analyzer.gd` — klasyfikacja, `small_wall_islands`, `slope_2h_depth`.
 - `scripts/generation/tiling/step_placer.gd`, `plateau_renderer.gd` (`_absorbed`, `_on_wall_top`).
 - `scripts/generation/preprocess/` — przebiegi siatki; kolejność w `topology/interior_room_layout_generator.gd`.
+
+## Schody wnęk portali (alcove_stairs, jaskinie; 2026-10-11)
+- `PortalGenerator.register_alcove_stairs`: schody od pierwszej warstwy ściany za wnęką (linia podstawy lica)
+  `ALCOVE_STAIRS_DEPTH` = 4 kratki w głąb, za nimi void, za voidem 2 warstwy ochronne (ściana albo koniec mapy).
+  Rejestracja PO `ConnectivityRepair` (jej korytarze wchodziły w pas za schodami). Ostatni rząd wnęki pod schodami
+  należy do strefy portalu (jedna strefa — płaskowyże na jednej wysokości).
+- `carve_portal_alcove` (alcove_stairs): margines 7 od krawędzi; `_stairs_tunnel_length` dobiera długość tunelu /
+  krawędź z miejscem na schody (runda 2: krawędź wejścia, tunel od 3; inaczej najlepszy zapas). Zmienione zużycie RNG —
+  te same seedy dają inne jaskinie niż przed 2026-10-11.
+- Kafle: `caves.json portal_stairs_tiles` — N / S moduł 5×2 (L / M / R), E / W łączniki 2×3 (W 13–14, E 15–16, wiersze
+  20–22) + `"middle"` (kolumna środków: W (8,19), E (9,19), wiersze 19–21, decyzja usera). `CorridorStairsPlacer._plan_copy`.
+  **Nowe kafle z Tiles.png trzeba dodać do `resources/maps/caves.tres`** (inaczej gra ich nie rysuje; render_area kopiuje
+  piksele z atlasu i tego nie pokaże). Test `check_portal_stairs_middle` sprawdza istnienie kafli.
+- Przejście na inny poziom (`MapGeneratorBase._setup_portal_trigger` + `_portal_top_row`): Area2D na całym najwyższym
+  stopniu (rząd przy voidzie). Test `check_portal_trigger_row`.
+- `GridSight`: tolerancja narożnika 1e-6 (było 1e-9 — fałszywe zasłony na dokładnym narożniku).

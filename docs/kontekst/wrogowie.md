@@ -14,3 +14,12 @@
 - Wróg poza navmeshem wraca do nav area — zamierzone.
 - **Siatka nawigacji** w mapach proceduralnych to wiele regionów (`NavChunk*` pod `NavigationRegion2D`,
   kawałki 64×64 kratek z `NavOutlines.build_chunks`); zapytania idą do mapy świata, więc wróg tego nie widzi.
+
+## Bezpieczny start (2026-10-11, decyzja usera: azyl + chwila ochrony)
+- `QuizRpgSafeZone` (`scripts/maps/safe_zone.gd`, @tool, podgląd w edytorze): wrogowie nie wybierają w niej celów
+  wałęsania, nie widzą w niej gracza, kontakt nie zaczyna walki (`interact` — świadome zaczepienie — działa).
+  `level_manager._setup_start_safety`: tworzy azyl przy punkcie pojawienia się, gdy poziom nie ma własnego
+  (ProceduralLevel: pokój spawnu przycięty do ±`SpawnPlanner.START_SAFE_HALF` = 6 kratek; mapy ręczne 12×12).
+- Po wejściu na mapę / wczytaniu `grant_encounter_immunity(5 s, ignored_by_enemies)` — wrogowie gracza nie widzą.
+- `SpawnPlanner`: spread pomija kwadrat ±(START_SAFE_HALF + ARRIVAL_DIST) od wejścia i wyjścia (wcześniej
+  `near_entrance` stawiał wroga 2–3 kratki od gracza). Test `check_start_safety`.
