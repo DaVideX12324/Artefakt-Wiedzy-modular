@@ -1,29 +1,35 @@
 # KRYTYCZNE: wielosekundowe zawieszenia klatek przy ruchu kursora (zgłoszone 2026-10-11)
 
-## PRZYCZYNA USTALONA (2026-10-11, wieczór): ścieżka RenderingDevice (Vulkan/D3D12) Godota 4.7.2 na tym komputerze
-- Pełna gra na **OpenGL** (`--rendering-driver opengl3`, renderer Compatibility): 170 FPS, 0 zacięć przy chaotycznym ruchu
-  myszą z fokusem — user potwierdził „czysto, bez lagów”. Na Vulkanie (Forward+) ta sama gra: klatki do kilku sekund.
-- Wcześniej D3D12 też się zacinało → problem w ścieżce RenderingDevice + okno z fokusem + zdarzenia myszy, nie w kodzie gry.
-- Zwykłe okno Win32 (Python, ta sama pętla PeekMessage bez czekania, fokus, ~540 ruchów myszy/s): 1 przerwa 79 ms na 45 s
-  → Windows/mysz/sterowniki obsługują wejście dobrze; mysz G502 X Lightspeed = 1 kHz (normalne).
-- Wykluczone eksperymentalnie: LittleBigMouse, Windhawk (mody dark mode), warstwy Vulkana OBS/RTSS
-  (`VK_LOADER_LAYERS_DISABLE=~implicit~`), AccessKit (`--accessibility disabled` — flaga działa, lag został), VSync (wszystkie
-  tryby), audio, wycieki, kod `quiz_rpg`/hosta.
-- Profil stosów (własny próbnik `scratchpad/stack_sampler.py` + `symbolize.py`, dbghelp z Windows Kits): w trakcie lagu wątek
-  główny 99,9% w `PeekMessageW` (57% w jądrze `NtUserPeekMessage`, 42% w komunikatach wysyłanych do okna →
-  `DefWindowProc`/`UxTheme`). Główna hipoteza: interakcja swapchaina Vulkan/DXGI z kompozycją okna (DWM, nakładki
-  wielu płaszczyzn / sprzętowy kursor) na AMD RX 9070 XT + 3 monitory (170 Hz + inne) + Windows 11 Insider 26300 —
-  niepotwierdzona; do zgłoszenia jako błąd Godota/AMD z minimalnym projektem, gdy uda się go odtwarzać pewnie.
-- Uwaga metodyczna: testy pustego projektu były zawodne, bo okno uruchomione z terminala często nie dostawało fokusu
-  (lag występuje tylko z fokusem). Gra uruchamiana przez usera odtwarza lag zawsze.
+## WYNIK KOŃCOWY (2026-10-11, ~17:00): lag zniknął po RESTARCIE EDYTORA — rozwiązane, mechanizm niepotwierdzony
+- Lag ustąpił dopiero po zamknięciu edytora Godota działającego od 14:21 (ponad 2,5 h) i uruchomieniu nowego.
+- Potem testy kontrolne na świeżym edytorze, wszystkie czyste: Forward+ (Vulkan) z gry uruchamianej z edytora; Windhawk
+  włączony i potwierdzony jako wstrzyknięty (windhawk.dll + mody dark-menus/fix-darkmode-listviews w procesie edytora);
+  LittleBigMouse włączony. **Winni NIE są:** Vulkan/D3D12, Windhawk, LittleBigMouse, warstwy OBS/RTSS, AccessKit, VSync,
+  audio, mysz (G502 X, 1 kHz), kod `quiz_rpg`/hosta.
+- Wcześniejszy wniosek „renderer Vulkan” był błędny: czysty bieg na OpenGL przypadł już po zmianach w tle; zmiana renderera
+  NIE jest potrzebna.
+- Fakty pasujące do „stary proces edytora”: lag dotykał też procesów niezwiązanych z edytorem (gra i pusty projekt
+  uruchamiane z terminala) — czyli działał na poziomie systemowego wejścia; tylko z fokusem na oknie Godota; tylko przy
+  prawdziwej myszy (programowy `SetCursorPos`, który omija globalne haki myszy, nie wywoływał lagu); Windows chwilowo
+  zgłaszał okno starego edytora jako zawieszone (`IsHungAppWindow`); efekt kuli śnieżnej (klatki 70→2000+ ms).
+- **Hipoteza (niepotwierdzona):** stary edytor trzymał globalny hak myszy (np. po popupie/menu) i obsługiwał go z opóźnieniem
+  (edytor w tle śpi do ~100 ms na obieg) — każde zdarzenie myszy w systemie czekało na edytor.
 
-**Poprawka (do decyzji usera):** renderer Compatibility (`rendering/renderer/rendering_method="gl_compatibility"`) —
-gra 2D, projekt ma już tag „GL Compatibility” w `config/features`, a faktycznie działał na Forward+ (brak ustawienia).
-Edytor też używa renderera projektu, więc przestanie lagować.
+### Jeśli wróci — NIE restartować od razu, najpierw zebrać dowody (narzędzia: `modules/quiz_rpg/tools/diag_input/`)
+1. `Get-Process Godot*` — które procesy Godota działają i od kiedy (stary edytor?).
+2. Próbnik stosów starego edytora: `python stack_sampler.py <pid_edytora> 10 ed.json`, potem
+   `DBGHELP="F:/Windows Kits/10/Debuggers/x64/dbghelp.dll" python symbolize.py ed.json --ms` (uruchamiać w katalogu
+   Debuggers/x64, żeby załapał symsrv.dll). Szukać hooka myszy (`CallNextHookEx`, `MouseProc`, `LowLevelMouseProc`) i tego,
+   czy wątek główny śpi (`NtDelayExecution`) lub wisi.
+3. Ten sam próbnik na grze w trakcie lagu (porównać z profilem z tej sesji: 99,9% w `PeekMessageW`).
+4. Sprawdzić, czy zamknięcie popupów/menu w edytorze (Esc, klik w puste miejsce) albo samo kliknięcie w edytor usuwa lag.
+5. `python win32_loop_test.py 30 busy` (okno bez Godota, kliknąć i ruszać myszą) — czy dławi się też nie-Godot.
+6. Dopiero potem restart edytora; zapisać w tym dokumencie, co pokazały kroki 1–5.
 
----
+### Historia dochodzenia (poniżej) — wnioski pośrednie z tej sekcji bywały błędne, aktualny jest WYNIK KOŃCOWY wyżej.
 
-Status (historyczny opis poniżej): przyczyna ustalona — patrz sekcja wyżej. Zawieszenie obejmuje cały proces Godota (user: nawet przesuwanie okna gry i
+
+Status: rozwiązane restartem edytora (patrz WYNIK KOŃCOWY na górze). Zawieszenie obejmuje cały proces Godota (user: nawet przesuwanie okna gry i
 edytora jest opóźnione, a hovery „stoją w kolejce” — po zatrzymaniu myszy przyciski dalej się podświetlają).
 
 ## NAJWAŻNIEJSZE USTALENIE (2026-10-11, późniejsze testy)
