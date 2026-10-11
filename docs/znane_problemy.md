@@ -200,7 +200,7 @@
   - Klucz: otwiera skrzynię od razu.
   - Wytrych: otwarcie uruchamia **sekcję quizu**; **tier skrzyni** wyznacza trudność i liczbę pytań
     (porażka — do ustalenia: wytrych przepada / skrzynia się blokuje / można spróbować znowu).
-- **TODO (priorytet, zgłoszenie 2026-10-10): przedmioty „klucz uniwersalny” i „wytrych uniwersalny”** — na pewno do
+- ~~**TODO (priorytet, zgłoszenie 2026-10-10): przedmioty „klucz uniwersalny” i „wytrych uniwersalny”**~~ — zrobione 2026-10-11 (obiekty.md „Klucze i wytrychy”); zostaje tier skrzyni z poziomu mapy. — na pewno do
   zrobienia. Jako przedmioty z ekwipunku (`ItemData`) działają na **dowolnej** zamkniętej skrzyni (bez dopasowania
   `lock_id`), w odróżnieniu od kluczy fabularnych. Klucz otwiera od razu, wytrych odpala quiz skrzyni (tier skrzyni =
   trudność). Wypadają z wrogów (`loot_manager.gd`), klucze dużo rzadziej; dodać do paska/menu użycia przy skrzyni.
