@@ -67,7 +67,7 @@ Pasma poziomów wrogów dla kolejnej mapy: tier 1 = początek mapy .. +1/3 zakre
   męczy raczej liczba / długość / powtarzalność walk (wtedy więcej XP nie pomoże, trzeba ruszyć liczbę spotkań). Nie ma pomiarów, ile
   mapy gracze czyszczą — nie zakładać „60–80 %”.
 - **Log progresji do testów** (`QuizRpgProgressLog`, `scripts/tools/progress_log.gd`; działa też w buildzie bez debugu): `user://progress_log.txt`
-  (Windows: `%APPDATA%\Godotpp_userdata\<nazwa projektu>\progress_log.txt`), dopisywany. Wpisy: start sesji, wejście na mapę
+  (Windows: `%APPDATA%\Godot\app_userdata\Artefakt Wiedzy Modular\progress_log.txt`), dopisywany. Wpisy: start sesji, wejście na mapę
   i podsumowanie poprzedniej, każda walka (wygrana / ucieczka / porażka, wrogowie z poziomem i tierem, XP, tury, czas, numer walki, BOSS) i
   awans (ile walk i czasu od poprzedniego awansu). Linia: `[czas sesji] Lv (XP/następny) HP | zdarzenie | szczegóły`. Testerzy odsyłają plik —
   z niego widać poziom przy bossie, liczbę walk i odstępy między awansami. Test `check_progress_log`.
