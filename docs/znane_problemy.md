@@ -493,3 +493,4 @@
   `TerrainAutotileSolver` (commit 2524d2b); zostają pojedyncze niedopasowania narożników (subtelne).
 - Losowy seed (≤ 0) dawał kaflom i terenowi inny seed niż topologii — teraz wspólny `result.seed_used`.
 - Narzędzie katalogu w edytorze: niezainicjalizowane statyczne mutexy (commit 4cc579f).
+- Freeze świata po ucieczce / porażce (2026-10-11): `EnemyBase.on_combat_finished` zmieniał stan na EXPLORING dopiero po 2 s postoju wroga. Teraz od razu (jak po wygranej), gracz dostaje nietykalność, wróg stoi 2 s. Test `check_flee_unfreeze`.
