@@ -48,8 +48,6 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
 - `docs/znane_problemy.md` — reszta zgłoszeń i historia rozwiązanych.
 
 ## Stan na koniec sesji 2026-10-11 (przed compactem) — do podjęcia
-- **Decyzja usera:** boss stoi w pokoju wyjścia bez siatki nawigacji (`nav_excluded`) — czy ma się ruszać (wtedy
-  wyłączyć pokój wyjścia albo obszar bossa z `_nav_excluded_cells`).
 - Niezacommitowane (nie z tej pracy, zostawione): `rat_base.tres` / `rat_base.tscn`, tła walki
   `battle_backgrounds/pixel_crawler/cave/Variant (6–8).jpg`.
 - Ikony przedmiotów: duplikaty (`iron_buckler` = `steel_kite_shield`), mało różnych mikstur, akcesorium = pierścień;
