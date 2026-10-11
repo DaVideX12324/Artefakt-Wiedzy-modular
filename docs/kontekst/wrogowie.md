@@ -24,5 +24,5 @@
 - `SpawnPlanner`: spread pomija kwadrat ±(START_SAFE_HALF + ARRIVAL_DIST) od wejścia i wyjścia (wcześniej
   `near_entrance` stawiał wroga 2–3 kratki od gracza). Test `check_start_safety`.
 - (2026-10-11) Bez nawigacji wrogów (`GenerationResult.nav_excluded`, `NavOutlines.walkable_mask`): pokój wejścia,
-  pokój wyjścia, pierwszy pokój za wejściem (BFS od wejścia) i strefy portali; spawny je pomijają. Boss stoi w pokoju
-  wyjścia bez siatki (do decyzji usera, czy ma się ruszać). Test `check_nav_excluded`.
+  pierwszy pokój za wejściem (BFS od wejścia) i strefy portali; spawny je pomijają. Pokój wyjścia (boss) MA siatkę
+  (decyzja usera), poza strefą portalu. Test `check_nav_excluded` (sprawdza też nawigację pod bossem).
