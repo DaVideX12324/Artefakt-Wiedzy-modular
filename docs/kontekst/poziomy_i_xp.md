@@ -5,8 +5,10 @@ poziom 100.** Jaskinie (mapa 1) szybciej: do lv 8–9. Statystyki „coś pomię
 bardzo ważny.
 
 ## Co jest zrobione (faza 1: XP i poziomy wrogów)
-- `PlayerStats.MAX_LEVEL = 100`; HP bohatera liniowo 334 -> 5000 (lv 20 ≈ 1230); SP 139 -> 1739 (lv 20 nadal 446, koszty
-  umiejętności bez zmian). Krzywa XP: EXP klasy z RPG Makera VX Ace (`QuizRpgHeroData.xp_total_for_level`), do lv 100 ≈ 7,1 mln XP.
+- `PlayerStats.MAX_LEVEL = 100` (krzywe), **`PlayerStats.LEVEL_CAP = 20`** (aktualny limit poziomu — decyzja usera 2026-10-12: limit rośnie z
+  rozwojem gry, np. cmentarz = limit na 3 mapy; XP ponad limit przepada). HP bohatera: lv 1 334, **lv 20 1402 jak dotąd** (FNaFB1), dalej
+  krzywa potęgowa do **50 000 na lv 100** (lv 40 ≈ 6,5 tys., 60 ≈ 16 tys., 80 ≈ 30 tys.; `QuizRpgHeroData.hp_for_level`, pola
+  `hp_knee_level` / `hp_at_knee` / `hp_at_max_level`); SP 139 -> 1739 (lv 20 nadal 446, koszty umiejętności bez zmian). Krzywa XP: EXP klasy z RPG Makera VX Ace (`QuizRpgHeroData.xp_total_for_level`), do lv 100 ≈ 7,1 mln XP.
 - `QuizRpgEnemyXp.kill_xp(level, tier, boss)` = `KILL_FRACTION` (0,08) × XP do następnego poziomu z poziomu wroga × waga
   tieru (1: 0,6, 2: 1,0, 3: 1,6); boss ×`BOSS_MULT` (6). Wróg z `enemy_level` 0 ma stałe `xp_reward` (tutorial).
 - Poziom wroga: `enemy_data.enemy_level` / `EnemyBase.set_enemy_level(level, xp_scale)`; mapa nadaje poziomy z companion-JSON
