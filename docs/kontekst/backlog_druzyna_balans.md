@@ -22,6 +22,14 @@ HP bohatera 334 → 1402 (lv 1–20), XP 100 × L^1.5, staty ATK / DEF / MAT / M
 **O — projekt**
 1. **Skalowanie tierów przy kilkunastu mapach:** `enemy_level` + archetypy + krzywa XP + generator `.tres` (patrz `znane_problemy.md`).
 2. AGI i kolejność tur (z statusami AGI w górę / w dół; TODO w `game_design.md`), „zawsze rusza ostatni” (Marsz / Usypiająca Melodia), Dzielenie Tempa naprawdę na AGI.
+   - **Opis zadania dla Opusa (2026-10-11), unik / pudło / blok:** dziś zwykły atak wroga trafia ZAWSZE (pudłuje tylko przy statusach
+     z `hit_mult`: Oślepienie ×0,4, Przestrach ×0,75; „Unik!” w `_enemy_turn`), bohater nie ma uniku ani losowego bloku
+     (jest tylko akcja Obrona: obrażenia ×0,25 po dobrej odpowiedzi / ×0,5 po złej; `can_be_blocked = false` ją omija).
+     Szansa trafienia bohatera: 0,8 po dobrej / 0,2 po złej odpowiedzi (`ATTACK_HIT_CHANCE_*`, × `member_hit_mult`).
+     Do zaprojektowania razem z AGI: szansa wroga na pudło i bohatera na unik / blok z AGI (a nie stała), wpływ statusów
+     AGI w górę / w dół, kolejność tur, „zawsze rusza ostatni” (Marsz / Usypiająca Melodia), Dzielenie Tempa naprawdę na AGI,
+     skalowanie względem inflacji HP przy strażnikach (Miażdżący Cios 25000 / 16 % jak w FNaFB). Miejsca w kodzie:
+     `quiz_combat_controller.gd` (`_enemy_turn`, `_enemy_use_skill`, `_resolve_attack`), `QuizRpgSkillMath.roll_hit`, `QuizRpgStatusData.hit_mult`.
 3. Combo (TP 100, serie pytań), umiejętność „raz na walkę” (Death Inhale z lv 20).
 4. Poziomy umiejętności od użyć (jak FNaFB3: 20 użyć → LV2, +30 → MAX) — też jako remedium na dryf siły skilli względem zwykłego ataku.
 5. Przywołania, towarzysze (skład, role, pule HP, wybór sojusznika kursorem w walce), sklep / nauczyciele umiejętności (NPC, którym wracają wspomnienia).
