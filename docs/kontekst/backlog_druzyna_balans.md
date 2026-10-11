@@ -34,3 +34,7 @@ HP bohatera 334 → 1402 (lv 1–20), XP 100 × L^1.5, staty ATK / DEF / MAT / M
 - Nazwy umiejętności / statusów **ogólne**, nie z FNaFB (specyficzne dla serii).
 - Wzór liczb: FNaFB1 FM; skille bazowe z CC; koszt w CC bywa w notatce `<Custom MP Cost>`, nie w `mpCost`.
 - Dane FNaFB tylko do odczytu; commit osobno dla każdej zmiany, submoduł pierwszy, potem wskaźnik hosta.
+
+## UI (2026-10-11)
+- Zrobione: ramki sekcji `QuizFrame` w panelach menu pauzy (motyw st_* = tekstura z paczki UI; klasyczny = obrys), opcja „Menu pauzy tylko na szerokość treści”.
+- Później (zgłoszenie usera): UI walki — umiejętności nie powinny wymuszać pełnej szerokości.
