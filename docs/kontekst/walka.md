@@ -201,7 +201,7 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
   - `coin_barrage` (Grad Monet, lv 5, 3 losowe cele, 3 trafienia).
   - `dive_attack` (Atak Nurkujący, lv 10, silne uderzenie śmigłem, mnożnik 1.5).
   - `smoke_cloud` (Chmura Dymu, lv 15, 50% szansy na oślepienie).
-  - `death_enrage` (Szał Zniszczenia, lv 20, combo: 9 trafień obszarowych po wszystkich wrogach za 50 SP i 50 TP).
+  - `death_enrage` (Szał Zniszczenia, lv 20, combo: 9 trafień obszarowych po wszystkich wrogach za 450 SP i 100 TP jak we FNaFB; SP bohatera na lv 20 to ok. 446, więc do podniesienia LEVEL_CAP nieużywalny).
 
 
 
