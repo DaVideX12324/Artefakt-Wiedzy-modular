@@ -46,3 +46,18 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
 - **Drzwi z zagadką** (`scripts/quiz/quiz_door.gd`, tylko na starej `world_map.tscn`): zostają (decyzja usera
   2026-10-04) — do ewentualnego recyklingu, np. jako sekcja quizu przy otwieraniu skrzyni wytrychem.
 - `docs/znane_problemy.md` — reszta zgłoszeń i historia rozwiązanych.
+
+## Stan na koniec sesji 2026-10-11 (przed compactem) — do podjęcia
+- **Decyzja usera:** boss stoi w pokoju wyjścia bez siatki nawigacji (`nav_excluded`) — czy ma się ruszać (wtedy
+  wyłączyć pokój wyjścia albo obszar bossa z `_nav_excluded_cells`).
+- Niezacommitowane (nie z tej pracy, zostawione): `rat_base.tres` / `rat_base.tscn`, tła walki
+  `battle_backgrounds/pixel_crawler/cave/Variant (6–8).jpg`.
+- Ikony przedmiotów: duplikaty (`iron_buckler` = `steel_kite_shield`), mało różnych mikstur, akcesorium = pierścień;
+  ikony w liście ekwipunku ekranu Status i w liście przedmiotów w walce.
+- Backlog druzyna-balans S5–S7 (strojenie tierów 2–4, skille sojuszników / statusy FNaFB3, 3 niepodpięte skille wrogów);
+  O1–O7 (skalowanie tierów, AGI, combo, poziomy skilli, towarzysze / sklep, klucze, tłumaczenia); potem miasto / hub.
+- UI walki: user rozważa przewijaną listę zamiast siatki umiejętności.
+- Testy lokalne: `diag_enemy_chase` (tutorial_area) niestabilny (200–750 / 3000 przy progu 600); wzorzec parytetu
+  odświeżany przy zamierzonych zmianach generatora (`tests/parity_baseline.txt`).
+- Szczegóły zmian sesji: walka.md, wrogowie.md, sciany_i_kafle.md, menu_i_opcje.md, ekran_ladowania.md (sekcje 2026-10-11),
+  `docs/krytyczne_zawieszenia_klatek.md` (lag przy myszy — rozwiązany restartem edytora).
