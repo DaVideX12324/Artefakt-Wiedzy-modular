@@ -1,5 +1,7 @@
 # Backlog: drużyna, balans, umiejętności (stan 2026-10-11)
 
+> **Następny etap po tym backlogu: miasto / hub** (priorytet usera 2026-10-11) — opis w `znane_problemy.md` „(5) miasto z modularnych zasobów paczki free”.
+
 Gałąź CienMgly: `druzyna-balans` (niezmergowana). Podział: **S** = Sonnet (mechaniczne), **G** = Gemini (dane / teksty), **O** = Opus (projekt, zmiany przekrojowe).
 
 ## Zrobione (skrót)

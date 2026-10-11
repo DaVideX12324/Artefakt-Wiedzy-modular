@@ -100,7 +100,9 @@
   członka drużyny (`is_party_follower`, podążanie po śladzie lidera, bieg razem z liderem — `is_running()`),
   menu Esc ma wiersze drużyny, komunikaty walki piszą „Bohater i drużyna”.
 
-### ⚠ WAŻNE: (5) miasto z modularnych zasobów paczki free
+### ⚠ WAŻNE — NASTĘPNY ETAP: (5) miasto / hub z modularnych zasobów paczki free
+> **Priorytet 2026-10-11:** user ustawił miasto / hub jako następny etap prac (po drużynie i balansie).
+
 - Zgłoszenie 2026-10-05 (ostatnie z ważnych todo). Mapa miasta (kolejność map: jaskinia → miasto → ścieki,
   [game_design.md](game_design.md)) zbudowana ze skomplikowanych, modularnych zasobów
   `assets/pixel_crawler/packs/free_pack_2.11/Pixel Crawler - Free Pack/Environment/`:
