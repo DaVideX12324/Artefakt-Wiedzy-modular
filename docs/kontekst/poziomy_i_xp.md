@@ -14,8 +14,12 @@ bardzo ważny.
 - Poziom wroga: `enemy_data.enemy_level` / `EnemyBase.set_enemy_level(level, xp_scale)`; mapa nadaje poziomy z companion-JSON
   `"enemy_levels": {"1": [1, 3], "2": [3, 7], "3": [9, 9], "ref_spawns": 32}` (pasmo tieru, poziom deterministycznie z `hash(pozycji)`).
 - **Rozmiar mapy:** XP za wroga jest skalowane `ref_spawns / liczba zwykłych spawnów mapy` (0,25–4), więc budżet mapy nie zależy od jej
-  wielkości (100×100 … 250×250 dają lv 8,3–9,0 po 120 % wrogów; `tests/diag_cave_xp.gd`). Boss bez skali.
-- Jaskinie: `tier3_chance` = 0 (wcześniej 15 % dalszych spawnów to był boss `fungus_old` z 8000 XP; boss tylko w pokoju wyjścia).
+  wielkości (100×100 … 250×250 dają lv 8,6–9,3 po 120 % wrogów; `tests/diag_cave_xp.gd`). Boss bez skali.
+- **Tiery w jaskiniach (decyzja usera 2026-10-12):** boss końcowy = **tier 4** (pokój wyjścia, `fungus_old`, lv 9), a w dalszej części mapy
+  kilku **minibossów tier 3** (`fungus_heavy`: 900 HP, 90 / 90, zawsze pojedynczo, lv 8–9; `tier3_from` 0,6, `tier3_chance` 0,2 — od 1 na
+  100×100 do ok. 6 na 250×250). Wpis puli `enemies` o indeksie `tier - 1`; poziomy w `enemy_levels` ("3", "4"). Skala XP po rozmiarze mapy
+  obejmuje wrogów i minibossów (bez bossa); `ref_spawns` = 34. Wcześniej tier 3 w puli był bossem `fungus_old` (8000 XP) i losowo pojawiał
+  się jako zwykły wróg.
 - Skan pokazuje poziom wroga „(lv N)”.
 
 ## Budżet 15 map (hero lv po 120 % wrogów; ok. 72 zabić na mapę)
