@@ -57,3 +57,8 @@ pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
 ## Beczki — łup (2026-10-11)
 - Łup z beczki to powiadomienie bez pauzy (`LootManager.show_loot_toast`: ikona + nazwa ×liczba, prawy dolny róg, znika po 3 s, maks. 8 naraz) — bez popupu i klikania. Skrzynie nadal używają popupu (`show_loot_popup`).
 - `LootManager.search_barrel(szansa, rolls_min, rolls_max)`: kilka losowań z tabeli, powtórzenia sumują się w kopie (mikstura 1–3, reszta 1–2). Beczki czytają ustawienia z metadanej rodzica `barrel_loot` {drop_chance, rolls_min, rolls_max}; w `tutorial_area` (węzeł Destructibles) 100 % i 2–4 losowania — do czasu sklepów (po jaskiniach). Gdzie indziej: jedno losowanie, szansa `interaction_drop_chance` beczki. Test `check_barrel_loot`.
+
+## Klucze i wytrychy (2026-10-11)
+- Przedmioty `universal_key` (Klucz Uniwersalny) i `lockpick` (Wytrych), kategoria `key`, ikony z paczki 16×16 (item692 / item712). `PlayerStats.get_item_count`.
+- Wszystkie skrzynie zamknięte (także tutorialowa): `Chest.try_open` — wytrych (używany przed kluczem) uruchamia quiz (`quiz_puzzle_ui`; `tier` skrzyni: 2 + tier pytań, tier + 1 poprawnych), udany quiz zużywa wytrych i otwiera; porażka — 50 % szans na złamanie wytrycha (`LOCKPICK_BREAK_CHANCE`), inaczej można spróbować znowu. Klucz otwiera od razu i znika. Bez nich komunikat „Zamknięte” (toast). `tier` na razie ręcznie (domyślnie 1; TODO: z głębokości / poziomu mapy).
+- Źródła: wytrychy z beczek (`LootManager`, waga 30, 1–2 szt.), klucze z wrogów (`QuizCombatController._roll_item_drops`, na każdego pokonanego wroga: tier 1 4 %, 2 7 %, 3 11 %, 4/boss 30 %). Test `check_chest_lock`.
