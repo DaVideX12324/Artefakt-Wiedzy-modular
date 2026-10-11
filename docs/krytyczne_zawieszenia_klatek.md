@@ -1,6 +1,29 @@
 # KRYTYCZNE: wielosekundowe zawieszenia klatek przy ruchu kursora (zgłoszone 2026-10-11)
 
-Status: **nierozwiązane, przyczyna nieznana.** Zawieszenie obejmuje cały proces Godota (user: nawet przesuwanie okna gry i
+## PRZYCZYNA USTALONA (2026-10-11, wieczór): ścieżka RenderingDevice (Vulkan/D3D12) Godota 4.7.2 na tym komputerze
+- Pełna gra na **OpenGL** (`--rendering-driver opengl3`, renderer Compatibility): 170 FPS, 0 zacięć przy chaotycznym ruchu
+  myszą z fokusem — user potwierdził „czysto, bez lagów”. Na Vulkanie (Forward+) ta sama gra: klatki do kilku sekund.
+- Wcześniej D3D12 też się zacinało → problem w ścieżce RenderingDevice + okno z fokusem + zdarzenia myszy, nie w kodzie gry.
+- Zwykłe okno Win32 (Python, ta sama pętla PeekMessage bez czekania, fokus, ~540 ruchów myszy/s): 1 przerwa 79 ms na 45 s
+  → Windows/mysz/sterowniki obsługują wejście dobrze; mysz G502 X Lightspeed = 1 kHz (normalne).
+- Wykluczone eksperymentalnie: LittleBigMouse, Windhawk (mody dark mode), warstwy Vulkana OBS/RTSS
+  (`VK_LOADER_LAYERS_DISABLE=~implicit~`), AccessKit (`--accessibility disabled` — flaga działa, lag został), VSync (wszystkie
+  tryby), audio, wycieki, kod `quiz_rpg`/hosta.
+- Profil stosów (własny próbnik `scratchpad/stack_sampler.py` + `symbolize.py`, dbghelp z Windows Kits): w trakcie lagu wątek
+  główny 99,9% w `PeekMessageW` (57% w jądrze `NtUserPeekMessage`, 42% w komunikatach wysyłanych do okna →
+  `DefWindowProc`/`UxTheme`). Główna hipoteza: interakcja swapchaina Vulkan/DXGI z kompozycją okna (DWM, nakładki
+  wielu płaszczyzn / sprzętowy kursor) na AMD RX 9070 XT + 3 monitory (170 Hz + inne) + Windows 11 Insider 26300 —
+  niepotwierdzona; do zgłoszenia jako błąd Godota/AMD z minimalnym projektem, gdy uda się go odtwarzać pewnie.
+- Uwaga metodyczna: testy pustego projektu były zawodne, bo okno uruchomione z terminala często nie dostawało fokusu
+  (lag występuje tylko z fokusem). Gra uruchamiana przez usera odtwarza lag zawsze.
+
+**Poprawka (do decyzji usera):** renderer Compatibility (`rendering/renderer/rendering_method="gl_compatibility"`) —
+gra 2D, projekt ma już tag „GL Compatibility” w `config/features`, a faktycznie działał na Forward+ (brak ustawienia).
+Edytor też używa renderera projektu, więc przestanie lagować.
+
+---
+
+Status (historyczny opis poniżej): przyczyna ustalona — patrz sekcja wyżej. Zawieszenie obejmuje cały proces Godota (user: nawet przesuwanie okna gry i
 edytora jest opóźnione, a hovery „stoją w kolejce” — po zatrzymaniu myszy przyciski dalej się podświetlają).
 
 ## NAJWAŻNIEJSZE USTALENIE (2026-10-11, późniejsze testy)
