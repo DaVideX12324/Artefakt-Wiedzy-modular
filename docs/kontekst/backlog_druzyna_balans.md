@@ -17,7 +17,7 @@ HP bohatera 334 → 1402 (lv 1–20), XP 100 × L^1.5, staty ATK / DEF / MAT / M
 4. ~~Dokumentacja obrony w `walka.md`~~ — zrobione 2026-10-11 (skille / statusy FNaFB3 do opisania).
 5. Strojenie tierów 2–4 względem CC (Party Hat β / γ / Ω: 400 / 1200 / 2400 HP) po sprawdzeniu w grze.
 6. Przejrzeć skille sojuszników od Gemini (wartości, `learn_level`), sprawdzić obsługę statusów FNaFB3 (obłęd, urok, prowokacja) w walce.
-7. ~~Niepodpięte skille wrogów~~ — przeskalowane 2026-10-11 do poziomu skilli bossa (Wirujące Cięcie ≈ 1350 przy ATK 150 / DEF 50): Szał Natarcia ×0,3 (8 trafień ≈ 1200), Nieustępliwy Szturm ×0,45 (6 ≈ 1080), Miażdżący Cios 2500 → 1400 (25 % trafienia). Wciąż niepodpięte do żadnego wroga — do decyzji, komu je dać.
+7. ~~Niepodpięte skille wrogów~~ — przeskalowane 2026-10-11 do poziomu skilli bossa (Wirujące Cięcie ≈ 1350 przy ATK 150 / DEF 50): Szał Natarcia ×0,3 (8 trafień ≈ 1200), Nieustępliwy Szturm ×0,45 (6 ≈ 1080), Miażdżący Cios zostaje jak był (2500 stałych, 25 % trafienia — wzór Golden Bash, decyzja usera: na bossa strzegącego fragmentu). Wciąż niepodpięte do żadnego wroga — do decyzji, komu je dać.
 
 **O — projekt**
 1. **Skalowanie tierów przy kilkunastu mapach:** `enemy_level` + archetypy + krzywa XP + generator `.tres` (patrz `znane_problemy.md`).
