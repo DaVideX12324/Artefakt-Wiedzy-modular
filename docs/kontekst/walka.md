@@ -227,3 +227,4 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
   grupa = minimum, dopełnienie = kopie głównego z jego XP (`_roll_enemy_party`). Testy `check_enemy_group(_always)`.
 - Hover: `QuizTheme.set_menu_item_selected` nic nie robi bez zmiany stanu (`force` przy zmianie motywu) — wcześniej
   ~1,5 ms / hover. `_find_pause_menu_node` = grupa `quiz_pause_menu` (pause_menu.gd `_enter_tree`) zamiast find_child.
+- (2026-10-11) Listy umiejętności / przedmiotów w walce: opcja Motyw „Umiejętności i przedmioty w walce” (`ui_list_layout`, `QuizTheme.list_layout()`): siatka 2 kolumny (domyślnie) albo jedna przewijana lista; zastąpiło automatyczny dobór kolumn z szerokości. Wiersze mają ikony przedmiotów (`CombatListRow.setup(..., icon)`).
