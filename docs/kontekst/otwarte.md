@@ -60,3 +60,23 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
 - Szczegóły zmian sesji: walka.md, wrogowie.md, sciany_i_kafle.md, menu_i_opcje.md, ekran_ladowania.md (sekcje 2026-10-11),
   `docs/krytyczne_zawieszenia_klatek.md` (lag przy myszy — rozwiązany restartem edytora).
 - **Poziomy wrogów i XP na 15 map (2026-10-12):** faza 1 zrobiona, faza 2 (statystyki z poziomu, krzywe do lv 100) do zrobienia — [poziomy_i_xp.md](poziomy_i_xp.md).
+
+## Stan na koniec sesji 2026-10-12 (przed compactem) — do podjęcia
+Zrobione w tej sesji (szczegóły: walka.md, wrogowie.md, obiekty.md, sciany_i_kafle.md, backlog_druzyna_balans.md, poziomy_i_xp.md, skille_i_pierwowzory.md):
+boss w pokoju wyjścia z nawigacją; Area2D przejść za gradientem; odbicie wrogów od siebie (wałęsanie); ikony przedmiotów + ikony w listach; układ list
+w walce (siatka 2 kol. / przewijana, opcja Motyw) i siatka celów bez HP; koniec freeze po ucieczce; łup z beczek jako toast bez pauzy, bogate beczki w
+tutorialu; klucze uniwersalne + wytrychy (zamknięte skrzynie, quiz wg tieru); animacja wejścia do walki; okno komunikatów po walce na szerokość UI;
+Skan (CC) bez zużycia tury; skille wrogów (Miażdżący Cios jak FNaFB 25000 / 16 %); strojenie tierów 2–4 (S5); poziomy wrogów + XP na 15 map
+(MAX_LEVEL 100, LEVEL_CAP 20, HP lv20 1402 → lv100 50000, boss tier 4 + miniboksy tier 3 w jaskiniach, skala XP po rozmiarze mapy,
+pokrętło xp_size_exponent = 1,0); log progresji do testów (`user://progress_log.txt`).
+Do podjęcia:
+- **Testy w grze z kolegami** (log progresji): poziom przy bossie jaskiń, liczba walk, odstępy między awansami; potem ewent. `KILL_FRACTION` (0,08)
+  / `xp_size_exponent` (1,0 vs 0,75). 120 % to scenariusz kalkulacji, nie wymaganie.
+- **Faza 2 poziomów (Opus):** statystyki wrogów z poziomu (generator .tres z krzywej), krzywe bohatera do lv 100 (ekwipunek ma być bardzo ważny),
+  poziomy umiejętności rozciągnięte na 100, tiery przedmiotów na 15 map — poziomy_i_xp.md.
+- **O2 (Opus):** unik / pudło / blok z AGI, kolejność tur — backlog_druzyna_balans.md.
+- `scan_text` wrogów do uzupełnienia (Gemini; FNaFB CC ma 38 + 200 opisów).
+- S6 (przegląd skilli sojuszników od Gemini), tier skrzyni z poziomu mapy (dziś ręcznie, domyślnie 1), animacja wyjścia z walki, ikony mikstur z innej paczki
+  (user), ikona wytrycha (kandydaci: podglady_ui/wytrych_kandydaci.png, dziś item712), miasto / hub, `diag_enemy_chase` niestabilny.
+- Do sprawdzenia w grze: boss w pokoju wyjścia chodzi?, przejście przy gradiencie, przewijanie długiej listy w walce, tutorial + jaskinie = lv 8–9?
+- **Merge `druzyna-balans` do `main` (CienMgly) dopiero na koniec — na polecenie usera.**
