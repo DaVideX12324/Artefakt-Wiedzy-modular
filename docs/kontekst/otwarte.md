@@ -59,3 +59,4 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
   odświeżany przy zamierzonych zmianach generatora (`tests/parity_baseline.txt`).
 - Szczegóły zmian sesji: walka.md, wrogowie.md, sciany_i_kafle.md, menu_i_opcje.md, ekran_ladowania.md (sekcje 2026-10-11),
   `docs/krytyczne_zawieszenia_klatek.md` (lag przy myszy — rozwiązany restartem edytora).
+- **Poziomy wrogów i XP na 15 map (2026-10-12):** faza 1 zrobiona, faza 2 (statystyki z poziomu, krzywe do lv 100) do zrobienia — [poziomy_i_xp.md](poziomy_i_xp.md).
