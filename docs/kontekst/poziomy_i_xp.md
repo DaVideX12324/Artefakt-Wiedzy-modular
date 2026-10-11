@@ -15,6 +15,9 @@ bardzo ważny.
   `"enemy_levels": {"1": [1, 3], "2": [3, 7], "3": [9, 9], "ref_spawns": 32}` (pasmo tieru, poziom deterministycznie z `hash(pozycji)`).
 - **Rozmiar mapy:** XP za wroga jest skalowane `ref_spawns / liczba zwykłych spawnów mapy` (0,25–4), więc budżet mapy nie zależy od jej
   wielkości (100×100 … 250×250 dają lv 8,6–9,3 po 120 % wrogów; `tests/diag_cave_xp.gd`). Boss bez skali.
+  Pokrętło `enemy_levels.xp_size_exponent` (domyślnie 1,0 = pełna normalizacja, jak dotąd; brak pola = 1,0): skala = (ref_spawns / spawny)^wykładnik,
+  zakres 0,25–4, boss bez skali. Wartość < 1 (np. 0,75) = większe mapy dają więcej łącznego XP (100×100 lv 8,2 … 250×250 lv 9,6 po 120 % wrogów
+  przy 0,75); do testów w grze: porównać 1,0 i 0,75 (poziom przy bossie, liczba walk i czas między awansami). `EXPO=0.75` w `tests/diag_cave_xp.gd`.
 - **Tiery w jaskiniach (decyzja usera 2026-10-12):** boss końcowy = **tier 4** (pokój wyjścia, `fungus_old`, lv 9), a w dalszej części mapy
   kilku **minibossów tier 3** (`fungus_heavy`: 900 HP, 90 / 90, zawsze pojedynczo, lv 8–9; `tier3_from` 0,6, `tier3_chance` 0,2 — od 1 na
   100×100 do ok. 6 na 250×250). Wpis puli `enemies` o indeksie `tier - 1`; poziomy w `enemy_levels` ("3", "4"). Skala XP po rozmiarze mapy
