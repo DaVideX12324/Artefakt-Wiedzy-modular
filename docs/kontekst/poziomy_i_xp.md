@@ -71,3 +71,4 @@ Pasma poziomów wrogów dla kolejnej mapy: tier 1 = początek mapy .. +1/3 zakre
   i podsumowanie poprzedniej, każda walka (wygrana / ucieczka / porażka, wrogowie z poziomem i tierem, XP, tury, czas, numer walki, BOSS) i
   awans (ile walk i czasu od poprzedniego awansu). Linia: `[czas sesji] Lv (XP/następny) HP | zdarzenie | szczegóły`. Testerzy odsyłają plik —
   z niego widać poziom przy bossie, liczbę walk i odstępy między awansami. Test `check_progress_log`.
+  Podsumowanie w tabelę (mapy, walki W / U / P, XP, poziom na wejściu i wyjściu, bossowie, awanse): `python modules/quiz_rpg/tools/progress_summary.py plik1.txt [plik2.txt …]` (po jednym pliku od każdego testera).
