@@ -57,3 +57,12 @@ Pasma poziomów wrogów dla kolejnej mapy: tier 1 = początek mapy .. +1/3 zakre
   przemyśleć wagę ekwipunku (decyzja usera: bardzo ważny), tiery przedmiotów na 15 map, sklepy.
 - **Poziomy umiejętności z poziomu bohatera** (dziś uczone na lv 1 / 5 / 10 / 15 / 20 — rozciągnąć na 100).
 - Tutorial: wrogowie mają stałe XP (enemy_level 0); upewnić się, że tutorial + jaskinie dają łącznie lv 8–9.
+
+## Status celu „120 %” i test w grze (2026-10-12)
+- „120 % wrogów = lv 100” to **scenariusz kalkulacji budżetu**, a nie wymaganie wobec gracza (nie trzeba czyścić map). `KILL_FRACTION` zostaje 0,08
+  do pierwszego przejścia jaskiń; zmiana na ok. 0,107 (90 %) / 0,128 (75 %) to tylko proporcjonalne przeliczenie nagród i nie gwarantuje celu
+  (zależy, których wrogów gracz pokona: poziomy, tiery, boss ×6, tutorial ze stałym XP) — po zmianie trzeba przeliczyć budżet ponownie.
+- **Test:** przejść jaskinie naturalnie (zaglądać do odnóg, nie wracać po pominiętych wrogów), przy bossie zapisać: poziom bohatera, liczbę
+  walk, czas przejścia, odstępy między awansami. Pytania: czy boss jest do pokonania bez grindu, czy awanse dają satysfakcję, czy
+  męczy raczej liczba / długość / powtarzalność walk (wtedy więcej XP nie pomoże, trzeba ruszyć liczbę spotkań). Nie ma pomiarów, ile
+  mapy gracze czyszczą — nie zakładać „60–80 %”.
