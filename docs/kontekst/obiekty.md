@@ -53,3 +53,7 @@ mech (teren foliage), filary w licu, skrzynia w grafice ścieków.
 
 Test: `tests/diag_object_access.gd` (w zestawie `run_plateau_suite.sh`). Parytet: zmieniło się tylko
 pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
+
+## Beczki — łup (2026-10-11)
+- Łup z beczki to powiadomienie bez pauzy (`LootManager.show_loot_toast`: ikona + nazwa ×liczba, prawy dolny róg, znika po 3 s, maks. 8 naraz) — bez popupu i klikania. Skrzynie nadal używają popupu (`show_loot_popup`).
+- `LootManager.search_barrel(szansa, rolls_min, rolls_max)`: kilka losowań z tabeli, powtórzenia sumują się w kopie (mikstura 1–3, reszta 1–2). Beczki czytają ustawienia z metadanej rodzica `barrel_loot` {drop_chance, rolls_min, rolls_max}; w `tutorial_area` (węzeł Destructibles) 100 % i 2–4 losowania — do czasu sklepów (po jaskiniach). Gdzie indziej: jedno losowanie, szansa `interaction_drop_chance` beczki. Test `check_barrel_loot`.
