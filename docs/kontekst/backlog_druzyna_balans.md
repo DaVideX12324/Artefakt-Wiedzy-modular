@@ -30,6 +30,8 @@ HP bohatera 334 → 1402 (lv 1–20), XP 100 × L^1.5, staty ATK / DEF / MAT / M
      AGI w górę / w dół, kolejność tur, „zawsze rusza ostatni” (Marsz / Usypiająca Melodia), Dzielenie Tempa naprawdę na AGI,
      skalowanie względem inflacji HP przy strażnikach (Miażdżący Cios 25000 / 16 % jak w FNaFB). Miejsca w kodzie:
      `quiz_combat_controller.gd` (`_enemy_turn`, `_enemy_use_skill`, `_resolve_attack`), `QuizRpgSkillMath.roll_hit`, `QuizRpgStatusData.hit_mult`.
+   - **Decyzja usera (2026-10-12): losowy blok bohatera = 100 % uniknięcie obrażeń**, czyli to samo co unik, tylko w innym wydaniu
+     (inny komunikat / animacja). Szansa z AGI. Bez własnego mnożnika; atak z `can_be_blocked = false` omija blok tak jak Obronę.
 3. Combo (TP 100, serie pytań), umiejętność „raz na walkę” (Death Inhale z lv 20).
 4. Poziomy umiejętności od użyć (jak FNaFB3: 20 użyć → LV2, +30 → MAX) — też jako remedium na dryf siły skilli względem zwykłego ataku.
 5. Przywołania, towarzysze (skład, role, pule HP, wybór sojusznika kursorem w walce), sklep / nauczyciele umiejętności (NPC, którym wracają wspomnienia).
