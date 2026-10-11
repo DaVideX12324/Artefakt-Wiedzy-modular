@@ -12,7 +12,7 @@ HP bohatera 334 → 1402 (lv 1–20), XP 100 × L^1.5, staty ATK / DEF / MAT / M
 ## Do zrobienia
 **S — mechaniczne**
 1. ~~Statusy w wierszach drużyny w walce~~ — zrobione 2026-10-11 (`StatusLabel`).
-2. ~~Typy broni~~ — zrobione 2026-10-11: `weapon_type` (none / sword / staff / bow) w przedmiotach, `required_weapon_type` i `consumes_weapon` w umiejętnościach; nowy skill Ostatni Zamach (wymaga miecza, niszczy go).
+2. ~~Typy broni~~ — zrobione 2026-10-11: `weapon_type` (none, sword, dagger, axe, spear, mace, staff, bow — wg arkuszy broni z paczek Pixel Crawler) w przedmiotach, `required_weapon_type` i `consumes_weapon` w umiejętnościach; nowy skill Ostatni Zamach (wymaga miecza, niszczy go).
 3. ~~Odporność 50 % na statusy podczas obrony~~ — zrobione 2026-10-11.
 4. ~~Dokumentacja obrony w `walka.md`~~ — zrobione 2026-10-11 (skille / statusy FNaFB3 do opisania).
 5. Strojenie tierów 2–4 względem CC (Party Hat β / γ / Ω: 400 / 1200 / 2400 HP) po sprawdzeniu w grze.
