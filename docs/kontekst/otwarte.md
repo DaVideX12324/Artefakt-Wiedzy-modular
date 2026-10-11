@@ -76,6 +76,7 @@ Do podjęcia:
   poziomy umiejętności rozciągnięte na 100, tiery przedmiotów na 15 map — poziomy_i_xp.md.
 - **O2 (Opus):** unik / pudło / blok z AGI, kolejność tur — backlog_druzyna_balans.md.
 - `scan_text` wrogów do uzupełnienia (Gemini; FNaFB CC ma 38 + 200 opisów).
+- **Koszty, poziomy nauki i wartości umiejętności są tymczasowe** (decyzja usera 2026-10-12): przy docelowych 100 lvl będzie korekta (faza 2 poziomów). Dziś np. Death Enrage 450 SP przy ok. 446 SP bohatera na lv 20 jest nieużywalny — celowo nie poprawiane.
 - S6: nazwy umiejętności z docx Gemini są w `resources/i18n/pl.json` / `en.json` (klucz `skill.<plik .tres>.name`, `QuizRpgI18n`, opcja „Język” w Motywie, domyślnie pl). Zostaje ocena wartości (koszty, mnożniki) i opisów (`description` jeszcze nietłumaczone), dalej: statusy, przedmioty, UI. Pozostałe: tier skrzyni z poziomu mapy (dziś ręcznie, domyślnie 1), animacja wyjścia z walki, ikony mikstur z innej paczki
   (user), ikona wytrycha (kandydaci: podglady_ui/wytrych_kandydaci.png, dziś item712), miasto / hub, `diag_enemy_chase` niestabilny.
 - Do sprawdzenia w grze: boss w pokoju wyjścia chodzi?, przejście przy gradiencie, przewijanie długiej listy w walce, tutorial + jaskinie = lv 8–9?
