@@ -33,7 +33,7 @@ autoloadów, bez modułu), gdy user rusza **prawdziwą myszą chaotycznie**: 17 
 Windows, 3 monitory, RX 9070 XT, Godot 4.7.2, Windows 11 Insider (build 26300).
 ```
 # terminal 1 (okno gry na 100,100 1280x720):
-Godot_v4.7.2-stable_win64_console.exe --path . --position 100,100 --resolution 1280x720 -s res://modules/quiz_rpg/tests/repro_mouse_stall.gd
+Godot_v4.7.2-stable_win64_console.exe --path . --position 100,100 --resolution 1280x720 -s res://modules/quiz_rpg/tools/repro_mouse_stall.gd
 # terminal 2 równolegle (nie ruszać myszą):
 powershell -NoProfile -ExecutionPolicy Bypass -File modules/quiz_rpg/tools/mouse_sweep.ps1
 # wynik: %APPDATA%\Godot\app_userdata\Artefakt Wiedzy Modular\perf_log.txt (wpisy PUŁS co 5 s, ZACIĘCIE, ZAWIESZENIE)
@@ -84,6 +84,6 @@ gdy główny wątek stoi >1,5 s. `PUŁS` co 5 s: średnie FPS, najgorsza klatka,
 - Rozważyć wersję Godota (4.7.2) — porównać z inną wersją na minimalnym projekcie z tą samą zawartością.
 
 ## Pliki
-`scripts/tools/perf_monitor.gd` (monitor), `tests/repro_mouse_stall.gd` + `tools/mouse_sweep.ps1` (odtwarzanie),
+`scripts/tools/perf_monitor.gd` (monitor), `tools/repro_mouse_stall.gd` + `tools/mouse_sweep.ps1` (odtwarzanie),
 `tests/check_equip_hover.gd`. Niezacommitowane zmiany usera w `scenes/quiz/quiz_combat_ui.tscn` i `resources/ui/quiz_theme.tres`
 (m.in. `StatusLabel` min. szerokość 230 → 64) — nie wykluczone jako czynnik, nie testowane osobno.
