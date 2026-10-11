@@ -64,3 +64,7 @@ pokazuje własny ekran generowania. Gracz zamrożony (`PROCESS_MODE_DISABLED`) d
 ## Niezrobione
 
 - Grafiki z Gemini dla jaskini są w `loading_screens/cave/` (c205e80); pozostałe foldery puste.
+
+## Jedno tło przy wejściu na mapę proceduralną (2026-10-11)
+`level_manager` przekazuje wylosowane tło (`ProceduralLevel.loading_background`) przed add_child — ekran generowania
+nie losuje drugi raz (obraz zmieniał się, gdy ruszał pasek). Test lokalny `check_loading_background`.

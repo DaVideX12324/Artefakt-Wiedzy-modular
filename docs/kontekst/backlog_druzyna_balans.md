@@ -39,4 +39,5 @@ HP bohatera 334 → 1402 (lv 1–20), XP 100 × L^1.5, staty ATK / DEF / MAT / M
 
 ## UI (2026-10-11)
 - Zrobione: ramki sekcji `QuizFrame` w panelach menu pauzy (motyw st_* = tekstura z paczki UI; klasyczny = obrys), opcja „Menu pauzy tylko na szerokość treści”.
-- Później (zgłoszenie usera): UI walki — umiejętności nie powinny wymuszać pełnej szerokości.
+- ~~UI walki — umiejętności nie powinny wymuszać pełnej szerokości~~ — zrobione 2026-10-11 (walka.md „Zmiany 2026-10-11”).
+- Niestabilny test lokalny: `diag_enemy_chase` (tutorial_area) waha się 200–600 / 3000 przy progu 600 (losowe wałęsanie).
