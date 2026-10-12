@@ -52,21 +52,21 @@ Klasy ułożone tak, że skille z tabeli S6 mają dom; ok. 4–6 nowych skilli n
 
 Decyzje usera (2026-10-12):
 - **Jak we FNaFB: każdy członek dostaje tyle XP, ile dali przeciwnicy** (bez dzielenia przez liczbę członków), ale **każdy ma własną pulę XP** i własny poziom
-  (osobny `xp` i `level` w danych członka; `member["level"]` już istnieje, `PlayerStats.level` zostaje poziomem lidera i podstawą `LEVEL_CAP`).
+  (osobny `xp` i `level` w danych członka; `member["level"]` już istnieje).
 - **Martwy w chwili końca walki dostaje 50 % XP.**
-- **Do walki wchodzi cała drużyna** (bez zapasowych, bez limitu liczby osób na razie), więc nie ma pytania o XP członków spoza walki.
-- **Kto dołączy późno, nie ma grindować:** nowy członek startuje na poziomie bohatera minus 1–2 (propozycja), bez konieczności nadrabiania na słabych mapach.
-
-Propozycja dopełniająca (do oceny): **premia nadrabiania** — członek poniżej poziomu lidera dostaje mnożnik XP `1 + 0,15 × różnica poziomów` (maks. ×2), znikający po zrównaniu, żeby ktoś, kto był na bardzo niskim poziomie
-(np. po długiej nieobecności albo po wskrzeszeniu z kary), wrócił do drużyny w kilku walkach. Budżet XP z 15 map (lv 100 u lidera) nie zmienia się, bo premia dotyczy tylko członków poniżej lidera.
-Poziomy wrogów i statystyki z poziomu (`QuizRpgEnemyStats`) liczą się dla poziomu lidera; słabszy członek drużyny wyrównuje się premią, nie obniżaniem wrogów.
+- **Do walki wchodzi cała drużyna** (bez zapasowych, bez limitu liczby osób na razie).
+- **Bez premii nadrabiania.** Nadrabianie załatwia wysoki XP z wrogów wysokiego tieru, a nie osobna mechanika; późny członek nie ma grindować na niskich mapach.
+- **Poziom odniesienia = członek o najwyższym poziomie, nie lider** (gdzie potrzebny jeden poziom: start nowego członka — propozycja: najwyższy poziom − 1–2, wpisy logu progresji,
+  `PlayerStats.level` jako „poziom drużyny” przestaje być poziomem bohatera). `LEVEL_CAP` jest globalny i obowiązuje każdego członka osobno (XP ponad limit przepada).
+- **Poziom wroga jest z mapy, nie z gracza** (`enemy_levels` w konfiguracji mapy; `QuizRpgEnemyStats` liczy statystyki z poziomu wroga, nie z poziomu drużyny). Jak we FNaFB, na obszar wysokiego tieru
+  można wejść od początku, jeśli jest dostępny — to ryzyko i szansa na szybki awans, a nie coś, co gra łagodzi skalowaniem do gracza. Dostępność map ogranicza fabuła i blokady (skille, klucze), nie poziom.
 
 ## 7. Do uzgodnienia
 
 1. Czy „3” oznacza 3 towarzyszy (razem 4) czy 3 osoby łącznie.
 2. Nazwy klas i postaci, ich charakter / fabuła (dołączają z własnego powodu; pasuje do motywu wspomnień).
 3. Czy zadania towarzyszy są powiązane z odnogami i blokadami zamku (sekcja 5).
-4. Poziom startowy dołączającego (propozycja: bohater − 1–2) i czy wprowadzić premię nadrabiania XP (sekcja 6); krzywe XP per klasa (parametry `xp_*` w danych postaci) czy wspólna krzywa.
+4. Poziom startowy dołączającego (propozycja: najwyższy poziom w drużynie − 1–2); krzywe XP per klasa (parametry `xp_*` w danych postaci) czy wspólna krzywa.
 5. Czy bohater też ma klasę (Wojownik) i czy da się zmieniać klasę (propozycja: nie).
 6. Kto pisze skille klasowe (dane skilli i opisy mogą iść do Gemini wg briefu jak S6).
 7. Grafiki: jakich postaci użyć z paczki, czy potrzebne są nowe animacje.
