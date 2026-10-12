@@ -1,6 +1,6 @@
 # Indeks dokumentów kontekstowych (`docs/kontekst/`)
 
-Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_rpg` (Godot 4.7.2).
+Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_rpg` — Cień Mgły (Godot 4.7.2). Kod modułu jest w submodule `modules/quiz_rpg` (repo CienMgly); ścieżki w opisach (`scripts/…`, `scenes/…`) są względem folderu modułu.
 
 > **Przypomnienia na start sesji (hook Claude Code):** hook `SessionStart` w `.claude/settings.json` uruchamia `.claude/hooks/przypomnienia.sh`, który wypisuje wszystkie nagłówki `### ⚠ WAŻNE: …` z [`docs/znane_problemy.md`](../znane_problemy.md). Nowe ważne todo = nowy nagłówek z tym znacznikiem; po załatwieniu usunąć nagłówek albo znacznik — przypomnienie znika samo.
 >
@@ -28,6 +28,8 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 | [balans_i_skalowanie.md](balans_i_skalowanie.md) | Analiza balansu walki, statystyk HP/ATK/DEF, kalkulacji TTK i skalowania wzorowanego na FNaFB. | `SZKIC (niezatwierdzone)` |
 | [otwarte.md](otwarte.md) | Podsumowanie ostatniej sesji (handoff), decyzje usera i odnośniki do bieżących zadań w `znane_problemy.md`. | `W TOKU` |
 | [backlog_druzyna_balans.md](backlog_druzyna_balans.md) | Sprint backlog (etapy S1–S7 i O1–O7) prac na gałęzi `druzyna-balans`. | `W TOKU` |
+| [zadania_wg_trudnosci.md](zadania_wg_trudnosci.md) | Widok pomocniczy (nie źródło prawdy): zadania od najłatwiejszych do najtrudniejszych z oznaczeniem wykonawcy, stan na 2026-10-13. | `W TOKU` |
+| [sesja_2026-10-13_miasto_ldtk.md](sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach. | `W TOKU` |
 | [druzyna_szkic.md](druzyna_szkic.md) | Szkic systemu drużyny: 3 towarzyszy, rekrutacja po zadaniach, osobne pule XP i brak limitu w walce. | `SZKIC (niezatwierdzone)` |
 | [ekwipunek_szkic.md](ekwipunek_szkic.md) | Szkic ekonomii i ekwipunku: złoto, mikstury, tiery skrzyń i kluczy, sklepy oraz ulepszenia broni. | `SZKIC (niezatwierdzone)` |
 | [sloty_umiejetnosci_szkic.md](sloty_umiejetnosci_szkic.md) | Szkic mechaniki slotów umiejętności, 4 tierów, budżetu slotów oraz odblokowywania trybu combo. | `SZKIC (niezatwierdzone)` |
