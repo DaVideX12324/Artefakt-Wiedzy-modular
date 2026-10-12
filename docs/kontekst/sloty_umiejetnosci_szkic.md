@@ -13,7 +13,8 @@ dostępna w walce). Wszystkie liczby poniżej to propozycje do przerobienia; pun
 - Sloty rosną z poziomem; **akcesoria zwiększają lub zmniejszają ich liczbę** (zwykle kosztem słabszych statystyk).
 - Wyższy tier **kosztuje ograniczenie niższych**: jeden skill T4 wymaga ograniczenia liczby T1.
 - Blokady wejścia na zamek sprawdzają **znajomość skilla**, nie slot.
-- Skan nie zajmuje slotu (narzędzie, bez tury i bez kosztu) — do potwierdzenia.
+- **Skan jest poza budżetem** (decyzja usera 2026-10-12): nie zajmuje nawet tury, więc slot byłby bezsensem.
+- **Combo jest poza budżetem** (decyzja usera): to ult po osiągnięciu 100 TP. W trybie combo gracz używa skilli tyle razy, ile pozwala SP; skille kosztujące TP są wtedy niedostępne, bo cała pula TP poszła na aktywację. Dzisiejszy `death_enrage` (`combo = true`, 100 TP + 450 SP, jeden skill) to uproszczony zalążek tego trybu — pełny tryb combo jest do zaprojektowania osobno (backlog O3).
 
 ## 2. Model: wspólny budżet slotów (rekomendacja)
 
@@ -88,7 +89,7 @@ Skille-klucze zamku (Rushdown, Backup Bash, Rapid Flurry) mają niski tier start
 
 1. Wartości jednostek (1 / 2 / 3 / 5) i budżetu na poziom; limit aktywnych skilli (6?).
 2. ~~Czy skill T4 może być ustawiony niżej?~~ **Rozstrzygnięte (user 2026-10-12):** skill ma tier startowy i nie zajmie niższego slotu (T4 na start = tylko slot T4). Jeśli startuje np. na T3, a poziom bohatera podniósł jego maks. tier do T4, można go wstawić na T4 albo na dowolnym niższym poziomie, nie niższym niż T3. Czyli zakres = [tier startowy, maks. tier z poziomu bohatera].
-3. Czy Skan i skill combo (Death Enrage, 5. slot) leżą poza budżetem (propozycja: tak).
+3. ~~Czy Skan i combo leżą poza budżetem?~~ **Rozstrzygnięte:** tak, oba. Zostaje zaprojektować sam tryb combo (aktywacja 100 TP, serie skilli za SP, blokada skilli TP).
 4. Format akcesoriów (jednostki budżetu, ±1 tier) i które z obecnych `lucky_charm` / nowych dostają bonus.
 5. UI: ekran w menu pauzy (lista skilli, suwak poziomu, pasek budżetu), widok w walce bez zmian.
 6. Zapis: lista (skill, poziom) na członka.
