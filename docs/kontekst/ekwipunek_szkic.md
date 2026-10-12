@@ -255,17 +255,18 @@ Wnioski:
 - **Drop wrogów:** tier 1: mikstury i drobiazgi; tier 2: element sprzętu tieru 2 z małą szansą (np. 1/15 na wroga); tier 3 (miniboss): element tieru 2 lub rzadziej 3 (np. 1/4); boss końcowy: pewna nagroda (np. broń tieru 3).
 - **Skrzynie:** tabela po rzadkości: najczęściej mikstury, rzadziej sprzęt tieru 2, a **skrzynie w niszach** (ślepe zaułki / nisze, które generator już preferuje) dają sprzęt tieru 2–3.
 - Niższe tiery gwarantują, że gracz bez szczęścia nie jest zablokowany; wyższe są opcjonalne.
-- **Złoto:** wypada od początku (zbierane na miasto) albo dopiero po odblokowaniu miasta — do decyzji (sekcja 11, pytanie 2).
+- **Złoto wypada od początku, już od tutorialu** (decyzja usera 2026-10-12): zbierane w jaskiniach na wizytę w mieście. Nie ma w nim żadnego zakupu przed miastem, więc w jaskiniach liczy się tylko to, żeby gracz miał zapas.
+
+**Tiery sprzętu w sklepach blokuje postęp i fabuła (decyzja usera 2026-10-12):** kowal „nie pamięta, jak się robi lepsze rzeczy”, więc dostępny tier zależy od odblokowanych etapów fabuły, a nie od poziomu gracza, od samego dotarcia do lokacji ani od ilości złota. Konsekwencje:
+- Barierą zakupu jest odblokowanie tieru, nie cena: złoto może się gromadzić (od tutorialu), a odblokowanie kolejnego tieru nie robi z niego natychmiast „pustego” zakupu, bo cena to ułamek zapasu. Cena służy więc głównie jako wydatek i wyważenie (sekcja 9 pokrętło), a nie jako bramka tempa; poważny wydatek złota dają też stałe wzmocnienia, mikstury i opłaty za ulepszenia u NPC.
+- Mechanizm już istnieje: `LevelStateManager.register_device_progress(story_id)` / `has_device_progress(story_id)` (`autoloads/level_state_manager.gd`, monotoniczne flagi fabularne zapisywane z grą). Odblokowanie tieru kowala = flaga fabularna (np. po wykonaniu zadania kowala, po pokonaniu bossa); lista „tier → wymagana flaga” w danych sklepu. Nowy system nie jest potrzebny.
+- Rozmiar mapy ani poziom wroga nie zmienia dostępności sprzętu (spójne z wcześniejszym ustaleniem, że moc sprzętu nie zależy od powierzchni mapy ani poziomu gracza).
 
 ## 11. Decyzje do podjęcia
 
-**Pierwsza (częściowo rozstrzygnięta przez usera):** sklepy dopiero po odblokowaniu miasta (wyjście z jaskiń); w jaskiniach sprzęt z dropów wrogów i skrzyń / nisz (sekcja 10). Zostaje do potwierdzenia: czy od miasta wzorujemy się na FNaFB, czyli **waluta z potworów + sklep po jednym tierze standardowego sprzętu w lokacji + rzadkie dropy ponad pułap sklepu**?
-- **Tak:** dodaje złoto w `PlayerStats` i zapisie, drop złota i tabelę łupu wrogów (w tym rzadkie bronie), NPC / interfejs sklepu w mieście (do czasu miasta: sklep w menu deweloperskim).
-- **Nie:** tylko skrzynie / bossowie / questy; tempo sprzętu zależy od losu i eksploracji.
+**Pierwsza — w praktyce rozstrzygnięta przez usera:** złoto z potworów od tutorialu, sklepy po odblokowaniu miasta, tiery sklepu blokowane fabułą (kowal), w jaskiniach sprzęt z dropów i skrzyń / nisz. Do potwierdzenia zostają **rzadkie dropy ponad pułap sklepu** (sekcja 9: Kingly / Godly, wartości, szanse, bez wymogu poziomu) — czy je bierzemy i w jakiej formie.
 
-**Czwarta (jaskinie):** czy złoto wypada już w jaskiniach (gracz przychodzi do miasta z zapasem i od razu kupuje pierwszy tier), czy zaczyna wypadać dopiero po odblokowaniu miasta (przy cenie ≈ 2 zabicia pierwszy zakup i tak zajmuje parę walk)?
-- **Od początku:** miasto daje od razu odczuwalny zakup, złoto z jaskiń nie przepada; ryzyko: zapas przy wejściu do miasta trzeba skalibrować, żeby nie kupić od razu kilku tierów.
-- **Po mieście:** prostsza kalibracja, ale walki w jaskiniach nie dają niczego poza XP i dropami.
+**Czwarta (jaskinie) — rozstrzygnięta:** złoto wypada od początku, już od tutorialu.
 
 **Druga:** skala drabiny przy 100 poziomach: **A.** wydłużyć drabinę (pułap sklepu ≈ 600 ATK, rzadki ≈ 1200, najrzadszy ≈ 1850 ATK z bonusami HP / SP; przyrost z poziomu bez zmian, „szalone liczby” z ustaleń usera), **B.** zmniejszyć przyrost z poziomu (`atk_per_level` / `def_per_level`, sekcja 8), **C.** zostawić jak teraz (nasz pułap 320 = FNaFB-owy rzadki drop, poziom dominuje do lv 80).
 Uwaga: **zmiana A / B przesuwa wzorzec wrogów** w `enemy_stats.gd` (`GEAR_*` albo `*_per_level`); stosunek w walce zostaje, liczby w grze rosną.
