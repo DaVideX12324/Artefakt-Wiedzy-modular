@@ -69,7 +69,7 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
 - **Tier skrzyń z konfiguracji mapy** (`chest_tier` w JSON: jaskinie 1, ścieki 2) — dotyczy skrzyń z generatora, tutorialowe ręczne.
 - **Animacja wyjścia z walki** (ta sama źrenica na zrzucie ekranu walki; nie przy śmierci drużyny).
 - `tools/progress_summary.py` — log progresji w tabelę Markdown. `diag_enemy_chase`: próg „wiszą na ścianach” 33 % (wałęsanie losowe).
-- **Tłumaczenia JSON:** `QuizRpgI18n` + `resources/i18n/pl.json|en.json`, opcja „Język” w Motywie. Nazwy i opisy 44 skilli, nazwy i opisy 18 statusów (wszystko podpięte do kodu);
+- **Tłumaczenia JSON:** `QuizRpgI18n` + `resources/i18n/pl.json|en.json`, opcja „Język” w opcjach (zakładka Ogólne, globalne ustawienie hosta). Nazwy i opisy 44 skilli, nazwy i opisy 18 statusów (wszystko podpięte do kodu);
   opisy skilli wrogów z perspektywy gracza, `scan_text` 50 wrogów — zrobione przez Gemini, sprawdzone.
 - **S6 zastosowane:** koszty z docx; Mocny Atak 50 SP + 25 TP; Death Enrage = ult wysokiego tieru (450 SP, 100 TP, flaga `combo` usunięta); Toxic Shock na wszystkich wrogów 50 % bez quizu
   (`hit_ignores_quiz`); Hearty Meal leczy MAT × 4 (65 SP); Revive 30 % maks. HP; Backup Bash z losowym bonusem w górę (`bonus_roll_max` / `bonus_roll_curve`);
@@ -90,10 +90,31 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
 
 **Do podjęcia:**
 - **Faza 2, krok 2 (Opus / ja):** krzywe bohatera do lv 100 i tiery przedmiotów na 15 map (parametry ekwipunku wzorcowego `GEAR_*` w `enemy_stats.gd` zaakceptowane na razie), poziomy umiejętności (szansa Toxic Shock 50 / 65 / 80 %), sloty tierów, skille z dużą stałą bazą (np. +200 w Relentless Assault) nie skalują się z poziomem.
-- **Drużyna (druga połowa gałęzi):** pole `character_class` i `allowed_classes`, rekrutacja, osobne XP członków, zadania towarzyszy, skille klasowe (Mag i Łotrzyk mają za mało), imiona i fabuła — `druzyna_szkic.md`, sekcja „Do uzgodnienia”.
+- **Drużyna (druga połowa gałęzi):** (pole `character_class` i `allowed_classes` zrobione 2026-10-12), rekrutacja, osobne XP członków, zadania towarzyszy, skille klasowe (Mag i Łotrzyk mają za mało), imiona i fabuła — `druzyna_szkic.md`, sekcja „Do uzgodnienia”.
 - **O2 (Opus):** unik / pudło / blok z AGI, kolejność tur. **Tryb combo** do zaprojektowania.
 - **Testy w grze z kolegami** (log progresji + `progress_summary.py`): poziom przy bossie jaskiń, liczba walk, odstępy między awansami; ewent. `KILL_FRACTION` (0,08) / `xp_size_exponent`. Od zmiany statystyk wrogów z poziomu trzeba też ocenić trudność jaskiń (boss lv 9: HP 1555, ATK 48).
-- Dla Gemini (opcjonalnie): tłumaczenia „Wymaga broni…” i `log_text` wrogów (wymaga małej zmiany w kodzie), skille klasowe wg briefu.
-- Drobne: ikony mikstur (user, z innej paczki), ikona wytrycha zostaje item712, `check_progress_log` zaśmieca prawdziwy `progress_log.txt` (powinien pisać do osobnego pliku), miasto / hub, tajne wejście na zamek (blokada w mapie, segment 2D).
+- Dla Gemini (opcjonalnie): teksty logu wrogów `skill.<plik>.log` (kod gotowy, brief `i18n_log_wrogow_dla_gemini.md`), skille klasowe wg briefu.
+- Drobne: ikony mikstur (user, z innej paczki), ikona wytrycha zostaje item712, miasto / hub, tajne wejście na zamek (blokada w mapie, segment 2D).
 - Do sprawdzenia w grze: boss w pokoju wyjścia chodzi?, przejście przy gradiencie, przewijanie długiej listy w walce, animacja wyjścia z walki, tutorial + jaskinie = lv 8–9?
 - **Merge `druzyna-balans` do `main` (CienMgly) dopiero na koniec — na polecenie usera.**
+
+## Sesja 2026-10-12 (część 3): ekwipunek, złoto, klucze — stan i do podjęcia
+
+Szkic i decyzje: `ekwipunek_szkic.md` (sekcje 8–11), obiekty: `obiekty.md`.
+
+**Zrobione (prototyp w jaskiniach):** klasy postaci (`character_class`, `allowed_classes`); złoto (`PlayerStats.gold`, złoto z wrogów od tutorialu, wpis w logu); tabele łupu z JSON mapy (`chest_loot`, `enemy_loot`) w jaskiniach i ściekach;
+beczki z wzorem 3/(2n) (1. przedmiot gwarantowany); klucze na tier skrzyni (brązowy / srebrny / szafirowy / złoty = uniwersalny) i wygląd skrzyń wg tieru; język i „Gra bez quizów” w zakładce „Ogólne” opcji.
+
+**Decyzje usera (część 3):** sklepy po odblokowaniu miasta (wyjście z jaskiń), tiery sprzętu w sklepie blokowane flagami fabularnymi (kowal „nie pamięta”); w jaskiniach sprzęt z dropów wrogów i skrzyń / nisz; złoto od tutorialu;
+większość złota idzie na mikstury HP / SP (stałe wartości, nie %; walka z 2 wrogami ≈ 70 % HP); rzadki drop = broń z potencjałem, moc początkowa ≤ mapa + 2, rozwój u kowala; beczki: 1. przedmiot pewny, kolejne wg 3/(2n).
+
+**Do podjęcia (ekwipunek i skrzynie):**
+- **Skrzynie specjalne w rzadkich pomieszczeniach / niszach** (pomysł usera; **nie dodane**): rzadkie pokoje z wyższym tierem skrzyni (np. 3–4, wygląd złoty / niebieski, ewent. skrzynia z czaszką z arkusza „RPG Chests” kolumna 8 jako przeklęta), z lepszym łupem
+  (sprzęt tieru 2, później broń z potencjałem). Wymaga: znacznika „rzadki pokój / nisza” w generatorze obiektów (dziś skrzynie tylko preferują nisze, `objects_caves.json`), osobnego `chest_tier` / tabeli łupu dla takiej skrzyni, ewent. wymogu klucza wyższego tieru.
+- Sklep i interfejs zakupu (po mieście; do czasu miasta w menu deweloperskim), tiery sklepu z flagami fabularnymi (`LevelStateManager.register_device_progress`), ceny w „zabiciach” (pełne leczenie ≈ 1,2–1,3 × złoto z wroga).
+- Mikstury w kolejnych tierach ze stałymi wartościami (tabela w `ekwipunek_szkic.md`, sekcja 9) i ich ikony (user); więcej mikstur w jaskiniach (beczki, skrzynie, wrogowie) po teście w grze.
+- Bronie z potencjałem: etapy jako osobne `item_id`, `upgrade_to`, flagi i koszt ulepszeń u kowala, pole `budget_map` + test limitu mapa + 2; sekretne bronie ponad budżet (osobna decyzja); skala drabiny sprzętu przy 100 poziomach (pułap sklepu ≈ 600 ATK / zmniejszenie wzrostu z poziomu / bez zmian) — pytanie otwarte w szkicu.
+- Poprawka: pancerz prawie nie wpływa na przeżywalność późno (cios wroga liczony z ułamka HP) — przejrzeć definicję w `enemy_stats.gd` niezależnie od reszty.
+- Optymalizacja ekwipunku (`optimize_member_equipment`) liczy tylko ATK + DEF (pomija MAT / MDF i efekty).
+- Ewent.: osobne warianty skrzyń z innych paczek (zielona, czerwona, ozdobna z „RPG Chests”; `All Chest Sheet.png` 16×16; pustynia `Props.png`).
+- Sprawdzić w grze: czterokrotnie większy łup z beczek (średnio ≈ 2,3 losowania zamiast 0,45), wygląd skrzyń wg tieru i koszt walki (≈ 70 % HP) w jaskiniach.
