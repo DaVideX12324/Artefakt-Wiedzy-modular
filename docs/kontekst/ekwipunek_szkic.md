@@ -279,9 +279,29 @@ Co z tego wynika dla naszej gry:
 - **Cena sprzętu (2 zabicia) i cena mikstur dają razem budżet:** jeśli leczenie zjada ok. 2/3, to złoto wystarcza na sprzęt dopiero po oszczędzeniu; to wzmacnia wagę decyzji (kupić pełną miksturę czy odłożyć na tier) i jest zgodne z „ekwipunek ważny, ale nie przez grind”. Pokrętła: `f_hp`, `f_sp`, cena sprzętu w zabiciach.
 - **Przed miastem (jaskinie):** nie ma sklepu, więc mikstury pochodzą z beczek i skrzyń (tabela beczek już istnieje: `potion` 55, `ether` 25, `focus_tonic`, `antidote`, `lockpick`, `lucky_charm`, `loot_manager.gd`); złoto zbierane od tutorialu idzie na pierwszą wizytę w mieście, głównie na zapas mikstur.
 
+**Bronie z wielkim potencjałem (decyzja usera 2026-10-12):** rzadki drop daje broń, której **moc początkowa jest ograniczona do maksymalnie 2 poziomów lokacji powyżej standardu** (moc mapy m + 2), a pełny potencjał (endgame) osiąga się **ulepszeniami u kowala**, odblokowywanymi postępem i fabułą (te same flagi co tiery sklepu). To zastępuje wariant „gotowa broń endgame od razu” (Kingly 320 z mapy 1): nie da się przeskoczyć kampanii szczęśliwym dropem.
+
+Liczby (nasza krzywa: ×1,256 ATK i ×1,188 DEF na mapę, czyli **+2 mapy ≈ ×1,58 ATK, ×1,41 DEF**; „moc mapy k” = standard końca mapy k z sekcji 3). Trafienia do zabicia zwykłego wroga tieru 2 / bossa tieru 4 na końcu mapy m:
+
+| Broń o mocy mapy… | gracz na końcu mapy 1 (lv 8) | mapy 3 (lv 22) | mapy 5 (lv 35) | mapy 8 (lv 54) | mapy 12 (lv 80) |
+|---|---|---|---|---|---|
+| = standard (m) | 4,0 / 12,0 | 4,0 / 12,0 | 4,0 / 12,0 | 4,0 / 12,0 | 4,0 / 12,0 |
+| m + 2 (drop z potencjałem) | 3,2 / 9,7 | 3,3 / 9,8 | 3,2 / 9,6 | 3,1 / 9,2 | 2,8 / 8,4 |
+| m + 4 (po 1–2 ulepszeniach) | 2,5 / 7,4 | 2,5 / 7,6 | 2,5 / 7,4 | 2,2 / 6,7 | 2,3 / 7,0 (cap 15) |
+
+Czyli drop z potencjałem daje ok. −20–30 % trafień na start (zwykły wróg ok. 3 trafienia zamiast 4), a każde ulepszenie u kowala przesuwa moc o kolejne mapy aż do endgame. Rzadki drop jest odczuwalny, ale **nie psuje walk** (w przeciwieństwie do broni 320 ATK na lv 8, sekcja 4).
+
+Spójność z danymi: na mapie 1 (jaskinie) moc mapy 3 ≈ 21 ATK = istniejący `iron_sword` (tier 2); na mapie 3 moc mapy 5 = 32 ATK. Przykład z sekcji 4 („Żarzące Ostrze”: znalezione na mapie 3 z mocą 32) spełnia tę regułę.
+
+Zasady dla danych (propozycja):
+- Etapy broni to osobne `item_id` (jak w sekcji 5): `X_1` (moc początkowa: standard lokacji drop + 2 mapy) … `X_n` (potencjał końcowy).
+- Ulepszenie `X_k → X_k+1` u kowala wymaga (a) flagi fabularnej odblokowującej etap (`has_device_progress`), (b) złota (kolejny wydatek zmniejszający nadwyżkę, ale nie grind: cena rzędu kilku zabić zwykłych wrogów tej mapy), (c) opcjonalnie unikalnego materiału z konkretnego bossa lub skrzyni (jednorazowo, nie farmiony).
+- **Moc początkowa każdego dropu** ma w danych pole `budget_map` = mapa drop + 2 (test sprawdza, że nie wychodzi poza ten limit).
+- Liczba takich broni, rodzaje (po jednej na postać czy mniej) i ich potencjał końcowy zostają otwarte; sekretne bronie mogą świadomie przekraczać potencjał końcowy (osobna decyzja).
+
 ## 11. Decyzje do podjęcia
 
-**Pierwsza — w praktyce rozstrzygnięta przez usera:** złoto z potworów od tutorialu, sklepy po odblokowaniu miasta, tiery sklepu blokowane fabułą (kowal), w jaskiniach sprzęt z dropów i skrzyń / nisz. Do potwierdzenia zostają **rzadkie dropy ponad pułap sklepu** (sekcja 9: Kingly / Godly, wartości, szanse, bez wymogu poziomu) — czy je bierzemy i w jakiej formie.
+**Pierwsza — rozstrzygnięta przez usera:** złoto z potworów od tutorialu, sklepy po odblokowaniu miasta, tiery sklepu blokowane fabułą (kowal), w jaskiniach sprzęt z dropów i skrzyń / nisz, rzadkie dropy to bronie z potencjałem (moc początkowa ≤ mapa + 2, rozwój u kowala).
 
 **Czwarta (jaskinie) — rozstrzygnięta:** złoto wypada od początku, już od tutorialu.
 
@@ -290,9 +310,6 @@ Uwaga: **zmiana A / B przesuwa wzorzec wrogów** w `enemy_stats.gd` (`GEAR_*` al
 
 **Uwaga o roli FNaFB:** to przykład progresji i wyjątkowych nagród, nie specyfikacja (user: nasza gra jest znacznie bardziej rozbudowana). Z FNaFB wynika tylko, że drop może przekraczać zwykłą progresję i że może być przypisany do konkretnej postaci i tieru wroga. **Nie** ustalamy jednej broni ostatecznej na postać, tabeli dropów „tier = postać” ani liczby takich broni; kampanię balansujemy pod zwykły, dostępny sprzęt (broń ostateczna nie jest wymagana do finału), a ostateczne i sekretne bronie są świadomymi wyjątkami (także sekretne ponad budżet). Cechy przedmiotu (dostępność, moc początkowa, potencjał, ścieżka ulepszeń, specjalizacja) są niezależne, więc „ostateczna z dropu” i „rozwijana u NPC” to dwie osobne drogi, nie jeden obowiązkowy etap.
 
-**Trzecia:** wczesny rzadki drop o mocy endgame — FNaFB dopuszcza go bez ograniczeń (Kingly 1/80 już z Alpha Party Hat). U nas oznacza to jedno- do trzytrafieniowe walki z bossami od lv 8 do ok. 60 (tabela sekcji 4).
-- **A.** Tak jak w FNaFB, jako szczęśliwy los (bez zmian w kodzie).
-- **B.** Tak, ale moc rośnie etapami (wariant „Żarzące Ostrze”).
-- **C.** Wymóg poziomu postaci (`required_level`) dla broni powyżej budżetu mapy.
+**Trzecia — rozstrzygnięta przez usera:** wczesny rzadki drop **nie** daje od razu mocy endgame; moc początkowa ≤ moc mapy + 2, pełny potencjał przez ulepszenia u kowala (wariant „moc rośnie etapami”, sekcja 10).
 
 W każdym wariancie osobna poprawka: pancerz prawie nie wpływa na przeżywalność późno (sekcja 8), więc definicję ciosu wroga w `enemy_stats.gd` trzeba przejrzeć niezależnie od wyborów.
