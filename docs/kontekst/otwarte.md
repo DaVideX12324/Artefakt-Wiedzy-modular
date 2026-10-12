@@ -61,27 +61,39 @@ Trzy ważne todo (2026-10-04 / 2026-10-06; opis i przypomnienie hookiem — `doc
   `docs/krytyczne_zawieszenia_klatek.md` (lag przy myszy — rozwiązany restartem edytora).
 - **Poziomy wrogów i XP na 15 map (2026-10-12):** faza 1 zrobiona, faza 2 (statystyki z poziomu, krzywe do lv 100) do zrobienia — [poziomy_i_xp.md](poziomy_i_xp.md).
 
-## Stan na koniec sesji 2026-10-12 (przed compactem) — do podjęcia
-Zrobione w tej sesji (szczegóły: walka.md, wrogowie.md, obiekty.md, sciany_i_kafle.md, backlog_druzyna_balans.md, poziomy_i_xp.md, skille_i_pierwowzory.md):
-boss w pokoju wyjścia z nawigacją; Area2D przejść za gradientem; odbicie wrogów od siebie (wałęsanie); ikony przedmiotów + ikony w listach; układ list
-w walce (siatka 2 kol. / przewijana, opcja Motyw) i siatka celów bez HP; koniec freeze po ucieczce; łup z beczek jako toast bez pauzy, bogate beczki w
-tutorialu; klucze uniwersalne + wytrychy (zamknięte skrzynie, quiz wg tieru); animacja wejścia do walki; okno komunikatów po walce na szerokość UI;
-Skan (CC) bez zużycia tury; skille wrogów (Miażdżący Cios jak FNaFB 25000 / 16 %); strojenie tierów 2–4 (S5); poziomy wrogów + XP na 15 map
-(MAX_LEVEL 100, LEVEL_CAP 20, HP lv20 1402 → lv100 50000, boss tier 4 + miniboksy tier 3 w jaskiniach, skala XP po rozmiarze mapy,
-pokrętło xp_size_exponent = 1,0); log progresji do testów (`user://progress_log.txt`).
-Do podjęcia:
-- **Testy w grze z kolegami** (log progresji): poziom przy bossie jaskiń, liczba walk, odstępy między awansami; potem ewent. `KILL_FRACTION` (0,08)
-  / `xp_size_exponent` (1,0 vs 0,75). 120 % to scenariusz kalkulacji, nie wymaganie.
-- **Faza 2 poziomów (Opus):** statystyki wrogów z poziomu (generator .tres z krzywej), krzywe bohatera do lv 100 (ekwipunek ma być bardzo ważny),
-  poziomy umiejętności rozciągnięte na 100, tiery przedmiotów na 15 map — poziomy_i_xp.md.
-- **O2 (Opus):** unik / pudło / blok z AGI, kolejność tur — backlog_druzyna_balans.md.
-- `scan_text` wrogów do uzupełnienia (Gemini; FNaFB CC ma 38 + 200 opisów).
-- **Drużyna (druga połowa gałęzi, 2026-10-12):** role z klas, dołączanie po zadaniu od postaci, wstępnie 3 towarzyszy — szkic `druzyna_szkic.md` (klasy, rekrutacja, XP, braki, pytania).
-- **Sloty umiejętności wg tierów (pomysł usera 2026-10-12, do projektu przy fazie 2):** skille dzielone na tiery (jak poziomy czarów; tier 9 = umiejętności arcymaga z true endingu); każdy bohater ma określoną liczbę slotów na tier, rosnącą z poziomem; akcesoria zwiększają albo zmniejszają liczbę slotów (zwykle kosztem słabszych statystyk); w grze dziś brak limitu aktywnych skilli (cała odblokowana pula jest dostępna). Do ustalenia: sloty = ile skilli danego tieru można mieć wybranych naraz (rekomendacja, bo SP / TP już limitują użycie); szkic: `sloty_umiejetnosci_szkic.md`, siatka slotów na tier w funkcji lvl 1–100, tier każdego z 44 skilli, tier 9 odblokowany dopiero po true endingu, ekran wyboru w menu pauzy, blokady zamku liczą znajomość skilla, nie slot.
-- **Tajne wejście na zamek:** skille-klucze wybrane (docs/game_design.md): pustynia Rushdown, Forge Backup Bash, las / zima Rapid Flurry. Do zrobienia: blokada w mapie sprawdzająca `unlock_skill` (nie wymaga aktywnego slotu), segment 2D.
-- **Poziomy umiejętności (faza 2, plan usera):** szansa Toxic Shock (`sound_wave`, trafia wszystkich wrogów niezależnie od quizu, `hit_ignores_quiz`) zależy tylko od poziomu skilla: lv 1 = 50 %, lv 2 = 65 %, lv max = 80 % (dziś stałe 50 %, `success_rate`). Hearty Meal leczy MAT × 4 (`heal_mat_coeff`), Revive 30 % maks. HP; Backup Bash ma `bonus_roll_max` / `bonus_roll_curve`.
-- **Koszty, poziomy nauki i wartości umiejętności są tymczasowe** (decyzja usera 2026-10-12): przy docelowych 100 lvl będzie korekta (faza 2 poziomów). Dziś np. Death Enrage 450 SP przy ok. 446 SP bohatera na lv 20 jest nieużywalny — celowo nie poprawiane.
-- S6: nazwy umiejętności z docx Gemini są w `resources/i18n/pl.json` / `en.json` (klucz `skill.<plik .tres>.name`, `QuizRpgI18n`, opcja „Język” w Motywie, domyślnie pl). Zostaje ocena wartości (koszty, mnożniki) i opisów (`description` jeszcze nietłumaczone), dalej: statusy, przedmioty, UI. Pozostałe: tier skrzyni z poziomu mapy (dziś ręcznie, domyślnie 1), animacja wyjścia z walki, ikony mikstur z innej paczki
-  (user), ikona wytrycha (kandydaci: podglady_ui/wytrych_kandydaci.png, dziś item712), miasto / hub, `diag_enemy_chase` niestabilny.
-- Do sprawdzenia w grze: boss w pokoju wyjścia chodzi?, przejście przy gradiencie, przewijanie długiej listy w walce, tutorial + jaskinie = lv 8–9?
+## Stan na koniec sesji 2026-10-12 (po drugim compactie) — do podjęcia
+
+**Zrobione w tej sesji** (szczegóły: walka.md, wrogowie.md, obiekty.md, backlog_druzyna_balans.md, poziomy_i_xp.md, skille_i_pierwowzory.md, druzyna_szkic.md, sloty_umiejetnosci_szkic.md):
+- Wcześniej: boss w pokoju wyjścia z nawigacją, przejścia za gradientem, odbicie wrogów, ikony, układ list w walce, koniec freeze po ucieczce, łup z beczek jako toast,
+  klucze / wytrychy / zamknięte skrzynie, animacja wejścia do walki, Skan, S5, poziomy wrogów i XP na 15 map, log progresji.
+- **Tier skrzyń z konfiguracji mapy** (`chest_tier` w JSON: jaskinie 1, ścieki 2) — dotyczy skrzyń z generatora, tutorialowe ręczne.
+- **Animacja wyjścia z walki** (ta sama źrenica na zrzucie ekranu walki; nie przy śmierci drużyny).
+- `tools/progress_summary.py` — log progresji w tabelę Markdown. `diag_enemy_chase`: próg „wiszą na ścianach” 33 % (wałęsanie losowe).
+- **Tłumaczenia JSON:** `QuizRpgI18n` + `resources/i18n/pl.json|en.json`, opcja „Język” w Motywie. Nazwy i opisy 44 skilli, nazwy i opisy 18 statusów (wszystko podpięte do kodu);
+  opisy skilli wrogów z perspektywy gracza, `scan_text` 50 wrogów — zrobione przez Gemini, sprawdzone.
+- **S6 zastosowane:** koszty z docx; Mocny Atak 50 SP + 25 TP; Death Enrage = ult wysokiego tieru (450 SP, 100 TP, flaga `combo` usunięta); Toxic Shock na wszystkich wrogów 50 % bez quizu
+  (`hit_ignores_quiz`); Hearty Meal leczy MAT × 4 (65 SP); Revive 30 % maks. HP; Backup Bash z losowym bonusem w górę (`bonus_roll_max` / `bonus_roll_curve`);
+  Fearless Flight ×0,6 i MDF×1; Shrapnel Toss ×0,5. Wartości tymczasowe (korekta przy 100 lvl).
+- **Faza 2, krok 1:** `QuizRpgEnemyStats` — statystyki wrogów z poziomu (proporcje walki dla bohatera wzorcowego z ekwipunkiem idącym po krzywej: broń 10 → 320, pancerz 14 → 194).
+  **Naprawiony błąd fazy 1:** poziom / XP z mapy był nadpisywany w `_ready` (wrogowie z `enemy_data`), teraz zapamiętany i nakładany po wczytaniu danych.
+- **HP i SP jedną gładką krzywą** (`QuizRpgHeroData.curve_value`; HP: lv 1 334, lv 20 1402, lv 100 50 000; SP dziś liniowo 139 → 446 → 1739).
+- Design: skille-klucze tajnego wejścia na zamek (Rushdown / Backup Bash / Rapid Flurry), szkic slotów umiejętności wg tierów, szkic drużyny (klasy, rekrutacja).
+
+**Decyzje usera, których nie ma gdzie indziej:**
+- Sloty umiejętności: 4 tiery na razie (tier 9 = arcymag z true endingu); poziom skilla = tier slotu; tier startowy skilla jest dolną granicą; wspólny budżet jednostek (T1 1, T2 2, T3 3, T4 5 — propozycja);
+  Skan i tryb combo poza budżetem; combo = osobny tryb po 100 TP (serie skilli za SP, bez skilli TP), odblokowywany warunkami (drop / maks. skille / specjalny przeciwnik), nigdy z poziomu ani od NPC;
+  akcesoria zmieniają liczbę slotów; blokady zamku liczą znajomość skilla, nie slot.
+- Drużyna: role z klas (`klasy_postaci_i_bronie.md`: Wojownik, Łotrzyk, Mag, Kapłan), dołączanie po zadaniu od postaci, wstępnie 3 towarzyszy (propozycja: Łotrzyk, Mag, Kapłan); każdy ma własną pulę XP i poziom,
+  dostaje pełne XP jak we FNaFB, martwy 50 %; cała drużyna w walce, bez limitu (rezerwa później); bez premii nadrabiania; poziom odniesienia = najwyższy w drużynie; poziom wroga z mapy, nie z gracza.
+- Blok bohatera (O2) = 100 % uniku z AGI. Proste zadania (tekst, dane, tłumaczenia) kierować do Antigravity / Gemini (brief w `zadania_dla_antigravity.md`); zrobić Gemini subagentem można tylko przez Gemini CLI (nie zainstalowany).
+- Koszty, poziomy nauki i wartości skilli są tymczasowe (Death Enrage 450 SP przy ok. 446 SP na lv 20 jest dziś nieużywalny — celowo).
+
+**Do podjęcia:**
+- **Faza 2, krok 2 (Opus / ja):** krzywe bohatera do lv 100 i tiery przedmiotów na 15 map (parametry ekwipunku wzorcowego `GEAR_*` w `enemy_stats.gd` zaakceptowane na razie), poziomy umiejętności (szansa Toxic Shock 50 / 65 / 80 %), sloty tierów, skille z dużą stałą bazą (np. +200 w Relentless Assault) nie skalują się z poziomem.
+- **Drużyna (druga połowa gałęzi):** pole `character_class` i `allowed_classes`, rekrutacja, osobne XP członków, zadania towarzyszy, skille klasowe (Mag i Łotrzyk mają za mało), imiona i fabuła — `druzyna_szkic.md`, sekcja „Do uzgodnienia”.
+- **O2 (Opus):** unik / pudło / blok z AGI, kolejność tur. **Tryb combo** do zaprojektowania.
+- **Testy w grze z kolegami** (log progresji + `progress_summary.py`): poziom przy bossie jaskiń, liczba walk, odstępy między awansami; ewent. `KILL_FRACTION` (0,08) / `xp_size_exponent`. Od zmiany statystyk wrogów z poziomu trzeba też ocenić trudność jaskiń (boss lv 9: HP 1555, ATK 48).
+- Dla Gemini (opcjonalnie): tłumaczenia „Wymaga broni…” i `log_text` wrogów (wymaga małej zmiany w kodzie), skille klasowe wg briefu.
+- Drobne: ikony mikstur (user, z innej paczki), ikona wytrycha zostaje item712, `check_progress_log` zaśmieca prawdziwy `progress_log.txt` (powinien pisać do osobnego pliku), miasto / hub, tajne wejście na zamek (blokada w mapie, segment 2D).
+- Do sprawdzenia w grze: boss w pokoju wyjścia chodzi?, przejście przy gradiencie, przewijanie długiej listy w walce, animacja wyjścia z walki, tutorial + jaskinie = lv 8–9?
 - **Merge `druzyna-balans` do `main` (CienMgly) dopiero na koniec — na polecenie usera.**
