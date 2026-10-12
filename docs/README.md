@@ -7,6 +7,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 > - **Bieżący stan sesji (handoff):** [`docs/kontekst/otwarte.md`](kontekst/otwarte.md) — zwięzły stan ostatniej sesji, kluczowe decyzje usera i odnośniki do zadań.
 > - **Indeks dokumentów roboczych modułu RPG:** [`docs/kontekst/README.md`](kontekst/README.md).
 > - **Materiały zarchiwizowane:** [`docs/archiwum/`](archiwum/).
+> - **Submoduły:** kod gier leży w repo modułów (`modules/BitBomber`, `modules/quiz_rpg` = Cień Mgły), a dokumentacja Cienia Mgły — w tym katalogu hosta. README modułów są w ich repo (zmiana = commit w repo modułu + nowy wskaźnik submodułu w hoście).
 
 ---
 
@@ -21,6 +22,8 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/zasady.md](kontekst/zasady.md) | Stałe zasady pracy z repozytorium (commity, ochrona kodu), uruchamianie testów i reguły submodułu. | `ZROBIONE` |
 | [kontekst/narzedzia_diag.md](kontekst/narzedzia_diag.md) | Skrypty diagnostyczne headless w `tests/` do testów generatora, siatki nawigacji i renderów. | `ZROBIONE` |
 | [kontekst/backlog_druzyna_balans.md](kontekst/backlog_druzyna_balans.md) | Rejestr zadań (sprint backlog S1–S7 i O1–O7) prac na gałęzi `druzyna-balans`. | `W TOKU` |
+| [kontekst/zadania_wg_trudnosci.md](kontekst/zadania_wg_trudnosci.md) | Widok pomocniczy (nie źródło prawdy): zadania od najłatwiejszych do najtrudniejszych z oznaczeniem wykonawcy (user / Gemini / Sonnet / Opus), stan na 2026-10-13. | `W TOKU` |
+| [kontekst/sesja_2026-10-13_miasto_ldtk.md](kontekst/sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach i wnętrzach. | `W TOKU` |
 
 ---
 
@@ -28,7 +31,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 
 | Plik | Opis zawartości | Status |
 |---|---|---|
-| [game_design.md](game_design.md) | Główny dokument projektowy gry Cień Mgły (fabuła, 15 stref, mechaniki, progresja, pętla rozgrywki). | `W TOKU` |
+| [game_design.md](game_design.md) | Główny dokument projektowy gry Cień Mgły (fabuła i zakończenia, kolejność 12 stref — docelowo ok. 15 map, mechaniki, progresja, pętla rozgrywki). | `W TOKU` |
 | [kontekst/scieki.md](kontekst/scieki.md) | Specyfikacja techniczna i parametry generatora ścieków (układ structured, kanały, kładki, platformy). | `ZROBIONE` |
 | [kontekst/sciany_i_kafle.md](kontekst/sciany_i_kafle.md) | Generator jaskiń: autotiling ścian, filary 2H, wypustki, fasady płaskowyżu i warianty kafli RIM. | `ZROBIONE` |
 | [kontekst/obiekty.md](kontekst/obiekty.md) | Generator obiektów: katalogi JSON, obiekty jako sceny, niszczalne beczki, skrzynie i obiekty ścieków. | `W TOKU` |

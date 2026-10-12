@@ -306,6 +306,39 @@
 - Zgłoszenie 2026-10-12 (`otwarte.md`, `balans_i_skalowanie.md`). Przy skalowaniu do lv 100 pancerz (DEF) ma malejący wpływ na przeżywalność, ponieważ cios wroga bazuje na ułamku HP bohatera.
 - Do zrobienia: przejrzeć i zrewidować definicję obrażeń oraz pancerza w `enemy_stats.gd` niezależnie od reszty drabiny sprzętu.
 
+### Propozycja: korzeń modułu z położenia skryptu (zamiast nazwy folderu)
+- **Stan 2026-10-13: PROPOZYCJA (niezatwierdzona).** Wynikła z pytania o `ModuleConfig.path()` — starą klasę z pierwszego
+  szablonu modułu (maj 2026, `modules/_template/scripts/module_config.gd`, zastąpioną przez `ModuleRuntime`).
+- **Dziś:** pomocniki ścieżek modułów (`ModuleRuntime` w szablonie, `BBRuntime` w BitBomberze, `QuizRpgPaths` w Cieniu Mgły)
+  mają na sztywno korzeń hosta (`res://modules/<id>` albo `res://modules/BitBomber`) i sprawdzają, czy istnieje
+  `…/module_manifest.json`. Wymaga to, żeby nazwa folderu zgadzała się z wpisaną w pomocniku (szablon: `MODULE_ID`
+  = nazwa folderu; BitBomber: `BitBomber` wielką literą przy `id` `bitbomber`) — przy zmianie nazwy folderu trzeba
+  poprawić ręcznie.
+- **Dlaczego nie wraca `ModuleConfig`:** host woła `embedded_start(api, …)` dopiero po `add_child` modułu
+  (`scripts/core/module_host.gd`), więc korzeń od hosta przychodzi za późno dla `_ready()` modułu (BitBomber otwiera scenę
+  gry właśnie tam), dla statycznych zmiennych (Cień Mgły: `START_SCENE`) i dla autoloadów modułu (startują z silnikiem).
+  Do tego uruchomiony samodzielnie moduł nie ma skryptu hosta, więc pomocnik i tak musiałby być w każdym module.
+- **Propozycja:** w pomocniku modułu wyliczyć korzeń z położenia samego skryptu, bez nazwy folderu i bez pliku manifestu:
+
+```gdscript
+static func module_root() -> String:
+	var p: String = (new() as RefCounted).get_script().resource_path   # np. res://modules/BitBomber/scripts/bb_runtime.gd
+	return p.get_base_dir().get_base_dir()                             # res://modules/BitBomber
+
+static func path(local: String) -> String:
+	var root := module_root()
+	return root + local.trim_prefix("/") if root == "res://" else root + "/" + local.trim_prefix("/")
+```
+
+  Sprawdzone w Godocie 4.7.2: w hoście daje `res://modules/Abc`, samodzielnie `res://`; **w trybie samodzielnym trzeba
+  osobno obsłużyć korzeń `res://`** (bez tego wychodzi `res:///scenes/…`), stąd warunek w `path`. Założenie: pomocnik leży
+  w `scripts/` modułu (jeden poziom pod korzeniem); przy innym położeniu zmienia się liczba `get_base_dir()`.
+- **Opcjonalnie:** gdy host przekaże korzeń (`api.module_root`), pomocnik może go przyjąć, ale tylko jako zgodność — nie
+  jako jedyne źródło.
+- **Zakres zmiany:** `modules/_template/scripts/module_runtime.gd`, `modules/BitBomber/scripts/bb_runtime.gd` (repo BitBomber)
+  i `modules/quiz_rpg/scripts/quiz_rpg_paths.gd` (repo CienMgly, tam jest też `localize` / `canonical` / `host` — to osobna
+  logika kopii `_host/`). Po zmianie poprawić opis w README hosta („Konwencja ścieżek”) i w `docs/module_contract.md`.
+
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Nowe od 2026-10-11 / 12 (stan: DO SPRAWDZENIA W GRZE):** boss w pokoju wyjścia jaskiń (chodzi po nawigacji?), przejście przy gradiencie, animacja wejścia i wyjścia z walki, przewijanie długiej listy w walce, zakładka „Ogólne” w opcjach (osadzona w menu Cienia Mgły), wygląd skrzyń wg tieru i klucze na tier, beczki z modelem 3 / (2n) (średnio ≈ 2,3 losowania), złoto i wiersz „Złoto” w menu pauzy, koszt walki (≈ 70 % HP na parę wrogów) i liczba mikstur w jaskiniach, trudność jaskiń po nowych statystykach wrogów, tutorial + jaskinie = lv 8–9?
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
