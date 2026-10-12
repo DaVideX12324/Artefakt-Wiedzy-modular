@@ -15,6 +15,7 @@ dostępna w walce). Wszystkie liczby poniżej to propozycje do przerobienia; pun
 - Blokady wejścia na zamek sprawdzają **znajomość skilla**, nie slot.
 - **Skan jest poza budżetem** (decyzja usera 2026-10-12): nie zajmuje nawet tury, więc slot byłby bezsensem.
 - **Combo jest poza budżetem** (decyzja usera): to ult po osiągnięciu 100 TP. W trybie combo gracz używa skilli tyle razy, ile pozwala SP; skille kosztujące TP są wtedy niedostępne, bo cała pula TP poszła na aktywację. Dzisiejszy `death_enrage` (`combo = true`, 100 TP + 450 SP, jeden skill) to uproszczony zalążek tego trybu — pełny tryb combo jest do zaprojektowania osobno (backlog O3).
+- **Odblokowanie combo** (decyzja usera 2026-10-12): po konkretnych warunkach, **nigdy** z poziomu bohatera ani od NPC. Możliwe źródła: rzadki drop, maks. poziom (tier) wskazanych skilli albo pokonanie specjalnego przeciwnika. Dziś `death_enrage` ma `learn_level = 20` (z poziomu) — do zmiany na `learn_level = 0` + odblokowanie zdarzeniem (`PlayerStats.unlock_skill`), gdy będzie wybrany warunek; do tego czasu zostaje jak jest.
 
 ## 2. Model: wspólny budżet slotów (rekomendacja)
 
