@@ -25,7 +25,7 @@ Cel: dopisać opisy umiejętności po polsku i angielsku do `modules/quiz_rpg/re
 | `skill.dive_attack.desc` | Flying Fright | Pikujący Cios | Nurkuje we wroga z potężną siłą. |
 | `skill.double_throw.desc` | Double Strike | Podwójny Cios | Rzuca przedmiotem we wroga. Dwa trafienia. |
 | `skill.final_strike.desc` | Final Strike | Ostateczne Cięcie | Cały impet w jednym ciosie (ATK × 8). |
-| `skill.hearty_meal.desc` | Hearty Meal | Pożywny Posiłek | Leczy sojusznika o 1000 HP. Działa też w menu. |
+| `skill.hearty_meal.desc` | Hearty Meal | Pożywny Posiłek | Leczy sojusznika o MAT × 4 HP. Działa też w menu. |
 | `skill.leap_series.desc` | Rapid Flurry | Szybka Seria | Pięć skoków po głowie wroga. Może ogłuszyć. |
 | `skill.leczenie.desc` | First Aid | Pierwsza Pomoc | Przywraca 30 % HP (po złej odpowiedzi 1/3 tego). Działa też w menu. |
 | `skill.lullaby.desc` | Lullaby | Kołysanka | Dziewięć lekkich trafień w rytm melodii. Duża szansa uśpienia wroga. |
@@ -34,7 +34,7 @@ Cel: dopisać opisy umiejętności po polsku i angielsku do `modules/quiz_rpg/re
 | `skill.onslaught.desc` | Rushdown | Natarcie | Sześć szybkich ataków. |
 | `skill.piercing_shriek.desc` | Toxic Dart | Zatruta Strzałka | Wrzask, który rani zatrutego wroga ponad dwa razy mocniej. Może zatruć. |
 | `skill.reckless_blow.desc` | Backup Bash | Hazardowy Cios | Niewiarygodny cios... ale trafia rzadko (8 %). |
-| `skill.revive_tonic.desc` | Revive Tonic | Ożywienie | Wskrzesza nieprzytomnego sojusznika z 250 HP. Działa też w menu. |
+| `skill.revive_tonic.desc` | Revive Tonic | Ożywienie | Wskrzesza nieprzytomnego sojusznika z 30 % maks. HP. Działa też w menu. |
 | `skill.rousing_tune.desc` | Motivation Jam | Zastrzyk Motywacji | Gra motywujący utwór. Zwiększa atak sojusznika. |
 | `skill.scan.desc` | Scan | Skan | Pokazuje HP, statystyki i opis wybranego wroga. Nie zużywa tury. |
 | `skill.sea_chant.desc` | Sea Shanty | Morska Szanta | Nuci morską melodię. Osłabia wroga i może go uciszyć. |
