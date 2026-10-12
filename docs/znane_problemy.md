@@ -29,7 +29,7 @@
   do 1 HP?). Wymaga przeniesienia statusów z walki do stanu drużyny (`PlayerStats.party`).
 
 ### ⚠ WAŻNE: (1) tilesety kolejnych map — ścieki zrobione, kolejne mapy po stronie autora
-- **Stan 2026-10-12: ścieki ZROBIONE (na `main`), kolejne tilesety CZEKAJĄ NA USERA.** Ścieki: gałąź `sewer-structured` zmergowana 2026-10-09 (CienMgly 9e901a4, host d5a9cfa), platformy PR #1 2026-10-10; mapa `levels/sewer.tscn` podpięta po jaskini (tymczasowo — docelowo jaskinia → miasto → ścieki). W repo są paczki Pixel Crawler: cave, castle, desert, forge, garden, library, sewer (+ sewer_old); brak tilesetów i konfiguracji dla Cemetery, Fairy Forest, Desert / Desert Temple, Forge, Dense Forest / zima, Library, Garden, Castle.
+- **Stan 2026-10-12: CZEKA NA USERA** — ścieki ZROBIONE (na `main`), kolejne tilesety po stronie usera. Ścieki: gałąź `sewer-structured` zmergowana 2026-10-09 (CienMgly 9e901a4, host d5a9cfa), platformy PR #1 2026-10-10; mapa `levels/sewer.tscn` podpięta po jaskini (tymczasowo — docelowo jaskinia → miasto → ścieki). W repo są paczki Pixel Crawler: cave, castle, desert, forge, garden, library, sewer (+ sewer_old); brak tilesetów i konfiguracji dla Cemetery, Fairy Forest, Desert / Desert Temple, Forge, Dense Forest / zima, Library, Garden, Castle.
 - Zgłoszenie 2026-10-03, priorytet z 2026-10-04: **pierwsze z trzech ważnych todo, przede wszystkim ścieki
   (sewer)**. Kolejność map w grze: jaskinia -> miasto -> ścieki; w ściekach przejście raczej drabiną, pod E
   (`next/previous_portal_use_key` + `_prompt` w scenie dziedziczonej po `procedural_level`).
@@ -91,7 +91,7 @@
 - Kamyki bez kolizji — zrobione 2026-10-05 (`pebble_large` w `sprites/`, CienMgly 4480fff).
 
 ### Tła walki: kadr 16:9 (kod zrobiony 2026-10-06, commit `deb8866`)
-- **Stan 2026-10-12: kod ZROBIONY, grafiki CZEKAJĄ NA USERA** (generuje pozostałe tła; dopasowanie trapezów w `battle_layout_preview.tscn`).
+- **Stan 2026-10-12: CZEKA NA USERA** — kod ZROBIONY, grafiki po stronie usera (generuje pozostałe tła; dopasowanie trapezów w `battle_layout_preview.tscn`).
 - Kod gotowy: tło rysowane na pełny ekran 1920×1080 (`Background` pod `Root`), pas `BattleWindow` ma
   `StyleBoxEmpty` (w trybie kompaktowym widać posadzkę zamiast pustki), cień nad UI w grze na y = 795,
   edytor `battle_layout_preview.gd` pokazuje pełny kadr 16:9 z półprzezroczystym pasem UI.
@@ -150,7 +150,7 @@
   Sposób do ustalenia (np. celowe wycięcie ściany do głębokości 3 za kandydatem niszy).
 
 ### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, losowe spotkania
-- **Stan 2026-10-12:** interfejs ZROBIONY (styl RPG Makera, WYSIWYG; listy umiejętności i przedmiotów przerobione 2026-10-11: siatka 2 kolumn albo przewijana lista z ikonami, opcja w Motywie; wybór celu w siatce; animacje wejścia i wyjścia z walki). DO SPRAWDZENIA W GRZE: typy pytań bossów (wpisywanie, kafelki, dopasowanie), przewijanie długiej listy. Losowe spotkania: NIE ZROBIONE.
+- **Stan 2026-10-12: W TOKU** — interfejs ZROBIONY (styl RPG Makera, WYSIWYG; listy umiejętności i przedmiotów przerobione 2026-10-11: siatka 2 kolumn albo przewijana lista z ikonami, opcja w Motywie; wybór celu w siatce; animacje wejścia i wyjścia z walki). DO SPRAWDZENIA W GRZE: typy pytań bossów (wpisywanie, kafelki, dopasowanie), przewijanie długiej listy. Losowe spotkania: NIE ZROBIONE.
 - Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
   tła `scripts/quiz/battle_background.gd` + `background_generators/*`.
 - **Interfejs walki** — zrobiony w stylu RPG Makera (2026-09-30), WYSIWYG; zostały okna Umiejętności /
@@ -161,6 +161,7 @@
   do ustalenia (per mapa / per biom, szansa na krok, strefy bez spotkań: portale, schody, sekretne pokoje).
 
 ### Feedback z zamkniętych testów pre-alpha (tester zewnętrzny)
+- **Stan 2026-10-12: W TOKU** — skróty klawiszowe F i blokada w wydaniu zrobione, ignorowanie kliku po odzyskaniu fokusu w walce zrobione, układ pytań zrobiony; DO SPRAWDZENIA W GRZE: klikanie wrogów myszą, obsługa myszy w menu walki, znacznik celu na starcie.
 - Zgłoszenie 2026-10-04 (kolega, klon repo). Żadnego z punktów nie było wcześniej na liście; pkt 4 częściowo
   pokrywa się z „Tryb walki” (okna Umiejętności / Przedmioty jeszcze w starym wyglądzie).
 1. **[ZROBIONE 2026-10-12, DO SPRAWDZENIA W EKSPORCIE WYDANIOWYM: skróty (F1 / ~, F9 / F10 / F11), menu deweloperskie i przycisk DEV działają tylko przy `OS.is_debug_build()` (`cheat_service.gd`, kontrolery walki i zagadek); litery K / O / P przestały być skrótami (decyzja usera: tylko klawisze F) — opis problemu poniżej jest historyczny]** **Narzędzia deweloperskie za łatwo dostępne.** `autoloads/services/cheat_service.gd` łapie pojedyncze litery
@@ -194,7 +195,7 @@
   jedno miejsce wczytywania (autoload tłumaczeń), migracja istniejących `.tres`.
 
 ### Skalowanie wrogów przy kilkunastu mapach (system tierów)
-- **Stan 2026-10-12: W WIĘKSZOŚCI ZROBIONE.** Poziom wroga z mapy (`enemy_levels` w JSON), XP z poziomu (`QuizRpgEnemyXp`), statystyki wroga z poziomu wg bohatera wzorcowego z ekwipunkiem po krzywej (`QuizRpgEnemyStats`, `tier` jako klasa trudności), złoto z poziomu (`QuizRpgEnemyGold`); szczegóły `kontekst/poziomy_i_xp.md`. Zostaje: umiejętności wrogów ze stałą bazą nie skalują się z poziomem; ocena trudności jaskiń po zmianie (boss lv 9: HP 1555, ATK 48) w grze; krzywe bohatera do lv 100 i tiery sprzętu na 15 map (`ekwipunek_szkic.md`). Generator `.tres` nie jest potrzebny (wartości liczone w kodzie).
+- **Stan 2026-10-12: W TOKU** — w większości zrobione. Poziom wroga z mapy (`enemy_levels` w JSON), XP z poziomu (`QuizRpgEnemyXp`), statystyki wroga z poziomu wg bohatera wzorcowego z ekwipunkiem po krzywej (`QuizRpgEnemyStats`, `tier` jako klasa trudności), złoto z poziomu (`QuizRpgEnemyGold`); szczegóły `kontekst/poziomy_i_xp.md`. Zostaje: umiejętności wrogów ze stałą bazą nie skalują się z poziomem; ocena trudności jaskiń po zmianie (boss lv 9: HP 1555, ATK 48) w grze; krzywe bohatera do lv 100 i tiery sprzętu na 15 map (`ekwipunek_szkic.md`). Generator `.tres` nie jest potrzebny (wartości liczone w kodzie).
 - **TODO (zgłoszenie 2026-10-11):** dziś są 4 tiery wrogów (HP 100 / 350 / 900 / 2200, ATK 26 / 52 / 85 / 150, DEF 30 / 60 / 95 / 140;
   umiejętności = tier − 1, boss 3; XP 200 × 2^(tier−1)) — wystarcza na 2–3 mapy, nie na kilkanaście. XP rosnące 2^tier wybuchnie,
   a stałe skoki ×2–3 nie pasują do krzywej gracza (HP 334 → 1402, poziomy 1–20, później do 100).
@@ -204,6 +205,7 @@
   Generator `.tres` z krzywej zamiast edycji ręcznej. To zadanie projektowe (Opus), razem z kalibracją na FNaFB.
 
 ### Zawartość nisz out, sekretne pokoje, klucze i wytrychy do skrzyń
+- **Stan 2026-10-12: W TOKU** — zrobione: tier skrzyni z JSON mapy (`chest_tier`), klucze na tier (brązowy / srebrny / szafirowy / złoty = uniwersalny, klucz tieru ≥ tier skrzyni), wygląd skrzyni wg tieru (`tier_frames`), tabele łupu skrzyń i wrogów z JSON (`chest_loot`, `enemy_loot`), klucze w łupie map. Zostaje: zawartość nisz z losowaniem (przedmiot / skrzynia / sekretny pokój).
 - Zgłoszenie 2026-09-29. Dziś nisze z modułów out (`tiling/niche_placer.gd`, szansa
   `secret_niche_spawn_chance`, kandydaci `EdgeContext.is_secret_niche_candidate`) są tylko kaflami ścian.
 - **Każda nisza out ma zawartość, losowaną**: przedmiot na ziemi, skrzynia albo **przejście do
@@ -223,8 +225,6 @@
   walki / zagadki, `quiz_door.gd` jako wzór bramki quizowej).
 - Do ustalenia przy realizacji: skąd tier skrzyni (głębokość / poziom mapy / nisza vs pokój), zapis stanu (otwarte skrzynie / odwiedzone
   sekretne pokoje per save, jak pokonani bossowie).
-- **Stan 2026-10-12:** zrobione — tier skrzyni z JSON mapy (`chest_tier`), klucze na tier (brązowy / srebrny / szafirowy / złoty = uniwersalny, klucz tieru ≥ tier skrzyni),
-  wygląd skrzyni wg tieru (`tier_frames`), tabele łupu skrzyń i wrogów z JSON (`chest_loot`, `enemy_loot`), klucze w łupie map. Zostaje: zawartość nisz z losowaniem (przedmiot / skrzynia / sekretny pokój).
 - **TODO (pomysł usera 2026-10-12, nie dodane): skrzynie specjalne w rzadkich pomieszczeniach / niszach.** Rzadki pokój lub nisza z wyższym tierem skrzyni (3–4, wygląd niebieski / złoty; skrzynia z czaszką
   z arkusza „RPG Chests” kolumna 8 jako przeklęta), z lepszym łupem (sprzęt tieru 2, później broń z potencjałem — `docs/kontekst/ekwipunek_szkic.md`). Potrzebne: znacznik „rzadki pokój / nisza”
   w generatorze obiektów (dziś `objects_caves.json` tylko preferuje nisze dla zwykłych skrzyń), osobny tier i tabela łupu dla takiej skrzyni, ewent. wymóg klucza wyższego tieru.
@@ -293,8 +293,18 @@
   (przecinka w pasie drzew), wygląd przejścia polana → las (krzaki, pojedyncze drzewa przed ścianą).
 
 ### Modularność assetów i autoloadów (moduł samodzielny bez dublowania w eksporcie)
-- **Stan 2026-10-12: ZROBIONE dla Cienia Mgły (quiz_rpg), CZĘŚCIOWO dla BitBombera.** Cień Mgły to osobne repo (submoduł `modules/quiz_rpg`), ścieżki przez `QuizRpgPaths`, kopie hosta w `_host/` z `.gdignore`, synchronizacja `tools/sync_host_copies.gd`, `tools/make_standalone.sh` (opis w `docs/module_contract.md`, wpis w „Rozwiązane” 2026-10-03). Zostaje: `modules/BitBomber/resources/icon.png` ma ten sam UID co `resources/icon.png` hosta (ostrzeżenie „UID duplicate” przy imporcie, plik leży obok `quizzes/`, więc nie da się ukryć folderu); pełne przeniesienie BitBombera na ten schemat (kopia fontów z `.gdignore` jest, reszta nie).
+- **Stan 2026-10-12: W TOKU** — ZROBIONE dla Cienia Mgły (quiz_rpg), CZĘŚCIOWO dla BitBombera. Cień Mgły to osobne repo (submoduł `modules/quiz_rpg`), ścieżki przez `QuizRpgPaths`, kopie hosta w `_host/` z `.gdignore`, synchronizacja `tools/sync_host_copies.gd`, `tools/make_standalone.sh` (opis w `docs/module_contract.md`, wpis w „Rozwiązane” 2026-10-03). Zostaje: `modules/BitBomber/resources/icon.png` ma ten sam UID co `resources/icon.png` hosta (ostrzeżenie „UID duplicate” przy imporcie, plik leży obok `quizzes/`, więc nie da się ukryć folderu); pełne przeniesienie BitBombera na ten schemat (kopia fontów z `.gdignore` jest, reszta nie).
 - Zasady, które się sprawdziły (Godot 4.7.2): UID w `ext_resource` ma pierwszeństwo przed ścieżką (scena z błędną ścieżką, ale poprawnym UID wczytuje właściwy plik); względne `path="../…"` działają przy wczytaniu, ale zapis sceny / zasobu zmienia je na `res://…`; pliki `.import` są w repo (UID-y assetów wspólne dla klonów); po zmianie zasobów hosta trzeba ponownie zsynchronizować `_host/` (uwaga: synchronizacja nadpisuje też pliki hosta, które w `_host/` są nowsze — sprawdzać diff, np. `Tiles.png`).
+
+### Optymalizacja ekwipunku członków drużyny uwzględnia tylko ATK i DEF
+- **Stan 2026-10-12: NIE ZROBIONE** — `optimize_member_equipment` w `player_stats.gd` liczy prostą sumę ATK + DEF, ignorując inne statystyki.
+- Zgłoszenie 2026-10-12 (`otwarte.md`). Metoda `optimize_member_equipment` (`player_stats.gd`) dobiera sprzęt na podstawie sumy ATK + DEF, pomijając MAT, MDF oraz efekty specjalne przedmiotów.
+- Do zrobienia: wagi statystyk zależne od klasy postaci (np. Mag preferuje MAT/MDF, Wojownik ATK/DEF) lub uwzględnienie ról bojowych.
+
+### Skalowanie pancerza w późnej fazie gry (wpływ DEF na przeżywalność)
+- **Stan 2026-10-12: DO WERYFIKACJI** — formuła obrażeń w `enemy_stats.gd` liczy cios wroga z ułamka HP (`HIT_FRAC`), co osłabia wpływ pancerza na późniejszych poziomach.
+- Zgłoszenie 2026-10-12 (`otwarte.md`, `balans_i_skalowanie.md`). Przy skalowaniu do lv 100 pancerz (DEF) ma malejący wpływ na przeżywalność, ponieważ cios wroga bazuje na ułamku HP bohatera.
+- Do zrobienia: przejrzeć i zrewidować definicję obrażeń oraz pancerza w `enemy_stats.gd` niezależnie od reszty drabiny sprzętu.
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
 - **Nowe od 2026-10-11 / 12 (stan: DO SPRAWDZENIA W GRZE):** boss w pokoju wyjścia jaskiń (chodzi po nawigacji?), przejście przy gradiencie, animacja wejścia i wyjścia z walki, przewijanie długiej listy w walce, zakładka „Ogólne” w opcjach (osadzona w menu Cienia Mgły), wygląd skrzyń wg tieru i klucze na tier, beczki z modelem 3 / (2n) (średnio ≈ 2,3 losowania), złoto i wiersz „Złoto” w menu pauzy, koszt walki (≈ 70 % HP na parę wrogów) i liczba mikstur w jaskiniach, trudność jaskiń po nowych statystykach wrogów, tutorial + jaskinie = lv 8–9?
