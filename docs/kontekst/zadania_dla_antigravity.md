@@ -88,3 +88,12 @@ Statusy w `modules/quiz_rpg/resources/statuses/*.tres` (pola `display_name`, `de
 `status.<plik>.name` i `status.<plik>.desc` (plik = nazwa `.tres` bez rozszerzenia, np. `status.poison.name`), PL = obecny tekst z `.tres`
 (popraw tylko literówki), EN = tłumaczenie. Jeśli opis w `.tres` jest pusty, napisz 1 zdanie zgodne z mechaniką (sprawdź pola efektu w `.tres`).
 Podpięcie kluczy do kodu zrobi Claude po oddaniu (osobny krok).
+
+## Zadanie D — teksty logu wrogów (EN + PL)
+
+Osobny brief: [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) (21 kluczy `skill.<plik>.log`).
+
+## Zadanie E — uporządkowanie folderu `docs/` (indeksy, statusy, archiwum, bez zmiany treści)
+
+Osobny brief: [porzadkowanie_docs_dla_gemini.md](porzadkowanie_docs_dla_gemini.md) (rola `otwarte.md` vs `znane_problemy.md`, indeks `docs/README.md`, statusy planów, raport).
+Uwaga: nie ruszać nagłówków `### ⚠ WAŻNE:` w `znane_problemy.md` (hook przypomnień).
