@@ -1,5 +1,7 @@
 # Plan: uniwersalny generator układów strukturalnych (structured) — konfiguracja ścieków na poziomie makiet
 
+> Status (2026-10-12): ZROBIONE — układ structured zmergowany do main 2026-10-09/10 (platformy PR #1; drobne detale do dopracowania).
+
 Zatwierdzony 2026-10-05 (po dwóch rundach recenzji i uogólnieniu architektury). Ważne todo (1a) z [znane_problemy.md](znane_problemy.md).
 Stan wyjściowy: [kontekst/scieki.md](kontekst/scieki.md), obiekty: [kontekst/obiekty.md](kontekst/obiekty.md).
 Makiety: `assets/pixel_crawler/environments/sewer_old/Social/` — warstwy w Eksploratorze Aseprite.

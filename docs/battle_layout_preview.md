@@ -1,5 +1,7 @@
 # Edytor pól walki (Battle Layout Preview) — instrukcja
 
+> Status (2026-10-12): ZROBIONE — narzędzie i instrukcja gotowe do użytku (graficzne dopasowywanie trapezów pól walki).
+
 Scena `modules/quiz_rpg/scenes/tools/battle_layout_preview.tscn` — graficzne ustawianie, **gdzie na tle
 walki stoją wrogowie**. To, co widać w podglądzie, liczą te same funkcje co walka w grze
 (`BattleBackgroundLayout`), przy ekranie 1920×1080 z dolnym paskiem UI 250 px.

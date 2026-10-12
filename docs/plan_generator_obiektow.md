@@ -1,5 +1,7 @@
 # Plan: generator obiektów statycznych i interaktywnych (jaskinie)
 
+> Status (2026-10-12): W TOKU — fazy F0–F4 zrobione (sceny obiektów, skrzynie, beczki, obiekty ścieków); do dokończenia faza F5 (dźwignie, leniwe sceny, nakładka podglądu).
+>
 > Spisane 2026-09-25. Cel: dużo obiektów na mapie — od dużych przeszkód po drobne sprite'y — bez
 > spowalniania generowania i gry, deterministycznie (seed), z zachowaniem osiągalności. Skrzynie
 > przechodzą z `SpawnPlanner` do nowego generatora.

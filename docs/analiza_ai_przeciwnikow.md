@@ -1,5 +1,7 @@
 # Analiza AI i animacji przeciwników: Amon-Ra `enemy.gd` vs Artefakt `enemy_base.gd`
 
+> Status (2026-10-12): ZROBIONE — wnioski z analizy wdrożone 2026-09-25 (widoczność, animacje 4-way, siatka nawigacji, pościg i wałęsanie).
+>
 > Spisane 2026-09-25. Źródła: `Amon-Ra/amon-ra/scripts/characters/enemy.gd` (1077 linii) + podklasy
 > i sceny `scenes/characters/enemy_*.tscn`; `modules/quiz_rpg/scripts/enemies/enemy_base.gd` +
 > `scenes/enemies/enemy.tscn`. Numery linii `enemy.gd:NNN` = plik Amon-Ra.

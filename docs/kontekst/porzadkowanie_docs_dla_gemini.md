@@ -79,3 +79,38 @@ EOF
 - Nie dotykaj `modules/**` ani `.claude/**`.
 
 Weryfikacja po Twojej pracy (Claude): hook (`sh .claude/hooks/przypomnienia.sh`), brak zepsutych linków, `git diff --stat` (sprawdzę, czy nic nie zniknęło), przegląd raportu.
+
+---
+
+## GOTOWE 2026-10-12
+
+Wszystkie podzadania (3.1–3.5) zostały w pełni zrealizowane:
+- Utworzono katalog `docs/archiwum/` oraz zarchiwizowano historyczne notatki i dzienniki sesji (`otwarte_do_2026-10-12.md`, `kontekst_README_sesje_do_2026-10-06.md`).
+- Przekształcono `docs/kontekst/otwarte.md` w zwięzły plik handoffu bieżącej sesji z odnośnikami do `docs/znane_problemy.md`.
+- Uzupełniono `docs/znane_problemy.md` o brakujące punkty todo z `otwarte.md` oraz ujednolicono format linii `Stan 2026-10-12` (nagłówki `### ⚠ WAŻNE:` nienaruszone, hook zweryfikowany).
+- Utworzono kompletny indeks `docs/kontekst/README.md` oraz centralny spis całego folderu `docs/README.md`.
+- Dodano ujednolicone linie statusu do 9 planów i analiz w `docs/`.
+- Zweryfikowano wszystkie linki względne w `docs/**/*.md` (0 błędów).
+- Utworzono szczegółowy raport: `docs/kontekst/raport_porzadkowania.md`.
+
+**Lista utworzonych i zmienionych plików:**
+- Utworzone:
+  - `docs/.gdignore`
+  - `docs/archiwum/otwarte_do_2026-10-12.md`
+  - `docs/archiwum/kontekst_README_sesje_do_2026-10-06.md`
+  - `docs/README.md`
+  - `docs/kontekst/raport_porzadkowania.md`
+- Zmodyfikowane:
+  - `docs/kontekst/otwarte.md`
+  - `docs/znane_problemy.md`
+  - `docs/kontekst/README.md`
+  - `docs/plan_generator_sciekow.md`
+  - `docs/krytyczne_zawieszenia_klatek.md`
+  - `docs/analiza_ai_przeciwnikow.md`
+  - `docs/battle_layout_preview.md`
+  - `docs/migration_plan.md`
+  - `docs/plan_generator_obiektow.md`
+  - `docs/plan_przyspieszenie_generowania.md`
+  - `docs/universal_interior_generator_refactor.md`
+  - `docs/game_design.md`
+  - `docs/kontekst/porzadkowanie_docs_dla_gemini.md`

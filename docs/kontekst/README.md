@@ -1,72 +1,41 @@
-# Kontekst pracy (stan na 2026-10-04)
+# Indeks dokumentów kontekstowych (`docs/kontekst/`)
 
-Krótkie notatki na start nowej sesji. Moduł `modules/quiz_rpg`, Godot 4.7.2.
+Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_rpg` (Godot 4.7.2).
 
-| Plik | O czym |
-|---|---|
-| [zasady.md](zasady.md) | stałe zasady pracy (commity, czego nie ruszać) i uruchamianie testów |
-| [scieki.md](scieki.md) | ścieki: gałąź sewer-tileset, kafle, flagi generatora, kanały i kładki (stan prac) |
-| [sciany_i_kafle.md](sciany_i_kafle.md) | generator jaskiń: filary 2H, wypustki, fasady płaskowyżu |
-| [obiekty.md](obiekty.md) | generator obiektów: duże obiekty przy ścianach, dostęp do skrzyń |
-| [ekran_ladowania.md](ekran_ladowania.md) | scena ekranu ładowania, tła map, prompty do grafik |
-| [pytania.md](pytania.md) | zestawy pytań, wybór aktywnych, edytor pytań (menu główne, opcje) |
-| [menu_i_opcje.md](menu_i_opcje.md) | opcje hosta (motyw, pytania, sterowanie per moduł), menu Esc, HUD, audio menu |
-| [walka.md](walka.md) | UI walki (RPG Maker, WYSIWYG), motywy i style pasków, pola walki per tło, podgląd / edytor pól, tła 16:9 |
-| [wrogowie.md](wrogowie.md) | zasięg wykrywania, dziedziczenie scen, znane pułapki |
-| [narzedzia_diag.md](narzedzia_diag.md) | skrypty headless do renderów i porównań (katalog `tests/`, poza gitem) |
-| [klasy_postaci_i_bronie.md](klasy_postaci_i_bronie.md) | 4 klasy postaci, 16 broni per strefa (Pixel Crawler), rozszerzona drużyna i rezerwa (specyfikacja dla Claude Opus) |
-| [balans_i_skalowanie.md](balans_i_skalowanie.md) | balans i skalowanie walki: HP, ATK, DEF, porównanie z FNaFB1 FM, plan symulacji (specyfikacja dla Claude Opus) |
-| [otwarte.md](otwarte.md) | co zostało do zrobienia / sprawdzenia |
+> **Przypomnienia na start sesji (hook Claude Code):** hook `SessionStart` w `.claude/settings.json` uruchamia `.claude/hooks/przypomnienia.sh`, który wypisuje wszystkie nagłówki `### ⚠ WAŻNE: …` z [`docs/znane_problemy.md`](../znane_problemy.md). Nowe ważne todo = nowy nagłówek z tym znacznikiem; po załatwieniu usunąć nagłówek albo znacznik — przypomnienie znika samo.
+>
+> **Pojedyncze źródło prawdy dla błędów i zadań:** [`docs/znane_problemy.md`](../znane_problemy.md).  
+> **Bieżący stan sesji (handoff):** [`otwarte.md`](otwarte.md).  
+> **Archiwum dzienników sesji:** [`docs/archiwum/kontekst_README_sesje_do_2026-10-06.md`](../archiwum/kontekst_README_sesje_do_2026-10-06.md).
 
-Pełniejsze listy: `docs/znane_problemy.md` (sekcje „Do zrobienia” i „Rozwiązane”),
-`docs/plan_generator_obiektow.md`, `docs/game_design.md`.
+---
 
-UI walki (2026-09-30): scena `scenes/quiz/quiz_combat_ui.tscn` + motyw `resources/ui/quiz_theme.tres`
-(czcionka Jersey 15, typy QuizWindow / QuizLog / QuizMenuItem) są WYSIWYG; pola walki per tło —
-`assets/textures/battle_backgrounds/**/<grafika>_layout.tres`, edycja w `scenes/tools/battle_layout_preview.tscn`.
-Przypomnienia na start sesji Claude Code: hook `SessionStart` w `.claude/settings.json` uruchamia
-`.claude/hooks/przypomnienia.sh`, który wypisuje wszystkie nagłówki `### ⚠ WAŻNE: …` z
-`docs/znane_problemy.md`. Nowe ważne todo = nowy nagłówek z tym znacznikiem; po załatwieniu usunąć nagłówek
-albo znacznik — przypomnienie znika samo.
+## Skorowidz plików w `docs/kontekst/`
 
-Sesja 2026-10-02/03 (skrót): motywy UI `_st` i style pasków z Pixel UI pack 3 (opcje -> Motyw, także menu Esc),
-poprawki wyboru myszą w walce i kolejności rysowania wrogów, HUD bez statystyk, muzyka menu, przycisk
-„Opcje” w menu Quiz RPG, edytor pytań, sterowanie per moduł, `.gitattributes` eol=lf, pola walki na
-y = 765 i cień 35 px, węższe okna komend i tekst walki 36 px, tryb „UI walki na szerokość treści”, prompty
-teł 16:9 + korekcyjne, w podglądzie pól strefy UI / cienia i paski HP. Od teraz commity od razu pushowane.
-
-Sesja 2026-10-03/04 (skrót; szczegóły w plikach tematycznych i `docs/znane_problemy.md` „Rozwiązane”):
-- Cień Mgły = submoduł CienMgly (kopie hosta w `_host/`, sync `tools/sync_host_copies.gd`, potem
-  `git checkout -- project.godot.off`), jeden seed na zapis, mapy jako sceny dziedziczone (`levels/cave.tscn`),
-  powrót do poprzedniego poziomu, rebind klawiszy, podpowiedź „[E] …” nad skrzyniami.
-- Menu: główne menu gry na środku, „Wczytaj / Statystyki / Opcje” na osobnym ekranie (wzór FNaFB); opcje
-  wbudowane w prawy panel menu Esc; potwierdzanie tylko zmian ekranu; Sterowanie z listą „Gra:”, czcionka 18,
-  opcje z manifestu (`control_options`) — bieg / chód (`sprint`, Shift). Menu deweloperskie skalowane.
-- Okno (`WindowService`): jeden autoload, start na zapisanym monitorze, poprawna pozycja okna z ramką,
-  lista rozdzielczości okna z ramką + „maks. okno”, ręczny rozmiar / maksymalizacja zapamiętywane,
-  wyjście z „bez ramki” na cały ekran — [menu_i_opcje.md](menu_i_opcje.md).
-- Przejścia: spawny odsunięte od Area2D (`MapGeneratorBase.arrival_cell`, w samouczku marker
-  `Spawns/Tutorial-Caves`), opcjonalnie pod E (`portal_use_key` / `portal_prompt`).
-- Motyw: jasność bez przebudowy motywu (`QuizTheme.set_brightness`), styl pasków „Pas, dwustronny” ubywa
-  od prawej, menu Esc nie przygasza wierszy bez wyboru — [walka.md](walka.md).
-
-Sesja 2026-10-05 (ścieki na gałęzi `sewer-gen-v2` w submodule `modules/quiz_rpg`):
-- Nowa architektura Structured Generator v2: determinizm PRNG (Fisher-Yates `shuffle_array`), podwójny szum binarny
-  0/1 do podziału na suche koryto i ścieki kwasowe.
-- Spójność i naprawa koryt przy ścianach: `canal_placer.gd` nie traktuje ścian jako kwasu (proste brzegi), koryto może
-  bezpośrednio przylegać do ściany (`want[pk] = 0`), usunięto rozcinające ściany `_ensure_canal_clearance`.
-- Prepassy ścian 3H chronią koryta (`_can_fill` w `Wall3HPass` sprawdza `canals.cells`), eliminacja ścian 1H i 2H.
-- `BridgeConnectivityResolver` gwarantuje dokładnie 1 składową spójną oraz kładki o długości 6 oparte na `FLOOR`.
-- Kładki na dedykowanej warstwie TileMapLayer `Bridges` (`z_index = -1`, y-sort) wydzielone z `FloorDecor`.
-- 100% ciągłości krawędzi opuszczonej `CANAL_FACE` (4, 13) w `canal_placer.gd` (uniezależnienie `_is_face` od przechodniości pola na północ).
-- Rozszerzenie kładki poziomej `BRIDGE_H` w atlasie `Props.png` do pełnego formatu 6×2 (kolumny 5–10, `origin = Vector2i(5, 12)`).
-- Testy: `diag_sewer_full_test.gd` PASS (160x160, 250x250), `diag_sewer_slice_fixture.gd` PASS (13/0).
-
-Sesja 2026-10-06 (ścieki: korytarze serwisowe, separacja ścianą, pauza generowania terenu):
-- Przywrócenie sekwencji sal `['hall', 'walled', 'hall']` (`proto_layout10.py`) i drążenie równoległych korytarzy serwisowych z bramami.
-- Separacja korytarzy serwisowych od koryt ścieków litą ścianą (`extra_forb` wokół `WALL_H`/`WALL_V`), kandydaci `prev_valid`/`next_valid`.
-- Wzmocnienie A* (`MinHeap` z heurystyką Manhattan $f = g + h$, `forbid_water = true` bez wchodzenia w koryto).
-- Bezwzględna blokada kładek na zakrętach/narożnikach kanałów (margines $\ge 4$ od końców segmentu) oraz w strefach `walled`.
-- Commit `cbe4b35` w submodule, commit `46e3b1f` w hoście. Wszystkie testy PASS.
-- Generowanie terenu/układu odłożone do sesji z Claude Opus (dopracowanie modelu mentalnego oddzielenia ścianami i korytarzy). Przejście do kolejnych zadań z listy.
-
+| Plik | Opis zawartości | Status |
+|---|---|---|
+| [zasady.md](zasady.md) | Stałe zasady pracy z repozytorium (commity, ochrona kodu), uruchamianie testów i architektura modułu. | `ZROBIONE` |
+| [scieki.md](scieki.md) | Specyfikacja techniczna i stan prac nad generatorem ścieków (układ structured, kanały, kładki, platformy). | `ZROBIONE` |
+| [sciany_i_kafle.md](sciany_i_kafle.md) | Generator jaskiń: filary 2H, autotiling ścian, wypustki, fasady płaskowyżu i warianty kafli RIM. | `ZROBIONE` |
+| [obiekty.md](obiekty.md) | Generator obiektów: katalogi JSON, obiekty jako sceny, niszczalne beczki, skrzynie i obiekty ścieków. | `W TOKU` |
+| [ekran_ladowania.md](ekran_ladowania.md) | Ekran ładowania map, podgląd tła, obsługa wątku w tle i prompty grafik. | `ZROBIONE` |
+| [pytania.md](pytania.md) | System pytań quizowych, edytor pytań w grze, eksport/import JSON i kategorie. | `ZROBIONE` |
+| [menu_i_opcje.md](menu_i_opcje.md) | Menu główne, menu pauzy Esc, HUD, ustawienia okna/grafiki/dźwięku i konfiguracja sterowania. | `ZROBIONE` |
+| [walka.md](walka.md) | System walki w stylu RPG Makera: UI WYSIWYG, mechanika tur, tła 16:9, trapezy pól i log. | `W TOKU` |
+| [wrogowie.md](wrogowie.md) | Konfiguracja przeciwników: zasięg wykrywania, dziedziczenie scen, stany AI, scan_text i log wrogów. | `W TOKU` |
+| [narzedzia_diag.md](narzedzia_diag.md) | Skrypty diagnostyczne headless w `tests/` do testów generatora, siatki nawigacji i renderów. | `ZROBIONE` |
+| [klasy_postaci_i_bronie.md](klasy_postaci_i_bronie.md) | Projekt 4 klas postaci (Wojownik, Łotrzyk, Mag, Kapłan), 16 broni per strefa oraz struktury drużyny. | `SZKIC (niezatwierdzone)` |
+| [balans_i_skalowanie.md](balans_i_skalowanie.md) | Analiza balansu walki, statystyk HP/ATK/DEF, kalkulacji TTK i skalowania wzorowanego na FNaFB. | `SZKIC (niezatwierdzone)` |
+| [otwarte.md](otwarte.md) | Podsumowanie ostatniej sesji (handoff), decyzje usera i odnośniki do bieżących zadań w `znane_problemy.md`. | `W TOKU` |
+| [backlog_druzyna_balans.md](backlog_druzyna_balans.md) | Sprint backlog (etapy S1–S7 i O1–O7) prac na gałęzi `druzyna-balans`. | `W TOKU` |
+| [druzyna_szkic.md](druzyna_szkic.md) | Szkic systemu drużyny: 3 towarzyszy, rekrutacja po zadaniach, osobne pule XP i brak limitu w walce. | `SZKIC (niezatwierdzone)` |
+| [ekwipunek_szkic.md](ekwipunek_szkic.md) | Szkic ekonomii i ekwipunku: złoto, mikstury, tiery skrzyń i kluczy, sklepy oraz ulepszenia broni. | `SZKIC (niezatwierdzone)` |
+| [sloty_umiejetnosci_szkic.md](sloty_umiejetnosci_szkic.md) | Szkic mechaniki slotów umiejętności, 4 tierów, budżetu slotów oraz odblokowywania trybu combo. | `SZKIC (niezatwierdzone)` |
+| [poziomy_i_xp.md](poziomy_i_xp.md) | Matematyka poziomów wrogów, skalowania statystyk z poziomu oraz krzywe doświadczenia na 15 map. | `W TOKU` |
+| [skille_i_pierwowzory.md](skille_i_pierwowzory.md) | Zestawienie umiejętności bohaterów i wrogów z ich pierwowzorami z FNaFB, kosztami i efektami. | `SZKIC (niezatwierdzone)` |
+| [skille_i_pierwowzory.docx](skille_i_pierwowzory.docx) | Plik binarny Word zawierający bazową tabelę umiejętności i kosztów SP/TP. | `SZKIC (niezatwierdzone)` |
+| [i18n_opisy_dla_gemini.md](i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do `pl.json` i `en.json`. | `ZROBIONE` |
+| [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie tekstów logu walki dla umiejętności przeciwników. | `NIE ZROBIONE` |
+| [zadania_dla_antigravity.md](zadania_dla_antigravity.md) | Rejestr zadań mechanicznych i tekstowych delegowanych modelom pomocniczym (Gemini/Antigravity). | `W TOKU` |
+| [porzadkowanie_docs_dla_gemini.md](porzadkowanie_docs_dla_gemini.md) | Brief na uporządkowanie struktury `docs/`, ujednolicenie statusów i utworzenie indeksów (Zadanie E). | `W TOKU` |
+| [raport_porzadkowania.md](raport_porzadkowania.md) | Raport z przeprowadzonego porządkowania dokumentacji, weryfikacji linków i ewentualnych rozbieżności. | `ZROBIONE` |
