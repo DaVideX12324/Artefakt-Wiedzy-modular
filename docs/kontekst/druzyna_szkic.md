@@ -47,7 +47,8 @@ Klasy ułożone tak, że skille z tabeli S6 mają dom; ok. 4–6 nowych skilli n
 
 ## 6. XP i poziomy członków (propozycja)
 
-- Wszyscy członkowie dostają **pełne XP z walki** (jak w FNaFB / klasycznych JRPG), więc poziomy są zbliżone; nowy członek startuje z poziomu bohatera − 1–2.
+- **Decyzja usera (2026-10-12): jak we FNaFB — każdy członek dostaje tyle XP, ile dali przeciwnicy** (bez dzielenia przez liczbę członków); dokładne liczby to kwestia balansu. Poziomy są więc zbliżone; nowy członek startuje z poziomu bohatera − 1–2.
+- Do przetestowania przy balansie: czy martwy w chwili końca walki członek też dostaje XP, czy członek spoza walki / zapasowy dostaje całość czy ułamek, oraz czy dogonienie bohatera przez nowego członka nie jest za szybkie (dwa poziomy różnicy to ok. 1–2 walki).
 - Każdy ma własny poziom w danych członka (`member["level"]` już istnieje); `PlayerStats.level` przestaje być pojedynczą prawdą — pozostaje poziomem lidera / `LEVEL_CAP`.
 - Poziomy wrogów i XP mapy liczą się dla lidera; budżet XP (15 map → lv 100) nie zmienia się, bo członkowie dzielą te same XP.
 
@@ -56,7 +57,7 @@ Klasy ułożone tak, że skille z tabeli S6 mają dom; ok. 4–6 nowych skilli n
 1. Czy „3” oznacza 3 towarzyszy (razem 4) czy 3 osoby łącznie.
 2. Nazwy klas i postaci, ich charakter / fabuła (dołączają z własnego powodu; pasuje do motywu wspomnień).
 3. Czy zadania towarzyszy są powiązane z odnogami i blokadami zamku (sekcja 5).
-4. Poziom startowy dołączającego i czy członek spoza walki dostaje XP (np. ułamek).
+4. Poziom startowy dołączającego (propozycja: bohater − 1–2); XP martwych i zapasowych członków (sekcja 6).
 5. Czy bohater też ma klasę (Wojownik) i czy da się zmieniać klasę (propozycja: nie).
 6. Kto pisze skille klasowe (dane skilli i opisy mogą iść do Gemini wg briefu jak S6).
 7. Grafiki: jakich postaci użyć z paczki, czy potrzebne są nowe animacje.
