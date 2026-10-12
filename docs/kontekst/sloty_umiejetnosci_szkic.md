@@ -14,8 +14,8 @@ dostępna w walce). Wszystkie liczby poniżej to propozycje do przerobienia; pun
 - Wyższy tier **kosztuje ograniczenie niższych**: jeden skill T4 wymaga ograniczenia liczby T1.
 - Blokady wejścia na zamek sprawdzają **znajomość skilla**, nie slot.
 - **Skan jest poza budżetem** (decyzja usera 2026-10-12): nie zajmuje nawet tury, więc slot byłby bezsensem.
-- **Combo jest poza budżetem** (decyzja usera): to ult po osiągnięciu 100 TP. W trybie combo gracz używa skilli tyle razy, ile pozwala SP; skille kosztujące TP są wtedy niedostępne, bo cała pula TP poszła na aktywację. Dzisiejszy `death_enrage` (`combo = true`, 100 TP + 450 SP, jeden skill) to uproszczony zalążek tego trybu — pełny tryb combo jest do zaprojektowania osobno (backlog O3).
-- **Odblokowanie combo** (decyzja usera 2026-10-12): po konkretnych warunkach, **nigdy** z poziomu bohatera ani od NPC. Możliwe źródła: rzadki drop, maks. poziom (tier) wskazanych skilli albo pokonanie specjalnego przeciwnika. Dziś `death_enrage` ma `learn_level = 20` (z poziomu) — do zmiany na `learn_level = 0` + odblokowanie zdarzeniem (`PlayerStats.unlock_skill`), gdy będzie wybrany warunek; do tego czasu zostaje jak jest.
+- **Combo jest poza budżetem** (decyzja usera): to osobny tryb dostępny po osiągnięciu 100 TP (nie ult). W trybie combo gracz używa skilli tyle razy, ile pozwala SP; skille kosztujące TP są wtedy niedostępne, bo cała pula TP poszła na aktywację. **Combo ≠ ult:** Death Enrage to ult, czyli umiejętność wysokiego tieru (start T4, zajmuje budżet jak każdy skill); flaga `combo` w danych skilli była błędna i została usunięta. Tryb combo nie istnieje jeszcze w kodzie — do zaprojektowania osobno (backlog O3).
+- **Odblokowanie combo** (decyzja usera 2026-10-12): po konkretnych warunkach, **nigdy** z poziomu bohatera ani od NPC. Możliwe źródła: rzadki drop, maks. poziom (tier) wskazanych skilli albo pokonanie specjalnego przeciwnika. Dotyczy trybu combo, nie Death Enrage (ult odblokowuje się z poziomu bohatera, `learn_level = 20`).
 
 ## 2. Model: wspólny budżet slotów (rekomendacja)
 
@@ -75,7 +75,7 @@ Kolumna „Poziomy” = [tier startowy – maks. tier skilla]; faktyczny górny 
 | Rushdown / Natarcie (`onslaught`) | 3–4 | trafienia 6 → 8 |
 | Speed Share / Wspólne Tempo (`share_tempo`) | 3–4 | siła i czas buffa AGI |
 | Final Strike / Ostateczne Cięcie (`final_strike`) | 3–4 | ATK × 8 → × 12 |
-| Death Enrage / Szał Śmierci (`death_enrage`) | 4 | ult; jedna wersja, slot combo |
+| Death Enrage / Szał Śmierci (`death_enrage`) | 4 | ult; jedna wersja, slot T4 |
 
 Skille-klucze zamku (Rushdown, Backup Bash, Rapid Flurry) mają niski tier startowy, więc znajomość wystarcza od razu po nauczeniu u NPC.
 
@@ -90,7 +90,7 @@ Skille-klucze zamku (Rushdown, Backup Bash, Rapid Flurry) mają niski tier start
 
 1. Wartości jednostek (1 / 2 / 3 / 5) i budżetu na poziom; limit aktywnych skilli (6?).
 2. ~~Czy skill T4 może być ustawiony niżej?~~ **Rozstrzygnięte (user 2026-10-12):** skill ma tier startowy i nie zajmie niższego slotu (T4 na start = tylko slot T4). Jeśli startuje np. na T3, a poziom bohatera podniósł jego maks. tier do T4, można go wstawić na T4 albo na dowolnym niższym poziomie, nie niższym niż T3. Czyli zakres = [tier startowy, maks. tier z poziomu bohatera].
-3. ~~Czy Skan i combo leżą poza budżetem?~~ **Rozstrzygnięte:** tak, oba. Zostaje zaprojektować sam tryb combo (aktywacja 100 TP, serie skilli za SP, blokada skilli TP).
+3. ~~Czy Skan i combo (tryb) leżą poza budżetem?~~ **Rozstrzygnięte:** tak, oba. Zostaje zaprojektować sam tryb combo (aktywacja 100 TP, serie skilli za SP, blokada skilli TP).
 4. Format akcesoriów (jednostki budżetu, ±1 tier) i które z obecnych `lucky_charm` / nowych dostają bonus.
 5. UI: ekran w menu pauzy (lista skilli, suwak poziomu, pasek budżetu), widok w walce bez zmian.
 6. Zapis: lista (skill, poziom) na członka.
