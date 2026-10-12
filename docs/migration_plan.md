@@ -1,5 +1,7 @@
 # Plan migracji BitBomber i Quiz RPG
 
+> Status (2026-10-12): HISTORYCZNE — plan początkowej migracji projektów do architektury modularnej (zrealizowany na starcie projektu).
+
 ## Etap 1: Quiz RPG
 
 - Skopiowac projekt do `modules/quiz_rpg`.

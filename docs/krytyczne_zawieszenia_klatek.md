@@ -1,5 +1,7 @@
 # KRYTYCZNE: wielosekundowe zawieszenia klatek przy ruchu kursora (zgłoszone 2026-10-11)
 
+> Status (2026-10-12): ZROBIONE — problem wielosekundowych zawieszeń rozwiązany restartem edytora Godot 2026-10-11.
+
 ## WYNIK KOŃCOWY (2026-10-11, ~17:00): lag zniknął po RESTARCIE EDYTORA — rozwiązane, mechanizm niepotwierdzony
 - Lag ustąpił dopiero po zamknięciu edytora Godota działającego od 14:21 (ponad 2,5 h) i uruchomieniu nowego.
 - Potem testy kontrolne na świeżym edytorze, wszystkie czyste: Forward+ (Vulkan) z gry uruchamianej z edytora; Windhawk

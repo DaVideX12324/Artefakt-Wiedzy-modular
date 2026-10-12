@@ -1,5 +1,7 @@
 # Cień Mgły — Dokument Projektowy
 
+> Status (2026-10-12): W TOKU — główny dokument projektowy gry Cień Mgły (część mechanik i stref wdrożona, kolejne w trakcie rozwoju).
+>
 > Tytuł gry (2026-10-03, decyzja autora): **Cień Mgły** — nawiązanie do hot16 Andrzeja Dudy; w fabule „cień” to
 > ten, kto kryje się za mgłą (Strażnik). Techniczna nazwa modułu zostaje `quiz_rpg`.
 

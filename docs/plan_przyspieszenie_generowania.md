@@ -1,5 +1,7 @@
 # Plan: przyspieszenie generowania map (jaskinie)
 
+> Status (2026-10-12): W TOKU — zrealizowane kluczowe optymalizacje (wątek roboczy, ekran ładowania, wypiekanie nav w kawałkach 64×64); dalsze kroki (płaska siatka PackedByteArray) odłożone jako opcjonalne.
+>
 > Spisane 2026-09-24 na podstawie pomiarów (seed 184356, Godot 4.7.2 headless, jeden przebieg,
 > wartości ~15 ms to w dużej części szum od `print`). Cel: gra nie zamarza podczas generowania,
 > a mapa 250×250 z płaskowyżami generuje się w ~2 s zamiast ~5 s — bez zmiany wyniku (parytet).

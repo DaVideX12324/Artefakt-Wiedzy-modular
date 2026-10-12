@@ -1,5 +1,7 @@
 # Universal Interior Generator — plan refaktoru (dokument wykonawczy)
 
+> Status (2026-10-12): W TOKU — zatwierdzony plan wykonawczy refaktoru generatora wnętrz (architektura etapowa, część faz wdrożona w jaskiniach i ściekach).
+>
 > **Status:** zatwierdzony plan analityczny. Dokument jest jedynym źródłem prawdy dla refaktoru
 > generatora proceduralnego w module `quiz_rpg`.
 >
