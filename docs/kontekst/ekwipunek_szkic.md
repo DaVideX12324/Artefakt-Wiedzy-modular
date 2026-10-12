@@ -137,7 +137,7 @@ Rozszerzyć `diag_gear_scenarios.gd` do testu (`check_gear_budget`) liczonego na
 
 1. **E0 (drobne, bez decyzji):** naprawa `optimize` (wszystkie cztery statystyki, wpis zakładanego przedmiotu z MAT / MDF). Test.
 2. **E1:** wspólna funkcja krzywej sprzętu (jedno źródło prawdy zamiast stałych `GEAR_*` w `enemy_stats.gd` i liczb w danych); tabela budżetu 15 map jako dane; `check_gear_budget` z progami 1–3 i 6. Bez nowych przedmiotów.
-3. **E2 (prototyp):** zwykły sprzęt dla map 1–2 (pośrednie wartości z tabeli, np. po 2–3 przedmioty na slot), źródła: skrzynie / boss minimapy z listą łupu w JSON mapy (skrzynia dziś ma jeden stały przedmiot — rozszerzenie na `loot` mapy); bez sklepów i złota.
+3. **E2 (prototyp):** zwykły sprzęt dla map 1–2 (pośrednie wartości z tabeli, np. po 2–3 przedmioty na slot), źródła: skrzynie / boss minimapy z listą łupu w JSON mapy (skrzynia dziś ma jeden stały przedmiot — rozszerzenie na `loot` mapy); sklepy i złoto tylko jeśli pierwsza decyzja z sekcji 10 brzmi „tak” (wtedy E2 obejmuje złoto w `PlayerStats` i zapisie, drop złota i prosty sklep).
 4. **E3:** **jedna broń rozwijana do endgame** (np. „Żarzące Ostrze”: 4 etapy jako 4 `.tres` + `upgrade_to`), ulepszanie przez funkcję w `PlayerStats` i tymczasowy punkt wywołania (menu deweloperskie, NPC dopiero gdy powstanie hub / miasto). Test „etap zmienia długość walki”.
 5. **E4:** wyjątkowe bronie wg wybranej opcji z sekcji 4 (jedna gotowa endgame jako test wczesnego zdobycia, jedna sekretna ponad budżet), potem efekty specjalne i rozszerzenie na pozostałe mapy (dane do Gemini po ustaleniu wzorców).
 
@@ -182,16 +182,41 @@ Wnioski:
 - Klif jest tak stromy, bo DEF wroga liczy się od ATK wzorca (`DEF_RATIO` 0,7): wzór `4A − 2D` daje 0 przy A < 0,35 × ATK wzorca. Przy `DEF_RATIO` 0,4 klif jest łagodniejszy, ale nie znika.
 - **Pancerz już dziś prawie nie wpływa na przeżywalność późno:** cios wroga tieru 2 to 14,0 % HP ze sprzętem wzorcowym, a bez żadnego pancerza 19,3 % na lv 8, 16,0 % na lv 40 i tylko **14,8 % na lv 100**. Powód: cios wroga jest wyprowadzany z ułamka jego HP (`HIT_FRAC` × HP bohatera), a HP rośnie wykładniczo do 50 000, podczas gdy DEF rośnie do ok. 300. Budżet DEF z tabeli w sekcji 3 będzie więc prawie kosmetyczny, jeśli nic nie zmienimy. Jeśli pancerz ma realnie bronić (szczególnie w wariancie „jak FNaFB”), trzeba zmienić definicję ciosu wroga w `enemy_stats.gd` (np. ATK wroga z własnej krzywej, nie z ułamka HP bohatera, albo DEF jako procentowa redukcja).
 
-## 9. Decyzje do podjęcia
+## 9. Dane FNaFB 1: waluta, ceny i tempo (wczytane z `Weapons` / `Armors` / `Enemies .rvdata2`, 2026-10-12)
 
-**Pierwsza (blokuje resztę):** jak rozumieć „poziom daje mniej niż sprzęt”?
-- **A. Waga krokowa:** pojedynczy krok sprzętu (tier) ma być większy niż przyrost z poziomów między tierami. Dziś tak **nie** jest (do lv 80 poziom daje więcej). Zmiana: niższe `atk_per_level` / `def_per_level` (np. 0,5 / 0,3) albo wyższy start krzywej sprzętu. Sklepy nie są konieczne od pierwszej minuty, ale od mapy 3–4 (gdzie sprzęt już waży więcej) potrzebne jest pewne źródło ulepszeń.
-- **B. Skrajny wariant FNaFB:** poziom = HP / SP, siła tylko ze sprzętu (tabela wyżej): wymaga złota i sklepów od początku, `DEF_RATIO` 0,4 i zmiany ciosu wroga, żeby pancerz coś znaczył. Najbardziej radykalne.
-- **C. Zostaje jak teraz:** poziom dominuje do lv 80, sprzęt na końcu. Najmniej zmian, ale przeczy ustaleniu „ekwipunek bardzo ważny”.
+User: kupno sprzętu za walutę wypadającą z potworów jest szybsze niż wbijanie poziomów. Dane z `H:/Pobrane/fnafb1/Data` to potwierdzają:
 
-W każdym wariancie ważna jest osobna poprawka: pancerz prawie nie wpływa na przeżywalność późno (sekcja 8), więc definicję ciosu wroga trzeba przejrzeć niezależnie od wyboru.
+| Element | Wartości |
+|---|---|
+| Bronie (ATK) / cena | 10 / 0, 20 / 10, 40 / 20, 80 / 40, 160 / 80, 320 / 160 (6 tierów; cena = połowa ATK) |
+| Elementy pancerza (DEF) / cena | 4 / 0–5, 8 / 10, 16 / 20, 32 / 40, 64 / 80 (cena ≈ 1,25 × DEF) |
+| Złoto z potworów (Party Hat Alpha / Beta / Gamma / Omega) | 5 / 10 / 20 / 40 (XP 200 / 400 / 800 / 1600) |
+| Koszt tieru broni w zabiciach potworów „z tej lokacji” | 2 (Bronze 10 = 2 Alpha, Silver 20 = 2 Beta, Gold 40 = 2 Gamma, Platinum 80 = 2 Omega), ostatni tier 4 Omega |
+| Koszt poziomu w zabiciach (XP do następnego) | lv 5: 2,4 Beta; lv 10: 4,4 Gamma; lv 15: 4,9 Omega; lv 19: 7,8 Omega (62 Alpha) |
 
-**Druga (po pierwszej):** czy gotowa broń o mocy endgame zdobyta wcześnie (np. sekret w mapie 7) ma pozostać dozwolona bez ograniczeń? Z tabeli w sekcji 4: w wariancie A oznacza to jedno- do trzytrafieniowe walki z bossami przez większość kampanii (od lv 8 do ok. 60), a po lv 80 broń jest zwykła.
-- **A.** Tak, to świadoma nagroda za sekret (bez zmian w kodzie; sekretom dajemy wymagające warunki).
+Wnioski:
+- Złoto z potwora rośnie tym samym podwajaniem co ceny, więc **koszt kolejnego tieru broni to stale 2–4 zabicia aktualnych potworów**, a poziom kosztuje coraz więcej (lv 19→20: 313 złota z ośmiu Omega, wystarczy na dwie najlepsze bronie). Pieniądze nigdy nie są barierą; **barierą jest dostęp do sklepu danej lokacji.** Sprzęt wyprzedza poziom nawet bez grindu, bo „cena = parę walk”.
+- Siła sprzętu względem poziomu: Freddy lv 20 ma ATK 58, a broń tieru 6 daje +320, czyli **sprzęt to 85 % ATK na lv 20** (u nas 25 %). Powód rozcieńczenia: w FNaFB cała drabina 10 → 320 mieści się w 20 poziomach, a my rozciągnęliśmy tę samą drabinę na 100 poziomów (baza wzrosła ×10: 21 → 214, sprzęt tylko ×32 jak w FNaFB). Żeby odtworzyć „sprzęt ≫ poziom” przy 100 poziomach, albo wydłużamy drabinę (np. broń endgame ≈ 1000–1200 ATK, „szalone liczby” z ustaleń usera; sprzęt ≈ 80 % ATK na lv 100), albo zmniejszamy przyrost z poziomu (sekcja 8). To dwie niezależne dźwignie; pierwsza nie psuje danych bohatera i pasuje do ekonomii niżej.
+
+**Propozycja waluty i cen dla nas** (wszystko przykładowe, do zatwierdzenia):
+- Złoto z potwora = `0,25 × ATK_standard(poziom wroga) × waga tieru` (waga jak w XP: 0,6 / 1,0 / 1,6, boss ×6); normalizacja po liczbie spawnów mapy jak w XP (`ref_spawns` / spawny), żeby rozmiar mapy nie zmieniał budżetu złota. Poziom wroga z mapy, nie z gracza.
+- Cena standardowej broni mapy m = `0,5 × ATK_standard(koniec mapy m)`, czyli ≈ 2 zabicia zwykłego wroga tej mapy; element pancerza `≈ 1,25 × DEF` elementu. Komplet standardowego sprzętu mapy ≈ 5–6 zabić zwykłych wrogów, więc **bez grindu złota**.
+- Sklep w każdej lokacji sprzedaje standardowy sprzęt tej mapy (tier = moc mapy z sekcji 3). Mapy są dostępne dla gracza wg fabuły i blokad, a nie wg poziomu, więc gracz, który dotrze do mapy 6 na lv 20, kupi sprzęt mapy 6 od razu (ryzyko i szansa, jak we FNaFB).
+- Wyjątkowe bronie z sekcji 4 nie ze sklepu (sekrety, bossowie, questy, ulepszenia NPC).
+- Pokrętło tempa: stosunek cena / złoto z potwora (tu 2 zabicia); zwiększenie do 6–10 spowolni zakupy bez ruszania krzywych.
+- Konsekwencja dla balansu wrogów: wzorzec w `enemy_stats.gd` zakłada sprzęt = moc lokacji, co teraz już jest prawdą w tej propozycji (gracz może kupić ten sprzęt od razu); nie trzeba przesuwać wzorca.
+
+## 10. Decyzje do podjęcia
+
+**Pierwsza (blokuje resztę):** czy bierzemy z FNaFB model „waluta z potworów + sklep z tierem sprzętu w każdej lokacji”? (Dziś nie ma złota, sklepów ani cen, a bez źródła sprzętu cały system sprzętu jest martwy.)
+- **Tak** (propozycja wyżej: cena ≈ parę walk, barierą dostęp do sklepu). Dodaje: złoto jako pole w `PlayerStats` i zapisie, drop złota wrogów, NPC / interfejs sklepu (miasto lub hub jeszcze nie istnieją, więc najpierw sklep w menu deweloperskim lub prosty NPC).
+- **Nie** — inne źródła (tylko skrzynie / bossowie / questy): wtedy tempo sprzętu zależy od losu i eksploracji, a „sprzęt szybciej niż poziom” nie zachodzi z założenia.
+
+**Druga:** skala drabiny sprzętu przy 100 poziomach: **A.** wydłużyć drabinę (broń endgame ≈ 1000+ ATK, przyrost z poziomu bez zmian; sprzęt ≈ 80 % ATK na lv 100), **B.** zmniejszyć przyrost z poziomu (`atk_per_level` / `def_per_level`, sekcja 8), **C.** zostawić jak teraz (poziom dominuje do lv 80).
+
+**Trzecia:** czy gotowa broń o mocy endgame zdobyta wcześnie (np. sekret w mapie 7) ma pozostać dozwolona bez ograniczeń? Z tabeli w sekcji 4: oznacza to jedno- do trzytrafieniowe walki z bossami od lv 8 do ok. 60, a po lv 80 broń jest zwykła.
+- **A.** Tak, to świadoma nagroda za sekret (bez zmian w kodzie).
 - **B.** Tak, ale moc rośnie etapami (wariant „Żarzące Ostrze”: gotowa broń startuje słabo, pełna dopiero po ulepszeniach u NPC).
 - **C.** Wymóg poziomu postaci (`required_level`) dla broni powyżej budżetu mapy.
+
+W każdym wariancie osobna poprawka: pancerz prawie nie wpływa na przeżywalność późno (sekcja 8), więc definicję ciosu wroga w `enemy_stats.gd` trzeba przejrzeć niezależnie od wyborów.
