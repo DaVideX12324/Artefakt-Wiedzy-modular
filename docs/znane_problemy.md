@@ -163,7 +163,7 @@
 ### Feedback z zamkniętych testów pre-alpha (tester zewnętrzny)
 - Zgłoszenie 2026-10-04 (kolega, klon repo). Żadnego z punktów nie było wcześniej na liście; pkt 4 częściowo
   pokrywa się z „Tryb walki” (okna Umiejętności / Przedmioty jeszcze w starym wyglądzie).
-1. **[NIE ZROBIONE, stan 2026-10-12: `cheat_service.gd` i `dev_menu.gd` nadal bez warunku `OS.is_debug_build()` / `has_feature`]** **Narzędzia deweloperskie za łatwo dostępne.** `autoloads/services/cheat_service.gd` łapie pojedyncze litery
+1. **[ZROBIONE 2026-10-12, DO SPRAWDZENIA W EKSPORCIE WYDANIOWYM: skróty (F1 / ~, F9–F11, K / O / P), menu deweloperskie i przycisk DEV działają tylko przy `OS.is_debug_build()` — `cheat_service.gd`, kontrolery walki i zagadek; w eksporcie debug i w edytorze bez zmian, więc litery K / O / P nadal łapią zwykłe wciśnięcia w edytorze (do decyzji: skrót z modyfikatorem)]** **Narzędzia deweloperskie za łatwo dostępne.** `autoloads/services/cheat_service.gd` łapie pojedyncze litery
    zawsze, gdy nie trwa wpisywanie tekstu: K = natychmiastowe zwycięstwo (też w `quiz_combat_controller.gd`
    i `quiz_puzzle_controller.gd`), O = wrogowie wł./wył., P = quizy wł./wył.; menu deweloperskie pod F1 / `~`.
    Nie ma warunku `OS.is_debug_build()` — działa też w eksporcie. Do ustalenia: tylko klawisze F albo skrót
@@ -181,7 +181,7 @@
    załatwić przy niej; wymaganie dla nowych okien: obsługa i myszą, i klawiaturą.
 5. **[DO SPRAWDZENIA W GRZE]** **Brak znacznika celu na starcie wyboru przeciwnika** — pojawia się dopiero po pierwszej zmianie celu.
    Do sprawdzenia: odświeżenie znacznika (`_refresh_target_selection`) przy otwarciu panelu celu.
-6. **[NIE ZROBIONE, brak obsługi `NOTIFICATION_APPLICATION_FOCUS_IN` w kodzie walki]** **Kliknięcie w okno, żeby wróciło skupienie (np. z Discorda), wykonało atak.** Klik przywracający fokus idzie
+6. **[ZROBIONE 2026-10-12 w walce, DO SPRAWDZENIA W GRZE: `QuizCombatController` ignoruje mysz, gdy okno nie ma fokusu (`FOCUS_OUT`), oraz klik przez 300 ms po `FOCUS_IN`; test `check_focus_click`; nie testowane na prawdziwej utracie fokusu]** **Kliknięcie w okno, żeby wróciło skupienie (np. z Discorda), wykonało atak.** Klik przywracający fokus idzie
    do gry jak zwykłe wejście (przycisk akcji albo wróg pod kursorem). Pomysł: ignorować kliknięcia przez chwilę
    po `NOTIFICATION_APPLICATION_FOCUS_IN` (albo gdy okno nie miało fokusu w chwili kliknięcia).
 
