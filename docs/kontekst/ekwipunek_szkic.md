@@ -143,10 +143,26 @@ Rozszerzyć `diag_gear_scenarios.gd` do testu (`check_gear_budget`) liczonego na
 
 **Trade-offy:** stały `item_id` per etap jest najprostszy i nie rusza zapisu, ale każda zmiana etapu to nowy plik (przy dużej liczbie broni szablonowanie danych skryptem); egzemplarze z indywidualnym stanem dałyby swobodę, ale zmieniłyby zapis i UI. Zostaję przy etapach, dopóki nie ma wymagań, których to nie spełnia.
 
-## 8. Wejście usera: we FNaFB 1 FM poziom dawał tylko HP i SP (2026-10-12)
+## 8. Wejście usera: poziom daje statystyki, ale mniej niż sprzęt (FNaFB 1 FM, 2026-10-12)
 
-User: we FNaFB 1 FM awans realnie podnosił tylko pulę HP i SP (żeby wytrzymać więcej walk bez zużywania przedmiotów), a siła pochodziła ze sprzętu kupowanego za zebrane pieniądze.
-Teraz w grze awans daje też ATK +1,95 i DEF +1,1 na poziom (`hero_data.gd`). Wariant „jak FNaFB”: `atk_per_level` / `def_per_level` = 0 (stałe 21 / 11), cała siła ofensywna i obronna ze sprzętu. Obliczenia na wzorach z kodu (wróg wzorcowy liczony tak samo, więc liczby względne):
+User: we FNaFB 1 FM awans podnosił głównie pulę HP i SP (żeby wytrzymać więcej walk bez zużywania przedmiotów), a siła pochodziła ze sprzętu kupowanego za zebrane pieniądze;
+poziom też dawał statystyki, ale **nie aż tak dużą różnicę jak wyposażenie**.
+
+Sprawdzenie na obecnych krzywych (przyrost od lv 1: z poziomu vs z krzywej sprzętu wzorcowego):
+
+| Poziom | ATK z poziomu (+1,95 / lvl) | ATK ze sprzętu (10 → G) | DEF z poziomu (+1,1 / lvl) | DEF ze sprzętu (14 → G) |
+|---|---|---|---|---|
+| 20 | +37 | +9 | +21 | +9 |
+| 40 | +76 | +29 | +43 | +25 |
+| 60 | +115 | +69 | +65 | +53 |
+| 80 | +154 | +149 | +87 | +100 |
+| 100 | +193 | +310 | +109 | +180 |
+
+Czyli **dziś poziom daje więcej statystyk niż sprzęt aż do ok. lv 80**; sprzęt przeważa dopiero na końcu. To odwrotność opisu z FNaFB. Skok jednego tieru broni (podwojenie, co ≈ 20 poziomów) to +19 ATK na lv 20, czyli mniej niż 20 poziomów awansu (+39 ATK).
+Żeby sprzęt przeważał wcześniej, są dwie niezależne dźwignie: zmniejszyć `atk_per_level` / `def_per_level` (np. 0,5 dla ATK: przyrost z 20 poziomów między tierami to +10 zamiast +39, a krok tieru broni na lv 20 to +19 — sprzęt około dwa razy większy od poziomów; DEF analogicznie przy 0,3) albo podnieść początek krzywej sprzętu (`GEAR_*_START`). Obie zmieniają też wzorzec wrogów, więc stosunek w walce zostaje, a liczby w grze się przesuwają.
+
+**Wariant graniczny** (poziom daje tylko HP / SP, `atk_per_level` / `def_per_level` = 0, stałe 21 / 11) — dla porównania, żeby widać było konsekwencje maksymalnej wagi sprzętu:
+Obliczenia na wzorach z kodu (wróg wzorcowy liczony tak samo, więc liczby względne):
 
 Trafienia do zabicia wroga tieru 2 zależnie od mocy sprzętu gracza (1,0 = wzorzec / 0,5 / 0,25 / bez sprzętu), `DEF_RATIO` 0,7 (obecne) i 0,4 (łagodniejsze):
 
@@ -168,9 +184,12 @@ Wnioski:
 
 ## 9. Decyzje do podjęcia
 
-**Pierwsza (blokuje resztę):** czy awans ma nadal podnosić ATK i DEF (jak teraz), czy tylko HP i SP (jak we FNaFB 1 FM)?
-- **A. Zostaje jak teraz** (statystyki z poziomu + sprzęt): sprzęt ważniejszy dopiero w drugiej połowie, błąd w doborze sprzętu jest karany łagodniej, sklepy nie są konieczne od początku.
-- **B. Poziom = HP / SP, siła ze sprzętu:** wymaga źródła sprzętu (sklepy + pieniądze albo gwarantowane nagrody), zmiany `atk_per_level` / `def_per_level` na 0, rozważenia `DEF_RATIO` 0,4 i zmiany definicji ciosu wroga, żeby pancerz coś znaczył. Najwierniejsze FNaFB i ustaleniu „ekwipunek bardzo ważny”; zmienia plan wdrożenia (E2 musi obejmować złoto i sklepy, a limit „bez grindu złota” z briefu trzeba świadomie zdefiniować).
+**Pierwsza (blokuje resztę):** jak rozumieć „poziom daje mniej niż sprzęt”?
+- **A. Waga krokowa:** pojedynczy krok sprzętu (tier) ma być większy niż przyrost z poziomów między tierami. Dziś tak **nie** jest (do lv 80 poziom daje więcej). Zmiana: niższe `atk_per_level` / `def_per_level` (np. 0,5 / 0,3) albo wyższy start krzywej sprzętu. Sklepy nie są konieczne od pierwszej minuty, ale od mapy 3–4 (gdzie sprzęt już waży więcej) potrzebne jest pewne źródło ulepszeń.
+- **B. Skrajny wariant FNaFB:** poziom = HP / SP, siła tylko ze sprzętu (tabela wyżej): wymaga złota i sklepów od początku, `DEF_RATIO` 0,4 i zmiany ciosu wroga, żeby pancerz coś znaczył. Najbardziej radykalne.
+- **C. Zostaje jak teraz:** poziom dominuje do lv 80, sprzęt na końcu. Najmniej zmian, ale przeczy ustaleniu „ekwipunek bardzo ważny”.
+
+W każdym wariancie ważna jest osobna poprawka: pancerz prawie nie wpływa na przeżywalność późno (sekcja 8), więc definicję ciosu wroga trzeba przejrzeć niezależnie od wyboru.
 
 **Druga (po pierwszej):** czy gotowa broń o mocy endgame zdobyta wcześnie (np. sekret w mapie 7) ma pozostać dozwolona bez ograniczeń? Z tabeli w sekcji 4: w wariancie A oznacza to jedno- do trzytrafieniowe walki z bossami przez większość kampanii (od lv 8 do ok. 60), a po lv 80 broń jest zwykła.
 - **A.** Tak, to świadoma nagroda za sekret (bez zmian w kodzie; sekretom dajemy wymagające warunki).
