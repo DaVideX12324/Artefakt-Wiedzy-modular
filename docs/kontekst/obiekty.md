@@ -56,7 +56,7 @@ pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
 
 ## Beczki — łup (2026-10-11)
 - Łup z beczki to powiadomienie bez pauzy (`LootManager.show_loot_toast`: ikona + nazwa ×liczba, prawy dolny róg, znika po 3 s, maks. 8 naraz) — bez popupu i klikania. Skrzynie nadal używają popupu (`show_loot_popup`).
-- `LootManager.search_barrel(szansa, rolls_min, rolls_max)`: kilka losowań z tabeli, powtórzenia sumują się w kopie (mikstura 1–3, reszta 1–2). Beczki czytają ustawienia z metadanej rodzica `barrel_loot` {drop_chance, rolls_min, rolls_max}; w `tutorial_area` (węzeł Destructibles) 100 % i 2–4 losowania — do czasu sklepów (po jaskiniach). Gdzie indziej: jedno losowanie, szansa `interaction_drop_chance` beczki. Test `check_barrel_loot`.
+- `LootManager.search_barrel(extra_chance, decay, max_items)`: **1. losowanie z tabeli jest gwarantowane**, k-te (k ≥ 2) wypada z szansą `extra_chance × decay^(k−2)` pod warunkiem, że wypadły poprzednie (domyślnie 0,6 / 0,5 / limit 4: P(2+) = 60 %, P(3+) = 18 %, P(4) = 2,7 %, średnio ≈ 1,8 losowania); powtórzenia sumują się w kopie (mikstura 1–3, reszta 1–2). Beczki czytają wartości z metadanej rodzica `barrel_loot` {extra_chance, decay, max_items} albo z eksportu `extra_item_chance` (ujemna = domyślne z LootManager); w `tutorial_area` (węzeł Destructibles) 0,85 / 0,7 / 4 (średnio ≈ 2,8 losowania) — do czasu sklepów (po jaskiniach). Testy `check_barrel_model`, `check_barrel_loot`.
 
 ## Klucze i wytrychy (2026-10-11)
 - Przedmioty `universal_key` (Klucz Uniwersalny) i `lockpick` (Wytrych), kategoria `key`, ikony z paczki 16×16 (item692 / item712). `PlayerStats.get_item_count`.
