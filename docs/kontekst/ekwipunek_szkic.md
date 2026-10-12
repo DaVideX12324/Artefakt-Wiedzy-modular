@@ -220,7 +220,7 @@ Uwaga o skali: FNaFB1 kończy się na **lv 20**, nasza gra na **lv 100**; porów
 Wniosek: nasz „standardowy pułap” 320 ATK to w FNaFB wartość **rzadkiego dropu**, nie sklepu. Tier 6 w naszych danych (`shadowbane_sword` 320) odpowiada więc Kingly, a nie Platinum. Żeby uzyskać proporcje FNaFB przy 100 poziomach i bazie ATK 214, pułap sklepu to ok. 2,8 × baza ≈ **600 ATK**, rzadki drop ≈ 2 × pułap ≈ **1200**, najrzadszy ≈ 3,1 × pułap ≈ **1850** (z bonusami do HP / SP). Albo odwrotnie: zmniejszamy przyrost z poziomu (sekcja 8). To dwie dźwignie jednego problemu, nie dwa problemy.
 
 **Propozycja dla nas** (wszystko przykładowe, do zatwierdzenia), wprost wzorowana na tej strukturze:
-- **Sklep w lokacji sprzedaje jeden tier standardowego sprzętu tej lokacji** (jak FNaFB: 4 sklepy = 4 tiery kupowalne), pułap sklepu = standardowy sprzęt końca kampanii (np. 600 ATK po wydłużeniu drabiny, sekcja wyżej). Cena ≈ 2 zabicia zwykłych wrogów tej lokacji: złoto z wroga ≈ 0,25 × ATK_standard(poziom wroga) × waga tieru (0,6 / 1,0 / 1,6, boss ×6), normalizacja po liczbie spawnów jak XP.
+- **Sklep w lokacji sprzedaje jeden tier standardowego sprzętu tej lokacji** (jak FNaFB: 4 sklepy = 4 tiery kupowalne), pułap sklepu = standardowy sprzęt końca kampanii (np. 600 ATK po wydłużeniu drabiny, sekcja wyżej). Cena ≈ 2 zabicia zwykłych wrogów tej lokacji: złoto z wroga = `GOLD_PER_ATK` (w kodzie 2,0; stała dowolna, ceny liczy się w „zabiciach”) × ATK_standard(poziom wroga) × waga tieru (0,6 / 1,0 / 1,6, boss ×6), normalizacja po liczbie spawnów jak XP (`QuizRpgEnemyGold`).
 - **Rzadki drop ponad pułap sklepu** (Kingly): osobna tabela łupu wrogów z małą szansą (np. 1/80 jak FNaFB, bez wymogu poziomu), moc ≈ 2 × pułap. W tabeli sekcji 4 to scenariusz „sama broń ×2”: wróg tieru 2 ginie w 2,1–2,9 trafień zamiast 4, boss w 6,2–8,7 zamiast 12.
 - **Najrzadszy** (Godly): drop z bossów (np. 1/40–1/60) lub sekret, ≈ 3 × pułap, z bonusami do HP / SP (wielostatystyczna broń).
 - **Wzmocnienia stałe za złoto** (HP / SP / ATK / DEF Boost) jako dodatkowy wydatek, który nie wymaga nowego systemu (jednorazowy przedmiot z efektem `+stat`).
@@ -310,6 +310,15 @@ Zasady dla danych (propozycja):
 - Ulepszenie `X_k → X_k+1` u kowala wymaga (a) flagi fabularnej odblokowującej etap (`has_device_progress`), (b) złota (kolejny wydatek zmniejszający nadwyżkę, ale nie grind: cena rzędu kilku zabić zwykłych wrogów tej mapy), (c) opcjonalnie unikalnego materiału z konkretnego bossa lub skrzyni (jednorazowo, nie farmiony).
 - **Moc początkowa każdego dropu** ma w danych pole `budget_map` = mapa drop + 2 (test sprawdza, że nie wychodzi poza ten limit).
 - Liczba takich broni, rodzaje (po jednej na postać czy mniej) i ich potencjał końcowy zostają otwarte; sekretne bronie mogą świadomie przekraczać potencjał końcowy (osobna decyzja).
+
+## 10a. Stan prototypu w jaskiniach (wdrożone 2026-10-12)
+
+Zrobione (kod w `modules/quiz_rpg`, testy lokalne `check_gold`, `check_enemy_gold`, `check_loot_tables`, `check_barrel_model`):
+- **Złoto:** `PlayerStats.gold` (`add_gold`, `spend_gold`, sygnał `gold_changed`, zapis, reset), wiersz „Złoto” w menu pauzy. **Złoto z wrogów** (`scripts/enemies/enemy_gold.gd`): `2 × ATK standardowej broni z poziomu wroga × waga tieru`, boss ×6, skala rozmiaru mapy jak XP; wróg bez poziomu (tutorial) liczy się jak poziom 1, więc złoto wypada od tutorialu. Po wygranej komunikat „Zdobyto N złota!” i wpis `zł +N` w logu progresji.
+- **Łup z mapy (JSON):** `chest_loot` (skrzynie, wybór wagowy jednego wpisu, `count`) i `enemy_loot` (tier wroga → wpisy z `chance`, losowane osobno), nakładane po wygenerowaniu mapy (`procedural_level.gd`, `_apply_loot_tables`); `scripts/items/loot_table.gd`. W `caves.json`: skrzynie dają mikstury / ether / tonik / antidotum / wytrych i z wagą łącznie 16 pojedynczy element sprzętu tieru 2; wrogowie tieru 1–2 mikstury (12–18 %), tieru 2 dodatkowo każdy z czterech elementów sprzętu tieru 2 po 1,2 %, miniboss (tier 3) po 6 % na element, boss (tier 4) pewny żelazny miecz + 3 mikstury + 2 etery. Zgodnie z regułą „maks. mapa + 2” w jaskiniach jest tylko sprzęt tieru 2.
+- **Beczki:** n-te losowanie z szansą `min(1, scale / n)` (wzór usera 3 / (2n), czyli scale 1,5): 1. gwarantowane, 2. 75 %, 3. 50 %…; P(1) 25 %, P(2) 37,5 %, P(3) 23 %, P(4) 10 %, średnio ≈ 2,3 losowania (dawniej 0,45). W `tutorial_area` scale 2,5 (średnio ≈ 3,8). Metadane `barrel_loot` {scale, max_items}, eksport `loot_scale`.
+
+Niezrobione: sklep, tiery sklepu z flagami fabularnymi, mikstury w kolejnych tierach (stałe wartości, tabela sekcji 9), drop rzadkich broni z potencjałem i ulepszenia u kowala, klucze w łupie (patrz pytanie niżej), balans liczby mikstur w jaskiniach (do sprawdzenia w grze).
 
 ## 11. Decyzje do podjęcia
 
