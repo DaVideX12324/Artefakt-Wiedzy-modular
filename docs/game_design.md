@@ -293,7 +293,15 @@ Po przejściu przez wejście gra przełącza się na **krótki segment 2D side-s
 | Forge | Zawalony szyb / metalowa blokada | Skill tematycznie ognisty/mechaniczny |
 | Las/zima | Zamarznięte drzwi / zwalony drzewostan | Skill tematycznie lodowy/leśny |
 
-Konkretne skille przypisane do każdego wejścia — do ustalenia przy projektowaniu postaci.
+Skille bohatera (decyzja 2026-10-12; wszystkie uczy NPC albo zdarzenie, `learn_level 0`, więc blokada wymusza wizytę w Hideout):
+
+| Biom | Skill (EN / PL, plik) |
+|------|-----------------------|
+| Desert Temple | Rushdown / Natarcie (`onslaught`) — seria ciosów jak taran na zasyp i stare wrota |
+| Forge | Backup Bash / Hazardowy Cios (`reckless_blow`) — jeden potężny cios kruszy metal |
+| Las / zima | Rapid Flurry / Szybka Seria (`leap_series`) — dawniej Seria Skoków: skok przez zwalone drzewa, seria uderzeń w lód |
+
+Do rozstrzygnięcia: czy wystarczy sama znajomość skilla (rekomendowane: tak, bez wymogu wyboru w aktywnym slocie) i czy skill ma być użyteczny w walce (Backup Bash trafia tylko w 8 %).
 
 **Nagroda:** NPC-e w Hideout awansują na wyższą wersję (lepszy asortyment, nowe dialogi, dodatkowe questy).
 
