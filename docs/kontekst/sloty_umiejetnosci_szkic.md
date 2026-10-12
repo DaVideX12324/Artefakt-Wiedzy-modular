@@ -47,7 +47,7 @@ Jest czytelniejszy, ale trudniejszy do dostrojenia. Rekomenduję budżet.
 
 ## 3. Poziomy skilli gracza (propozycja)
 
-Zakres poziomów i co rośnie z poziomem; liczby to pomysły, nie wartości docelowe. Skille uczone z poziomu lub u NPC działają tak samo.
+Kolumna „Poziomy” = [tier startowy – maks. tier skilla]; faktyczny górny limit zależy od poziomu bohatera (sekcja 2). Co rośnie z poziomem: liczby to pomysły, nie wartości docelowe. Skille uczone z poziomu lub u NPC działają tak samo.
 
 | Skill (EN / PL) | Poziomy | Co rośnie z poziomem |
 |---|---|---|
@@ -87,7 +87,7 @@ Skille-klucze zamku (Rushdown, Backup Bash, Rapid Flurry) mają niski tier start
 ## 5. Do uzgodnienia
 
 1. Wartości jednostek (1 / 2 / 3 / 5) i budżetu na poziom; limit aktywnych skilli (6?).
-2. Czy skill T4 może być ustawiony tylko na poziomie 4, czy też niższym (propozycja: wybór dowolny w zakresie poziomów z tabeli).
+2. ~~Czy skill T4 może być ustawiony niżej?~~ **Rozstrzygnięte (user 2026-10-12):** skill ma tier startowy i nie zajmie niższego slotu (T4 na start = tylko slot T4). Jeśli startuje np. na T3, a poziom bohatera podniósł jego maks. tier do T4, można go wstawić na T4 albo na dowolnym niższym poziomie, nie niższym niż T3. Czyli zakres = [tier startowy, maks. tier z poziomu bohatera].
 3. Czy Skan i skill combo (Death Enrage, 5. slot) leżą poza budżetem (propozycja: tak).
 4. Format akcesoriów (jednostki budżetu, ±1 tier) i które z obecnych `lucky_charm` / nowych dostają bonus.
 5. UI: ekran w menu pauzy (lista skilli, suwak poziomu, pasek budżetu), widok w walce bez zmian.
