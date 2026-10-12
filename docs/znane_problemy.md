@@ -163,7 +163,7 @@
 ### Feedback z zamkniętych testów pre-alpha (tester zewnętrzny)
 - Zgłoszenie 2026-10-04 (kolega, klon repo). Żadnego z punktów nie było wcześniej na liście; pkt 4 częściowo
   pokrywa się z „Tryb walki” (okna Umiejętności / Przedmioty jeszcze w starym wyglądzie).
-1. **[ZROBIONE 2026-10-12, DO SPRAWDZENIA W EKSPORCIE WYDANIOWYM: skróty (F1 / ~, F9–F11, K / O / P), menu deweloperskie i przycisk DEV działają tylko przy `OS.is_debug_build()` — `cheat_service.gd`, kontrolery walki i zagadek; w eksporcie debug i w edytorze bez zmian, więc litery K / O / P nadal łapią zwykłe wciśnięcia w edytorze (do decyzji: skrót z modyfikatorem)]** **Narzędzia deweloperskie za łatwo dostępne.** `autoloads/services/cheat_service.gd` łapie pojedyncze litery
+1. **[ZROBIONE 2026-10-12, DO SPRAWDZENIA W EKSPORCIE WYDANIOWYM: skróty (F1 / ~, F9 / F10 / F11), menu deweloperskie i przycisk DEV działają tylko przy `OS.is_debug_build()` (`cheat_service.gd`, kontrolery walki i zagadek); litery K / O / P przestały być skrótami (decyzja usera: tylko klawisze F) — opis problemu poniżej jest historyczny]** **Narzędzia deweloperskie za łatwo dostępne.** `autoloads/services/cheat_service.gd` łapie pojedyncze litery
    zawsze, gdy nie trwa wpisywanie tekstu: K = natychmiastowe zwycięstwo (też w `quiz_combat_controller.gd`
    i `quiz_puzzle_controller.gd`), O = wrogowie wł./wył., P = quizy wł./wył.; menu deweloperskie pod F1 / `~`.
    Nie ma warunku `OS.is_debug_build()` — działa też w eksporcie. Do ustalenia: tylko klawisze F albo skrót
