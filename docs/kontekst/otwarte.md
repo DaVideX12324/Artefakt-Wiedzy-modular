@@ -118,3 +118,12 @@ większość złota idzie na mikstury HP / SP (stałe wartości, nie %; walka z 
 - Optymalizacja ekwipunku (`optimize_member_equipment`) liczy tylko ATK + DEF (pomija MAT / MDF i efekty).
 - Ewent.: osobne warianty skrzyń z innych paczek (zielona, czerwona, ozdobna z „RPG Chests”; `All Chest Sheet.png` 16×16; pustynia `Props.png`).
 - Sprawdzić w grze: czterokrotnie większy łup z beczek (średnio ≈ 2,3 losowania zamiast 0,45), wygląd skrzyń wg tieru i koszt walki (≈ 70 % HP) w jaskiniach.
+
+**Dopisek na koniec sesji 2026-10-12 (po części 3):**
+- **Zrobione dodatkowo:** narzędzia deweloperskie tylko w buildzie debugowym i **tylko klawisze F** (F9 / F10 / F11, F1 / `~`; litery K / O / P usunięte — decyzja usera); walka ignoruje mysz bez fokusu okna i klik odzyskujący fokus (300 ms po `FOCUS_IN`);
+  przegląd i aktualizacja stanów w `docs/znane_problemy.md` (linie `Stan 2026-10-12` przy punktach).
+- **Czeka na Gemini:** brief `porzadkowanie_docs_dla_gemini.md` (zadanie E w `zadania_dla_antigravity.md`): uporządkowanie `docs/` — `znane_problemy.md` = jedyne źródło todo i problemów (hook czyta nagłówki `### ⚠ WAŻNE:`), `otwarte.md` = tylko handoff,
+  indeksy `docs/README.md` i `kontekst/README.md`, `docs/archiwum/`, statusy planów, raport. Po oddaniu: sprawdzić hook (`sh .claude/hooks/przypomnienia.sh`), linki, `git diff --stat`, potem commit. Zadanie D: teksty logu wrogów (`i18n_log_wrogow_dla_gemini.md`).
+- **Najbliższe kroki (Claude):** po resecie limitu — krzywe XP i bohatera do lv 100 oraz skala drabiny sprzętu (pytanie otwarte w `ekwipunek_szkic.md`, sekcja 11: pułap sklepu ≈ 600 ATK / mniejszy wzrost z poziomu / bez zmian), potem sklep i tiery z flagami fabularnymi, mikstury w tierach (stałe wartości), bronie z potencjałem i kowal, rekrutacja towarzyszy.
+- **Do sprawdzenia przez usera w grze:** wygląd skrzyń i klucze na tier, beczki 3 / (2n), złoto, koszt walki w jaskiniach (≈ 70 % HP na parę wrogów), zakładka „Ogólne” w opcjach, klik po odzyskaniu fokusu, build wydaniowy bez narzędzi deweloperskich.
+- **Repo:** host `main` i submoduł `modules/quiz_rpg` (CienMgly, gałąź `druzyna-balans`) czyste i wypchnięte; merge `druzyna-balans` do `main` dopiero na polecenie usera.
