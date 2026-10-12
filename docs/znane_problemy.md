@@ -210,6 +210,11 @@
   walki / zagadki, `quiz_door.gd` jako wzór bramki quizowej).
 - Do ustalenia przy realizacji: skąd tier skrzyni (głębokość / poziom mapy / nisza vs pokój), zapis stanu (otwarte skrzynie / odwiedzone
   sekretne pokoje per save, jak pokonani bossowie).
+- **Stan 2026-10-12:** zrobione — tier skrzyni z JSON mapy (`chest_tier`), klucze na tier (brązowy / srebrny / szafirowy / złoty = uniwersalny, klucz tieru ≥ tier skrzyni),
+  wygląd skrzyni wg tieru (`tier_frames`), tabele łupu skrzyń i wrogów z JSON (`chest_loot`, `enemy_loot`), klucze w łupie map. Zostaje: zawartość nisz z losowaniem (przedmiot / skrzynia / sekretny pokój).
+- **TODO (pomysł usera 2026-10-12, nie dodane): skrzynie specjalne w rzadkich pomieszczeniach / niszach.** Rzadki pokój lub nisza z wyższym tierem skrzyni (3–4, wygląd niebieski / złoty; skrzynia z czaszką
+  z arkusza „RPG Chests” kolumna 8 jako przeklęta), z lepszym łupem (sprzęt tieru 2, później broń z potencjałem — `docs/kontekst/ekwipunek_szkic.md`). Potrzebne: znacznik „rzadki pokój / nisza”
+  w generatorze obiektów (dziś `objects_caves.json` tylko preferuje nisze dla zwykłych skrzyń), osobny tier i tabela łupu dla takiej skrzyni, ewent. wymóg klucza wyższego tieru.
 
 ### Spójna ścieżka postępu między mapami (kierunki wejść i wyjść)
 - Zgłoszenie 2026-09-30. Kolejne mapy mają układać się w jedną ciągłą trasę: jeśli mapa ma wejście na
