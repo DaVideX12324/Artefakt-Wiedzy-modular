@@ -20,56 +20,56 @@ Skan pokazuje statystyki i listę umiejętności). **Dziś żaden wróg go nie m
 
 | Plik (bez `.tres`) | Nazwa | Tier | HP | ATK | DEF | Ma skille | Ma scan_text |
 |---|---|---|---|---|---|---|---|
-| `bandit_fighter` | Bandyta Wojownik | 3 | 900 | 90 | 90 | tak | — |
-| `bandit_scout` | Bandyta Zwiadowca | 1 | 100 | 26 | 30 | — | — |
-| `bandit_sorcerer` | Bandyta Czarownik | 2 | 400 | 60 | 61 | tak | — |
-| `bandit_tracker` | Bandyta Tropiciel | 2 | 400 | 60 | 61 | tak | — |
-| `bat_fur` | Włochaty Nietoperz | 1 | 100 | 26 | 30 | — | — |
-| `bat_small` | Mały Nietoperz | 1 | 100 | 26 | 30 | — | — |
-| `elf_base` | Elf | 1 | 100 | 26 | 30 | — | — |
-| `elf_druid` | Elf Druid | 2 | 400 | 60 | 61 | tak | — |
-| `elf_hunter` | Elf Łowca | 2 | 400 | 60 | 61 | tak | — |
-| `elf_ranger` | Elf Tropiciel | 3 | 900 | 90 | 90 | tak | — |
-| `fungus_heavy` | Ciężki Grzyb | 3 | 900 | 90 | 90 | tak | — |
-| `fungus_immature` | Młody Grzyb | 1 | 100 | 26 | 30 | — | — |
-| `fungus_long` | Wysoki Grzyb | 2 | 400 | 60 | 61 | tak | — |
-| `fungus_old` | Stary Grzyb | 4 | 2500 | 155 | 140 | tak | — |
-| `mummy_base` | Mumia | 1 | 100 | 26 | 30 | — | — |
-| `mummy_mage` | Mumia Mag | 2 | 400 | 60 | 61 | tak | — |
-| `mummy_rogue` | Mumia Łotrzyk | 2 | 400 | 60 | 61 | tak | — |
-| `mummy_warrior` | Mumia Wojownik | 3 | 900 | 90 | 90 | tak | — |
-| `orc_base` | Ork | 1 | 100 | 26 | 30 | — | — |
-| `orc_rogue` | Ork Łotrzyk | 2 | 400 | 60 | 61 | tak | — |
-| `orc_shaman` | Ork Szaman | 2 | 400 | 60 | 61 | tak | — |
-| `orc_warrior` | Ork Wojownik | 3 | 900 | 90 | 90 | tak | — |
-| `rat_base` | Szczur | 1 | 100 | 26 | 30 | — | — |
-| `rat_mage` | Szczur Mag | 2 | 400 | 60 | 61 | tak | — |
-| `rat_rogue` | Szczur Łotrzyk | 2 | 400 | 60 | 61 | tak | — |
-| `rat_warrior` | Szczur Wojownik | 3 | 900 | 90 | 90 | tak | — |
-| `royal_archer` | Łucznik | 2 | 400 | 60 | 61 | tak | — |
-| `royal_knight` | Rycerz | 3 | 900 | 90 | 90 | tak | — |
-| `royal_priest` | Kapłan | 2 | 400 | 60 | 61 | tak | — |
-| `royal_soldier` | Żołnierz | 1 | 100 | 26 | 30 | — | — |
-| `scholar_cataloguer` | Katalogista | 1 | 100 | 26 | 30 | — | — |
-| `scholar_censor` | Cenzor | 2 | 400 | 60 | 61 | tak | — |
-| `scholar_director` | Dyrektor | 3 | 900 | 90 | 90 | tak | — |
-| `scholar_researcher` | Badacz | 1 | 100 | 26 | 30 | — | — |
-| `skeleton_base` | Szkielet | 1 | 100 | 26 | 30 | — | — |
-| `skeleton_mage` | Szkielet Mag | 2 | 400 | 60 | 61 | tak | — |
-| `skeleton_rogue` | Szkielet Łotrzyk | 2 | 400 | 60 | 61 | tak | — |
-| `skeleton_warrior` | Szkielet Wojownik | 3 | 900 | 90 | 90 | tak | — |
-| `statue_feminine` | Posąg Kobiety | 1 | 100 | 26 | 30 | — | — |
-| `statue_masculine` | Posąg Mężczyzny | 1 | 100 | 26 | 30 | — | — |
-| `statue_medusa` | Meduza | 3 | 900 | 90 | 90 | tak | — |
-| `statue_old` | Posąg Starca | 2 | 400 | 60 | 61 | tak | — |
-| `stone_base` | Kamieniak | 1 | 100 | 26 | 30 | — | — |
-| `stone_broken` | Rozbity Kamieniak | 1 | 100 | 26 | 30 | — | — |
-| `stone_golem` | Kamienny Golem | 3 | 900 | 90 | 90 | tak | — |
-| `stone_lava` | Lawowy Kamieniak | 3 | 900 | 90 | 90 | tak | — |
-| `zombie_banshee` | Banshee | 2 | 400 | 60 | 61 | tak | — |
-| `zombie_base` | Zombie | 1 | 100 | 26 | 30 | — | — |
-| `zombie_muscle` | Zombie Osiłek | 3 | 900 | 90 | 90 | tak | — |
-| `zombie_overweight` | Zombie Grubas | 2 | 400 | 60 | 61 | tak | — |
+| `bandit_fighter` | Bandyta Wojownik | 3 | 900 | 90 | 90 | tak | tak |
+| `bandit_scout` | Bandyta Zwiadowca | 1 | 100 | 26 | 30 | — | tak |
+| `bandit_sorcerer` | Bandyta Czarownik | 2 | 400 | 60 | 61 | tak | tak |
+| `bandit_tracker` | Bandyta Tropiciel | 2 | 400 | 60 | 61 | tak | tak |
+| `bat_fur` | Włochaty Nietoperz | 1 | 100 | 26 | 30 | — | tak |
+| `bat_small` | Mały Nietoperz | 1 | 100 | 26 | 30 | — | tak |
+| `elf_base` | Elf | 1 | 100 | 26 | 30 | — | tak |
+| `elf_druid` | Elf Druid | 2 | 400 | 60 | 61 | tak | tak |
+| `elf_hunter` | Elf Łowca | 2 | 400 | 60 | 61 | tak | tak |
+| `elf_ranger` | Elf Tropiciel | 3 | 900 | 90 | 90 | tak | tak |
+| `fungus_heavy` | Ciężki Grzyb | 3 | 900 | 90 | 90 | tak | tak |
+| `fungus_immature` | Młody Grzyb | 1 | 100 | 26 | 30 | — | tak |
+| `fungus_long` | Wysoki Grzyb | 2 | 400 | 60 | 61 | tak | tak |
+| `fungus_old` | Stary Grzyb | 4 | 2500 | 155 | 140 | tak | tak |
+| `mummy_base` | Mumia | 1 | 100 | 26 | 30 | — | tak |
+| `mummy_mage` | Mumia Mag | 2 | 400 | 60 | 61 | tak | tak |
+| `mummy_rogue` | Mumia Łotrzyk | 2 | 400 | 60 | 61 | tak | tak |
+| `mummy_warrior` | Mumia Wojownik | 3 | 900 | 90 | 90 | tak | tak |
+| `orc_base` | Ork | 1 | 100 | 26 | 30 | — | tak |
+| `orc_rogue` | Ork Łotrzyk | 2 | 400 | 60 | 61 | tak | tak |
+| `orc_shaman` | Ork Szaman | 2 | 400 | 60 | 61 | tak | tak |
+| `orc_warrior` | Ork Wojownik | 3 | 900 | 90 | 90 | tak | tak |
+| `rat_base` | Szczur | 1 | 100 | 26 | 30 | — | tak |
+| `rat_mage` | Szczur Mag | 2 | 400 | 60 | 61 | tak | tak |
+| `rat_rogue` | Szczur Łotrzyk | 2 | 400 | 60 | 61 | tak | tak |
+| `rat_warrior` | Szczur Wojownik | 3 | 900 | 90 | 90 | tak | tak |
+| `royal_archer` | Łucznik | 2 | 400 | 60 | 61 | tak | tak |
+| `royal_knight` | Rycerz | 3 | 900 | 90 | 90 | tak | tak |
+| `royal_priest` | Kapłan | 2 | 400 | 60 | 61 | tak | tak |
+| `royal_soldier` | Żołnierz | 1 | 100 | 26 | 30 | — | tak |
+| `scholar_cataloguer` | Katalogista | 1 | 100 | 26 | 30 | — | tak |
+| `scholar_censor` | Cenzor | 2 | 400 | 60 | 61 | tak | tak |
+| `scholar_director` | Dyrektor | 3 | 900 | 90 | 90 | tak | tak |
+| `scholar_researcher` | Badacz | 1 | 100 | 26 | 30 | — | tak |
+| `skeleton_base` | Szkielet | 1 | 100 | 26 | 30 | — | tak |
+| `skeleton_mage` | Szkielet Mag | 2 | 400 | 60 | 61 | tak | tak |
+| `skeleton_rogue` | Szkielet Łotrzyk | 2 | 400 | 60 | 61 | tak | tak |
+| `skeleton_warrior` | Szkielet Wojownik | 3 | 900 | 90 | 90 | tak | tak |
+| `statue_feminine` | Posąg Kobiety | 1 | 100 | 26 | 30 | — | tak |
+| `statue_masculine` | Posąg Mężczyzny | 1 | 100 | 26 | 30 | — | tak |
+| `statue_medusa` | Meduza | 3 | 900 | 90 | 90 | tak | tak |
+| `statue_old` | Posąg Starca | 2 | 400 | 60 | 61 | tak | tak |
+| `stone_base` | Kamieniak | 1 | 100 | 26 | 30 | — | tak |
+| `stone_broken` | Rozbity Kamieniak | 1 | 100 | 26 | 30 | — | tak |
+| `stone_golem` | Kamienny Golem | 3 | 900 | 90 | 90 | tak | tak |
+| `stone_lava` | Lawowy Kamieniak | 3 | 900 | 90 | 90 | tak | tak |
+| `zombie_banshee` | Banshee | 2 | 400 | 60 | 61 | tak | tak |
+| `zombie_base` | Zombie | 1 | 100 | 26 | 30 | — | tak |
+| `zombie_muscle` | Zombie Osiłek | 3 | 900 | 90 | 90 | tak | tak |
+| `zombie_overweight` | Zombie Grubas | 2 | 400 | 60 | 61 | tak | tak |
 
 ## Zadanie B — opisy skilli wrogów (pl.json i en.json)
 
