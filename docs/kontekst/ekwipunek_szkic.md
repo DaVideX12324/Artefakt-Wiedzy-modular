@@ -227,11 +227,45 @@ Wniosek: nasz „standardowy pułap” 320 ATK to w FNaFB wartość **rzadkiego 
 - **Warianty z karą** (jak sekretna broń z HP −5000): opcjonalne, osobne pytanie; nie dodawać automatycznie.
 - Pokrętło tempa: stosunek cena / złoto z potwora (tu 2 zabicia); wyższa wartość spowalnia zakupy bez ruszania krzywych.
 
-## 10. Decyzje do podjęcia
+## 10. Jaskinie (mapa 1) bez sklepu — źródła sprzętu (decyzja usera 2026-10-12)
 
-**Pierwsza (blokuje resztę):** czy bierzemy model FNaFB „waluta z potworów + sklepy po jednym tierze standardowego sprzętu w lokacji + rzadkie dropy ponad pułap sklepu”? (Dziś w grze nie ma złota, sklepów ani źródła sprzętu, więc cały system sprzętu nie ma jak działać.)
-- **Tak:** dodaje złoto w `PlayerStats` i zapisie, drop złota i tabelę łupu wrogów (w tym rzadkie bronie), NPC / interfejs sklepu (miasta jeszcze nie ma, więc najpierw sklep w menu deweloperskim).
+Sklepów nie będzie, dopóki nie odblokuje się miasta (wyjście z jaskiń), a wyjście jest daleko. Dlatego **sprzęt w jaskiniach pochodzi z dropów wrogów oraz ze skrzyń i nisz** (ukrytych). Sklep i złoto z sekcji 9 zaczynają działać po wyjściu z jaskiń.
+
+**Stan faktyczny w kodzie:** wszystkie skrzynie wygenerowane na mapach dają dziś jeden stały przedmiot — `potion` (domyślna wartość `chest_item_id` w `scripts/interactables/chest.gd`, scena `scenes/objects/closed_chest_tutorial.tscn`); generator obiektów stawia skrzynie z preferencją nisz, ślepych zaułków i narożników (`resources/maps/config/objects_caves.json`, `per_room` 0,5), a `chest_tier` w `caves.json` zmienia tylko trudność quizu. **Wrogowie nie mają dropów.** Do zbudowania: tabela łupu skrzyń z konfiguracji mapy (pole np. `chest_loot`) i tabela łupu wrogów per tier (`enemy_loot`, nałożona jak `enemy_levels`) z nagrodą po wygranej w `quiz_combat_controller.gd` (miejsce, gdzie dziś przyznawany jest XP).
+
+**Co daje sprzęt na poziomach jaskiń (lv 5–9, wróg tieru 1 / 2 / 3 / boss tieru 4 = trafienia do zabicia / cios w % HP; wzory z gry, bez krytyków):**
+
+| Zestaw (lv 8) | t1 | t2 | t3 | t4 (boss) |
+|---|---|---|---|---|
+| start (miecz 10, komplet pancerza 14) | 1,6 / 11 % | 4,4 / 15 % | 6,6 / 17 % | 13,2 / 16 % |
+| + żelazny miecz (20, tier 2) | 1,2 / 11 % | 3,2 / 15 % | 4,9 / 17 % | 9,7 / 16 % |
+| + komplet pancerza tieru 2 (26) | 1,6 / 7 % | 4,4 / 11 % | 6,6 / 13 % | 13,2 / 12 % |
+| miecz 20 + komplet 26 | 1,2 / 7 % | 3,2 / 11 % | 4,9 / 13 % | 9,7 / 12 % |
+| topór 40 (tier 3), reszta start | 0,8 / 11 % | 2,1 / 15 % | 3,2 / 17 % | 6,4 / 16 % |
+| miecz 40 + komplet 50 (tier 3) | 0,8 / 0 % | 2,1 / 4 % | 3,2 / 6 % | 6,4 / 5 % |
+| miecz 80 + komplet 98 (tier 4) | 0,5 / 0 % | 1,3 / 0 % | 1,9 / 0 % | 3,8 / 0 % |
+
+Wnioski:
+- **Sprzęt startowy w jaskiniach jest już na poziomie wzorca** (wróg tieru 2 w 4,4 trafieniach, cios 15 % HP), więc kampanię jaskiń da się przejść bez żadnych znalezisk; znaleziska są nagrodą, nie koniecznością.
+- **Pancerz działa tu bardzo silnie** (inaczej niż późno, sekcja 8): komplet tieru 3 prawie unieważnia ciosy zwykłych wrogów (0–6 % HP). Dlatego pancerz tieru 3 i wyżej w jaskiniach powinien być **ukrytą nagrodą** (nisza), a nie dropem.
+- **Broń tieru 2** daje ok. −27 % trafień (4,4 → 3,2), tier 3 ok. −52 % (→ 2,1): dobra skala dla „znaleziska” i „ukrytej nagrody”.
+- Jedna zmiana tieru wystarczy do wyraźnego efektu, dlatego w jaskiniach nie potrzeba wielu poziomów sprzętu.
+
+**Propozycja źródeł w jaskiniach (przykładowa, do oceny):**
+- **Drop wrogów:** tier 1: mikstury i drobiazgi; tier 2: element sprzętu tieru 2 z małą szansą (np. 1/15 na wroga); tier 3 (miniboss): element tieru 2 lub rzadziej 3 (np. 1/4); boss końcowy: pewna nagroda (np. broń tieru 3).
+- **Skrzynie:** tabela po rzadkości: najczęściej mikstury, rzadziej sprzęt tieru 2, a **skrzynie w niszach** (ślepe zaułki / nisze, które generator już preferuje) dają sprzęt tieru 2–3.
+- Niższe tiery gwarantują, że gracz bez szczęścia nie jest zablokowany; wyższe są opcjonalne.
+- **Złoto:** wypada od początku (zbierane na miasto) albo dopiero po odblokowaniu miasta — do decyzji (sekcja 11, pytanie 2).
+
+## 11. Decyzje do podjęcia
+
+**Pierwsza (częściowo rozstrzygnięta przez usera):** sklepy dopiero po odblokowaniu miasta (wyjście z jaskiń); w jaskiniach sprzęt z dropów wrogów i skrzyń / nisz (sekcja 10). Zostaje do potwierdzenia: czy od miasta wzorujemy się na FNaFB, czyli **waluta z potworów + sklep po jednym tierze standardowego sprzętu w lokacji + rzadkie dropy ponad pułap sklepu**?
+- **Tak:** dodaje złoto w `PlayerStats` i zapisie, drop złota i tabelę łupu wrogów (w tym rzadkie bronie), NPC / interfejs sklepu w mieście (do czasu miasta: sklep w menu deweloperskim).
 - **Nie:** tylko skrzynie / bossowie / questy; tempo sprzętu zależy od losu i eksploracji.
+
+**Czwarta (jaskinie):** czy złoto wypada już w jaskiniach (gracz przychodzi do miasta z zapasem i od razu kupuje pierwszy tier), czy zaczyna wypadać dopiero po odblokowaniu miasta (przy cenie ≈ 2 zabicia pierwszy zakup i tak zajmuje parę walk)?
+- **Od początku:** miasto daje od razu odczuwalny zakup, złoto z jaskiń nie przepada; ryzyko: zapas przy wejściu do miasta trzeba skalibrować, żeby nie kupić od razu kilku tierów.
+- **Po mieście:** prostsza kalibracja, ale walki w jaskiniach nie dają niczego poza XP i dropami.
 
 **Druga:** skala drabiny przy 100 poziomach: **A.** wydłużyć drabinę (pułap sklepu ≈ 600 ATK, rzadki ≈ 1200, najrzadszy ≈ 1850 ATK z bonusami HP / SP; przyrost z poziomu bez zmian, „szalone liczby” z ustaleń usera), **B.** zmniejszyć przyrost z poziomu (`atk_per_level` / `def_per_level`, sekcja 8), **C.** zostawić jak teraz (nasz pułap 320 = FNaFB-owy rzadki drop, poziom dominuje do lv 80).
 Uwaga: **zmiana A / B przesuwa wzorzec wrogów** w `enemy_stats.gd` (`GEAR_*` albo `*_per_level`); stosunek w walce zostaje, liczby w grze rosną.
