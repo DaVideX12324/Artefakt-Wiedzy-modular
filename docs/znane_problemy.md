@@ -2,6 +2,7 @@
 
 > Spisane 2026-09-25. Każdy punkt: co jest nie tak, dlaczego zostało jak jest, kiedy do tego wrócić.
 > Po naprawie punkt usuwamy albo przenosimy do „Rozwiązane” z numerem commita.
+> **Przegląd stanu 2026-10-12:** przy każdym punkcie jest linia „Stan 2026-10-12” (ZROBIONE / W TOKU / NIE ZROBIONE / DO SPRAWDZENIA W GRZE / CZEKA NA USERA), sprawdzona w kodzie i dokumentach.
 
 ## Odłożone świadomie
 
@@ -9,10 +10,11 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### ⚠ WAŻNE: (#1) ekran śmierci drużyny — NAJWAŻNIEJSZE
+### ⚠ WAŻNE: (#1) ekran śmierci drużyny — ZROBIONE 2026-10-09, czeka na sprawdzenie w grze
+- **Stan 2026-10-12: ZROBIONE, DO SPRAWDZENIA W GRZE.** Scena `scenes/ui/death_screen.tscn` (WYSIWYG) pokazywana z `QuizCombatController`, gdy po przegranej walce `PlayerStats.is_party_defeated()`; przyciski „Wczytaj zapis” / „Menu główne”. Trucizna w świecie (DoT co `POISON_WORLD_INTERVAL` 3 s, 1 HP, do 1 HP) i w walce (5 % maks. HP na rundę), odtrutka przez `cure_statuses`; źródło trucizny = umiejętność wroga (`QuizRpgEnemySkill`). Commity CienMgly 6482268, 9a6a049; testy lokalne `check_death_screen`, `check_poison`. Pełna ścieżka (przegrana → ekran, zatrucie w walce) nie była przechodzona w grze — po potwierdzeniu przez usera usunąć ten wpis i znacznik ⚠.
 - Zgłoszenie usera 2026-10-09: „najbardziej podstawowa funkcja gry” — **priorytet #1, przed wszystkimi innymi
   ważnymi todo**.
-- Stan dziś: przegrana walka (`QuizCombatController._end_combat(false)`, gdy `PlayerStats.is_alive()` == false)
+- Stan sprzed 2026-10-09 (nieaktualny, zostawione jako opis problemu): przegrana walka (`QuizCombatController._end_combat(false)`, gdy `PlayerStats.is_alive()` == false)
   pokazuje tylko komunikat „Porażka...”, wróg wraca do patrolu, a gracz chodzi dalej z 0 HP — śmierć nie ma skutków.
   Pułapki poza walką (kolce, `PlayerStats.damage_party_percent`) celowo nie zabijają (HP min. 1).
 - Decyzje usera (2026-10-09):
@@ -26,7 +28,8 @@
   (DoT), dopóki nie użyje się przedmiotu leczącego statusy. Do ustalenia: tempo DoT i czy może zabić (jak pułapki —
   do 1 HP?). Wymaga przeniesienia statusów z walki do stanu drużyny (`PlayerStats.party`).
 
-### ⚠ WAŻNE: (1) tilesety kolejnych map — najpierw ścieki
+### ⚠ WAŻNE: (1) tilesety kolejnych map — ścieki zrobione, kolejne mapy po stronie autora
+- **Stan 2026-10-12: ścieki ZROBIONE (na `main`), kolejne tilesety CZEKAJĄ NA USERA.** Ścieki: gałąź `sewer-structured` zmergowana 2026-10-09 (CienMgly 9e901a4, host d5a9cfa), platformy PR #1 2026-10-10; mapa `levels/sewer.tscn` podpięta po jaskini (tymczasowo — docelowo jaskinia → miasto → ścieki). W repo są paczki Pixel Crawler: cave, castle, desert, forge, garden, library, sewer (+ sewer_old); brak tilesetów i konfiguracji dla Cemetery, Fairy Forest, Desert / Desert Temple, Forge, Dense Forest / zima, Library, Garden, Castle.
 - Zgłoszenie 2026-10-03, priorytet z 2026-10-04: **pierwsze z trzech ważnych todo, przede wszystkim ścieki
   (sewer)**. Kolejność map w grze: jaskinia -> miasto -> ścieki; w ściekach przejście raczej drabiną, pod E
   (`next/previous_portal_use_key` + `_prompt` w scenie dziedziczonej po `procedural_level`).
@@ -40,7 +43,8 @@
   podłoga z terenu, kanały z kładkami; szczegóły i lista flag: [kontekst/scieki.md](kontekst/scieki.md).
 - Przypomnienie na start sesji (hook) znika, gdy ten nagłówek zniknie albo straci znacznik „⚠ WAŻNE”.
 
-### ⚠ WAŻNE: (1a) przebudowa generowania ścieków — osobna sesja na dużo wyższym effort
+### (1a) przebudowa generowania ścieków — ZROBIONE (main 2026-10-09 / 10), szczegóły do dopracowania
+- **Stan 2026-10-12: ZROBIONE.** Układ `structured` (R1–R7, port prototypu v11) na `main`; platformy (PR #1); `sewer-gen-v2` porzucona. Zostaje na później (wg `kontekst/scieki.md` i pamięci): schody N/E/W i rury (po stronie usera), winiety z biblioteki i gruz skupiskami, mniej zdejmowania obiektów na 250², miasto między jaskinią a ściekami. Znacznik ⚠ zdjęty — przypomnienie na start sesji dla tego punktu wygasa.
 - **Plan:** [plan_generator_sciekow.md](plan_generator_sciekow.md) (układ ogólny `structured`, ścieki = pierwsza
   konfiguracja; reguły R1–R7 z prototypu `docs/prototypy/structured_layout/`; ocena gałęzi `sewer-gen-v2`
   2026-10-07: korytarze serwisowe niezgodne, regresja ścian jaskini — nie mergować).
@@ -63,7 +67,7 @@
 - **Aktualizacja 2026-10-06:** wdrożono technicznie korytarze serwisowe z bramami (`proto_layout10.py`), separację ścianą, A* Manhattan i blokadę kładek na zakrętach (commit `cbe4b35`). Dopracowanie układu przestrzennego i mentalnego korytarzy wzdłuż koryt odłożone do kolejnej sesji z Claude Opus.
 - **Aktualizacja 2026-10-08:** `sewer-gen-v2` porzucona; nowa gałąź **`sewer-structured`** (CienMgly, z `sewer-tileset`
   + main + F0b/F1a/F1b z v2) — port prototypu v11 i strojenie układu z autorem (stan w pamięci / commitach gałęzi).
-- **Potencjalny problem (do sprawdzenia, gdy układ będzie widać w podglądzie mapy z kaflami):** przejścia
+- **Potencjalny problem (DO SPRAWDZENIA W GRZE, stan 2026-10-12 bez zmian):** przejścia
   czyszczące (Remove1h, WallThickness, Wall3H, WallTopAlign, Spike / ThinBridge / Staircase, ShortLedge, DiagonalTouch,
   SlopeThickness) zmieniają w ściekach **1,3–1,6 % kratek** (cel planu R7: < 1 %; przed pokojami dostawionymi
   do chodników 0,6–0,9 %). Prawdopodobna przyczyna: uskoki 1–2 kratek i krótkie ścianki przy rogach pokoi
@@ -79,13 +83,15 @@
   uskoki lica o 1 przy pokojach dostawionych (detektor: `tests/diag_sewer_thin_walls.gd`).
 
 
-### ⚠ WAŻNE: (2) dokończyć generator obiektów
+### ⚠ WAŻNE: (2) dokończyć generator obiektów — w większości zrobione
+- **Stan 2026-10-12: W TOKU (większość zrobiona).** Zrobione: F0–F4, obiekty jako sceny (`ObjectBake`), niszczalne beczki (`barrel.gd`, łup jako toast, model 3 / (2n)), skrzynie z kluczami i tierem, obiekty ścieków (kolce, bramy, płyta naciskowa, klucz bramy, skrzynia ścieków). Zostało: dźwignie, leniwe sceny, nakładka podglądu (zajętość / przejścia / statystyki), obejrzenie kafli wielokratkowych na `Props`.
 - Zgłoszenie 2026-10-04 (drugie z trzech ważnych todo). Generator obiektów: dalsze fazy F2–F5 wg
   `docs/plan_generator_obiektow.md` (stan: [kontekst/obiekty.md](kontekst/obiekty.md)). Zostało: F5 (niszczalne
   beczki, dźwignie, leniwe sceny), nakładka podglądu (zajętość / przejścia, statystyki).
 - Kamyki bez kolizji — zrobione 2026-10-05 (`pebble_large` w `sprites/`, CienMgly 4480fff).
 
 ### Tła walki: kadr 16:9 (kod zrobiony 2026-10-06, commit `deb8866`)
+- **Stan 2026-10-12: kod ZROBIONY, grafiki CZEKAJĄ NA USERA** (generuje pozostałe tła; dopasowanie trapezów w `battle_layout_preview.tscn`).
 - Kod gotowy: tło rysowane na pełny ekran 1920×1080 (`Background` pod `Root`), pas `BattleWindow` ma
   `StyleBoxEmpty` (w trybie kompaktowym widać posadzkę zamiast pustki), cień nad UI w grze na y = 795,
   edytor `battle_layout_preview.gd` pokazuje pełny kadr 16:9 z półprzezroczystym pasem UI.
@@ -96,11 +102,13 @@
 
 
 ### ⚠ WAŻNE: (4) grywalne postacie — teammate'owie
+- **Stan 2026-10-12: W TOKU (projekt i podstawy).** Zrobione: klasy w kodzie (`character_class` w `QuizRpgHeroData` i członku, `allowed_classes` w przedmiotach, ograniczenie ekwipunku), infrastruktura per członek (statystyki, ekwipunek, umiejętności, statusy, XP członka), szkic `kontekst/druzyna_szkic.md` (3 towarzyszy z klas Łotrzyk / Mag / Kapłan, własne pule XP, dołączanie po zadaniu, martwy 50 % XP, bez limitu). Nie zrobione: rekrutacja (`recruit`), dane i grafiki towarzyszy, zadania, skille klasowe (Mag i Łotrzyk), imiona / fabuła, UI składu.
 - Zgłoszenie 2026-10-04 (przesunięte za tła walki 2026-10-05). Dziś jest tylko Bohater. Zaczątki: `player.gd` ma tryb
   członka drużyny (`is_party_follower`, podążanie po śladzie lidera, bieg razem z liderem — `is_running()`),
   menu Esc ma wiersze drużyny, komunikaty walki piszą „Bohater i drużyna”.
 
 ### ⚠ WAŻNE — NASTĘPNY ETAP: (5) miasto / hub z modularnych zasobów paczki free
+- **Stan 2026-10-12: NIE ZROBIONE** (brak mapy miasta w `scenes/maps/levels/`: są `cave.tscn`, `sewer.tscn`). Od miasta zależą: sklepy (po wyjściu z jaskiń), kowal i ulepszenia broni z tierami blokowanymi fabułą, wydawanie złota (`kontekst/ekwipunek_szkic.md`), rekrutacja towarzyszy. Do czasu miasta sklep w menu deweloperskim.
 > **Priorytet 2026-10-11:** user ustawił miasto / hub jako następny etap prac (po drużynie i balansie).
 
 - Zgłoszenie 2026-10-05 (ostatnie z ważnych todo). Mapa miasta (kolejność map: jaskinia → miasto → ścieki,
@@ -117,6 +125,7 @@
   ([kontekst/obiekty.md](kontekst/obiekty.md)), podgląd przez MCP `godot-runtime`.
 
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
+- **Stan 2026-10-12: NIE ZROBIONE** (brak kodu; są tylko nisze-przejścia, `NichePlacer`).
 - Zgłoszenie 2026-10-03. Ukryte przejście może łączyć dwa pokoje — gracz wchodzi w nie (np. nisza-przejście,
   sekretna nisza) i wychodzi w innym pokoju, jakby szedł tunelem pod voidem / litą skałą.
 - Do ustalenia: jak to pokazać (przejście przez ekran ładowania / ściemnienie i teleport, czy prawdziwy
@@ -134,12 +143,14 @@
   nisze-przejścia na obu końcach.
 
 ### Nisze-przejścia: wariant kafli RIM i częstość
+- **Stan 2026-10-12: CZEKA NA USERA** (wariant kafli RIM w `caves.tres`); częstość przejść bez zmian.
 - Generator i kafle OUT gotowe (patrz „Rozwiązane”, 2026-10-03). Zostało: **wariant kafli szczytu ściany (RIM)
   z innymi kolizjami jako alternatywa 1** w `caves.tres` — robi user; executor użyje go sam nad płytszą kolumną.
 - Przejść jest mało (seed 103107 160×160 ma 2, pięć innych map 0) — user chce, żeby pojawiały się częściej.
   Sposób do ustalenia (np. celowe wycięcie ściany do głębokości 3 za kandydatem niszy).
 
 ### Tryb walki: interfejs, pozycje wrogów, marginesy per tło, losowe spotkania
+- **Stan 2026-10-12:** interfejs ZROBIONY (styl RPG Makera, WYSIWYG; listy umiejętności i przedmiotów przerobione 2026-10-11: siatka 2 kolumn albo przewijana lista z ikonami, opcja w Motywie; wybór celu w siatce; animacje wejścia i wyjścia z walki). DO SPRAWDZENIA W GRZE: typy pytań bossów (wpisywanie, kafelki, dopasowanie), przewijanie długiej listy. Losowe spotkania: NIE ZROBIONE.
 - Zgłoszenie 2026-09-29. Scena `scenes/quiz/quiz_combat_ui.tscn`, logika `scripts/quiz/quiz_combat_controller.gd`,
   tła `scripts/quiz/battle_background.gd` + `background_generators/*`.
 - **Interfejs walki** — zrobiony w stylu RPG Makera (2026-09-30), WYSIWYG; zostały okna Umiejętności /
@@ -152,7 +163,7 @@
 ### Feedback z zamkniętych testów pre-alpha (tester zewnętrzny)
 - Zgłoszenie 2026-10-04 (kolega, klon repo). Żadnego z punktów nie było wcześniej na liście; pkt 4 częściowo
   pokrywa się z „Tryb walki” (okna Umiejętności / Przedmioty jeszcze w starym wyglądzie).
-1. **Narzędzia deweloperskie za łatwo dostępne.** `autoloads/services/cheat_service.gd` łapie pojedyncze litery
+1. **[NIE ZROBIONE, stan 2026-10-12: `cheat_service.gd` i `dev_menu.gd` nadal bez warunku `OS.is_debug_build()` / `has_feature`]** **Narzędzia deweloperskie za łatwo dostępne.** `autoloads/services/cheat_service.gd` łapie pojedyncze litery
    zawsze, gdy nie trwa wpisywanie tekstu: K = natychmiastowe zwycięstwo (też w `quiz_combat_controller.gd`
    i `quiz_puzzle_controller.gd`), O = wrogowie wł./wył., P = quizy wł./wył.; menu deweloperskie pod F1 / `~`.
    Nie ma warunku `OS.is_debug_build()` — działa też w eksporcie. Do ustalenia: tylko klawisze F albo skrót
@@ -162,19 +173,20 @@
    Makera), więc doszła opcja Opcje -> Motyw -> „Pytanie w walce”: „W oknie logu (u góry)” (domyślnie) /
    „W menu walki (nad odpowiedziami)” — pytanie i pasek czasu w panelu quizu pod tytułem, jak przed oknem logu
    (`_apply_question_position`). Menu opcji hosta obsługuje teraz opcje modułu typu `choice`.
-3. **Kliknięcie wroga na polu walki nie atakuje**, choć cel się zmienia (podświetlenie działa). Obsługa kliknięcia:
+3. **[POPRAWIONE CZĘŚCIOWO (aa47eaf, a7c4730: wybór myszą, wiersze celów), DO SPRAWDZENIA W GRZE — `kontekst/walka.md` oznacza klikanie wrogów jako niesprawdzone]** **Kliknięcie wroga na polu walki nie atakuje**, choć cel się zmienia (podświetlenie działa). Obsługa kliknięcia:
    `_handle_hovered_enemy_click` (tylko w fazie `TARGET_SELECT`: ustawia cel i woła `_confirm_target_selection`).
    Do sprawdzenia: czy klik w ogóle tam dociera (może go przechwytywać GUI albo inna faza).
-4. **Mysz nie działa w części menu walki** — „Przedmioty” i „Umiejętności” obsługują tylko klawiaturę, pewnie też
+4. **[DO SPRAWDZENIA W GRZE: listy Umiejętności / Przedmioty przerobione 2026-10-11 (wiersze z ikonami), obsługa myszy do potwierdzenia]** **Mysz nie działa w części menu walki** — „Przedmioty” i „Umiejętności” obsługują tylko klawiaturę, pewnie też
    inne listy (`_list_menu_mode`). Te dwa okna i tak czekają na przeróbkę w stylu RPG Makera (wpis „Tryb walki”) —
    załatwić przy niej; wymaganie dla nowych okien: obsługa i myszą, i klawiaturą.
-5. **Brak znacznika celu na starcie wyboru przeciwnika** — pojawia się dopiero po pierwszej zmianie celu.
+5. **[DO SPRAWDZENIA W GRZE]** **Brak znacznika celu na starcie wyboru przeciwnika** — pojawia się dopiero po pierwszej zmianie celu.
    Do sprawdzenia: odświeżenie znacznika (`_refresh_target_selection`) przy otwarciu panelu celu.
-6. **Kliknięcie w okno, żeby wróciło skupienie (np. z Discorda), wykonało atak.** Klik przywracający fokus idzie
+6. **[NIE ZROBIONE, brak obsługi `NOTIFICATION_APPLICATION_FOCUS_IN` w kodzie walki]** **Kliknięcie w okno, żeby wróciło skupienie (np. z Discorda), wykonało atak.** Klik przywracający fokus idzie
    do gry jak zwykłe wejście (przycisk akcji albo wróg pod kursorem). Pomysł: ignorować kliknięcia przez chwilę
    po `NOTIFICATION_APPLICATION_FOCUS_IN` (albo gdy okno nie miało fokusu w chwili kliknięcia).
 
 ### Nazwy w zmiennych / stałych i tłumaczenia w JSON-ach
+- **Stan 2026-10-12: W TOKU (system gotowy, część tekstów przetłumaczona).** Jest `QuizRpgI18n` (`scripts/i18n/quiz_i18n.gd`) i płaskie słowniki `resources/i18n/pl.json`, `en.json` (klucze `skill.<plik>.name|desc|log`, `status.<plik>.name|desc`, `weapon.<id>`, `class.<id>`, kilka tekstów UI); język to globalne ustawienie hosta (Opcje → Ogólne, `SettingsService.get_language`), łańcuch zapasowy: język → en → tekst z zasobu. Przetłumaczone: 44 umiejętności, 18 statusów, klasy, rodzaje broni, „Wymaga broni…”. Czeka: teksty logu wrogów `skill.<plik>.log` (brief dla Gemini `kontekst/i18n_log_wrogow_dla_gemini.md`). **Nie przetłumaczone:** nazwy i opisy przedmiotów (`display_name` w `.tres`), nazwy wrogów i postaci, menu, komunikaty walki i UI zapisane w kodzie.
 - **TODO (zgłoszenie 2026-10-10):** wszystkie nazwy własne w grze (przedmioty, umiejętności, statusy, wrogowie, postacie,
   nazwy menu i komunikaty) mają pochodzić ze **zmiennej / stałej / makra**, a nie być wpisane na sztywno w kodzie i
   `.tres`, oraz mieć **tłumaczenia w plikach JSON** (klucz -> tekst per język). Dziś `display_name`, `description`,
@@ -182,6 +194,7 @@
   jedno miejsce wczytywania (autoload tłumaczeń), migracja istniejących `.tres`.
 
 ### Skalowanie wrogów przy kilkunastu mapach (system tierów)
+- **Stan 2026-10-12: W WIĘKSZOŚCI ZROBIONE.** Poziom wroga z mapy (`enemy_levels` w JSON), XP z poziomu (`QuizRpgEnemyXp`), statystyki wroga z poziomu wg bohatera wzorcowego z ekwipunkiem po krzywej (`QuizRpgEnemyStats`, `tier` jako klasa trudności), złoto z poziomu (`QuizRpgEnemyGold`); szczegóły `kontekst/poziomy_i_xp.md`. Zostaje: umiejętności wrogów ze stałą bazą nie skalują się z poziomem; ocena trudności jaskiń po zmianie (boss lv 9: HP 1555, ATK 48) w grze; krzywe bohatera do lv 100 i tiery sprzętu na 15 map (`ekwipunek_szkic.md`). Generator `.tres` nie jest potrzebny (wartości liczone w kodzie).
 - **TODO (zgłoszenie 2026-10-11):** dziś są 4 tiery wrogów (HP 100 / 350 / 900 / 2200, ATK 26 / 52 / 85 / 150, DEF 30 / 60 / 95 / 140;
   umiejętności = tier − 1, boss 3; XP 200 × 2^(tier−1)) — wystarcza na 2–3 mapy, nie na kilkanaście. XP rosnące 2^tier wybuchnie,
   a stałe skoki ×2–3 nie pasują do krzywej gracza (HP 334 → 1402, poziomy 1–20, później do 100).
@@ -217,6 +230,7 @@
   w generatorze obiektów (dziś `objects_caves.json` tylko preferuje nisze dla zwykłych skrzyń), osobny tier i tabela łupu dla takiej skrzyni, ewent. wymóg klucza wyższego tieru.
 
 ### Spójna ścieżka postępu między mapami (kierunki wejść i wyjść)
+- **Stan 2026-10-12: NIE ZROBIONE** (brak wymuszania krawędzi wejścia / wyjścia między mapami; zrobione osobno: wejścia i wyjścia map — drabina, schody przez ścianę, wnęki).
 - Zgłoszenie 2026-09-30. Kolejne mapy mają układać się w jedną ciągłą trasę: jeśli mapa ma wejście na
   południu i wyjście na północy, następna musi mieć wejście na południu (przyszliśmy z jej południa), a nie
   wyjście na południe — inaczej mapy „nakładają się” w wyobrażonej przestrzeni świata. Tak samo przy
@@ -229,6 +243,7 @@
   wyjścia (nie w stronę już odwiedzonych pól siatki).
 
 ### Minimapa z fog of war
+- **Stan 2026-10-12: NIE ZROBIONE** (brak kodu minimapy).
 - Zgłoszenie 2026-09-30. W projekcie nie ma jeszcze minimapy.
 - Minimapa w rogu ekranu (opcjonalnie pełna mapa pod klawiszem), odkrywana w miarę chodzenia: kratki
   w promieniu widzenia gracza przechodzą z „nieznane” na „odkryte” (fog of war); odkryte zostają.
@@ -239,6 +254,7 @@
   w save (jak seedy map), mapy ręczne (tutorial_area) — z TileMapLayer zamiast z wyniku generacji.
 
 ### Mapy otwarte z uniwersalnego generatora (las zamiast ścian)
+- **Stan 2026-10-12: NIE ZROBIONE** (lasy nadal przez osobny `overworld_forest_generator.gd`; analiza poniżej aktualna).
 - Zgłoszenie 2026-10-01. Pomysł: mapy otwarte (las, Fairy Forest, Dense Forest…) z tego samego generatora co
   jaskinie — topologia (pokoje, korytarze, płaskowyże) bez zmian, ale **teren (podłoga, wzniesienia) na całej
   mapie**, a tam, gdzie jaskinia ma ściany, **gęsto drzewa**, przez które nie da się przejść.
@@ -277,49 +293,11 @@
   (przecinka w pasie drzew), wygląd przejścia polana → las (krzaki, pojedyncze drzewa przed ścianą).
 
 ### Modularność assetów i autoloadów (moduł samodzielny bez dublowania w eksporcie)
-- Zgłoszenie 2026-10-01. Pomysł: moduł trzyma też kopie assetów i autoloadów, które w hoście zapewnia
-  główny projekt (żeby dało się go uruchomić samodzielnie), a w hoście te kopie są ignorowane — nie ma
-  dublowania w edytorze ani w eksporcie.
-- Wykonalne: kopie w jednym folderze modułu (np. `modules/<id>/_standalone/`) z plikiem `.gdignore` —
-  host w ogóle go nie widzi (bez importu, bez eksportu, bez konfliktów `class_name` i UID). Wersja
-  samodzielna: `project.godot.off` -> `project.godot` + usunięcie `_standalone/.gdignore` (skrypt
-  „make standalone”), autoloady z kopii zarejestrowane w `project.godot.off`.
-- Kopie z tymi samymi UID co oryginały (kopiować razem z `.uid` / `.import`) — sceny modułu odwołują się
-  po `uid://`, więc trafią w oryginał w hoście i w kopię w wersji samodzielnej, mimo innej ścieżki.
-- Tryb pracy (decyzja usera): zmiany assetów / zasobów / skryptów robione w hoście, co jakiś czas
-  synchronizowane do modułów — skrypt synchronizacji (host -> `_standalone`) zamiast ręcznego kopiowania.
-- Stan ścieżek (2026-10-01, quiz_rpg): prawie wszystko to bezwzględne `res://` — ~350 odwołań w
-  `.tscn`/`.tres` do assetów hosta (`res://assets/pixel_crawler`, `res://assets/textures`, `res://assets/fonts`),
-  335 do `res://modules/quiz_rpg/...`, w `.gd` m.in. `res://scenes/ui/options_menu.tscn` (pause_menu),
-  `res://scripts/shared/quiz/...` (quiz_combat_controller), `res://resources/items` (inventory_service),
-  ścieżki `Tiles.png` w generatorach. Względne są tylko: 1 `preload("../…")` w `quiz_combat_controller.gd`
-  i 3 w `scenes/enemies/ork_3.tscn`. Względne ścieżki w `.tscn` edytor i tak zamienia na `res://` przy
-  zapisie, więc nie są sposobem na przenośność scen; w `.gd` (`preload("../x.gd")`) działają.
-  UID ma 601 z 692 `ext_resource` — reszta po zmianie ścieżki by się nie znalazła (ponowny zapis sceny
-  w edytorze dopisuje UID).
-- Każdy moduł ma być osobnym repo podpiętym jako submoduł w `modules/<id>/` (jak BitBomber), więc wersja
-  samodzielna = korzeń repo modułu jako `res://`. Plan:
-  - **Kopie z hosta w lustrzanym układzie wewnątrz modułu** — host `res://assets/X` -> `modules/<id>/assets/X`,
-    host `res://autoloads/...` -> `modules/<id>/autoloads/...`, każdy taki folder z `.gdignore` (host go nie
-    widzi). Samodzielnie (korzeń modułu = `res://`) ścieżki hosta pasują 1:1; „make standalone” usuwa
-    `.gdignore` i zmienia `project.godot.off` -> `project.godot`.
-  - **Własne pliki modułu** (`res://modules/<id>/...` w hoście, `res://...` samodzielnie): UID w scenach
-    (Godot szuka najpierw po `uid://`), względne `preload("../…")` w `.gd`, a ścieżki składane w kodzie przez
-    przełącznik korzenia — jak `bb_runtime.gd` w BitBomberze (`HOST_MODULE_ROOT` / `STANDALONE_ROOT`).
-    Względne `path="…"` w `.tscn` działają przy wczytaniu, ale zapis sceny (edytor, `ResourceSaver`) zmienia
-    je na `res://modules/<id>/…` — sprawdzone na `ork_3.tscn`; zostaje wtedy tylko UID.
-  - BitBomber już tak robi (względne ścieżki, 20/22 `ext_resource` z UID, `bb_runtime.gd`); quiz_rpg nie
-    (patrz stan ścieżek wyżej).
-  - Sprawdzone 2026-10-01 (Godot 4.7.2): `.tres` też przyjmuje względne `path="../…"` przy wczytaniu (ten sam
-    format tekstowy co `.tscn`), ale zapis zmienia je na `res://…` — w praktyce zostają pełne ścieżki.
-    Scena z błędną ścieżką do skryptu, ale poprawnym UID, wczytuje właściwy skrypt (fallback po UID działa).
-  - Pliki `.import` są już w repo (zrobione przez usera, 2026-10) — UID-y assetów są wspólne dla klonów.
-  - Pierwsza kopia z `.gdignore`: `modules/BitBomber/resources/fonts/` (kopia fontów hosta, te same UID-y —
-    896ae62 / ea23bf9). Zostało: `modules/BitBomber/resources/icon.png` ma ten sam UID co `resources/icon.png`
-    hosta (ostrzeżenie „UID duplicate” przy imporcie) — leży obok `quizzes/`, więc nie da się ukryć całego
-    folderu.
+- **Stan 2026-10-12: ZROBIONE dla Cienia Mgły (quiz_rpg), CZĘŚCIOWO dla BitBombera.** Cień Mgły to osobne repo (submoduł `modules/quiz_rpg`), ścieżki przez `QuizRpgPaths`, kopie hosta w `_host/` z `.gdignore`, synchronizacja `tools/sync_host_copies.gd`, `tools/make_standalone.sh` (opis w `docs/module_contract.md`, wpis w „Rozwiązane” 2026-10-03). Zostaje: `modules/BitBomber/resources/icon.png` ma ten sam UID co `resources/icon.png` hosta (ostrzeżenie „UID duplicate” przy imporcie, plik leży obok `quizzes/`, więc nie da się ukryć folderu); pełne przeniesienie BitBombera na ten schemat (kopia fontów z `.gdignore` jest, reszta nie).
+- Zasady, które się sprawdziły (Godot 4.7.2): UID w `ext_resource` ma pierwszeństwo przed ścieżką (scena z błędną ścieżką, ale poprawnym UID wczytuje właściwy plik); względne `path="../…"` działają przy wczytaniu, ale zapis sceny / zasobu zmienia je na `res://…`; pliki `.import` są w repo (UID-y assetów wspólne dla klonów); po zmianie zasobów hosta trzeba ponownie zsynchronizować `_host/` (uwaga: synchronizacja nadpisuje też pliki hosta, które w `_host/` są nowsze — sprawdzać diff, np. `Tiles.png`).
 
 ## Do sprawdzenia w grze (testy headless tego nie widzą)
+- **Nowe od 2026-10-11 / 12 (stan: DO SPRAWDZENIA W GRZE):** boss w pokoju wyjścia jaskiń (chodzi po nawigacji?), przejście przy gradiencie, animacja wejścia i wyjścia z walki, przewijanie długiej listy w walce, zakładka „Ogólne” w opcjach (osadzona w menu Cienia Mgły), wygląd skrzyń wg tieru i klucze na tier, beczki z modelem 3 / (2n) (średnio ≈ 2,3 losowania), złoto i wiersz „Złoto” w menu pauzy, koszt walki (≈ 70 % HP na parę wrogów) i liczba mikstur w jaskiniach, trudność jaskiń po nowych statystykach wrogów, tutorial + jaskinie = lv 8–9?
 - **Kafle wielokratkowe na warstwie `Props`** (obiekt z `"atlas"` i `size` > 1×1, placement `grid`) —
   ścieżka jest, ale nie była oglądana; kafel TileSetu rysuje się względem swojej kratki, więc duży kafel
   może być przesunięty względem podstawy. Obiekty ze scen (obecny katalog caves) tego nie dotyczy.
@@ -376,8 +354,12 @@
   kafli tylko przy tym samym seedzie — `procedural_level` planuje kafle z `result.seed_used`. Inny seed
   kafli = inne maski niż te, które widziały obiekty.
 - **`plateau_smooth` = 2** wycina płaskowyże w wąskich korytarzach — zostaje 1.
+- **W `.tscn` eksportowane właściwości skryptu muszą stać po linii `script =` węzła.** Właściwości zapisane wcześniej (np. `tier_frames` skrzyni wpisane po `sprite_frames`) są cicho ignorowane przy wczytaniu; w scenie dziedziczonej skrypt jest już z bazy, więc kolejność nie szkodzi.
+- **`sync_host_copies.gd` nadpisuje kopie w `_host/` z hosta** — jeśli plik w `_host/` jest nowszy (np. `Tiles.png`), pojawi się niezamierzona zmiana; sprawdzić `git status` przed commitem i cofnąć niepowiązane pliki.
+- **Tiery skrzyń, kluczy i łupu:** `chest_tier`, `chest_loot`, `enemy_loot` czytane z companion-JSON mapy (jaskinie 1, ścieki 2); mapa bez `enemy_loot` używa starego losowania klucza tieru 1 w `QuizCombatController._roll_item_drops`.
 
 ## Testy
+- **Stan 2026-10-12:** lokalny zestaw to ok. 100 skryptów `check_*` / `diag_*` w `tests/` (gitignorowane); pełny `run_plateau_suite.sh` zielony (parytet ścian 42/42). `check_progress_log` pisze już do osobnego pliku (`QuizRpgProgressLog.log_path`), nie do prawdziwego logu; `diag_enemy_chase` ma próg 33 %. Nowe testy: `check_gold`, `check_enemy_gold`, `check_loot_tables`, `check_barrel_model`, `check_character_class`, `check_i18n`, `check_i18n_misc`, `check_chest_lock` (klucze na tier, wygląd skrzyń).
 - Testy (`modules/quiz_rpg/tests/`, w tym `run_plateau_suite.sh`, `diag_objects.gd` i
   `parity_baseline.txt`) są w `.gitignore` — żyją tylko lokalnie. Utrata katalogu = utrata zestawu
   i baseline'u parytetu.
@@ -394,6 +376,8 @@
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- **Ekwipunek, złoto i klucze — prototyp w jaskiniach** (2026-10-12, CienMgly): klasy postaci (`character_class`, `allowed_classes`), złoto (`PlayerStats.gold`, `QuizRpgEnemyGold`), tabele łupu z JSON mapy (`chest_loot`, `enemy_loot`), beczki z wzorem 3 / (2n), klucze na tier skrzyni i wygląd skrzyń wg tieru. Szkic i decyzje: `kontekst/ekwipunek_szkic.md`.
+- **Tłumaczenia JSON (system), statystyki wrogów z poziomu, krzywa HP / SP, log progresji, animacja wyjścia z walki, opcje Ogólne z językiem** (2026-10-11 / 12, CienMgly): szczegóły w `kontekst/otwarte.md`, `poziomy_i_xp.md`, `walka.md`.
 - **Kładki na osobnej warstwie i ciągłość opuszczonej krawędzi (ścieki)** (2026-10-05, CienMgly): kładki
   (`BRIDGE_V`, `BRIDGE_H`) wydzielone na dedykowaną warstwę TileMapLayer `Bridges` (`z_index = -1`, y-sort);
   kładka pozioma `BRIDGE_H` rozszerzona w atlasie `Props.png` do 6×2 (kolumny 5–10, `origin = Vector2i(5, 12)`,
