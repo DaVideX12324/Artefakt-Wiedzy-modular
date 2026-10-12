@@ -25,6 +25,19 @@ bardzo ważny.
   się jako zwykły wróg.
 - Skan pokazuje poziom wroga „(lv N)”.
 
+## Statystyki wrogów z poziomu (faza 2, krok 1, 2026-10-12)
+`QuizRpgEnemyStats` (`scripts/enemies/enemy_stats.gd`): wróg z `enemy_level` > 0 dostaje HP / ATK / DEF dobrane do **bohatera wzorcowego** z jego poziomu
+(statystyki z krzywych + ekwipunek idący po krzywej wykładniczej: broń +10 -> +320 ATK, pancerz +14 -> +194 DEF od lv 1 do 100). Zwykły atak wroga zabiera
+`HIT_FRAC` maks. HP bohatera (tier 1: 10 %, 2: 14 %, 3: 16 %, 4: 15 %), bohater zabija go w `HITS_TO_KILL` zwykłych trafieniach (1,5 / 4 / 6 / 12),
+DEF wroga = 0,7 × ATK bohatera. ATK = MAT, DEF = MDF. Odmiany (np. nietoperz z mniejszym HP) zachowują stosunek do bazy tieru (`TIER_BASE` = dotychczasowe 100 / 400 /
+900 / 2500). Poziom 0 (tutorial) zostaje przy statystykach z danych. Tabela: `tests/diag_enemy_stats.gd`; test `check_enemy_stats`.
+- **Waga ekwipunku:** bohater bez ekwipunku wzorcowego jest wyraźnie słabszy (lv 20: wróg tieru 2 zabiera 17 % HP zamiast 14 %, a bohater zabija go w 6,5 trafieniach zamiast 4;
+  lv 100 bez ekwipunku praktycznie nie zabije nikogo). Parametry krzywej ekwipunku (`GEAR_*`) to pokrętło „jak ważny jest ekwipunek”.
+- **Naprawiony błąd z fazy 1:** `set_enemy_level` było wołane przed `add_child`, a `_ready` wczytywał `enemy_data` i **nadpisywał** poziom, XP i statystyki — wrogowie
+  z `enemy_data` (pixel_crawler) mieli więc stałe XP, a poziom z mapy działał tylko dla wrogów bez `enemy_data` (slime). Poziom jest teraz zapamiętany i nakładany po wczytaniu
+  danych (`_apply_spawn_level`).
+- **Uwaga — skille wrogów:** umiejętności z dużą stałą bazą (np. +200 w Relentless Assault) nie skalują się z poziomem; do przeglądu przy strojeniu map 2+.
+
 ## Budżet 15 map (hero lv po 120 % wrogów; ok. 72 zabić na mapę)
 Mapa 1 kończy na lv 8,5, dalsze równo do lv 100 (~6,5 poziomu na mapę). XP wroga ≈ 8–9 % XP do następnego poziomu — dlatego jedna stała
 `KILL_FRACTION` obsługuje wszystkie mapy; trzeba tylko nadać wrogom poziomy z pasma mapy.
@@ -50,7 +63,7 @@ Mapa 1 kończy na lv 8,5, dalsze równo do lv 100 (~6,5 poziomu na mapę). XP wr
 Pasma poziomów wrogów dla kolejnej mapy: tier 1 = początek mapy .. +1/3 zakresu, tier 2 = środek .. koniec, boss = poziom końca mapy.
 
 ## Do zrobienia (faza 2, Opus)
-- **Statystyki wrogów z poziomu** (generator `.tres` z krzywej: HP / ATK / DEF z `enemy_level` i archetypu; tiery jako mnożniki), tak
+- ~~**Statystyki wrogów z poziomu**~~ — zrobione (sekcja wyżej). Pierwotny opis: generator z krzywej: HP / ATK / DEF z `enemy_level` i archetypu; tiery jako mnożniki, tak
   żeby proporcje walki z `backlog_druzyna_balans.md` S5 (cios wroga ≈ 14 % HP bohatera, bohater zabija w 3–4 trafieniach) trzymały się
   na każdej mapie. Dziś staty wrogów są stałe (tiery 1–4 z S5) — poziom wpływa tylko na XP.
 - **Krzywe bohatera do lv 100:** ATK +1,95 / DEF +1,1 na poziom (lv 100 ≈ 214 / 120 bez ekwipunku) vs ekwipunek +320 ATK / +192 DEF —
