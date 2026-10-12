@@ -21,24 +21,31 @@ Wszystkie nazwy i liczby to propozycje.
 
 ## 3. Czego brakuje
 
-1. Dane i grafiki trzech klas (animacje idle / walka / miniatura; arkusze Pixel Crawler mają bohaterów i klasy).
+1. Dane i grafiki trzech towarzyszy (animacje idle / walka / miniatura; arkusze Pixel Crawler mają bohaterów i klasy) oraz pole klasy w kodzie (`character_class`, `allowed_classes`).
 2. **Rekrutacja:** sposób dodania członka do `party` (nowa funkcja `PlayerStats.recruit(hero_id, level)`), zapis / wczytanie składu (bez limitu liczby członków).
 3. **Poziom i XP członków:** dziś `PlayerStats.level` jest jeden; propozycja niżej.
 4. **Zadania towarzyszy** (sceny, dialog, cel zadania, nagroda), UI dziennika / znacznika.
 5. Per członek: sloty tierów i budżet (`sloty_umiejetnosci_szkic.md`), pula skilli klasy, ekwipunek ograniczony typami broni.
 6. Skille klasowe, których jeszcze nie ma (sekcja 4) — do napisania (dane, mogą pójść do Gemini).
 
-## 4. Klasy (propozycja; typy broni z `weapon_type`: sword, dagger, axe, spear, mace, staff, bow)
+## 4. Klasy (zdecydowane 2026-10-10, szczegóły: `klasy_postaci_i_bronie.md`)
 
-| Klasa | Rola | Bronie | Statystyki (kierunek) | Skille z obecnej puli | Do dopisania |
-|---|---|---|---|---|---|
-| **Wojownik** (bohater) | uniwersalny, obrażenia fizyczne | miecz, topór | zrównoważone | Heavy Strike, Rapid Flurry, Rushdown, Flying Fright, Fearless Flight, Final Strike (miecz), Death Enrage | — (już ma pulę) |
-| **Obrońca** | tank, kontrola | maczuga, włócznia + tarcza | wysokie DEF / HP, niskie ATK | Guardian Ward, Paralyzing Strike | prowokacja (status `provoke` już jest), osłona sojusznika, kontratak, ochronny okrzyk |
-| **Kapłan / medyk** | leczenie i wzmocnienia | laska, buława | wysokie MAT / MDF, niskie ATK | First Aid, Hearty Meal, Revive, Motivation Jam, Speed Share, Sea Shanty, Lullaby | leczenie całej drużyny, odtrucie, oczyszczenie statusów, tarcza |
-| **Łowca** | obrażenia pojedyncze / losowe, statusy | łuk, sztylet | wysokie ATK i AGI (po O2), niskie DEF | Backup Bash (chance hit — wymagany przez Strażnika), Toxic Dart, Shrapnel Toss, Smoke Ring, Double Strike, Toxic Shock | strzał krytyczny, seria strzałów, pułapka |
+Cztery klasy-archetypy z dokumentu klas (pole `character_class` w `QuizRpgHeroData`, `allowed_classes` w przedmiotach; w kodzie jeszcze **nie zaimplementowane**):
 
-Wymóg z `game_design.md` (walka ze Strażnikiem, faza 1): potrzebny sojusznik stricte ofensywny albo z chance hitem — spełnia go Łowca (Backup Bash) lub Wojownik.
-Klasy ułożone tak, że skille z tabeli S6 mają dom; ok. 4–6 nowych skilli na klasę trzeba dopisać, żeby klasy czuły się różne.
+| Klasa | Rola w walce | Atrybuty | Bronie (`weapon_type` w kodzie) | Skille z obecnej puli (propozycja) |
+|---|---|---|---|---|
+| **Wojownik** (`warrior`) | tank, ciosy fizyczne, prowokacja | wysokie HP i DEF, solidny ATK | miecze, topory, dwuręczne (sword, axe) | Heavy Strike, Rapid Flurry, Rushdown, Flying Fright, Fearless Flight, Final Strike (miecz), Death Enrage, Guardian Ward, Paralyzing Strike |
+| **Łotrzyk** (`rogue`) | DPS fizyczny, multi-hit, statusy, krytyki | wysokie ATK i AGI, niski DEF | sztylety, łuki, rapiery (dagger, bow) | Backup Bash (chance hit — wymagany przez Strażnika), Double Strike, Shrapnel Toss, Smoke Ring, Toxic Dart |
+| **Mag** (`mage`) | DPS magiczny, AoE, łamanie odporności | wysoki MAT i SP, niski HP i DEF | kostury, laski, różdżki (staff) | Toxic Shock, Sea Shanty, Lullaby — **za mało, trzeba dopisać skille żywiołów / AoE** |
+| **Kapłan** (`priest`) | leczenie, buffy, wskrzeszanie | wysoki MDF, solidny MAT | buławy, młoty, relikwiarze (mace) | First Aid, Hearty Meal, Revive, Motivation Jam, Speed Share |
+
+Bohater: dziś jest Wojownikiem (miecz, zbalansowany) — do potwierdzenia. **3 towarzyszy = trzy pozostałe klasy (Łotrzyk, Mag, Kapłan)** to naturalne dopasowanie (dla ustalenia: czy tak).
+Włócznia (`spear`) nie ma klasy — do przypisania (propozycja: Wojownik).
+Wymóg ze Strażnika (faza 1): sojusznik ofensywny albo z chance hitem — Łotrzyk (Backup Bash).
+Każdej klasie trzeba dopisać ok. 4–6 skilli, żeby klasy czuły się różne (szczególnie Mag i Łotrzyk; dane i opisy mogą iść do Gemini jak S6).
+
+**Zgodność z dokumentem klas:** tam jest też rezerwa (`reserve_party`, aktywna czwórka). Decyzja usera 2026-10-12: **na razie cała drużyna w walce, bez limitu**; rezerwa i limit czterech zostają
+jako późniejsza opcja.
 
 ## 5. Dołączanie przez zadanie (propozycja)
 
@@ -64,9 +71,9 @@ Decyzje usera (2026-10-12):
 ## 7. Do uzgodnienia
 
 1. Czy „3” oznacza 3 towarzyszy (razem 4) czy 3 osoby łącznie.
-2. Nazwy klas i postaci, ich charakter / fabuła (dołączają z własnego powodu; pasuje do motywu wspomnień).
+2. Klasy mają nazwy (Wojownik, Łotrzyk, Mag, Kapłan — `klasy_postaci_i_bronie.md`); do ustalenia imiona i charakter postaci oraz ich powód dołączenia (pasuje do motywu wspomnień).
 3. Czy zadania towarzyszy są powiązane z odnogami i blokadami zamku (sekcja 5).
 4. Poziom startowy dołączającego (propozycja: najwyższy poziom w drużynie − 1–2); krzywe XP per klasa (parametry `xp_*` w danych postaci) czy wspólna krzywa.
 5. Czy bohater też ma klasę (Wojownik) i czy da się zmieniać klasę (propozycja: nie).
-6. Kto pisze skille klasowe (dane skilli i opisy mogą iść do Gemini wg briefu jak S6).
+6. Skille klasowe: Mag i Łotrzyk mają za mało skilli (sekcja 4); dane i opisy do Gemini wg briefu jak S6 — najpierw ustalić, jakie skille (lista pomysłów).
 7. Grafiki: jakich postaci użyć z paczki, czy potrzebne są nowe animacje.
