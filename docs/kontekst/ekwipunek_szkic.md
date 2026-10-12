@@ -271,13 +271,25 @@ Wnioski:
 | Napój mały / średni / duży | +40 / +150 / +300 SP | 3 / 7 / 17 | pula SP lv 20 = 446 |
 | Napój XL | 100 % SP | 80 | ≈ 2 zabicia Omega |
 
-Szacunek (założenie: zwykła walka zabiera ok. 14 % HP i zużywa ok. 25 % puli SP): pełne uzupełnienie HP po walce kosztuje ok. 7 złota, SP ok. 20 złota, a zwykły wróg Omega daje 40 — czyli **leczenie i SP pochłaniają ok. 2/3 dochodu**, co zgadza się z opisem usera. Sprzęt jest więc wydatkiem sporadycznym (jednorazowy zakup tieru), a tempo oszczędzania zależy od tego, jak oszczędnie gracz gra (blok, dobre odpowiedzi, mniej strat HP).
+Szacunek: **walka z dwoma wrogami zabiera dziś ok. 70 % HP** (pomiar usera w Cieniu Mgły; podobnie było we FNaFB). To zgadza się z wzorami: cios jednego wroga to ok. 14 % HP, ale walka trwa kilka tur, a obrona (×0,25 / ×0,5) tylko częściowo to łagodzi (14 % to cios **jednego** wroga, nie koszt całej walki). Przy cenie XL pizzy 50 złota (100 % HP) uzupełnienie 70 % HP po walce kosztuje ok. 35 złota, a dwie walki wrogami Omega dają 80; SP (założenie: ok. 25 % puli za walkę, napój XL 80 złota) ok. 20 złota. Razem **leczenie i SP pochłaniają ok. 2/3 dochodu**, co zgadza się z opisem usera. Sprzęt jest więc wydatkiem sporadycznym (jednorazowy zakup tieru), a tempo oszczędzania zależy od tego, jak oszczędnie gracz gra (blok, dobre odpowiedzi, mniej strat HP).
 
 Co z tego wynika dla naszej gry:
-- **Stałe wartości przestają działać przy HP 334 → 50 000.** `potion` leczy dziś 100 HP (`resources/items/potion.tres`), co na lv 20 to 7 %, a na lv 60 ≈ 1 %. Mikstury potrzebują tierów **procentowych** (jak „XL” = 100 %) albo stałych skalowanych poziomem lokacji; sklep oferuje wariant małych / średnich / dużych / pełnych.
-- **Cena mikstury liczona od ułamka HP, nie od poziomu gracza:** cena przywrócenia 14 % HP (koszt jednej zwykłej walki) ≈ 0,2–0,3 × złoto z jednego zwykłego wroga tej lokacji. Wtedy pełne uzupełnienie HP ≈ 1,5–2 × złoto z wroga, SP analogicznie (parametr `f_hp`, `f_sp`; w FNaFB ≈ 0,18). Skoro złoto z wrogów rośnie razem z poziomem lokacji, mikstury zostają stałym ułamkiem dochodu na każdej mapie.
-- **Cena sprzętu (2 zabicia) i cena mikstur dają razem budżet:** jeśli leczenie zjada ok. 2/3, to złoto wystarcza na sprzęt dopiero po oszczędzeniu; to wzmacnia wagę decyzji (kupić pełną miksturę czy odłożyć na tier) i jest zgodne z „ekwipunek ważny, ale nie przez grind”. Pokrętła: `f_hp`, `f_sp`, cena sprzętu w zabiciach.
-- **Przed miastem (jaskinie):** nie ma sklepu, więc mikstury pochodzą z beczek i skrzyń (tabela beczek już istnieje: `potion` 55, `ether` 25, `focus_tonic`, `antidote`, `lockpick`, `lucky_charm`, `loot_manager.gd`); złoto zbierane od tutorialu idzie na pierwszą wizytę w mieście, głównie na zapas mikstur.
+- **Mikstury mają konkretne wartości (decyzja usera), nie procenty.** `potion` leczy dziś stałe 100 HP (`resources/items/potion.tres`), co na lv 20 to 7 %, a na lv 60 ≈ 1 %, więc potrzebne są **kolejne tiery tych samych przedmiotów ze stałymi, rosnącymi wartościami** (mały / średni / duży, jak pizze FNaFB 100 / 300 / 600 HP i napoje 40 / 150 / 300 SP), odblokowywane postępem jak sprzęt. Wartości liczę z krzywej HP / SP mapy, na której przedmiot pojawia się po raz pierwszy, i wpisuję do danych jako liczby (niezależne od późniejszego poziomu gracza). Przykład (małe / średnie / duże ≈ 15 / 35 / 60 % HP lokacji i 10 / 30 / 60 % SP):
+
+| Mapa | lv koniec | HP | leczenie małe / średnie / duże | SP | SP małe / średnie / duże |
+|---|---|---|---|---|---|
+| 1 | 8,5 | 660 | 99 / 230 / 400 | 260 | 26 / 78 / 160 |
+| 3 | 21,6 | 1 500 | 230 / 540 / 920 | 470 | 47 / 140 / 280 |
+| 5 | 34,6 | 3 000 | 450 / 1100 / 1800 | 680 | 68 / 200 / 410 |
+| 8 | 54,2 | 7 400 | 1100 / 2600 / 4400 | 1000 | 100 / 300 / 600 |
+| 10 | 67,3 | 13 000 | 1900 / 4500 / 7700 | 1200 | 120 / 360 / 730 |
+| 12 | 80,4 | 22 000 | 3300 / 7800 / 13 000 | 1400 | 140 / 430 / 850 |
+| 15 | 100,0 | 50 000 | 7500 / 17 000 / 30 000 | 1700 | 170 / 520 / 1000 |
+
+Uwaga: pula SP rośnie ×12 (139 → 1700), HP ×150 (334 → 50 000), więc wartości SP rosną znacznie wolniej od leczenia, a koszty umiejętności są stałe.
+- **Cena zależy od ilości leczenia:** przy FNaFB ok. 0,017–0,036 złota za 1 HP; uzupełnienie 70 % HP po walce ≈ 0,4–0,45 × dochód z tej walki (≈ 2 wrogów), czyli pełne leczenie ≈ 1,2–1,3 × złoto z jednego zwykłego wroga lokacji (jak XL pizza FNaFB = 1,25 × Omega). Pokrętła: cena pełnego leczenia i napoju w „zabiciach”.
+- **Cena sprzętu (2 zabicia) i cena mikstur dają razem budżet:** jeśli leczenie zjada ok. 2/3, to złoto wystarcza na sprzęt dopiero po oszczędzeniu; to wzmacnia wagę decyzji (kupić miksturę czy odłożyć na tier) i jest zgodne z „ekwipunek ważny, ale nie przez grind”.
+- **Przed miastem (jaskinie):** nie ma sklepu, więc mikstury pochodzą z beczek i skrzyń (tabela beczek już istnieje: `potion` 55, `ether` 25, `focus_tonic`, `antidote`, `lockpick`, `lucky_charm`, `loot_manager.gd`); przy kosztach walki ok. 70 % HP na parę wrogów jaskinie wymagają **dużo więcej mikstur z beczek i skrzyń niż dziś** albo przerw na odpoczynek (do rozważenia osobno). Złoto zbierane od tutorialu idzie na pierwszą wizytę w mieście, głównie na zapas mikstur.
 
 **Bronie z wielkim potencjałem (decyzja usera 2026-10-12):** rzadki drop daje broń, której **moc początkowa jest ograniczona do maksymalnie 2 poziomów lokacji powyżej standardu** (moc mapy m + 2), a pełny potencjał (endgame) osiąga się **ulepszeniami u kowala**, odblokowywanymi postępem i fabułą (te same flagi co tiery sklepu). To zastępuje wariant „gotowa broń endgame od razu” (Kingly 320 z mapy 1): nie da się przeskoczyć kampanii szczęśliwym dropem.
 
