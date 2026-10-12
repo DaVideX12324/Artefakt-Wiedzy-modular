@@ -262,6 +262,23 @@ Wnioski:
 - Mechanizm już istnieje: `LevelStateManager.register_device_progress(story_id)` / `has_device_progress(story_id)` (`autoloads/level_state_manager.gd`, monotoniczne flagi fabularne zapisywane z grą). Odblokowanie tieru kowala = flaga fabularna (np. po wykonaniu zadania kowala, po pokonaniu bossa); lista „tier → wymagana flaga” w danych sklepu. Nowy system nie jest potrzebny.
 - Rozmiar mapy ani poziom wroga nie zmienia dostępności sprzętu (spójne z wcześniejszym ustaleniem, że moc sprzętu nie zależy od powierzchni mapy ani poziomu gracza).
 
+**Główny wydatek złota to przedmioty leczące i dające SP (decyzja usera 2026-10-12):** gracz realnie wydaje większość złota na mikstury HP i SP, sprzęt jest mniejszą częścią budżetu. Dane FNaFB1 (`Items.rvdata2`) pokazują, jak to wygląda:
+
+| Przedmiot | Efekt | Cena | Uwaga |
+|---|---|---|---|
+| Pizza mała / średnia / duża | +100 / +300 / +600 HP | 2 / 5 / 15 | dla Freddy’ego lv 20 (HP 1402): 7 % / 21 % / 43 % |
+| Pizza XL | 100 % HP | 50 | ≈ 1,25 zabicia Omega (40 złota) |
+| Napój mały / średni / duży | +40 / +150 / +300 SP | 3 / 7 / 17 | pula SP lv 20 = 446 |
+| Napój XL | 100 % SP | 80 | ≈ 2 zabicia Omega |
+
+Szacunek (założenie: zwykła walka zabiera ok. 14 % HP i zużywa ok. 25 % puli SP): pełne uzupełnienie HP po walce kosztuje ok. 7 złota, SP ok. 20 złota, a zwykły wróg Omega daje 40 — czyli **leczenie i SP pochłaniają ok. 2/3 dochodu**, co zgadza się z opisem usera. Sprzęt jest więc wydatkiem sporadycznym (jednorazowy zakup tieru), a tempo oszczędzania zależy od tego, jak oszczędnie gracz gra (blok, dobre odpowiedzi, mniej strat HP).
+
+Co z tego wynika dla naszej gry:
+- **Stałe wartości przestają działać przy HP 334 → 50 000.** `potion` leczy dziś 100 HP (`resources/items/potion.tres`), co na lv 20 to 7 %, a na lv 60 ≈ 1 %. Mikstury potrzebują tierów **procentowych** (jak „XL” = 100 %) albo stałych skalowanych poziomem lokacji; sklep oferuje wariant małych / średnich / dużych / pełnych.
+- **Cena mikstury liczona od ułamka HP, nie od poziomu gracza:** cena przywrócenia 14 % HP (koszt jednej zwykłej walki) ≈ 0,2–0,3 × złoto z jednego zwykłego wroga tej lokacji. Wtedy pełne uzupełnienie HP ≈ 1,5–2 × złoto z wroga, SP analogicznie (parametr `f_hp`, `f_sp`; w FNaFB ≈ 0,18). Skoro złoto z wrogów rośnie razem z poziomem lokacji, mikstury zostają stałym ułamkiem dochodu na każdej mapie.
+- **Cena sprzętu (2 zabicia) i cena mikstur dają razem budżet:** jeśli leczenie zjada ok. 2/3, to złoto wystarcza na sprzęt dopiero po oszczędzeniu; to wzmacnia wagę decyzji (kupić pełną miksturę czy odłożyć na tier) i jest zgodne z „ekwipunek ważny, ale nie przez grind”. Pokrętła: `f_hp`, `f_sp`, cena sprzętu w zabiciach.
+- **Przed miastem (jaskinie):** nie ma sklepu, więc mikstury pochodzą z beczek i skrzyń (tabela beczek już istnieje: `potion` 55, `ether` 25, `focus_tonic`, `antidote`, `lockpick`, `lucky_charm`, `loot_manager.gd`); złoto zbierane od tutorialu idzie na pierwszą wizytę w mieście, głównie na zapas mikstur.
+
 ## 11. Decyzje do podjęcia
 
 **Pierwsza — w praktyce rozstrzygnięta przez usera:** złoto z potworów od tutorialu, sklepy po odblokowaniu miasta, tiery sklepu blokowane fabułą (kowal), w jaskiniach sprzęt z dropów i skrzyń / nisz. Do potwierdzenia zostają **rzadkie dropy ponad pułap sklepu** (sekcja 9: Kingly / Godly, wartości, szanse, bez wymogu poziomu) — czy je bierzemy i w jakiej formie.
