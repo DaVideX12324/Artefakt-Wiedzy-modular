@@ -199,8 +199,8 @@ Uwaga o skali: FNaFB1 kończy się na **lv 20**, nasza gra na **lv 100**; porów
 **Pułap sklepu to broń 160 ATK i pancerz 64 DEF na element.** Nic ponad to nie jest w sprzedaży.
 
 **Rzadkie dropy** (`Enemies.rvdata2`, tabele łupu):
-- **Kingly** (320 ATK, cztery rodzaje broni): z każdego Party Hat (Alpha / Beta / Gamma / Omega) **1/80** (Gamma 1/120). W drugim zestawie tych samych wrogów (id 32–35, prawdopodobnie osobna strefa) szansa jest **1/4**.
-- **Godly** (500 ATK, **+500 HP, +500 SP, +50 DEF / MAT / MDF, +100 AGI / LUK**): z czterech „Ace” (bossowie) 1/40–1/60; w drugim zestawie Party Hatów 1/8–1/16.
+- **Broń ostateczna jednego członka drużyny na tier wroga** (zgodnie z opisem usera: po jednej broni ostatecznej dla każdego członka, każdy tier przeciwników ma szansę na drop konkretnej broni): Alpha Party Hat → Kingly Hook (1/80), Beta → Everything Cupcakes (1/80), Gamma → Kingly Guitar (1/120), Omega → Kingly Microphone (1/80); wszystkie 320 ATK. Cztery rodzaje broni = cztery postacie, cztery tiery wroga = cztery bronie. W drugim zestawie tych samych wrogów (id 32–35, prawdopodobnie osobna strefa) szansa jest **1/4**.
+- **Godly** (500 ATK, **+500 HP, +500 SP, +50 DEF / MAT / MDF, +100 AGI / LUK**; też po jednej na postać): każdy z czterech „Ace” (bossowie) dropi jedną (Microphone 1/40, Guitar 1/60, Cupcakes 1/40, Hook 1/40); w drugim zestawie Party Hatów 1/8–1/16.
 - Kingly może wypaść już z Alpha Party Hat, czyli z najsłabszego wroga na początku (1/80), **bez wymogu poziomu**. Gotowa broń endgame zdobyta wcześnie jest więc w FNaFB dopuszczona jako szczęśliwy los.
 - Sekretna broń z kosztem (ATK 500, LUK 500, **HP −5000, DEF −500, MDF −500**) oraz seria „A–F” (50 / 100 / 200 / 300 / 400 / 500 do wszystkich statystyk): to dowód, że FNaFB ma i warianty z karą, i drabinę ulepszeń.
 
@@ -235,6 +235,8 @@ Wniosek: nasz „standardowy pułap” 320 ATK to w FNaFB wartość **rzadkiego 
 
 **Druga:** skala drabiny przy 100 poziomach: **A.** wydłużyć drabinę (pułap sklepu ≈ 600 ATK, rzadki ≈ 1200, najrzadszy ≈ 1850 ATK z bonusami HP / SP; przyrost z poziomu bez zmian, „szalone liczby” z ustaleń usera), **B.** zmniejszyć przyrost z poziomu (`atk_per_level` / `def_per_level`, sekcja 8), **C.** zostawić jak teraz (nasz pułap 320 = FNaFB-owy rzadki drop, poziom dominuje do lv 80).
 Uwaga: **zmiana A / B przesuwa wzorzec wrogów** w `enemy_stats.gd` (`GEAR_*` albo `*_per_level`); stosunek w walce zostaje, liczby w grze rosną.
+
+**Uwaga o roli FNaFB:** to przykład progresji i wyjątkowych nagród, nie specyfikacja (user: nasza gra jest znacznie bardziej rozbudowana). Z FNaFB wynika tylko, że drop może przekraczać zwykłą progresję i że może być przypisany do konkretnej postaci i tieru wroga. **Nie** ustalamy jednej broni ostatecznej na postać, tabeli dropów „tier = postać” ani liczby takich broni; kampanię balansujemy pod zwykły, dostępny sprzęt (broń ostateczna nie jest wymagana do finału), a ostateczne i sekretne bronie są świadomymi wyjątkami (także sekretne ponad budżet). Cechy przedmiotu (dostępność, moc początkowa, potencjał, ścieżka ulepszeń, specjalizacja) są niezależne, więc „ostateczna z dropu” i „rozwijana u NPC” to dwie osobne drogi, nie jeden obowiązkowy etap.
 
 **Trzecia:** wczesny rzadki drop o mocy endgame — FNaFB dopuszcza go bez ograniczeń (Kingly 1/80 już z Alpha Party Hat). U nas oznacza to jedno- do trzytrafieniowe walki z bossami od lv 8 do ok. 60 (tabela sekcji 4).
 - **A.** Tak jak w FNaFB, jako szczęśliwy los (bez zmian w kodzie).
