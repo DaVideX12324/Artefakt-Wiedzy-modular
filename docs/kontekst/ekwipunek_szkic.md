@@ -158,7 +158,7 @@ Sprawdzenie na obecnych krzywych (przyrost od lv 1: z poziomu vs z krzywej sprz�
 | 80 | +154 | +149 | +87 | +100 |
 | 100 | +193 | +310 | +109 | +180 |
 
-Czyli **dziś poziom daje więcej statystyk niż sprzęt aż do ok. lv 80**; sprzęt przeważa dopiero na końcu. To odwrotność opisu z FNaFB. Skok jednego tieru broni (podwojenie, co ≈ 20 poziomów) to +19 ATK na lv 20, czyli mniej niż 20 poziomów awansu (+39 ATK).
+Czyli **dziś poziom daje więcej statystyk niż sprzęt aż do ok. lv 80**; sprzęt przeważa dopiero na końcu. Porównanie z FNaFB trzeba robić koniec z końcem (FNaFB lv 20 = koniec gry, u nas lv 100): w FNaFB1 na końcu sprzęt kupowalny daje ok. 4 × więcej przyrostu ATK niż poziomy (+150 vs +37), a rzadki drop ok. 8 × (+310), u nas na końcu 1,6 × (+310 vs +193). Skok jednego tieru broni (podwojenie, co ≈ 20 poziomów) to +19 ATK na lv 20, czyli mniej niż 20 poziomów awansu (+39 ATK).
 Żeby sprzęt przeważał wcześniej, są dwie niezależne dźwignie: zmniejszyć `atk_per_level` / `def_per_level` (np. 0,5 dla ATK: przyrost z 20 poziomów między tierami to +10 zamiast +39, a krok tieru broni na lv 20 to +19 — sprzęt około dwa razy większy od poziomów; DEF analogicznie przy 0,3) albo podnieść początek krzywej sprzętu (`GEAR_*_START`). Obie zmieniają też wzorzec wrogów, więc stosunek w walce zostaje, a liczby w grze się przesuwają.
 
 **Wariant graniczny** (poziom daje tylko HP / SP, `atk_per_level` / `def_per_level` = 0, stałe 21 / 11) — dla porównania, żeby widać było konsekwencje maksymalnej wagi sprzętu:
@@ -182,41 +182,63 @@ Wnioski:
 - Klif jest tak stromy, bo DEF wroga liczy się od ATK wzorca (`DEF_RATIO` 0,7): wzór `4A − 2D` daje 0 przy A < 0,35 × ATK wzorca. Przy `DEF_RATIO` 0,4 klif jest łagodniejszy, ale nie znika.
 - **Pancerz już dziś prawie nie wpływa na przeżywalność późno:** cios wroga tieru 2 to 14,0 % HP ze sprzętem wzorcowym, a bez żadnego pancerza 19,3 % na lv 8, 16,0 % na lv 40 i tylko **14,8 % na lv 100**. Powód: cios wroga jest wyprowadzany z ułamka jego HP (`HIT_FRAC` × HP bohatera), a HP rośnie wykładniczo do 50 000, podczas gdy DEF rośnie do ok. 300. Budżet DEF z tabeli w sekcji 3 będzie więc prawie kosmetyczny, jeśli nic nie zmienimy. Jeśli pancerz ma realnie bronić (szczególnie w wariancie „jak FNaFB”), trzeba zmienić definicję ciosu wroga w `enemy_stats.gd` (np. ATK wroga z własnej krzywej, nie z ułamka HP bohatera, albo DEF jako procentowa redukcja).
 
-## 9. Dane FNaFB 1: waluta, ceny i tempo (wczytane z `Weapons` / `Armors` / `Enemies .rvdata2`, 2026-10-12)
+## 9. Dane FNaFB 1: sklepy, dropy, waluta i tempo (wczytane z `Weapons` / `Armors` / `Enemies` / `Items` / mapy `.rvdata2`, 2026-10-12)
 
-User: kupno sprzętu za walutę wypadającą z potworów jest szybsze niż wbijanie poziomów. Dane z `H:/Pobrane/fnafb1/Data` to potwierdzają:
+Uwaga o skali: FNaFB1 kończy się na **lv 20**, nasza gra na **lv 100**; porównania robię koniec z końcem. Poprawione po uwagach usera: **Kingly Microphone nie jest do kupienia — to rzadki drop z potworów.**
 
-| Element | Wartości |
-|---|---|
-| Bronie (ATK) / cena | 10 / 0, 20 / 10, 40 / 20, 80 / 40, 160 / 80, 320 / 160 (6 tierów; cena = połowa ATK) |
-| Elementy pancerza (DEF) / cena | 4 / 0–5, 8 / 10, 16 / 20, 32 / 40, 64 / 80 (cena ≈ 1,25 × DEF) |
-| Złoto z potworów (Party Hat Alpha / Beta / Gamma / Omega) | 5 / 10 / 20 / 40 (XP 200 / 400 / 800 / 1600) |
-| Koszt tieru broni w zabiciach potworów „z tej lokacji” | 2 (Bronze 10 = 2 Alpha, Silver 20 = 2 Beta, Gold 40 = 2 Gamma, Platinum 80 = 2 Omega), ostatni tier 4 Omega |
-| Koszt poziomu w zabiciach (XP do następnego) | lv 5: 2,4 Beta; lv 10: 4,4 Gamma; lv 15: 4,9 Omega; lv 19: 7,8 Omega (62 Alpha) |
+**Sprzęt kupowalny** (kod sklepu 302 w mapach): tylko 4 sklepy w lokacjach, po jednym tierze każdy:
 
-Wnioski:
-- Złoto z potwora rośnie tym samym podwajaniem co ceny, więc **koszt kolejnego tieru broni to stale 2–4 zabicia aktualnych potworów**, a poziom kosztuje coraz więcej (lv 19→20: 313 złota z ośmiu Omega, wystarczy na dwie najlepsze bronie). Pieniądze nigdy nie są barierą; **barierą jest dostęp do sklepu danej lokacji.** Sprzęt wyprzedza poziom nawet bez grindu, bo „cena = parę walk”.
-- Siła sprzętu względem poziomu: Freddy lv 20 ma ATK 58, a broń tieru 6 daje +320, czyli **sprzęt to 85 % ATK na lv 20** (u nas 25 %). Powód rozcieńczenia: w FNaFB cała drabina 10 → 320 mieści się w 20 poziomach, a my rozciągnęliśmy tę samą drabinę na 100 poziomów (baza wzrosła ×10: 21 → 214, sprzęt tylko ×32 jak w FNaFB). Żeby odtworzyć „sprzęt ≫ poziom” przy 100 poziomach, albo wydłużamy drabinę (np. broń endgame ≈ 1000–1200 ATK, „szalone liczby” z ustaleń usera; sprzęt ≈ 80 % ATK na lv 100), albo zmniejszamy przyrost z poziomu (sekcja 8). To dwie niezależne dźwignie; pierwsza nie psuje danych bohatera i pasuje do ekonomii niżej.
+| Lokacja (mapa) | Broń (ATK) / cena | Pancerz (DEF) / cena |
+|---|---|---|
+| start (Classic) | 10 / — | 4 / — |
+| Backroom (mapa 3) | Bronze 20 / 10 | 8 / 10 |
+| Restrooms (mapa 5) | Silver 40 / 20 | 16 / 20 |
+| Supply Closet (mapa 6) | Gold 80 / 40 | 32 / 40 |
+| East Hall Corner (mapa 10) | Platinum 160 / 80 | 64 / 80 |
 
-**Propozycja waluty i cen dla nas** (wszystko przykładowe, do zatwierdzenia):
-- Złoto z potwora = `0,25 × ATK_standard(poziom wroga) × waga tieru` (waga jak w XP: 0,6 / 1,0 / 1,6, boss ×6); normalizacja po liczbie spawnów mapy jak w XP (`ref_spawns` / spawny), żeby rozmiar mapy nie zmieniał budżetu złota. Poziom wroga z mapy, nie z gracza.
-- Cena standardowej broni mapy m = `0,5 × ATK_standard(koniec mapy m)`, czyli ≈ 2 zabicia zwykłego wroga tej mapy; element pancerza `≈ 1,25 × DEF` elementu. Komplet standardowego sprzętu mapy ≈ 5–6 zabić zwykłych wrogów, więc **bez grindu złota**.
-- Sklep w każdej lokacji sprzedaje standardowy sprzęt tej mapy (tier = moc mapy z sekcji 3). Mapy są dostępne dla gracza wg fabuły i blokad, a nie wg poziomu, więc gracz, który dotrze do mapy 6 na lv 20, kupi sprzęt mapy 6 od razu (ryzyko i szansa, jak we FNaFB).
-- Wyjątkowe bronie z sekcji 4 nie ze sklepu (sekrety, bossowie, questy, ulepszenia NPC).
-- Pokrętło tempa: stosunek cena / złoto z potwora (tu 2 zabicia); zwiększenie do 6–10 spowolni zakupy bez ruszania krzywych.
-- Konsekwencja dla balansu wrogów: wzorzec w `enemy_stats.gd` zakłada sprzęt = moc lokacji, co teraz już jest prawdą w tej propozycji (gracz może kupić ten sprzęt od razu); nie trzeba przesuwać wzorca.
+**Pułap sklepu to broń 160 ATK i pancerz 64 DEF na element.** Nic ponad to nie jest w sprzedaży.
+
+**Rzadkie dropy** (`Enemies.rvdata2`, tabele łupu):
+- **Kingly** (320 ATK, cztery rodzaje broni): z każdego Party Hat (Alpha / Beta / Gamma / Omega) **1/80** (Gamma 1/120). W drugim zestawie tych samych wrogów (id 32–35, prawdopodobnie osobna strefa) szansa jest **1/4**.
+- **Godly** (500 ATK, **+500 HP, +500 SP, +50 DEF / MAT / MDF, +100 AGI / LUK**): z czterech „Ace” (bossowie) 1/40–1/60; w drugim zestawie Party Hatów 1/8–1/16.
+- Kingly może wypaść już z Alpha Party Hat, czyli z najsłabszego wroga na początku (1/80), **bez wymogu poziomu**. Gotowa broń endgame zdobyta wcześnie jest więc w FNaFB dopuszczona jako szczęśliwy los.
+- Sekretna broń z kosztem (ATK 500, LUK 500, **HP −5000, DEF −500, MDF −500**) oraz seria „A–F” (50 / 100 / 200 / 300 / 400 / 500 do wszystkich statystyk): to dowód, że FNaFB ma i warianty z karą, i drabinę ulepszeń.
+
+**Waluta i tempo** (złoto z Party Hatów 5 / 10 / 20 / 40, XP 200 / 400 / 800 / 1600):
+- Cena kolejnego tieru kupowalnego = **2 zabicia potworów z aktualnej lokacji** (Bronze 10 = 2 Alpha, Silver 20 = 2 Beta, Gold 40 = 2 Gamma, Platinum 80 = 2 Omega). Poziom: lv 5 → 2,4 Beta, lv 10 → 4,4 Gamma, lv 15 → 4,9 Omega, lv 19 → 7,8 Omega. Barierą nie jest kwota (złoto z potworów podwaja się razem z cenami), tylko **dostęp do sklepu lokacji**.
+- Złoto ma też wydatki poza sprzętem: mikstury (pizze 2–50, napoje 3–80), prezent / ciasto 20–50 oraz **stałe wzmocnienia** po 100 złota: HP Boost +50 maks. HP, MP Boost +50 SP, Attack Boost +5 ATK, Defense Boost +5 DEF (+5 ATK to ok. 2,5 poziomu przyrostu Freddy’ego).
+
+**Siła sprzętu względem poziomu, koniec z końcem** (Freddy lv 20: ATK 58, DEF 32; przyrost z poziomów +37 ATK):
+
+| Zestaw | ATK całkowity | udział sprzętu | sprzęt / przyrost z poziomów |
+|---|---|---|---|
+| FNaFB1: pułap sklepu (160) | 218 | 73 % | 4,3 × |
+| FNaFB1: Kingly (320, drop) | 378 | 85 % | 8,6 × |
+| FNaFB1: Godly (500, drop) | 558 | 90 % | 13,5 × |
+| Nasz wzorzec na lv 100 (320 / baza 214) | 534 | 60 % | 1,6 × |
+
+Wniosek: nasz „standardowy pułap” 320 ATK to w FNaFB wartość **rzadkiego dropu**, nie sklepu. Tier 6 w naszych danych (`shadowbane_sword` 320) odpowiada więc Kingly, a nie Platinum. Żeby uzyskać proporcje FNaFB przy 100 poziomach i bazie ATK 214, pułap sklepu to ok. 2,8 × baza ≈ **600 ATK**, rzadki drop ≈ 2 × pułap ≈ **1200**, najrzadszy ≈ 3,1 × pułap ≈ **1850** (z bonusami do HP / SP). Albo odwrotnie: zmniejszamy przyrost z poziomu (sekcja 8). To dwie dźwignie jednego problemu, nie dwa problemy.
+
+**Propozycja dla nas** (wszystko przykładowe, do zatwierdzenia), wprost wzorowana na tej strukturze:
+- **Sklep w lokacji sprzedaje jeden tier standardowego sprzętu tej lokacji** (jak FNaFB: 4 sklepy = 4 tiery kupowalne), pułap sklepu = standardowy sprzęt końca kampanii (np. 600 ATK po wydłużeniu drabiny, sekcja wyżej). Cena ≈ 2 zabicia zwykłych wrogów tej lokacji: złoto z wroga ≈ 0,25 × ATK_standard(poziom wroga) × waga tieru (0,6 / 1,0 / 1,6, boss ×6), normalizacja po liczbie spawnów jak XP.
+- **Rzadki drop ponad pułap sklepu** (Kingly): osobna tabela łupu wrogów z małą szansą (np. 1/80 jak FNaFB, bez wymogu poziomu), moc ≈ 2 × pułap. W tabeli sekcji 4 to scenariusz „sama broń ×2”: wróg tieru 2 ginie w 2,1–2,9 trafień zamiast 4, boss w 6,2–8,7 zamiast 12.
+- **Najrzadszy** (Godly): drop z bossów (np. 1/40–1/60) lub sekret, ≈ 3 × pułap, z bonusami do HP / SP (wielostatystyczna broń).
+- **Wzmocnienia stałe za złoto** (HP / SP / ATK / DEF Boost) jako dodatkowy wydatek, który nie wymaga nowego systemu (jednorazowy przedmiot z efektem `+stat`).
+- **Warianty z karą** (jak sekretna broń z HP −5000): opcjonalne, osobne pytanie; nie dodawać automatycznie.
+- Pokrętło tempa: stosunek cena / złoto z potwora (tu 2 zabicia); wyższa wartość spowalnia zakupy bez ruszania krzywych.
 
 ## 10. Decyzje do podjęcia
 
-**Pierwsza (blokuje resztę):** czy bierzemy z FNaFB model „waluta z potworów + sklep z tierem sprzętu w każdej lokacji”? (Dziś nie ma złota, sklepów ani cen, a bez źródła sprzętu cały system sprzętu jest martwy.)
-- **Tak** (propozycja wyżej: cena ≈ parę walk, barierą dostęp do sklepu). Dodaje: złoto jako pole w `PlayerStats` i zapisie, drop złota wrogów, NPC / interfejs sklepu (miasto lub hub jeszcze nie istnieją, więc najpierw sklep w menu deweloperskim lub prosty NPC).
-- **Nie** — inne źródła (tylko skrzynie / bossowie / questy): wtedy tempo sprzętu zależy od losu i eksploracji, a „sprzęt szybciej niż poziom” nie zachodzi z założenia.
+**Pierwsza (blokuje resztę):** czy bierzemy model FNaFB „waluta z potworów + sklepy po jednym tierze standardowego sprzętu w lokacji + rzadkie dropy ponad pułap sklepu”? (Dziś w grze nie ma złota, sklepów ani źródła sprzętu, więc cały system sprzętu nie ma jak działać.)
+- **Tak:** dodaje złoto w `PlayerStats` i zapisie, drop złota i tabelę łupu wrogów (w tym rzadkie bronie), NPC / interfejs sklepu (miasta jeszcze nie ma, więc najpierw sklep w menu deweloperskim).
+- **Nie:** tylko skrzynie / bossowie / questy; tempo sprzętu zależy od losu i eksploracji.
 
-**Druga:** skala drabiny sprzętu przy 100 poziomach: **A.** wydłużyć drabinę (broń endgame ≈ 1000+ ATK, przyrost z poziomu bez zmian; sprzęt ≈ 80 % ATK na lv 100), **B.** zmniejszyć przyrost z poziomu (`atk_per_level` / `def_per_level`, sekcja 8), **C.** zostawić jak teraz (poziom dominuje do lv 80).
+**Druga:** skala drabiny przy 100 poziomach: **A.** wydłużyć drabinę (pułap sklepu ≈ 600 ATK, rzadki ≈ 1200, najrzadszy ≈ 1850 ATK z bonusami HP / SP; przyrost z poziomu bez zmian, „szalone liczby” z ustaleń usera), **B.** zmniejszyć przyrost z poziomu (`atk_per_level` / `def_per_level`, sekcja 8), **C.** zostawić jak teraz (nasz pułap 320 = FNaFB-owy rzadki drop, poziom dominuje do lv 80).
+Uwaga: **zmiana A / B przesuwa wzorzec wrogów** w `enemy_stats.gd` (`GEAR_*` albo `*_per_level`); stosunek w walce zostaje, liczby w grze rosną.
 
-**Trzecia:** czy gotowa broń o mocy endgame zdobyta wcześnie (np. sekret w mapie 7) ma pozostać dozwolona bez ograniczeń? Z tabeli w sekcji 4: oznacza to jedno- do trzytrafieniowe walki z bossami od lv 8 do ok. 60, a po lv 80 broń jest zwykła.
-- **A.** Tak, to świadoma nagroda za sekret (bez zmian w kodzie).
-- **B.** Tak, ale moc rośnie etapami (wariant „Żarzące Ostrze”: gotowa broń startuje słabo, pełna dopiero po ulepszeniach u NPC).
+**Trzecia:** wczesny rzadki drop o mocy endgame — FNaFB dopuszcza go bez ograniczeń (Kingly 1/80 już z Alpha Party Hat). U nas oznacza to jedno- do trzytrafieniowe walki z bossami od lv 8 do ok. 60 (tabela sekcji 4).
+- **A.** Tak jak w FNaFB, jako szczęśliwy los (bez zmian w kodzie).
+- **B.** Tak, ale moc rośnie etapami (wariant „Żarzące Ostrze”).
 - **C.** Wymóg poziomu postaci (`required_level`) dla broni powyżej budżetu mapy.
 
 W każdym wariancie osobna poprawka: pancerz prawie nie wpływa na przeżywalność późno (sekcja 8), więc definicję ciosu wroga w `enemy_stats.gd` trzeba przejrzeć niezależnie od wyborów.
