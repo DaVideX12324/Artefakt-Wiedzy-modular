@@ -9,6 +9,6 @@ export_presets.cfg
 *.xcf
 
 # Glionox 16x16: licencja zabrania redystrybucji paczki - lokalnie tak, w repo tylko licencja i opis zakresów
-/assets/textures/icons/glionox_16x16/*
-!/assets/textures/icons/glionox_16x16/LICENSE.txt
-!/assets/textures/icons/glionox_16x16/ZAKRESY.txt
+/assets/_nieuzywane/textures/icons/glionox_16x16/*
+!/assets/_nieuzywane/textures/icons/glionox_16x16/LICENSE.txt
+!/assets/_nieuzywane/textures/icons/glionox_16x16/ZAKRESY.txt
