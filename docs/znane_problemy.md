@@ -10,12 +10,13 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### ⚠ WAŻNE: (#1) Przyspieszenie generowania / powrót do bazy commita „Speed up cave generation and add loading bar” (1a526846)
+### ⚠ WAŻNE: (#1) Przyspieszenie generowania / powrót do bazy commita „Speed up cave generation and add loading bar” (8915c89)
 - **Stan 2026-10-13: DO ZROBIENIA Z OPUSEM JUTRO — PRIORYTET #1.**
-- **Commit odniesienia:** `1a526846fd67eb71febe894c8f183160bbbd5a52` (`Speed up cave generation and add loading bar`, 2026-09-24).
+- **Commit odniesienia:** `8915c89ea89d350fc45f828fcdb8c4f6e1ab6157` (`Speed up cave generation and add loading bar`, 2026-09-24).
+  Hash po przepisaniu historii 2026-10-15 (dawny `1a526846` już nie istnieje w repo). Z historii usunięto assety, więc ten commit nie uruchomi się bez nich — do testów weź go jako osobny worktree i podlinkuj / skopiuj bieżący `assets/` (oryginał z assetami: kopia zapasowa `F:\Programy\GitHub\_kopie_zapasowe_przed_przepisaniem\host-remote.git`).
 - **Kontekst:** Ostatni commit przed większymi zmianami (w tym wprowadzaniem układu `structured`), który skupiał się na ogólnym przyspieszeniu generatora i na którym generowanie działało znacznie szybciej i stabilniej.
 - **Plan działania (do wykonania z Claude Opus):**
-  - Przejście do commita `1a526846` (lub porównanie `git diff 1a526846..HEAD`) i przeanalizowanie różnic wydajnościowych.
+  - Przejście do commita `8915c89` (lub porównanie `git diff 8915c89..HEAD`) i przeanalizowanie różnic wydajnościowych.
   - Wyczyszczenie narzutu i przywrócenie szybkiego, płynnego generowania map bez zacięć.
 
 ### ⚠ WAŻNE: (#2) ekran śmierci drużyny — ZROBIONE 2026-10-09, czeka na sprawdzenie w grze
