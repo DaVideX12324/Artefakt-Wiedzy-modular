@@ -6,6 +6,7 @@ const MainMenuScene := preload("res://scenes/ui/main_menu.tscn")
 var _module_host: ModuleHost
 var _module_layer: Control
 var _menu
+var _transition: ModuleTransition
 
 
 func _ready() -> void:
@@ -20,29 +21,68 @@ func _ready() -> void:
 	_module_host.module_started.connect(_on_module_started)
 	_module_host.module_exited.connect(_on_module_exited)
 	_module_host.module_failed.connect(_on_module_failed)
+	_module_host.module_exiting.connect(_on_module_exiting)
 
 	_menu = MainMenuScene.instantiate()
 	add_child(_menu)
 	_menu.connect("launch_requested", _start_module)
 
 
+## Wejście do modułu: ekran przejścia powstaje pierwszy i jest narysowany, zanim ruszy wczytywanie (scena wejściowa
+## w tle, pasek za postępem) i start modułu — ścinka dzieje się pod zasłoną.
 func _start_module(manifest: Dictionary) -> void:
+	_show_transition(str(manifest.get("name", manifest.get("id", "Moduł"))), "Ładowanie")
+	await _transition.painted()
+	var entry_path := str(manifest.get("entry_scene_path", ""))
+	if entry_path != "" and ResourceLoader.exists(entry_path):
+		ResourceLoader.load_threaded_request(entry_path)
+		var progress: Array = []
+		while ResourceLoader.load_threaded_get_status(entry_path, progress) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+			_transition.set_progress(float(progress[0]) * 0.8 if not progress.is_empty() else 0.0)
+			await get_tree().process_frame
+		_transition.set_progress(0.8, "Uruchamianie")
+		await get_tree().process_frame
 	_menu.visible = false
 	_module_host.start_module(manifest, _module_layer)
 
 
 func _on_module_started(_module_id: String) -> void:
-	pass
+	_hide_transition_after_frames()
+
+
+func _on_module_exiting(_module_id: String) -> void:
+	_show_transition("Artefakt Wiedzy", "Zamykanie gry")
 
 
 func _on_module_exited(_module_id: String) -> void:
 	_return_to_menu()
+	_hide_transition_after_frames()
 
 
 func _on_module_failed(_module_id: String, reason: String) -> void:
 	_return_to_menu()
+	_hide_transition_after_frames()
 	if _menu.has_method("show_status"):
 		_menu.call("show_status", reason)
+
+
+func _show_transition(title: String, stage: String) -> void:
+	if is_instance_valid(_transition) and _transition.is_active():
+		_transition.reset(title, stage)
+		return
+	_transition = ModuleTransition.open(get_tree(), title, stage)
+
+
+## Zdejmuje ekran po kilku klatkach — pierwsze klatki nowej sceny (menu modułu / hosta) są już narysowane.
+func _hide_transition_after_frames() -> void:
+	if not is_instance_valid(_transition):
+		return
+	var t := _transition
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().create_timer(0.2, true).timeout
+	if is_instance_valid(t):
+		t.fade_out()
 
 
 func _return_to_menu() -> void:
