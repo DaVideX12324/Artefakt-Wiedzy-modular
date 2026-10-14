@@ -6,6 +6,52 @@
 > wartości ~15 ms to w dużej części szum od `print`). Cel: gra nie zamarza podczas generowania,
 > a mapa 250×250 z płaskowyżami generuje się w ~2 s zamiast ~5 s — bez zmiany wyniku (parytet).
 
+## Sesja 2026-10-15 (Opus, gałęzie `optymalizacja-generowania` hosta i CienMgly)
+
+Porównanie z 8915c89 (worktree `../stary`, assety przez junction, `.godot/` skopiowane). Wniosek: sama
+jaskinia nie zregresowała mocno (dane 160² ~0,95 s → ~1,5 s, głównie nowe etapy: schody płaskowyżów,
+obiekty, teren, navmesh); „4 s w podglądzie” to głównie ścieki (układ `structured`, port prototypu numpy:
+operacje na całej mapie w pętlach po pokojach / kompleksach / kładkach — skala ~kwadratowa z polem) plus
+zależność porcji od FPS.
+
+Pełna ścieżka gry (headless, seed 119, `tests/diag_fullpath_timing.gd`, do `generation_finished`):
+
+| Mapa | 8915c89 | przed sesją | po sesji |
+|---|---:|---:|---:|
+| jaskinia 160² | 1150 ms | 1884 ms | 1801 ms |
+| ścieki 160² | – | 3042 ms | 2347 ms |
+| ścieki 500² | – | 69,8 s | 32,0 s |
+| jaskinia 160² przy 20 FPS (paint + entities) | – | 850 ms | 82 ms |
+
+Same dane ścieków 500² (`tests/diag_job_profile.gd`): 65,8 s → 29,2 s; corridors 36,8 → ~8 s,
+smoothing 11,9 → ~6 s, floor 4,1 → 2,1 s. Każdy krok: parytet IDENTICAL (digest siatki, obiektów,
+spawnów, planów kafli — `tests/run_job_parity.sh`, cave/sewer 119/7/42 160², sewer 220–500, cave 250/300)
+względem kodu sprzed sesji.
+
+Zrobione (osobne commity CienMgly):
+- `FrameSlicer` — porcje kafli / encji / obiektów wg czasu klatki, nie liczby (czas nie zależy od FPS).
+- `StructuredState`: dilate / m_or / m_and / m_andnot po 8 kratek (int64), distance_to i prefix bez warunków.
+- `_build_halls` bez pełnych skanów na kompleks; `WallTopAlignPass` wznawia szukanie od rzędu naprawy.
+- `_fill_dead_end_slivers` / `_raise_facade_protrusions`: odrzucanie z rastra bajtów zamiast lambd.
+- `_repair`: maski int64, BFS `_flood`; `_drop_redundant_bridges`: graf spójności (2,2 s → 35 ms).
+- pętle pokój–pokój: `DiffSum` + `_rects_dt_window` (transformata tylko w oknie A*).
+- `TileResolver.AnchorCache` dla podłogi.
+- Uwaga: commit Antigravity 2e0f223b („próba przyspieszenia”) zmienił wynik (limity max_cost, MAX_POPS
+  25 000, 12 prób pętli), ale zawiera faktyczną poprawkę: klucz kopca A* 20 → 24 bity (przy 500² stanów
+  1,25 mln > 2²⁰ — stary kod psuł kopiec; to „wiszące” korytarze na 500²).
+
+Zostało (kolejność wg zysku):
+1. **Zacięcia na głównym wątku**: `_prepare_job` → `_pool_from_paths` ładuje sceny wrogów (~0,4 s) przed
+   ekranem ładowania; klatka „poza etapem” 840 ms przy 500² (prawdopodobnie `setup_navigation_region` /
+   warstwy) i klatki paint 200–350 ms przy 500² (aktualizacja TileMapLayer po dużej porcji — obniżyć
+   `FrameSlicer.MAX_MS` albo porcje warstw).
+2. `distance_to` w `_complex_loops` / `_repair` / `_carve_service` (cele dowolne — okno wymaga dokładnych
+   wartości brzegu), A* `find` alokuje 2 × W·H·5 na wywołanie.
+3. Przejścia `WallProtrusion` / `WallThickness` / `_unreachable` (GridUtils.is_walkable na słowniku,
+   ~2 s przy 400²) — raster bajtów jak wyżej; wspólne z jaskinią.
+4. `EdgeAnalyzer` (~2 s przy 500²), obiekty (~4,4 s przy 500²), `_fill_gaps` sieci kanałów (~1,4 s).
+5. Jaskinia 160²: portals 174 ms (było 84), plateau_tiles 200 ms (było 124), plateau_stairs 137 ms.
+
 ## Stan realizacji (2026-09-25)
 
 Zrobione — parytet (42 digesty: ściany + ścieżka z płaskowyżami) IDENTICAL po każdym kroku,

@@ -11,7 +11,10 @@
 ## Do zrobienia (zgłoszone, następnym razem)
 
 ### ⚠ WAŻNE: (#1) Przyspieszenie generowania / powrót do bazy commita „Speed up cave generation and add loading bar” (8915c89)
-- **Stan 2026-10-13: DO ZROBIENIA Z OPUSEM JUTRO — PRIORYTET #1.**
+- **Stan 2026-10-15: W TOKU — część zrobiona** (gałęzie `optymalizacja-generowania`, niezmergowane). Ścieki 500²
+  69,8 → 32,0 s, ścieki 160² 3,0 → 2,3 s, czas niezależny od FPS, wynik identyczny. Tabela, lista zmian i co
+  zostało (m.in. ~0,4 s zacięcia przed ekranem ładowania): [plan_przyspieszenie_generowania.md](plan_przyspieszenie_generowania.md), sekcja „Sesja 2026-10-15”.
+- Stan 2026-10-13: DO ZROBIENIA Z OPUSEM JUTRO — PRIORYTET #1.
 - **Commit odniesienia:** `8915c89ea89d350fc45f828fcdb8c4f6e1ab6157` (`Speed up cave generation and add loading bar`, 2026-09-24).
   Hash po przepisaniu historii 2026-10-15 (dawny `1a526846` już nie istnieje w repo). Z historii usunięto assety, więc ten commit nie uruchomi się bez nich — do testów weź go jako osobny worktree i podlinkuj / skopiuj bieżący `assets/` (oryginał z assetami: kopia zapasowa `F:\Programy\GitHub\_kopie_zapasowe_przed_przepisaniem\host-remote.git`).
 - **Kontekst:** Ostatni commit przed większymi zmianami (w tym wprowadzaniem układu `structured`), który skupiał się na ogólnym przyspieszeniu generatora i na którym generowanie działało znacznie szybciej i stabilniej.
