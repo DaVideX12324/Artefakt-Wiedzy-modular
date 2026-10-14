@@ -10,7 +10,15 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### ⚠ WAŻNE: (#1) ekran śmierci drużyny — ZROBIONE 2026-10-09, czeka na sprawdzenie w grze
+### ⚠ WAŻNE: (#1) Przyspieszenie generowania / powrót do bazy commita „Speed up cave generation and add loading bar” (1a526846)
+- **Stan 2026-10-13: DO ZROBIENIA Z OPUSEM JUTRO — PRIORYTET #1.**
+- **Commit odniesienia:** `1a526846fd67eb71febe894c8f183160bbbd5a52` (`Speed up cave generation and add loading bar`, 2026-09-24).
+- **Kontekst:** Ostatni commit przed większymi zmianami (w tym wprowadzaniem układu `structured`), który skupiał się na ogólnym przyspieszeniu generatora i na którym generowanie działało znacznie szybciej i stabilniej.
+- **Plan działania (do wykonania z Claude Opus):**
+  - Przejście do commita `1a526846` (lub porównanie `git diff 1a526846..HEAD`) i przeanalizowanie różnic wydajnościowych.
+  - Wyczyszczenie narzutu i przywrócenie szybkiego, płynnego generowania map bez zacięć.
+
+### ⚠ WAŻNE: (#2) ekran śmierci drużyny — ZROBIONE 2026-10-09, czeka na sprawdzenie w grze
 - **Stan 2026-10-12: ZROBIONE, DO SPRAWDZENIA W GRZE.** Scena `scenes/ui/death_screen.tscn` (WYSIWYG) pokazywana z `QuizCombatController`, gdy po przegranej walce `PlayerStats.is_party_defeated()`; przyciski „Wczytaj zapis” / „Menu główne”. Trucizna w świecie (DoT co `POISON_WORLD_INTERVAL` 3 s, 1 HP, do 1 HP) i w walce (5 % maks. HP na rundę), odtrutka przez `cure_statuses`; źródło trucizny = umiejętność wroga (`QuizRpgEnemySkill`). Commity CienMgly 6482268, 9a6a049; testy lokalne `check_death_screen`, `check_poison`. Pełna ścieżka (przegrana → ekran, zatrucie w walce) nie była przechodzona w grze — po potwierdzeniu przez usera usunąć ten wpis i znacznik ⚠.
 - Zgłoszenie usera 2026-10-09: „najbardziej podstawowa funkcja gry” — **priorytet #1, przed wszystkimi innymi
   ważnymi todo**.
