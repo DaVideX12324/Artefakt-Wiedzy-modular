@@ -11,6 +11,12 @@ git clone --recurse-submodules https://github.com/DaVideX12324/Artefakt-Wiedzy-m
 # istniejąca kopia: git submodule update --init --recursive
 ```
 
+> **`assets/` to prywatny submoduł** ([Artefakt-Wiedzy-assets](https://github.com/DaVideX12324/Artefakt-Wiedzy-assets)):
+> licencje części paczek (m.in. Glionox, kupione zestawy) zabraniają redystrybucji, więc pliki assetów nie są
+> publiczne. Bez dostępu do tego repo `--recurse-submodules` zgłosi błąd przy `assets`; kod i dokumentację da się pobrać
+> zwykłym `git clone` (+ `git submodule update --init modules/BitBomber modules/quiz_rpg`), ale gra bez assetów się
+> nie uruchomi. Publicznie dostępny jest tylko zbudowany plik wykonywalny.
+
 ## Moduły
 
 | Moduł | Repo | Status |
@@ -82,7 +88,8 @@ Artefakt-Wiedzy-modular/
 │   └── shared/quiz/             # wspólny kontroler panelu quizu
 ├── resources/                   # Zasoby hosta (quizzes/, fonts/, audio/)
 ├── addons/object_catalog_sync/  # Wtyczka edytora (katalogi obiektów generatora Cienia Mgły) — nie jest zależnością gry
-├── assets/                      # Assety współdzielone (paczki Pixel Crawler, tilesety, ikony)
+├── assets/                      # PRYWATNY submoduł (Artefakt-Wiedzy-assets): paczki Pixel Crawler, tilesety, ikony;
+│                                #   nieużywane leżą w assets/_nieuzywane/ (z .gdignore, wyłączone z projektu i eksportu)
 ├── .claude/                     # Hook startowy Claude Code (przypomnienia o ważnych todo)
 ├── docs/
 │   ├── README.md                # Indeks całej dokumentacji (statusy plików)
@@ -186,6 +193,8 @@ samodzielnej kopiujesz moduł poza hosta i zmieniasz nazwę pliku na `project.go
 
 Cień Mgły ma do tego skrypt: kopie usług hosta leżą w `_host/` (z `.gdignore`), a samodzielny projekt tworzy
 `modules/quiz_rpg/tools/make_standalone.sh` — opis w [`modules/quiz_rpg/README.md`](modules/quiz_rpg/README.md).
+Kopie assetów (`_host/assets`) nie są w repo modułu (assety są prywatne) — generuje je `sync_host_copies.gd`
+z lokalnego `assets/` hosta.
 
 ## Tworzenie nowego modułu
 
