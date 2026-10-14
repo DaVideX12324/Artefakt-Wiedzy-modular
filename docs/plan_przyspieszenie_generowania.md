@@ -1,6 +1,6 @@
 # Plan: przyspieszenie generowania map (jaskinie)
 
-> Status (2026-10-13): **PRIORYTET #1 (do zrobienia z Claude Opus jutro)** — powrót do stabilnego i szybkiego commita `1a526846` (`Speed up cave generation and add loading bar`, 2026-09-24) lub jego analiza pod kątem wyeliminowania późniejszych regresji wydajnościowych z generatora ścieków/układu structured.
+> Status (2026-10-13): **PRIORYTET #1 (do zrobienia z Claude Opus jutro)** — powrót do stabilnego i szybkiego commita `8915c89` (`Speed up cave generation and add loading bar`, 2026-09-24) lub jego analiza pod kątem wyeliminowania późniejszych regresji wydajnościowych z generatora ścieków/układu structured.
 >
 > Spisane 2026-09-24 na podstawie pomiarów (seed 184356, Godot 4.7.2 headless, jeden przebieg,
 > wartości ~15 ms to w dużej części szum od `print`). Cel: gra nie zamarza podczas generowania,
