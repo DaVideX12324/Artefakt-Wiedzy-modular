@@ -72,6 +72,8 @@ większość złota idzie na mikstury HP / SP (stałe wartości, nie %; walka z 
 
 ## Najbliższe kroki
 
+> **Najnowszy handoff (2026-10-16):** [`sesja_2026-10-16_druzyna_ui.md`](sesja_2026-10-16_druzyna_ui.md) — drużyna / AGI / szyk na `main`, paski, opcje, następne kroki.
+
 Zadania i otwarte wątki zostały skonsolidowane w dokumencie [`docs/znane_problemy.md`](../znane_problemy.md):
 - **Priorytety `### ⚠ WAŻNE:`:**
   - Weryfikacja ekranu śmierci i trucizny w świecie (`(#1)`).
