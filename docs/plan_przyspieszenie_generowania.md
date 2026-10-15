@@ -52,6 +52,21 @@ Zostało (kolejność wg zysku):
 4. `EdgeAnalyzer` (~2 s przy 500²), obiekty (~4,4 s przy 500²), `_fill_gaps` sieci kanałów (~1,4 s).
 5. Jaskinia 160²: portals 174 ms (było 84), plateau_tiles 200 ms (było 124), plateau_stairs 137 ms.
 
+## Sesja 2026-10-16 (noc, Opus, już na `druzyna-balans`)
+
+Pełna ścieżka gry (headless, seed 119): jaskinia 160² 1884 -> **1693 ms**, ścieki 160² 3042 -> **2100 ms**,
+ścieki 500² 69,8 -> **30,3 s**; najdłuższe klatki kładzenia kafli przy 500² 330 -> ~125 ms. Parytet IDENTICAL po każdym kroku.
+- Sceny wrogów z pul map wczytywane w tle przy starcie modułu (`ProceduralLevel.warm_enemy_scenes`) i trzymane przez sesję;
+  domyślna pula typu poziomu ładowana tylko bez puli z JSON-a — pierwsza klatka generowania ~550 -> ~120 ms.
+- `FrameSlicer.MAX_MS` 100 -> 33 ms (klatki kładzenia kafli przy dużych mapach).
+- Przejścia ścian na rastrze (`GridPass.walk_raster` / `type_raster`): ShortLedgeRaise, DiagonalTouch, SlopeThickness,
+  WallThickness, WallProtrusion — 160²: jaskinia portals 179 -> 115 ms, smoothing 167 -> 128 ms; ścieki smoothing 393 -> 292 ms.
+- `CanalPlacer._parts` — części modułów z pamięci podręcznej; ścieki 160² floor 269 -> 222 ms.
+
+Zostało (160², ms): jaskinia `plateau_tiles` 202 (było 124), `edges` ~190 (EdgeContext na kratkę), `plateau_stairs` 137,
+`objects` 134; ścieki `smoothing` 292, `objects` 252, `corridors` 220, `edges` ~200. Testy zacięć: `check_start_safety`
+ma 4 FAIL także przed tą sesją (do sprawdzenia osobno).
+
 ## Stan realizacji (2026-09-25)
 
 Zrobione — parytet (42 digesty: ściany + ścieżka z płaskowyżami) IDENTICAL po każdym kroku,
