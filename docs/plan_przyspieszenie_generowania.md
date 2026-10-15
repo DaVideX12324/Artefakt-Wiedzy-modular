@@ -67,6 +67,51 @@ Zostało (160², ms): jaskinia `plateau_tiles` 202 (było 124), `edges` ~190 (Ed
 `objects` 134; ścieki `smoothing` 292, `objects` 252, `corridors` 220, `edges` ~200. Testy zacięć: `check_start_safety`
 ma 4 FAIL także przed tą sesją (do sprawdzenia osobno).
 
+## Sesja 2026-10-16 (dzień, Opus, CienMgly `main`)
+
+Powód: na laptopie usera (i5 9. gen.) ścieki 160² ~5,8 s, 500² ~74 s (ok. 2,7× wolniej niż headless u mnie — równo
+na wszystkich etapach, czyli sprzęt, nie regresja). Parytet IDENTICAL po każdym kroku (cave/sewer 119/7/42 160²,
+sewer 119 250², sewer 119 500² względem kodu sprzed sesji).
+
+Główna lekcja: **wywołanie funkcji na kratkę w GDScript kosztuje więcej niż cała reszta sprawdzenia** —
+`walkable_type()` / `GridUtils.is_walkable()` / domknięcia w pętlach po całej mapie zastąpione odczytem z rastra
+i tablic `GridPass.WALK_LUT` / `WALL_LUT` (256 wartości, indeks = typ kratki).
+- WallThickness 49 -> 19 ms; pętla zbieżna czyszczenia na rastrze + `carve_needs_side_floor()` (pomija kratki ze
+  ścianą po obu bokach); WallTopAlign, DiagonalTouch, ShortLedgeRaise — skan z rastra.
+- EdgeAnalyzer: sąsiedztwo 3×3 wpisane w pętlę (maska z bajtów), przebiegi 1 / 2 / 5 z tablicy bajtów: ~215 -> ~178 ms.
+  Zostaje: samo `EdgeContext.new()` to ~2,4 µs × 25,6 tys. = ~60 ms (obiekty tylko dla kratek przy krawędzi = większa
+  przebudowa konsumentów `analysis.edges`).
+- Ścieki: osiągalność / migawka / przywracanie na rastrze (BFS na indeksach), `_walk_raster` = `GridPass.walk_raster`,
+  spójność przesmyków BFS-em z obu końców (`_connected_both`), wypustki bez powtórnych sprawdzeń.
+- Wynik 160²: smoothing jaskini ~130 -> ~60 ms, ścieków ~290 -> ~160 ms. 500²: slivers 234 -> 88, protrusions 824 -> 389 ms.
+- Diagnostyka: czasy passów w `preprocess_stats["t_<id>"]`, kroki wygładzania ścieków w `stats["t_smooth"]`.
+
+**Pasek ładowania wagowy** (`GenProgress.configure(layout, w, h)`): wagi etapów per układ (`WEIGHTS.interior` /
+`.structured`) jako ms przy 250² × (pole / 250²)^wykładnik (dopasowanie log z 160/250/500); kroki korytarzy ścieków
+`GenProgress.step` (`STEPS`). Luki między etapami (schody korytarzy, kratownice, drabiny, zwalnianie analizy) liczone do
+poprzedniego etapu. Ścieki 500²: pasek ≈ czas (10% -> 6%, 50% -> 49%, 90% -> 91%). `diag_fullpath_timing` wypisuje
+`PASEK (czas->pasek)`.
+
+**Mapy z wyprzedzeniem** (`scripts/maps/map_prefetch.gd`): po wejściu na mapę jej `next_level_path` i
+`previous_level_path` (z ruin: jaskinia) liczone w tle (GenJob.run, jedno zadanie naraz, ~26 MB na mapę, najwyżej
+2 gotowe). Wejście bierze gotowe dane po kluczu (poziom, seed, rozmiar): ścieki 160² 2,4 s -> 0,23 s, te same kafle
+(`tests/check_map_prefetch.gd`). `GenProgress.bind` — postęp per wątek (liczenie w tle nie rusza paska); wejście na
+mapę liczoną jeszcze w tle podpina pod nią pasek.
+
+Zostało / zauważone:
+1. **Zapis gotowych map na dysk** (wczytanie zapisu bez generowania) — nie zrobione. Wymaga serializacji wyniku
+   (`GenerationResult` to klasa wewnętrzna; PlateauLayout, ObjectPlan z definicjami, CanalLayout, GenerationFlags,
+   NavigationPolygon) albo zapisu `tile_map_data` warstw po kładzeniu + lekkiego wyniku; klucz z wersją generatora.
+2. Korytarze ścieków rosną ~pole^1,5: przy 500² 68 × `distance_to` całej mapy (2,4 s, 62 różne maski — pamięć
+   podręczna nic nie da) i 139 × A* (2,3 s). Następny krok: transformata tylko w oknie wyszukiwania z dokładnymi
+   wartościami na brzegu okna (jak `_rects_dt_window`, ale dla dowolnej maski).
+3. Zacięcie głównego wątku po zakończeniu generowania (pierwsza klatka z nowymi warstwami): ~209 ms przy 250²,
+   ~539 ms przy 500² (headless) — prawdopodobnie budowa kwadrantów / kolizji TileMapLayer.
+4. `canal_pass.gd` (jaskinie z kanałami) używa globalnego `Array.shuffle()` — niedeterministyczne przy naprawie kładek.
+5. `map_width` domyślnie 160 w `procedural_level.gd` ma pierwszeństwo przed `width` z JSON-a — ścieki w grze mają
+   160², nie 200² z `sewer.json` (do decyzji usera).
+6. `tests/diag_loading_screen.gd`: 3 FAIL także przed sesją (oczekuje stałego „…”, ekran animuje kropki).
+
 ## Stan realizacji (2026-09-25)
 
 Zrobione — parytet (42 digesty: ściany + ścieżka z płaskowyżami) IDENTICAL po każdym kroku,
