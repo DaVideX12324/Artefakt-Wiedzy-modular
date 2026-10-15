@@ -1,6 +1,6 @@
 # Drużyna — towarzysze, klasy, dołączanie (szkic do oceny)
 
-Stan: **pomysł z 2026-10-12, nic nie jest zaimplementowane** (jest jeden bohater `hero_bohater.tres`; infrastruktura per członek już działa, patrz niżej).
+Stan: **2026-10-16 — MVP grywalne na `druzyna-balans`** (sekcja „Zrobione 2026-10-16” na końcu). Szkic niżej to pierwotna propozycja z 2026-10-12.
 Wszystkie nazwy i liczby to propozycje.
 
 ## 1. Decyzje usera
@@ -77,3 +77,26 @@ Decyzje usera (2026-10-12):
 5. Czy bohater też ma klasę (Wojownik) i czy da się zmieniać klasę (propozycja: nie).
 6. Skille klasowe: Mag i Łotrzyk mają za mało skilli (sekcja 4); dane i opisy do Gemini wg briefu jak S6 — najpierw ustalić, jakie skille (lista pomysłów).
 7. Grafiki: jakich postaci użyć z paczki, czy potrzebne są nowe animacje.
+
+## Zrobione 2026-10-16 (Opus, gałąź `druzyna-balans`)
+
+- **Postacie:** `resources/heroes/hero_lotrzyk.tres` (rogue, ATK), `hero_mag.tres` (mage, MAT i SP), `hero_kaplan.tres` (priest, MDF i MAT);
+  grafika Pixel Crawler: Łotrzyk i Mag = NPC free packa (Rogue, Wizzard; `resources/heroes/frames/`, klatki dopełnione do 64×64),
+  Kapłan = `royal_priest` (royal_crew). Imiona zastępcze. Skille z obecnej puli (zastępczo — klasowe do zaprojektowania, pkt 6).
+  Broń klasy: sztylet / kostur / buława. `QuizRpgHeroData.sprite_offset` (stopy klatek 64×64).
+- **PlayerStats:** `recruit(hero_id, at_level)` (domyślnie najwyższy poziom − 1), `HERO_PATHS`, `hero_by_id`, `has_member`,
+  `recruitable_heroes`, `highest_level`; `add_xp` — każdy członek pełna kwota do własnej puli, bez przytomności 50 % (także lider),
+  awanse wg krzywej postaci (sygnał `member_level_up`); `companion_quests` w zapisie; wczytanie odtwarza pola wizualne (JSON).
+- **Mapa:** `scripts/player/party_followers.gd` — towarzysze za bohaterem na każdej mapie (level_manager), poza grupą `player`
+  i bez warstwy kolizji (wrogowie / portale widzą tylko lidera), doganiają skokiem, odbicie sprite'a w lewo.
+- **Walka:** wiersz każdego członka, wróg atakuje losowego przytomnego (obrona tylko dla broniącego), porażka po upadku całej
+  drużyny, komunikaty awansów towarzyszy. **Schemat tury bez zmian: w turze działa jedna wybrana postać** (Walcz → wybór postaci).
+- **Rekrutacja:** `scenes/npc/companion_npc.tscn` (@tool — widoczny w edytorze): rozmowa (`scenes/ui/dialog_box.tscn`) → zadanie
+  (NONE / ANSWER_CORRECT / BRING_ITEM) → dołącza i znika. W `town.tscn`: Łotrzyk (5 poprawnych odpowiedzi), Mag (2 etery),
+  Kapłan (10 poprawnych odpowiedzi). Menu deweloperskie: karta „Drużyna” (dołącz od ręki).
+- Testy lokalne: `check_party_recruit`, `check_party_followers`, `check_party_combat`, `check_companion_npc`, `shot_party_combat`, `shot_party_pause`.
+
+**Pytania do usera:** (1) czy w każdej turze ma działać każdy członek (4 pytania na turę) czy zostaje jedna wybrana postać;
+(2) imiona i charakter towarzyszy; (3) skille klasowe (Mag / Łotrzyk / Kapłan mają dziś pożyczone z puli bohatera);
+(4) bohater ma stare klatki Soldier (100×100, legacy Amon-Ra) — towarzysze i wrogowie są z Pixel Crawlera; podmienić bohatera?
+
