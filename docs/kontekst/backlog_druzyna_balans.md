@@ -21,7 +21,7 @@ HP bohatera 334 → 1402 (lv 1–20), XP 100 × L^1.5, staty ATK / DEF / MAT / M
 
 **O — projekt**
 1. **Skalowanie tierów przy kilkunastu mapach:** `enemy_level` + archetypy + krzywa XP + generator `.tres` (patrz `znane_problemy.md`).
-2. AGI i kolejność tur (z statusami AGI w górę / w dół; TODO w `game_design.md`), „zawsze rusza ostatni” (Marsz / Usypiająca Melodia), Dzielenie Tempa naprawdę na AGI.
+2. ~~AGI i kolejność tur (z statusami AGI w górę / w dół), Dzielenie Tempa naprawdę na AGI~~ — zrobione 2026-10-16 (`walka.md`). Zostało: „zawsze rusza ostatni” (Marsz / Usypiająca Melodia — np. prędkość umiejętności, gdy postać działa w swojej kolejce), unik / ucieczka z AGI (niżej).
    - **Opis zadania dla Opusa (2026-10-11), unik / pudło / blok:** dziś zwykły atak wroga trafia ZAWSZE (pudłuje tylko przy statusach
      z `hit_mult`: Oślepienie ×0,4, Przestrach ×0,75; „Unik!” w `_enemy_turn`), bohater nie ma uniku ani losowego bloku
      (jest tylko akcja Obrona: obrażenia ×0,25 po dobrej odpowiedzi / ×0,5 po złej; `can_be_blocked = false` ją omija).

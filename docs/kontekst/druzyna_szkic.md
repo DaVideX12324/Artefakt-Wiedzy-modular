@@ -100,3 +100,7 @@ Decyzje usera (2026-10-12):
 (2) imiona i charakter towarzyszy; (3) skille klasowe (Mag / Łotrzyk / Kapłan mają dziś pożyczone z puli bohatera);
 (4) bohater ma stare klatki Soldier (100×100, legacy Amon-Ra) — towarzysze i wrogowie są z Pixel Crawlera; podmienić bohatera?
 
+**Odpowiedzi (2026-10-16):** (1) „zależne od AGI” — zrobione: każdy przytomny działa raz na rundę w kolejności wg AGI
+(opis w `walka.md`); (4) „tak” — bohater to Knight z `royal_crew` (`resources/heroes/frames/bohater_frames.tres`,
+też w `player.tscn`). Otwarte: (2) imiona / charakter, (3) skille klasowe.
+

@@ -9,10 +9,14 @@
 - Motyw `resources/ui/quiz_theme.tres` (typy QuizWindow / QuizLog / QuizMenuItem, styl „selected”),
   czcionka Jersey 15 (`resources/ui/jersey15_pixel.res`) w całym quiz_rpg przez `QuizTheme.apply()` —
   rozmiary na siatce 27 px (`QuizTheme.snap`). Oba pliki generuje `tests/build_quiz_theme.gd`.
-- Przebieg tury: Walcz / Uciekaj (lewo) → **wybór postaci** — kursor (styl „selected” pod wierszem)
-  na liście drużyny w prawym oknie, mysz / strzałki, martwe pomijane → komendy tej postaci
-  (`_active_actor_index`: koszty SP/TP, przedmioty) → cel. Esc cofa o krok (komendy → wybór postaci →
-  Walcz). Kursory menu prowadzi kontroler — przyciski komend mają `FOCUS_NONE` (fokus Godota zjadał
+- Przebieg rundy (od 2026-10-16, decyzja usera „zależne od AGI”): każdy przytomny — członkowie drużyny i wrogowie —
+  działa raz na rundę, kolejka wg prędkości = AGI + losowo 0..AGI/4 (jak RPG Maker VX Ace; `_start_round`,
+  `_roll_turn_order`, `_next_turn`). Ruch członka: jego wiersz podświetlony (styl „selected”), od razu jego komendy
+  (`_active_actor_index`: koszty SP/TP, przedmioty) → cel → quiz; Esc z komend → Walcz / Uciekaj (Walcz wraca do
+  komend tej samej postaci, Uciekaj zużywa jej ruch). Ruch wroga: `_enemy_act(i)`. Sen / ogłuszenie / paraliż —
+  postać traci ruch. Obrona trwa do następnego ruchu tej postaci (`_guard`: członek → dobra odpowiedź). Koniec rundy:
+  statusy (`_apply_status_round`). Wybór postaci kursorem na liście drużyny został tylko do celu leczenia (`_ally_pick`).
+  Kursory menu prowadzi kontroler — przyciski komend mają `FOCUS_NONE` (fokus Godota zjadał
   strzałki / Enter).
 - Quiz (`scripts/shared/quiz/quiz_panel_controller.gd`): nawigacja odpowiedzi wg `MC_Box.columns`
   (w scenie 1 kolumna; wcześniej zakładała 2×2 i strzałka w dół skakała o 2).
