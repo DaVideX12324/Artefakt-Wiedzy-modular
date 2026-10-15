@@ -121,7 +121,8 @@
   menu Esc ma wiersze drużyny, komunikaty walki piszą „Bohater i drużyna”.
 
 ### ⚠ WAŻNE — NASTĘPNY ETAP: (5) miasto / hub z modularnych zasobów paczki free
-- **Stan 2026-10-12: NIE ZROBIONE** (brak mapy miasta w `scenes/maps/levels/`: są `cave.tscn`, `sewer.tscn`). Od miasta zależą: sklepy (po wyjściu z jaskiń), kowal i ulepszenia broni z tierami blokowanymi fabułą, wydawanie złota (`kontekst/ekwipunek_szkic.md`), rekrutacja towarzyszy. Do czasu miasta sklep w menu deweloperskim.
+- **Decyzja 2026-10-15:** miasto robione **ręcznie** przez usera (scena w edytorze), **bez generowania** — punkt „mapa składana z modułów paczki przez generator” odpada. Po stronie kodu: NPC, sklep, kowal / ulepszenia, rekrutacja towarzyszy (logika niezależna od mapy).
+- Stan 2026-10-12: NIE ZROBIONE (brak mapy miasta w `scenes/maps/levels/`: są `cave.tscn`, `sewer.tscn`). Od miasta zależą: sklepy (po wyjściu z jaskiń), kowal i ulepszenia broni z tierami blokowanymi fabułą, wydawanie złota (`kontekst/ekwipunek_szkic.md`), rekrutacja towarzyszy. Do czasu miasta sklep w menu deweloperskim.
 > **Priorytet 2026-10-11:** user ustawił miasto / hub jako następny etap prac (po drużynie i balansie).
 
 - Zgłoszenie 2026-10-05 (ostatnie z ważnych todo). Mapa miasta (kolejność map: jaskinia → miasto → ścieki,
