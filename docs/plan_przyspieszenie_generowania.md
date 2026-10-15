@@ -99,7 +99,7 @@ poprzedniego etapu. Ścieki 500²: pasek ≈ czas (10% -> 6%, 50% -> 49%, 90% ->
 mapę liczoną jeszcze w tle podpina pod nią pasek.
 
 Zostało / zauważone:
-1. **Zapis gotowych map na dysk** (wczytanie zapisu bez generowania) — nie zrobione. Wymaga serializacji wyniku
+1. **Zapis gotowych map na dysk** (wczytanie zapisu bez generowania) — nie zrobione, plan: `plan_zapis_map.md`. Wymaga serializacji wyniku
    (`GenerationResult` to klasa wewnętrzna; PlateauLayout, ObjectPlan z definicjami, CanalLayout, GenerationFlags,
    NavigationPolygon) albo zapisu `tile_map_data` warstw po kładzeniu + lekkiego wyniku; klucz z wersją generatora.
 2. Korytarze ścieków rosną ~pole^1,5: przy 500² 68 × `distance_to` całej mapy (2,4 s, 62 różne maski — pamięć
