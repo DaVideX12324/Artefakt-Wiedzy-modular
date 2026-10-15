@@ -104,3 +104,9 @@ Decyzje usera (2026-10-12):
 (opis w `walka.md`); (4) „tak” — bohater to Knight z `royal_crew` (`resources/heroes/frames/bohater_frames.tres`,
 też w `player.tscn`). Otwarte: (2) imiona / charakter, (3) skille klasowe.
 
+**Szyk (2026-10-16, decyzja usera):** kolejność drużyny i lider wg preferencji gracza — menu pauzy „Szyk” (dwie postacie
+→ zamiana miejsc). Pierwsza postać prowadzi na mapie (jej grafika), w walce kolejność wierszy i cel ataków w lidera idą
+za szykiem. Bohater może stać na dowolnym miejscu (`PlayerStats.hero_index()`, `swap_members()`; jego HP / poziom /
+XP / imię dalej w polach PlayerStats). Postaci **nie da się usunąć** z drużyny (na razie). Pomysł na później, gdy
+sojuszników będzie więcej: wybór składu np. w tawernie — wtedy pierwotnego Bohatera nie da się wymienić.
+
