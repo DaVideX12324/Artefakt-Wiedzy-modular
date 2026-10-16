@@ -36,7 +36,7 @@ Dlatego tworzymy **uniwersalny generator układów strukturalnych (`structured`)
   miękkie progi, test kafli osobno od pikseli, pionowy wycinek przed F2–F5, portale osobnym commitem.
 - **Uogólnienie generatora:** kod układu w `scripts/generation/structured/`, flaga `layout: "structured"`,
   ścieki jako konfiguracja JSON (patrz sekcja Podejście architektoniczne).
-- **Wzorzec układu = prototyp v11** (2026-10-05, user: „praktycznie idealnie”): `docs/prototypy/structured_layout/`
+- **Wzorzec układu = prototyp v11** (2026-10-05, user: „praktycznie idealnie”): `docs/prototypy/structured_layout/` *(usunięte 2026-10-16 — w historii gita, commit sprzed usunięcia: `git log -- docs/prototypy`)*
   (`proto_layout.py`, podglądy `podglad_seed119_160.png` / `podglad_seed42_160.png`). Reguły spisane niżej
   w sekcji „Reguły układu (wzorzec z prototypu)” — implementacja ma je odtworzyć, nie interpretować.
 - **Wymiary — uzasadnienie liczbowe:** w prototypie 160² woda zajmuje 26–30 % otwartej przestrzeni,
@@ -246,7 +246,7 @@ w `objects_sewer.json`.
 
 ## Reguły układu (wzorzec z prototypu)
 
-Źródło: `docs/prototypy/structured_layout/proto_layout.py` (Python + numpy, ~700 linii; uruchomienie:
+Źródło: `docs/prototypy/structured_layout/proto_layout.py` (Python + numpy, ~700 linii; uruchomienie: *(usunięte 2026-10-16 — w historii gita, commit sprzed usunięcia: `git log -- docs/prototypy`)*
 `python proto_layout.py 160 160 <seed> out.json`, render: `proto_render.py`, przejścia czyszczące gry:
 `proto_sewer_prepass.gd` z env `PP_IN` / `PP_OUT`). Parametry poniżej idą do JSON konfiguracji (`structured_layout`).
 Ściany: `WALL_H` = 5 (ściana z podłogą nad i pod — lico 3H + grzbiet), `WALL_V` = 2 (ściana boczna);
@@ -419,7 +419,7 @@ generatora układu w `scripts/generation/structured/`**.
   - Testy lokalne: `tests/sewer_showcase.gd`.
 - Dokumentacja:
   - `docs/plan_generator_sciekow.md`, `docs/kontekst/scieki.md`.
-- Wzorzec (tylko odniesienie, nie kod gry): `docs/prototypy/structured_layout/` — `proto_layout.py`,
+- Wzorzec (tylko odniesienie, nie kod gry): `docs/prototypy/structured_layout/` — `proto_layout.py`, *(usunięte 2026-10-16 — w historii gita, commit sprzed usunięcia: `git log -- docs/prototypy`)*
   `proto_render.py`, `proto_sewer_prepass.gd` (test przejść czyszczących; kopiować do `tests/`), podglądy PNG.
 
 ---
@@ -429,7 +429,7 @@ generatora układu w `scripts/generation/structured/`**.
   raport `diag_structured_metrics.gd` (twarde = zielone; miękkie = mediana i najgorsze 10 % w zakresie makiet).
 - F0c zielony (kafle), piksele w granicach wyjątków.
 - F1c: ruch postaci i wrogów na działającej scenie (MCP `simulate_input`, `run_script` z pozycją gracza).
-- Zgodność z wzorcem: maska układu z gry vs `docs/prototypy/structured_layout/podglad_seed*_160.png`
+- Zgodność z wzorcem: maska układu z gry vs `docs/prototypy/structured_layout/podglad_seed*_160.png` *(usunięte 2026-10-16 — w historii gita, commit sprzed usunięcia: `git log -- docs/prototypy`)*
   (seedy 119 / 42 / 7); twardo: korytarz serwisowy nie dotyka żadnej podłogi poza końcami (ściana ≥ 2 / 5),
   żadnej kładki w strefie zakrętu, brak kwadratu 5 × 5 wody, sieć mokra i sucha bez styku.
 - Regresja: `run_plateau_suite.sh` (parytet jaskini 42/42), `diag_objects`, `diag_tile_object_physics`,

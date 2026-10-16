@@ -17,7 +17,7 @@ nie commituj (weryfikację i commit robi Claude); po pracy wpisz na końcu tego 
 3. **Nie kasuj treści.** Nieaktualne fragmenty przenieś do `docs/archiwum/<nazwa>_do_<data>.md` (z nagłówkiem: skąd, kiedy, dlaczego) albo oznacz jako historyczne — nie usuwaj bezpowrotnie.
 4. **Nie zgaduj stanu.** Jeśli nie umiesz sprawdzić, czy coś jest zrobione (w kodzie: `grep`, `ls`; w innych dokumentach), oznacz „DO WERYFIKACJI” i wpisz to do raportu — nie zmieniaj statusu na ślepo.
 5. **Nie ruszaj treści (poza dodaniem wiersza w indeksie)** świeżych dokumentów projektowych: `ekwipunek_szkic.md`, `druzyna_szkic.md`, `sloty_umiejetnosci_szkic.md`, `poziomy_i_xp.md`, `skille_i_pierwowzory.md` / `.docx`,
-   `backlog_druzyna_balans.md`, `i18n_*_dla_gemini.md`, `zadania_dla_antigravity.md`. Nie ruszaj `docs/img/`, `docs/prototypy/`, `universal_interior_generator_refactor.md` (215 KB, tylko wiersz statusu na górze, patrz 3.4).
+   `backlog_druzyna_balans.md`, `i18n_*_dla_gemini.md`, `zadania_dla_antigravity.md`. Nie ruszaj `docs/img/`, `docs/prototypy/`, `universal_interior_generator_refactor.md` (215 KB, tylko wiersz statusu na górze, patrz 3.4). *(usunięte 2026-10-16 — w historii gita, commit sprzed usunięcia: `git log -- docs/prototypy`)*
 
 ## 2. Docelowy podział ról (propozycja — wdrażaj, chyba że w raporcie uzasadnisz inaczej)
 

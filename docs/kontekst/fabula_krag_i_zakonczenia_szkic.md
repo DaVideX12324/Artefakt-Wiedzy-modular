@@ -13,7 +13,7 @@ Oznaczenia: **[U]** — decyzja usera, **[P]** — propozycja z rozmowy do potwi
 - **Arcymag** był zazdrosny: nie przekroczył 9. poziomu. Zsabotował wspólny rytuał badawczy i doprowadził do **wymuszonej zamiany ciał**. Zamiana to nieudany, niestabilny rytuał, a nie sterowany czar. *(Sufit arcymaga = 9. poziom wynika z przesunięcia skali; w propozycji Gemini było 8 — [P].)*
   - **Ciało arcymaga w zamku** mieści umysł prawdziwego Strażnika (uwięziony).
   - **Ciało Strażnika na zewnątrz** zajął umysł arcymaga: **uzurpator**. Gracz zna go jako „Strażnika”, który wysyła go do zamku.
-- Uzurpator **trzyma więźnia przy życiu**, bo wiedza 10. poziomu siedzi w jego umyśle. Łamie jego umysł i wyciąga wiedzę. Uzurpator dostarczał mu przedmioty, żeby nie zmarł przed transferem (to wykorzystuje zapas w sekcji 6.5).
+- Uzurpator **trzyma więźnia przy życiu**, bo wiedza 10. poziomu siedzi w jego umyśle. Łamie jego umysł i wyciąga wiedzę. Uzurpator dostarczał mu przedmioty, żeby nie zmarł przed transferem.
 - Wzór postaci uzurpatora: **nic nie tworzy sam, tylko przejmuje dzieła Strażnika** (kręgi, zwój, wiedzę) i używa pionków (gracza). To przejęta z dawnego kanonu poszlaka, przeniesiona na nowego złoczyńcę.
 
 ### 1.2. Mgła, bariera, propaganda
@@ -62,7 +62,7 @@ Oznaczenia: **[U]** — decyzja usera, **[P]** — propozycja z rozmowy do potwi
 | | Bad Ending | Good Ending | True Ending |
 |---|---|---|---|
 | Warunek | brak małego (zapasowego) kręgu | mały krąg aktywowany; zalecany lv 90 | mały krąg + komplet relikwii + lv 100 |
-| Przebieg | gracz zabija „arcymaga”, niszczy krąg; uzurpator pochłania wiedzę | mały krąg stabilizuje Strażnika, ten wyjawia prawdę, chroni drużynę, przekazuje formuły 9. poziomu i umiera; walka z uzurpatorem (Fazy 1–2) | relikwie pozwalają zrekonstruować zapis; Strażnik „zestraja” bohaterów z formułą 10. poziomu; walka (Fazy 1–3) |
+| Przebieg | gracz zabija „arcymaga”, niszczy krąg; uzurpator pochłania wiedzę | mały krąg stabilizuje Strażnika, ten wyjawia prawdę, chroni drużynę, przekazuje formuły 9. poziomu i umiera; walka z uzurpatorem (Fazy 1–2) | relikwie pozwalają zrekonstruować zapis; prawdziwy Strażnik **przeżywa** i „zestraja” bohaterów z formułą 10. poziomu; walka z uzurpatorem (Fazy 1–3) |
 | Finał | cukierkowa cutscenka, fałszywy raj; prawdziwy zbawca w grobie pod imieniem szaleńca | uzurpator ginie, bariera i sieć upadają, mieszkańcy zostają w trwałej amnezji | uzurpator unicestwiony, fala zwrotna przywraca wspomnienia wszystkim, Mgła opada, bohater poznaje imię |
 
 - **Poniżej lv 90 przy małym kręgu** [U]: nadal Good, tylko trudniej (brak formuł 9. poziomu w walce). To świadome ryzyko, o którym gracz wie z zalecanego poziomu.
@@ -82,7 +82,17 @@ Oznaczenia: **[U]** — decyzja usera, **[P]** — propozycja z rozmowy do potwi
 ### 6.1. Fazy [U]
 
 - **Faza 1:** bohater sam, towarzysze tracą wspomnienia (czarna magia z bliska), wracają przez wzmocnienie tarczy za 100 TP. Reguły z `game_design.md` zostają.
-- **Faza 2:** pełne starcie drużynowe. Na jej końcu (warunek: np. TP/pełna drużyna) bohater użyje umiejętności 10. poziomu.
+- **Faza 2:** pełne starcie drużynowe; kończy ją **pierwsze użycie umiejętności 10. poziomu**.
+  - **Ścieżka True — absurdalna pula HP** [U, 2026-10-16; wzór: B.B. (Giygas) i The Bite of 87 z FNaFB2]: uzurpator ma pulę HP
+    nierealną do zbicia zwykłymi atakami (np. 9 999 999 [ilustracja]); zwykłe ataki zadają normalne obrażenia, pasek ledwo drga.
+    **Pierwsze użycie umiejętności 10. poziomu zadaje absurdalne obrażenia** (jak Bite of 87 — „kilkaset miliardów”), zbija pasek
+    na raz i uzurpator normalnie „ginie” → Faza 3. Bez flagi nieśmiertelności. *(W FNaFB2 BB w fazie 2 ma odporność na śmierć,
+    100 HP w starym buildzie, 999 999 po aktualizacji tylko dla paska; Bite of 87 Mangle dostaje w 5. turze.)*
+  - **Ścieżka Good** [U]: bez umiejętności 10. poziomu, więc **inna Faza 2**, a cała interakcja z uzurpatorem w walce finałowej
+    jest inna (przebieg do ustalenia).
+  - **Różnica ścieżek** [U]: w **True prawdziwy Strażnik (w ciele arcymaga) przeżywa** walkę w zamku i dopiero potem jest walka
+    z uzurpatorem (arcymagiem w ciele Strażnika); w **Good umiera** (przekazuje formuły 9. poziomu), potem walka z uzurpatorem
+    w wersji Good.
 - **Faza 3:** wywołana użyciem 10. poziomu. Uzurpator, widząc to, co sam chciał mieć, wścieka się i sięga po **pełną czarną magię**; mutuje w wypaczoną formę Strażnika. To szczyt trudności („wycisk”).
 - **Fazy 1 i 2 są prostsze niż Faza 3** [U], strojone na gracza z lv 90. Fabuła: gracz osiągnął poziom, którego uzurpator nie mógł. Faza 1 pozostaje łamigłówką (mechanika, nie poziom wrogów).
 - **Dialog** [P]: w Fazach 1–2 uzurpator pewny siebie i lekceważący; w chwili użycia 10. poziomu: „To niemożliwe… to było moje.”
@@ -92,47 +102,48 @@ Oznaczenia: **[U]** — decyzja usera, **[P]** — propozycja z rozmowy do potwi
 - **Przed optimum** kolejne użycia **zmniejszają** koszt SP (i ewentualnie TP) — rezonans. **Po optimum** koszt **rośnie wykładniczo**, bez górnego limitu — zmęczenie.
 - Gdy koszt przekracza 100% dostępnych (maksymalnych) SP, umiejętność jest zablokowana; mikstury uzupełniają SP tylko do maksimum, więc blokady nie przeskoczą. Pula TP ma sufit 100 (`PARTY_TP_MAX`), więc główną blokadą jest SP.
 - Zmęczenie resetuje się po walce („bohater wypoczęty”). Fazy 2 i 3 są jedną walką, dzielą licznik.
-- **Pierwsze użycie jest finałem:** ostatnie możliwe użycie przed ścianą kosztu jest **skryptowym końcem walki** [U].
+- **7 użyć, optimum na 4.** [U, 2026-10-16]: użycie 1 kończy Fazę 2 (6.1), użycia 2–7 przypadają na Fazę 3, a **7. — ostatnie
+  możliwe przed ścianą kosztu — jest skryptowym końcem walki** [U].
+- W Fazie 3 umiejętność zadaje duże, ale zwykłe obrażenia (absurdalne tylko przy przełamaniu Fazy 2) [P].
 - Koszty liczone **względem maksimum SP** [P], żeby ta sama krzywa działała na lv 90 i lv 100. Parametry (początkowy %, spadek, miejsce optimum, mnożnik) jako stałe w jednym miejscu.
 
-[ilustracja] dla SP = 1739 (lv 100, `poziomy_i_xp.md`), start 35%, spadek ×0,8 do optimum po 2 użyciach, potem ×2:
+[ilustracja] dla SP = 1739 (lv 100, `poziomy_i_xp.md`). Krzywa **spłaszczona** [U, 2026-10-16]: 1. użycie 35%, optimum
+(4. użycie) **25%**, 8. użycie 150% (niemożliwe) — spadek ×0,894 na użycie (35% → 25% w 3 krokach), potem ×1,565 (= ⁴√6):
 
-| Użycie | Koszt SP | % maks. SP |
-|---|---|---|
-| 1 | 609 | 35% |
-| 2 | 487 | 28% |
-| 3 (optimum) | 390 | 22% |
-| 4 | 780 | 45% |
-| 5 | 1560 | 90% |
-| 6 | 3120 | 179% — niemożliwe |
+| Użycie | Faza | Koszt SP | % maks. SP |
+|---|---|---|---|
+| 1 | koniec Fazy 2 | 609 | 35% |
+| 2 | 3 | 544 | 31% |
+| 3 | 3 | 486 | 28% |
+| 4 (optimum) | 3 | 435 | 25% |
+| 5 | 3 | 680 | 39% |
+| 6 | 3 | 1065 | 61% |
+| 7 | 3 — finał | 1667 | 96% |
+| 8 | — | 2608 | 150% — niemożliwe |
 
-Suma pięciu użyć ≈ 3826 SP przy puli 1739, więc deficyt ≈ 2087 SP musi pokryć zapas (6.5).
+Przy optimum 25% mnożnik wzrostu musi być w ×1,415–1,587 (7. użycie ≤ 100%, 8. > 100%). Suma siedmiu użyć ≈ 5486 SP przy
+puli 1739, więc deficyt ≈ 3747 SP gracz pokrywa **własnymi** miksturami (bez zapasu przed walką, 6.5).
 
 ### 6.3. Safelock [U]
 
-- **Tajny** (gracz o nim nie wie, to twist). Przywraca **tylko HP**, nie SP, żeby nie obejść ściany kosztu. Jednorazowy w walce.
-- Aktywny od **2 użyć przed końcem** [U], zdefiniowane regułą [P]: `cost(n+2) > max_SP`. W tabeli wyżej `cost(6)` > pula, więc safelock włącza się od 4. użycia.
-- Tekst/animacja: własne sformułowanie (ukłon w stronę Undertale, nie cytat).
-- Zasadniczo ten sam mechanizm fabularny co pomoc Strażnika: **zestrojenie** wykonane przed walką [P].
-- Uwaga: pozostaje spójne z regułą Fazy 1 „bez gwarantowanego leczenia w trakcie walki”, bo działa dopiero w końcówce Fazy 3.
+- **Jednorazowy**, przywraca **tylko HP**, nie SP, żeby nie obejść ściany kosztu.
+- **Na otwarcie Fazy 3** [U, 2026-10-16]: zmutowany czarną magią uzurpator naparza skillami, drużyna pada — i nagle „but it
+  refused” (własne sformułowanie, ukłon w stronę Undertale, nie cytat): HP wraca. Potem już bez taryfy ulgowej, kolejna śmierć to
+  Game Over. Czy furacki atak otwarcia jest oskryptowany (zawsze zabija), czy safelock łapie dowolną śmierć na starcie Fazy 3 [P].
+- Fabularnie: **zestrojenie** wykonane przed walką [P].
 
-### 6.4. Pomoc Strażnika jako awaryjny wyzwalacz [U]
+### 6.4. ~~Pomoc Strażnika~~ — usunięte [U, 2026-10-16]
 
-- Gdy walka się przeciąga (np. HP uzurpatora poniżej progu ~10% [P]) lub gracz nie spełnił warunku końca Fazy 2, **Strażnik wspomaga i umożliwia ostatnie użycie** umiejętności 10. poziomu, które pokonuje wroga.
-- Dwie wersje tej samej sceny (gracz sam rzuca finał / Strażnik pomaga) o tym samym wyniku, ale lekko innym opisie [P].
-- Dotyczy tylko True Endingu; w Good Endingu walka może zakończyć się porażką i ponowieniem.
+Bez awaryjnego wyzwalacza. Kto idzie po True, wie, co robi; kto przepali SP i nie stać go na 10. poziom — ginie i wraca do zapisu.
 
-### 6.5. Zapas przed walką [U]
+### 6.5. ~~Zapas przed walką~~ — usunięte [U, 2026-10-16]
 
-- Przed walką Strażnik wskazuje miejsce, gdzie uzurpator dawał mu przedmioty, żeby nie umarł przed transferem. Tam **zapas przedmiotów leczących i SP**, gwarantujący, że gracz nie zostanie bez SP.
-- **Nie do przegapienia** [P]: droga do areny prowadzi przez to miejsce albo przedmioty trafiają do ekwipunku po rozmowie.
-- Wielkość [P]: `SP w zapasie ≥ (suma kosztów − pula) × 1,5` (z uwzględnieniem, że część wypite w Fazach 1–2).
-- Założenie [U]: gracz nie zużyje zapasu w Fazach 1–2, bo są prostsze. **Do sprawdzenia w testach** (Faza 1 jako łamigłówka z długim przetrwaniem może zjadać mikstury leczące); w razie potrzeby małe uzupełnienie HP (bez SP) na przejściu do Fazy 3.
-- Reguła Fazy 1 „bez gwarantowanego leczenia” zmienia się na „leczenie tylko z zapasu przed walką”.
+Zostaje reguła z `game_design.md`: **brak gwarantowanego leczenia** — mikstury HP/SP gracz kupuje i przynosi sam (ostrzeżenie
+przed Point of No Return). Ekonomia late-game ma znaczenie.
 
-### 6.6. Cooldown [P — nieprzyjęte]
+### 6.6. ~~Cooldown~~ — odrzucony [U, 2026-10-16]
 
-Propozycja stałego, krótkiego cooldownu (2–3 tury) umiejętności 10. poziomu, żeby wymusić użycie innych skilli i dać czas na mikstury. Wymagałby licznika cooldownu per bohater (dziś cooldown mają tylko skille wrogów, `enemy_skill.gd`) i nie powinien się dublować z krzywą kosztów. **Do decyzji.**
+Bez cooldownu umiejętności 10. poziomu — tempo reguluje krzywa kosztów SP (6.2), którą w zamian spłaszczono (optimum 25%).
 
 ## 7. Mikstury HP/SP: stałe i procentowe [U]
 
@@ -163,17 +174,30 @@ Propozycja stałego, krótkiego cooldownu (2–3 tury) umiejętności 10. poziom
 - „Prawda”: zamiana ciał, motyw zazdrości, krąg zamiast maszyny, Mgła jako przykrywka, bossowie jako przechowalnie wspomnień (zastępuje dziś „Strażnik wysysał wiedzę, arcymag miał zaklęcie ochronne”).
 - „Zakończenia”: trzy zakończenia zamiast dwóch; warunki (mały krąg, relikwie, poziom).
 - „Umiejętności 9. poziomu”: przepisać na 10. poziom (cztery klasy: Uberheal, manipulacja wspomnieniami, ofensywna, klątwa) jako nagroda True Endingu; dodać sekcję nauczycieli 9. poziomu w Hideout od lv 90.
-- „Faza 1/2/3” i „Bossfight ze Strażnikiem”: zestrojenie, safelock, pomoc, zapas; zmiana reguły „bez gwarantowanego leczenia”.
+- „Faza 1/2/3” i „Bossfight ze Strażnikiem”: zestrojenie, safelock na otwarcie Fazy 3, absurdalna pula HP w Fazie 2, 7 użyć 10. poziomu; reguła „bez gwarantowanego leczenia” zostaje.
 - „Sekwencja odkrywania poszlak”: dwie kropki.
 - „Otwarte decyzje fabularne”: zamknąć punkt o powodzie bariery (Mgła/izolacja), o miejscu małej maszyny, o szczegółach True Endingu i Fazy 2.
 
-## 11. Otwarte pytania
+## 11. Ustalenia 2026-10-16 (propozycje Gemini przyjęte przez usera) [U]
 
-- Czy w True Endingu zamiana ciał zostaje odwrócona, czy prawdziwy Strażnik zostaje w ciele arcymaga (mieszkańcy znają tego człowieka z propagandy)? Gorzka wersja jest mocna, ale to decyzja do podjęcia świadomie.
-- Liczba relikwii (propozycja Gemini: 5) a liczba glifów kręgu — to dwie różne liczby.
-- Relikwie jako bronie: slot „sekret” z `ekwipunek_szkic.md` (480 ATK na lv 100) czy osobny; jedna relikwia per klasa, czy jeden rodzaj przedmiotu niezależny od klasy.
-- Jedna umiejętność 10. poziomu czy cztery klasy do wyboru (kanon: „jedna lub więcej z czterech”).
-- Cooldown umiejętności 10. poziomu (6.6).
-- Gdzie stoi zapasowy krąg: odludne miejsce w mieście czy piwnica Biblioteki (stare pytanie z `game_design.md`).
+- **Faza 1:** sojusznicy wracają za 100 TP (nie po turach); Faza 1 kończy się zbiciem normalnej puli HP bossa w 2–3 tury po
+  powrocie całej drużyny (chance hity / skille ofensywne odblokowane).
+- **Wzmocnienie tarczy:** w Good — ostatni dar Strażnika przed śmiercią; w True — efekt zestrojenia przed walką.
+- **Faza 1 (True):** przepada też umiejętność 10. poziomu, wraca z całą drużyną i działa od wejścia w Fazę 2.
+- **10. poziom:** **jedna unikalna umiejętność bohatera** (sam bohater, zestrojenie przed walką, wymaga lv 100) z krzywą kosztów
+  z 6.2. **4 klasy czarów** (Uberheal, blokada wspomnień, ofensywna, klątwa) zostają na **9. poziomie** — nauczyciele od lv 90,
+  formuły od Strażnika w Good / True.
+- **Zamiana ciał w True nie zostaje odwrócona:** ciało Strażnika ginie w Fazie 3, prawdziwy Strażnik zostaje w ciele arcymaga,
+  fala zwrotna przywraca pamięć i mieszkańcy go rehabilitują.
+- **Relikwie: 4**, po jednej na klasę (Wojownik, Łotrzyk, Mag, Kapłan) — jednocześnie broń slotu „sekret” (480 ATK na lv 100,
+  `ekwipunek_szkic.md`) i część matrycy do True. Glify kręgu = liczba obowiązkowych bossów (osobna liczba).
+- **Good, Faza 2:** zwykły bossfight na śmierć i życie (uzurpator do zabicia, m.in. czarami 9. poziomu), bez Fazy 3.
+- **Zapasowy krąg:** **nie** w Bibliotece — gdzie indziej; decyzja, gdy powstanie miasto w pełnej skali.
+
+## 12. Otwarte pytania
+
+- Gdzie stoi zapasowy krąg (po zbudowaniu miasta w pełnej skali).
 - Czy złoto przechodzi do NG+ (ryzyko ekonomii sklepów).
-- Ile realnie mikstur zużywa Faza 1 (sprawdzić w testach).
+- Ile realnie mikstur zużywa Faza 1 (sprawdzić w testach) — bez zapasu przed walką ważniejsze.
+- Limit mikstur procentowych SP w finale (pkt 7) tak, żeby ~3750 SP deficytu z 6.2 dało się pokryć.
+- Przebieg Good — szczegóły walki z uzurpatorem poza Fazą 2.
