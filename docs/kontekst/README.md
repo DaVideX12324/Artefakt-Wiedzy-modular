@@ -40,6 +40,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 | [poziomy_i_xp.md](poziomy_i_xp.md) | Matematyka poziomów wrogów, skalowania statystyk z poziomu oraz krzywe doświadczenia na 15 map. | `W TOKU` |
 | [skille_i_pierwowzory.md](skille_i_pierwowzory.md) | Zestawienie umiejętności bohaterów i wrogów z ich pierwowzorami z FNaFB, kosztami i efektami. | `SZKIC (niezatwierdzone)` |
 | [skille_i_pierwowzory.docx](skille_i_pierwowzory.docx) | Plik binarny Word zawierający bazową tabelę umiejętności i kosztów SP/TP. | `SZKIC (niezatwierdzone)` |
+| [sesja_2026-10-16c_i18n.md](sesja_2026-10-16c_i18n.md) | Handoff: tłumaczenia PL / EN całego Artefaktu (fazy 0–5), poprawki po Gemini, ekran zapisów z koszem, otwarte. | `ZROBIONE` |
 | [i18n_opisy_dla_gemini.md](i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do `pl.json` i `en.json`. | `ZROBIONE` |
 | [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie tekstów logu walki dla umiejętności przeciwników. | `ZROBIONE` |
 | [i18n_calosc_dla_gemini.md](i18n_calosc_dla_gemini.md) | Brief dla Gemini: tłumaczenia PL / EN całego Artefaktu (host, Cień Mgły, BitBomber) — `I18nService`, sceny przez `TranslationServer`, fazy 0–5. | `ZROBIONE` |
