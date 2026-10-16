@@ -1,6 +1,6 @@
 # Raport z wdrożenia i18n — Faza 0 (Infrastruktura)
 
-Data: 2026-10-16  
+Data: 2026-10-16
 Zadanie: Faza 0 wg `docs/kontekst/i18n_calosc_dla_gemini.md`
 
 ---
@@ -130,7 +130,7 @@ Kod wyjścia: `0` (sukces).
 
 # Raport z wdrożenia i18n — Faza 1 (Host)
 
-Data: 2026-10-16  
+Data: 2026-10-16
 Zadanie: Faza 1 (host) wg `docs/kontekst/i18n_calosc_dla_gemini.md`
 
 ---
@@ -256,7 +256,7 @@ Stan plików GDScript hosta:
 
 # Raport z wdrożenia i18n — Faza 2 (Cień Mgły: sceny)
 
-Data: 2026-10-16  
+Data: 2026-10-16
 Zadanie: Faza 2 (Cień Mgły: sceny) wg `docs/kontekst/i18n_calosc_dla_gemini.md`
 
 ---
@@ -387,3 +387,140 @@ Wszystkie 89 statycznych tekstów scen w module Cień Mgły jest w 100% przetłu
 - Faza 2 zakończona i gotowa do weryfikacji przez Claude'a.
 
 
+---
+
+# Raport z wdrożenia i18n — Faza 3 (Cień Mgły: teksty w kodzie)
+
+Data: 2026-10-16
+Zadanie: Faza 3 (Cień Mgły: teksty w kodzie) wg `docs/kontekst/i18n_calosc_dla_gemini.md`
+
+---
+
+## 1. Wykonane prace i zmiany architektoniczne
+
+### A. Rozbudowa słowników Cienia Mgły (`modules/quiz_rpg/resources/i18n/pl.json` i `en.json`)
+- Dodano **233 nowe symetryczne klucze** obejmujące:
+  - Komunikaty i log walki (`log.combat.*`, `combat.*`)
+  - HUD (`hud.*`)
+  - Menu pauzy i zarządzanie drużyną / zapisem (`pause.*`)
+  - Ekran śmierci (`death.*`)
+  - Menu główne (`main_menu.*`)
+  - Ekwipunek i przedmioty (`inventory.*`, `equip.*`)
+  - Statystyki i trudność (`stats.*`)
+  - Ekrany ładowania (`ui.loading.*`)
+  - Interakcje w świecie gry: skrzynie (`chest.*`), bramy i klucze (`prompt.*`, `loot.*`), drzwi z zagadką i kontroler quizu (`door.*`, `puzzle.*`), NPC (`npc.companion.*`), portale przejść (`prompt.transition`, `map.*`)
+  - Opcje motywów i stylów pasków (`theme.skin.*`, `theme.bar.*`, `theme.opt.*`)
+  - Odznaki i nagrody (`reward.*`)
+- Słowniki urosły ze 198 do **431 symetrycznych kluczy** w obu plikach.
+- Zapewniono alfabetyczne sortowanie kluczy, kodowanie UTF-8 bez BOM, wcięcia 2 spacje i bezwzględne końce linii LF (0 bajtów CR).
+
+### B. Przeniesienie hardcoded tekstów na `QuizRpgI18n` w 25 skryptach GDScript:
+1. **`scripts/quiz/quiz_combat_controller.gd`:**
+   - Wszystkie 32 bloki komunikatów walki, logu (`_push_log`), dymków obrażeń / statusów (FloatingText), komunikatów inicjatywy (zaskoczenie / przewaga), ucieczki, zablokowanych akcji, tur wrogów, obrony, nagród za walkę (złoto, awans na poziom, nowe umiejętności) i zakończenia walki zaktualizowane na `QuizRpgI18n.t`, `QuizRpgI18n.tf` i `QuizRpgI18n.plural`.
+2. **`scripts/ui/hud.gd`:**
+   - Etykieta tury (`hud.turn_number`), status braku możliwości ucieczki (`hud.flee_disabled`).
+3. **`scripts/ui/pause_menu.gd`:**
+   - Tytuły paneli menu, wiersze wyjścia (`pause.confirm_main_menu`, `confirm_quit`, `confirm_cancel`), wskazówki sterowania (`pause.hint_confirm_back`, `hint_select_back`, `save_hint`, `save_disabled_combat`), obsługa szyku drużyny (`pause.formation_select`, `formation_swap`), komunikaty użycia umiejętności i przedmiotów na postaciach, toasty slotów zapisu, podsumowanie lewego panelu (`pause.score_summary` — punkty, seria, złoto).
+4. **`scripts/ui/death_screen.gd`:**
+   - Tooltip przy braku zapisu (`death.no_save`), domyślna nazwa slotu (`death.default_slot_name`).
+5. **`scripts/ui/main_menu.gd`:**
+   - Tytuły widoków (`main_menu.load_game_title`, `title_stats`, `title_options`), podpowiedź obsługi slotów (`main_menu.save_hint`), tooltipy i potwierdzenie usuwania slotu (`main_menu.delete_save`, `delete_save_confirm`).
+6. **`scripts/ui/inventory_screen.gd`:**
+   - Tytuł i opis pustego ekwipunku (`inventory.empty_title`, `empty_desc`), formatowanie ilości (`inventory.quantity`), komunikaty użycia przedmiotu (`inventory.item_used`, `cannot_use_item`).
+7. **`scripts/ui/stats_screen.gd`:**
+   - Zestawienie statystyk gracza (`stats.progress_title`, `stats.level`, `stats.points`, `stats.quiz_stats`, `stats.total_answers`, `stats.correct_answers`, `stats.wrong_answers`, `stats.current_streak`, `stats.best_streak`, `stats.rng_bonus`), adaptacyjna trudność (`stats.adaptive_difficulty`, `stats.global_difficulty`, `stats.dm_unavailable`), nagrody (`stats.no_rewards`, lokalizacja odznak z kluczami `reward.*`).
+8. **`scripts/ui/loading_screen.gd`:**
+   - Dynamiczny tytuł ekranu (`QuizRpgI18n.t(value, value)`), tytuł i etap podglądu jaskini (`ui.loading.preview_title`, `preview_stage`), wczytywanie mapy (`ui.loading.map_load`), animacja kropek etapu.
+9. **`scripts/ui/interact_prompt.gd`:**
+   - Dynamiczne tłumaczenie etykiety akcji nad obiektami świata (`QuizRpgI18n.t(_targets[target], _targets[target])`).
+10. **`scripts/ui/bar_style_picker.gd`:**
+    - Zlokalizowane nazwy kafelków stylów pasków HP/SP/TP.
+11. **`scripts/ui/quiz_theme.gd` & `module_root.gd`:**
+    - Metody pomocnicze `QuizTheme.get_skins()`, `QuizTheme.get_bar_styles()`, `QuizTheme.get_ui_options()` zwracające zlokalizowane kopie motywów i opcji graficznych.
+    - `module_root.gd` przekazuje zlokalizowane listy do menu opcji hosta.
+12. **`scripts/interactables/chest.gd`:**
+    - Komunikaty otwarcia kluczem (`chest.key_opens`), braku klucza / wytrycha (`chest.locked_need_key`), zużycia/złamania wytrycha (`chest.lockpick_broke`, `lockpick_failed_held`), prompt interakcji (`prompt.open`, `prompt.open_key_lockpick`).
+13. **`scripts/interactables/gate_lock.gd`:**
+    - Podpowiedź braku klucza (`prompt.no_key`), włożenia klucza (`prompt.insert_key`, `prompt.lock_no_key`).
+14. **`scripts/interactables/gate_key.gd`:**
+    - Tytuł i komunikat popupu znalezienia klucza (`loot.gate_key_title`, `loot.gate_key_msg`, `loot.continue_hint`).
+15. **`scripts/npc/companion_npc.gd`:**
+    - Prompt rozmowy (`prompt.talk`), zlokalizowane domyślne dialogi questu rekrutacyjnego (`npc.companion.intro_1`, `intro_2`, `progress`, `done`) z zachowaniem formatowania `{count}`, `{left}`, `{item}`.
+16. **`scripts/quiz/quiz_door.gd`:**
+    - Zlokalizowany domyślny tytuł drzwi (`door.name_locked`), komunikat zamknięcia (`door.locked_message`), prompt zagadki (`prompt.solve_puzzle`).
+17. **`scripts/quiz/quiz_puzzle_controller.gd`:**
+    - Zlokalizowany nagłówek drzwi/skrzyni, informacja o poprawnej odpowiedzi (`puzzle.correct`), bonus postępu (`puzzle.bonus_progress`), błędy i przekroczenie czasu (`puzzle.wrong`, `puzzle.time_out`), licznik postępu (`puzzle.progress`), sukces i porażka otwarcia (`puzzle.opened`, `puzzle.failed_to_open`).
+18. **`scripts/maps/level_portal.gd` & `portal_key_listener.gd`:**
+    - Domyślny prompt przejścia (`prompt.transition`), lokalizacja tekstu promptu w nasłuchiwaczu wejścia.
+19. **`scripts/maps/level_manager.gd`:**
+    - Zlokalizowane nazwy lokacji na ekranie ładowania map (`map.<level_key>.name`).
+20. **`autoloads/game_manager.gd`:**
+    - Zlokalizowany ekran ładowania przy powrocie do menu głównego (`ui.loading.default_title`, `ui.loading.main_menu`, `ui.loading.return_to_menu`).
+21. **`autoloads/inventory_service.gd`:**
+    - Komunikat użycia przedmiotu (`inventory.used_item`).
+22. **`autoloads/loot_manager.gd`:**
+    - Domyślny tytuł popupu łupu (`loot.default_title`), podpowiedź kontynuacji (`loot.continue_hint`), przycisk `ui.common.ok`.
+23. **`autoloads/player_stats.gd`:**
+    - Komunikaty błędów użycia umiejętności na członkach drużyny (`party.invalid_target`, `party.skill_combat_only`, `party.skill_no_effect`, `party.not_enough_sp_tp`, `party.requires_other_weapon`, `party.skill_revive_only`, `party.hp_full`), komunikaty użycia przedmiotów (`inventory.service_unavailable`, `inventory.unknown_item`, `inventory.no_item`, `inventory.used_item`), nazwy slotów ekwipunku (`equip.slot.*`), pusty slot (`equip.empty_slot_name`, `equip.empty_slot_desc`).
+
+---
+
+## 2. Wynik działania `python tools/check_i18n.py --phase 3`
+
+Uruchomiono: `python tools/check_i18n.py --phase 3`
+
+```text
+======================================================================
+  WALIDATOR I18N — Artefakt Wiedzy
+  Faza: 3
+======================================================================
+
+[1/4] Znalezione katalogi i18n (2):
+  - modules/quiz_rpg/resources/i18n
+  - resources/i18n
+
+[2/4] Teksty w scenach (.tscn):
+  Łącznie wystąpień tekstu w scenach: 214 (unikalnych: 153)
+  - host      :  64 wystąpień | przetłumaczonych:  64 | oczekujących:   0 (unikalnych: 0)
+  - quiz_rpg  :  89 wystąpień | przetłumaczonych:  89 | oczekujących:   0 (unikalnych: 0)
+  - BitBomber :  61 wystąpień | przetłumaczonych:  22 | oczekujących:  39 (unikalnych: 37)
+
+[3/4] Literały z polskimi znakami w kodzie GDScript (.gd):
+  Plików .gd wymagających i18n: 49
+  Łącznie linii z literałami PL: 388
+
+======================================================================
+  WYNIKI WERYFIKACJI
+======================================================================
+
+OSTRZEŻENIA (1):
+  [WARN] Polski tekst "Broń" ma różne tłumaczenia angielskie:
+  'Weapons' -> ui.items.tab_weapons (modules/quiz_rpg/resources/i18n)
+  'Weapon' -> equip.slot.weapon (modules/quiz_rpg/resources/i18n)
+
+Brak krytycznych błędów dla aktualnej fazy!
+
+----------------------------------------------------------------------
+Podsumowanie Fazy 3:
+  - Błędy JSON:               0
+  - Błędy scen dla tej fazy:  0
+  - Oczekujące teksty scen:   39 (unikalnych: 37)
+  - Oczekujące pliki .gd:     49 (388 linii)
+----------------------------------------------------------------------
+```
+
+Kod wyjścia: `0` (sukces).
+Jedyne ostrzeżenie to naturalne rozróżnienie słowa „Broń” jako zakładki ekwipunku (`Weapons`) oraz slotu ekwipunku (`Weapon`).
+
+---
+
+## 3. Zgodność z ograniczeniami
+
+- **BEZWZGLĘDNA WERYFIKACJA KOŃCÓW LINII (LF):**
+  Wszystkie 27 zmienionych plików w `modules/quiz_rpg` (`.gd` oraz `.json`) oraz niniejszy raport `.md` zostały zweryfikowane skryptem binarnym pod kątem obecności znaku `\r`. Każdy plik ma **dokładnie 0 bajtów CR** (`b'\r' not in data`).
+- **Brak plików `__pycache__` / `*.pyc`:** W repozytorium nie ma żadnych skompilowanych plików Pythona.
+- **Brak zmian w serwisach bazowych:** Pliki `autoloads/services/i18n_service.gd` oraz `modules/quiz_rpg/scripts/i18n/quiz_i18n.gd` pozostały nienaruszone.
+- **Brak zmian w zasobach `.tres`:** Żadne zasoby `.tres` nie były modyfikowane (dane z zasobów to Faza 4).
+- **Wyłączenia zachowane:** Pliki w `scripts/tools/`, `scripts/generation/` oraz menu deweloperskie nie były tłumaczone.
+- **Brak uruchomień silnika Godot:** Silnik Godot nie był uruchamiany w trakcie prac.
+- Faza 3 w pełni zakończona — STOP.
