@@ -84,6 +84,7 @@ theme_override_colors/font_color = Color(0.7, 0.72, 0.85, 1)
 text = "Zestawy (zaznaczone = używane w grze)"
 
 [node name="SetsTree" type="Tree" parent="Root/Margin/VBox/Body/SetsBox"]
+auto_translate_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 columns = 3
@@ -127,6 +128,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Search" type="LineEdit" parent="Root/Margin/VBox/Body/QuestionsBox/Filters"]
+auto_translate_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Szukaj w treści i kategorii…"
@@ -137,6 +139,7 @@ custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 
 [node name="QuestionsTree" type="Tree" parent="Root/Margin/VBox/Body/QuestionsBox"]
+auto_translate_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 columns = 5
@@ -257,6 +260,7 @@ layout_mode = 2
 text = "Kategoria:"
 
 [node name="CategoryEdit" type="LineEdit" parent="Root/EditDialog/Center/Panel/Margin/VBox/Common"]
+auto_translate_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "np. sprzęt"
@@ -267,6 +271,7 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="Form" type="VBoxContainer" parent="Root/EditDialog/Center/Panel/Margin/VBox/Scroll"]
+auto_translate_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
@@ -322,6 +327,7 @@ ok_button_text = "OK"
 cancel_button_text = "Anuluj"
 
 [node name="NameEdit" type="LineEdit" parent="NameDialog"]
+auto_translate_mode = 2
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 552.0

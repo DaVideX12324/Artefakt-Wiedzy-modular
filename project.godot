@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SettingsService="*res://autoloads/services/settings_service.gd"
+I18nService="*res://autoloads/services/i18n_service.gd"
 UIScaleService="*res://autoloads/services/ui_scale_service.gd"
 WindowService="*res://autoloads/services/window_service.gd"
 SettingsManager="*res://autoloads/compat/bitbomber_settings_manager.gd"
