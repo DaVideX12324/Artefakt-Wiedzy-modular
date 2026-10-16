@@ -33,6 +33,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 | [sesja_2026-10-13_miasto_ldtk.md](sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach. | `W TOKU` |
 | [druzyna_szkic.md](druzyna_szkic.md) | Szkic systemu drużyny: 3 towarzyszy, rekrutacja po zadaniach, osobne pule XP i brak limitu w walce. | `SZKIC (niezatwierdzone)` |
 | [ekwipunek_szkic.md](ekwipunek_szkic.md) | Szkic ekonomii i ekwipunku: złoto, mikstury, tiery skrzyń i kluczy, sklepy oraz ulepszenia broni. | `SZKIC (niezatwierdzone)` |
+| [fabula_krag_i_zakonczenia_szkic.md](fabula_krag_i_zakonczenia_szkic.md) | Szkic fabuły: zamiana ciał, krąg zamiast maszyny, magia 10. poziomu, trzy zakończenia, NG+ i walka finałowa. | `SZKIC (niezatwierdzone)` |
 | [sloty_umiejetnosci_szkic.md](sloty_umiejetnosci_szkic.md) | Szkic mechaniki slotów umiejętności, 4 tierów, budżetu slotów oraz odblokowywania trybu combo. | `SZKIC (niezatwierdzone)` |
 | [poziomy_i_xp.md](poziomy_i_xp.md) | Matematyka poziomów wrogów, skalowania statystyk z poziomu oraz krzywe doświadczenia na 15 map. | `W TOKU` |
 | [skille_i_pierwowzory.md](skille_i_pierwowzory.md) | Zestawienie umiejętności bohaterów i wrogów z ich pierwowzorami z FNaFB, kosztami i efektami. | `SZKIC (niezatwierdzone)` |
