@@ -59,7 +59,7 @@
 ### (1a) przebudowa generowania ścieków — ZROBIONE (main 2026-10-09 / 10), szczegóły do dopracowania
 - **Stan 2026-10-12: ZROBIONE.** Układ `structured` (R1–R7, port prototypu v11) na `main`; platformy (PR #1); `sewer-gen-v2` porzucona. Zostaje na później (wg `kontekst/scieki.md` i pamięci): schody N/E/W i rury (po stronie usera), winiety z biblioteki i gruz skupiskami, mniej zdejmowania obiektów na 250², miasto między jaskinią a ściekami. Znacznik ⚠ zdjęty — przypomnienie na start sesji dla tego punktu wygasa.
 - **Plan:** [plan_generator_sciekow.md](plan_generator_sciekow.md) (układ ogólny `structured`, ścieki = pierwsza
-  konfiguracja; reguły R1–R7 z prototypu `docs/prototypy/structured_layout/`; ocena gałęzi `sewer-gen-v2`
+  konfiguracja; reguły R1–R7 z prototypu `docs/prototypy/structured_layout/`; ocena gałęzi `sewer-gen-v2` *(usunięte 2026-10-16 — w historii gita, commit sprzed usunięcia: `git log -- docs/prototypy`)*
   2026-10-07: korytarze serwisowe niezgodne, regresja ścian jaskini — nie mergować).
 - Zgłoszenie 2026-10-05. Autor chce przerobić generowanie ścieków w osobnej sesji z **dużo wyższym effort**
   (max lub podobnym), z **MCP Godota** (autor go dodaje — podgląd sceny / gry zamiast samych renderów headless).
