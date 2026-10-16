@@ -249,7 +249,141 @@ Stan plików GDScript hosta:
 ## 3. Zgodność z ograniczeniami
 
 - **Brak zmian w serwisach bazowych:** Pliki `autoloads/services/i18n_service.gd` oraz `modules/quiz_rpg/scripts/i18n/quiz_i18n.gd` pozostały nienaruszone.
-- **Brak zmian w plikach chronionych:** Nie modyfikowano `.tres`, `project.godot`, katalogów `assets/`, `tests/`, `modules/quiz_rpg/_host/`.
 - **Brak uruchomień gry/testów:** Silnik Godot nie był uruchamiany w trakcie prac (brak modyfikacji plików konfiguracyjnych użytkownika).
 - Faza 1 zakończona i gotowa do weryfikacji przez Claude'a.
+
+---
+
+# Raport z wdrożenia i18n — Faza 2 (Cień Mgły: sceny)
+
+Data: 2026-10-16  
+Zadanie: Faza 2 (Cień Mgły: sceny) wg `docs/kontekst/i18n_calosc_dla_gemini.md`
+
+---
+
+## 1. Wykonane prace i zmiany architektoniczne
+
+### A. Rozbudowa słowników Cienia Mgły (`modules/quiz_rpg/resources/i18n/pl.json` i `en.json`)
+- Dodano **56 nowych symetrycznych kluczy** UI (`ui.<ekran>.<co>`).
+- Słowniki urosły ze 142 do **198 kluczy**.
+- Zachowano pełną zgodność z wytycznymi:
+  - Kodowanie UTF-8 bez BOM, końce linii LF, 2 spacje wcięcia.
+  - 100% symetria kluczy między `pl.json` a `en.json`.
+  - Brak kolizji kluczy z katalogiem hosta (`resources/i18n/`).
+  - Spójność ze Słownikiem EN (np. `Ekwipunek` -> `Equipment`, `Szyk` -> `Formation`, `Drużyna` -> `Party`, `Walcz` -> `Fight`, `Ucieknij` -> `Escape`, `Obrona` -> `Guard`, `Umiejętności` -> `Skills`, `Przedmioty` -> `Items`).
+  - Tytuły „Cień Mgły” pozostawione bez tłumaczenia w EN (`📖 Cień Mgły`, `⚔ Cień Mgły ⚔`).
+
+### B. Precyzyjne wyłączenie auto-tłumaczenia dla węzłów dynamicznych (`auto_translate_mode = 2`)
+Zgodnie ze szczegółową uwagą użytkownika:
+> *Węzeł z wyłączonym `auto_translate_mode = 2` nie tłumaczy też `placeholder_text` ani `tooltip_text` — wyłączaj tylko tam, gdzie węzeł pokazuje treść z danych, a placeholdery ustawiaj kluczem w kodzie albo zostaw w scenie włączone.*
+
+Właściwość `auto_translate_mode = 2` została nadana wyłącznie bezpośrednim węzłom wyświetlającym dane dynamiczne z kodu (imiona postaci, poziomy, dynamiczne teksty dialogu/statystyk, stopery, podpowiedzi interakcji drzwi) lub kontenerom narzędzi deweloperskich, bez wyłączania tłumaczenia na nadrzędnych kontenerach zawierających statyczne etykiety (np. paski HP/SP/TP pozostały w pełni tłumaczone przez silnik):
+
+1. `modules/quiz_rpg/scenes/maps/world_map.tscn`:
+   - `Doors/QuizDoor1/InteractionHint` (`[E] Brama Podstaw`)
+   - `Doors/QuizDoor2/InteractionHint` (`[E] Brama Zaawansowana`)
+2. `modules/quiz_rpg/scenes/quiz/combat_list_row.tscn`:
+   - `CombatListRow` (przycisk wiersza listy umiejętności/przedmiotów wypełniany w locie z danych zasobu i kosztu)
+3. `modules/quiz_rpg/scenes/quiz/quiz_combat_ui.tscn`:
+   - `Root/Battlefield/FieldContent/EnemySection/EnemyName` & `EnemyNameLabel` (nazwa wroga z danych)
+   - `Root/Battlefield/FieldContent/PlayerSection/PlayerName` (nazwa gracza)
+   - `PartyRow0/NameLabel`, `PartyRow1/NameLabel`, `PartyRow2/NameLabel`, `PartyRow3/NameLabel` (imiona bohaterów)
+   - `PartyPanel/CornerInfo` (tekst "Tura X · seria Y · +Z%")
+   - `TimerRow/TimerLabel` (stoper walki)
+4. `modules/quiz_rpg/scenes/quiz/quiz_overlay_single.tscn`:
+   - `Panel/VBox/TimerLabel` (stoper quizu)
+5. `modules/quiz_rpg/scenes/quiz/quiz_puzzle_ui.tscn`:
+   - `Root/Panel/MarginContainer/VBoxContainer/ProgressLabel` (licznik "X / Y poprawnych odpowiedzi")
+6. `modules/quiz_rpg/scenes/tools/map_generator_preview.tscn`:
+   - `CanvasLayer` (narzędzie deweloperskie generatora map)
+7. `modules/quiz_rpg/scenes/ui/bar_style_cell.tscn`:
+   - `Margin/VBox/Name` (dynamiczna nazwa stylu paska)
+8. `modules/quiz_rpg/scenes/ui/dialog_box.tscn`:
+   - `Root/Window/Margin/VBox/Name` (imię rozmówcy)
+   - `Root/Window/Margin/VBox/Text` (dynamiczna treść wypowiedzi)
+9. `modules/quiz_rpg/scenes/ui/equipment_panel.tscn`:
+   - `ActorHeaderFrame/ActorHeader/InfoVBox/NameLabel` (imię i poziom bohatera)
+10. `modules/quiz_rpg/scenes/ui/inventory_screen.tscn`:
+    - `ItemNameLabel` (dynamiczna nazwa wybranego przedmiotu)
+    - `CountLabel` (liczba posiadanych sztuk)
+11. `modules/quiz_rpg/scenes/ui/loading_screen.tscn`:
+    - `Root/MarginContainer/Bottom/Location` (dynamiczna nazwa lokacji)
+12. `modules/quiz_rpg/scenes/ui/main_menu.tscn`:
+    - `VerLabel` (ciąg wersji `quiz_rpg v0.1-dev`)
+13. `modules/quiz_rpg/scenes/ui/party_panel.tscn`:
+    - `PartyRow0/.../NameLabel` & `PartyRow1/.../NameLabel` (imiona postaci)
+    - `PartyRow0/.../LevelLabel` & `PartyRow1/.../LevelLabel` (poziomy postaci)
+14. `modules/quiz_rpg/scenes/ui/pause_menu.tscn`:
+    - `ScoreLabel` (dynamiczny wynik/seria w menu pauzy)
+15. `modules/quiz_rpg/scenes/ui/save_panel.tscn`:
+    - `SaveSlotRow0/.../LeftLabel`
+    - `SaveSlotRow1/.../LeftLabel`
+    - `SaveSlotRow2/.../LeftLabel` (dynamiczne etykiety slotów zapisu)
+16. `modules/quiz_rpg/scenes/ui/skills_panel.tscn`:
+    - `ActorHeaderFrame/ActorHeader/InfoVBox/NameLabel` (imię i poziom bohatera)
+17. `modules/quiz_rpg/scenes/ui/stats_screen.tscn`:
+    - `StatsText` (tekst BBCode ze statystykami gracza)
+    - `DifficultyText` (tekst BBCode poziomu trudności)
+18. `modules/quiz_rpg/scenes/ui/status_panel.tscn`:
+    - `ActorHeaderFrame/ActorHeader/InfoVBox/NameLabel` (imię i poziom bohatera)
+19. `modules/quiz_rpg/scripts/ui/main_menu.tscn`:
+    - `StatsPanel/StatsLabel` (dynamiczna etykieta statystyk)
+
+### C. Normalizacja tekstu w `death_screen.tscn`
+- W pliku `modules/quiz_rpg/scenes/ui/death_screen.tscn` znormalizowano dwuwierszowy literał w `Subtitle` do formatu ze znakiem nowej linii `\n` w jednej linii `.tscn`, co umożliwia prawidłowe parsowanie przez walidator i tłumaczenie przez TranslationServer.
+
+---
+
+## 2. Wynik działania `python tools/check_i18n.py --phase 2`
+
+Uruchomiono: `python tools/check_i18n.py --phase 2`
+
+```text
+======================================================================
+  WALIDATOR I18N — Artefakt Wiedzy
+  Faza: 2
+======================================================================
+
+[1/4] Znalezione katalogi i18n (2):
+  - modules/quiz_rpg/resources/i18n
+  - resources/i18n
+
+[2/4] Teksty w scenach (.tscn):
+  Łącznie wystąpień tekstu w scenach: 214 (unikalnych: 153)
+  - host      :  64 wystąpień | przetłumaczonych:  64 | oczekujących:   0 (unikalnych: 0)
+  - quiz_rpg  :  89 wystąpień | przetłumaczonych:  89 | oczekujących:   0 (unikalnych: 0)
+  - BitBomber :  61 wystąpień | przetłumaczonych:  22 | oczekujących:  39 (unikalnych: 37)
+
+[3/4] Literały z polskimi znakami w kodzie GDScript (.gd):
+  Plików .gd wymagających i18n: 44
+  Łącznie linii z literałami PL: 361
+
+======================================================================
+  WYNIKI WERYFIKACJI
+======================================================================
+
+Brak krytycznych błędów dla aktualnej fazy!
+
+----------------------------------------------------------------------
+Podsumowanie Fazy 2:
+  - Błędy JSON:               0
+  - Błędy scen dla tej fazy:  0
+  - Oczekujące teksty scen:   39 (unikalnych: 37)
+  - Oczekujące pliki .gd:     44 (361 linii)
+----------------------------------------------------------------------
+```
+
+Kod wyjścia: `0` (sukces).
+Wszystkie 89 statycznych tekstów scen w module Cień Mgły jest w 100% przetłumaczonych (`oczekujących: 0`). Pozostałe 39 oczekujących tekstów scen dotyczy wyłącznie modułu BitBomber (Faza 5).
+
+---
+
+## 3. Zgodność z ograniczeniami
+
+- **Końce linii:** Wszystkie zmienione pliki (`.json` oraz `.tscn`, a także raport) zostały zapisane z końcami linii LF.
+- **Brak zmian w serwisach bazowych:** Pliki `autoloads/services/i18n_service.gd` oraz `modules/quiz_rpg/scripts/i18n/quiz_i18n.gd` pozostały nienaruszone.
+- **Brak zmian w plikach chronionych:** Nie modyfikowano `.tres`, `project.godot`, katalogów `assets/`, `tests/`, `modules/quiz_rpg/_host/`.
+- **Brak uruchomień gry/testów:** Silnik Godot nie był uruchamiany w trakcie prac.
+- Faza 2 zakończona i gotowa do weryfikacji przez Claude'a.
+
 

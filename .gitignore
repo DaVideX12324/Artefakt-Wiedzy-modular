@@ -8,3 +8,5 @@ export_presets.cfg
 .mcp/
 *.xcf
 
+__pycache__/
+*.pyc
