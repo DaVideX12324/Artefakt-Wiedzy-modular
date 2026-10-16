@@ -54,28 +54,28 @@ Kolumna „Poziomy” = [tier startowy – maks. tier skilla]; faktyczny górny 
 | Skill (EN / PL) | Poziomy | Co rośnie z poziomem |
 |---|---|---|
 | Heavy Strike / Ciężki Cios (`mocny_atak`) | 1–3 | mnożnik 1,5 → 1,8 → 2,2 |
-| First Aid / Pierwsza Pomoc (`leczenie`) | 1–3 | leczenie 30 → 40 → 55 % |
+| Heal / Uleczenie (`leczenie`) | 1–3 | leczenie 30 → 40 → 55 % |
 | Scan / Skan (`scan`) | bez slotu | — |
-| Rapid Flurry / Szybka Seria (`leap_series`) | 1–3 | trafienia 5 → 6 → 7, szansa ogłuszenia rośnie |
-| Double Strike / Podwójny Cios (`double_throw`) | 1–3 | mnożnik, potem trzecie trafienie |
-| Shrapnel Toss / Grad Odłamków (`coin_barrage`) | 1–3 | trafienia 3 → 4 → 5 |
-| Smoke Ring / Zasłona Dymna (`smoke_cloud`) | 1–3 | szansa oślepienia 50 → 65 → 80 % |
-| Toxic Shock / Toksyczna Fala (`sound_wave`) | 1–3 | szansa trafienia wroga 50 → 65 → 80 % (decyzja usera) |
-| Hearty Meal / Pożywny Posiłek (`hearty_meal`) | 1–3 | leczenie MAT × 4 → 5 → 6 |
-| Motivation Jam / Zastrzyk Motywacji (`rousing_tune`) | 2–3 | czas / siła wzmocnienia |
-| Guardian Ward / Żelazna Straż (`nurturing_care`) | 2–3 | czas / siła obrony |
-| Sea Shanty / Morska Szanta (`sea_chant`) | 2–4 | szansa uciszenia rośnie |
-| Lullaby / Kołysanka (`lullaby`) | 2–4 | trafienia, szansa uśpienia |
-| Toxic Dart / Zatruta Strzałka (`piercing_shriek`) | 2–4 | szansa trucizny, mnożnik na zatrutym |
-| Paralyzing Strike / Paraliżujący Cios (`shove`) | 2–4 | szansa paraliżu |
-| Fearless Flight / Podniebny Cios (`aerial_strike`) | 2–4 | mnożnik |
-| Flying Fright / Pikujący Cios (`dive_attack`) | 2–4 | mnożnik 1,5 → 2 → 2,5 |
-| Revive / Ożywienie (`revive_tonic`) | 2–4 | HP po wskrzeszeniu 30 → 50 → 70 % |
-| Backup Bash / Hazardowy Cios (`reckless_blow`) | 2–4 | szansa trafienia 8 → 12 → 16 % |
-| Rushdown / Natarcie (`onslaught`) | 3–4 | trafienia 6 → 8 |
-| Speed Share / Wspólne Tempo (`share_tempo`) | 3–4 | siła i czas buffa AGI |
-| Final Strike / Ostateczne Cięcie (`final_strike`) | 3–4 | ATK × 8 → × 12 |
-| Death Enrage / Szał Śmierci (`death_enrage`) | 4 | ult; jedna wersja, slot T4 |
+| Swift Flurry / Błyskawiczna Seria (`leap_series`) | 1–3 | trafienia 5 → 6 → 7, szansa ogłuszenia rośnie |
+| Twin Strike / Podwójny Sztych (`double_throw`) | 1–3 | mnożnik, potem trzecie trafienie |
+| Dagger Barrage / Grad Sztyletów (`coin_barrage`) | 1–3 | trafienia 3 → 4 → 5 |
+| Smoke Screen / Zasłona Dymna (`smoke_cloud`) | 1–3 | szansa oślepienia 50 → 65 → 80 % |
+| Toxic Wave / Toksyczna Fala (`sound_wave`) | 1–3 | szansa trafienia wroga 50 → 65 → 80 % (decyzja usera) |
+| Healing Prayer / Modlitwa Uzdrowienia (`hearty_meal`) | 1–3 | leczenie MAT × 4 → 5 → 6 |
+| Battle Hymn / Hymn Bojowy (`rousing_tune`) | 2–3 | czas / siła wzmocnienia |
+| Armor of Faith / Pancerz Wiary (`nurturing_care`) | 2–3 | czas / siła obrony |
+| Seal of Silence / Pieczęć Ciszy (`sea_chant`) | 2–4 | szansa uciszenia rośnie |
+| Slumber Missiles / Deszcz Snów (`lullaby`) | 2–4 | trafienia, szansa uśpienia |
+| Venom Bolt / Jadowity Pocisk (`piercing_shriek`) | 2–4 | szansa trucizny, mnożnik na zatrutym |
+| Paralyzing Strike / Paraliżujące Pchnięcie (`shove`) | 2–4 | szansa paraliżu |
+| Meteor Strike / Spadający Meteor (`aerial_strike`) | 2–4 | mnożnik |
+| Shadow Strike / Cios z Cienia (`dive_attack`) | 2–4 | mnożnik 1,5 → 2 → 2,5 |
+| Resurrection / Wskrzeszenie (`revive_tonic`) | 2–4 | HP po wskrzeszeniu 30 → 50 → 70 % |
+| Reckless Strike / Ryzykowny Cios (`reckless_blow`) | 2–4 | szansa trafienia 8 → 12 → 16 % |
+| Blade Dance / Taniec Ostrzy (`onslaught`) | 3–4 | trafienia 6 → 8 |
+| Wind's Blessing / Błogosławieństwo Wiatru (`share_tempo`) | 3–4 | siła i czas buffa AGI |
+| Final Blow / Ostatni Zamach (`final_strike`) | 3–4 | ATK × 8 → × 12 |
+| Destruction Frenzy / Szał Zniszczenia (`death_enrage`) | 4 | ult; jedna wersja, slot T4 |
 
 Skille-klucze zamku (Rushdown, Backup Bash, Rapid Flurry) mają niski tier startowy, więc znajomość wystarcza od razu po nauczeniu u NPC.
 
