@@ -31,7 +31,9 @@ func _ready() -> void:
 ## Wejście do modułu: ekran przejścia powstaje pierwszy i jest narysowany, zanim ruszy wczytywanie (scena wejściowa
 ## w tle, pasek za postępem) i start modułu — ścinka dzieje się pod zasłoną.
 func _start_module(manifest: Dictionary) -> void:
-	_show_transition(str(manifest.get("name", manifest.get("id", "Moduł"))), "Ładowanie")
+	var default_mod_name: String = I18nService.t("host.transition.default_module") if I18nService else "Module"
+	var load_text: String = I18nService.t("host.transition.loading") if I18nService else "Loading"
+	_show_transition(str(manifest.get("name", manifest.get("id", default_mod_name))), load_text)
 	await _transition.painted()
 	var entry_path := str(manifest.get("entry_scene_path", ""))
 	if entry_path != "" and ResourceLoader.exists(entry_path):
@@ -40,7 +42,8 @@ func _start_module(manifest: Dictionary) -> void:
 		while ResourceLoader.load_threaded_get_status(entry_path, progress) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			_transition.set_progress(float(progress[0]) * 0.8 if not progress.is_empty() else 0.0)
 			await get_tree().process_frame
-		_transition.set_progress(0.8, "Uruchamianie")
+		var start_text: String = I18nService.t("host.transition.starting") if I18nService else "Starting"
+		_transition.set_progress(0.8, start_text)
 		await get_tree().process_frame
 	_menu.visible = false
 	_module_host.start_module(manifest, _module_layer)
@@ -51,7 +54,8 @@ func _on_module_started(_module_id: String) -> void:
 
 
 func _on_module_exiting(_module_id: String) -> void:
-	_show_transition("Artefakt Wiedzy", "Zamykanie gry")
+	var closing_text: String = I18nService.t("host.transition.closing_game") if I18nService else "Closing game"
+	_show_transition("Artefakt Wiedzy", closing_text)
 
 
 func _on_module_exited(_module_id: String) -> void:

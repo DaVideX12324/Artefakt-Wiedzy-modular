@@ -70,10 +70,10 @@ func _ready() -> void:
 	if UIScaleService.scale_changed.is_connected(_on_scale_changed) == false:
 		UIScaleService.scale_changed.connect(_on_scale_changed)
 	_setup_trees()
-	_type_filter.add_item("Wszystkie typy", 0)
-	for i in range(QuestionBank.TYPES.size()):
-		_type_filter.add_item(QuestionBank.TYPE_NAMES[QuestionBank.TYPES[i]], i + 1)
-		_type_option.add_item(QuestionBank.TYPE_NAMES[QuestionBank.TYPES[i]], i)
+	_update_type_dropdowns()
+	_update_dialog_titles()
+	if not I18nService.language_changed.is_connected(_on_language_changed):
+		I18nService.language_changed.connect(_on_language_changed)
 	_btn_close.pressed.connect(close)
 	_btn_new_set.pressed.connect(_on_new_set)
 	_btn_import.pressed.connect(func() -> void: _import_dialog.popup_centered())
@@ -188,19 +188,52 @@ func _check_icon(size: int, checked: bool, round: bool) -> ImageTexture:
 	return ImageTexture.create_from_image(img)
 
 
+func _update_dialog_titles() -> void:
+	_import_dialog.title = I18nService.t("host.question_editor.import_dlg_title")
+	_export_dialog.title = I18nService.t("host.question_editor.export_dlg_title")
+	_confirm_dialog.title = I18nService.t("host.question_editor.confirm_dlg_title")
+	_name_dialog.title = I18nService.t("host.question_editor.name_dlg_title")
+	_report_dialog.title = I18nService.t("host.question_editor.report_dlg_title")
+
+
+func _update_type_dropdowns() -> void:
+	var sel_filter := _type_filter.get_selected_id()
+	_type_filter.clear()
+	_type_filter.add_item(I18nService.t("host.question_editor.all_types"), 0)
+	for i in range(QuestionBank.TYPES.size()):
+		_type_filter.add_item(QuestionBank.get_type_name(QuestionBank.TYPES[i]), i + 1)
+	if sel_filter >= 0 and sel_filter < _type_filter.item_count:
+		_type_filter.select(sel_filter)
+
+	var sel_opt := _type_option.selected
+	_type_option.clear()
+	for i in range(QuestionBank.TYPES.size()):
+		_type_option.add_item(QuestionBank.get_type_name(QuestionBank.TYPES[i]), i)
+	if sel_opt >= 0 and sel_opt < _type_option.item_count:
+		_type_option.select(sel_opt)
+
+
+func _on_language_changed(_lang: String) -> void:
+	_setup_trees()
+	_update_type_dropdowns()
+	_update_dialog_titles()
+	_refresh_sets(_set_id)
+	_update_buttons()
+
+
 func _setup_trees() -> void:
-	_sets_tree.set_column_title(0, "W grze")
-	_sets_tree.set_column_title(1, "Zestaw")
-	_sets_tree.set_column_title(2, "Pytań")
+	_sets_tree.set_column_title(0, I18nService.t("host.question_editor.tree_in_game"))
+	_sets_tree.set_column_title(1, I18nService.t("host.question_editor.tree_set"))
+	_sets_tree.set_column_title(2, I18nService.t("host.question_editor.tree_questions"))
 	_sets_tree.set_column_expand(0, false)
 	_sets_tree.set_column_custom_minimum_width(0, UIScaleService.px(70))
 	_sets_tree.set_column_expand(2, false)
 	_sets_tree.set_column_custom_minimum_width(2, UIScaleService.px(70))
-	_q_tree.set_column_title(0, "W grze")
-	_q_tree.set_column_title(1, "Typ")
-	_q_tree.set_column_title(2, "Treść")
-	_q_tree.set_column_title(3, "Trudn.")
-	_q_tree.set_column_title(4, "Kategoria")
+	_q_tree.set_column_title(0, I18nService.t("host.question_editor.tree_in_game"))
+	_q_tree.set_column_title(1, I18nService.t("host.question_editor.tree_type"))
+	_q_tree.set_column_title(2, I18nService.t("host.question_editor.tree_content"))
+	_q_tree.set_column_title(3, I18nService.t("host.question_editor.tree_diff"))
+	_q_tree.set_column_title(4, I18nService.t("host.question_editor.tree_cat"))
 	for c in [0, 1, 3, 4]:
 		_q_tree.set_column_expand(c, false)
 	_q_tree.set_column_custom_minimum_width(0, UIScaleService.px(70))
@@ -229,7 +262,7 @@ func _refresh_sets(select_id: String = "") -> void:
 		it.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 		it.set_editable(0, true)
 		it.set_checked(0, QuestionBank.is_set_enabled(id, sel))
-		var tag: String = {"builtin": "", "edited": "  (edytowany)", "user": "  (własny)"}.get(str(s["source"]), "")
+		var tag: String = {"builtin": "", "edited": "  " + I18nService.t("host.options.set_edited"), "user": "  " + I18nService.t("host.options.set_user")}.get(str(s["source"]), "")
 		it.set_text(1, str(s["name"]) + tag)
 		it.set_tooltip_text(1, "%s\nid: %s" % [str(s.get("description", "")), id])
 		it.set_text(2, str((s["questions"] as Array).size()))
@@ -268,28 +301,29 @@ func _on_set_edited() -> void:
 	var id := str(it.get_metadata(0))
 	QuestionBank.set_set_enabled(id, it.is_checked(0))
 	_reload_game()
-	_say("Zestaw „%s” %s w grze." % [it.get_text(1).strip_edges(), "używany" if it.is_checked(0) else "nieużywany"])
+	var status_str: String = I18nService.t("host.question_editor.status_used") if it.is_checked(0) else I18nService.t("host.question_editor.status_unused")
+	_say(I18nService.tf("host.question_editor.set_status", {"name": it.get_text(1).strip_edges(), "status": status_str}))
 
 
 func _on_new_set() -> void:
-	_ask_name("Nowy zestaw", "", func(name: String) -> void:
+	_ask_name(I18nService.t("host.question_editor.btn_new_set"), "", func(name: String) -> void:
 		if name == "":
 			return
 		var id := QuestionBank.new_set_id(name)
 		QuestionBank.save_set(id, {"name": name, "description": "", "questions": []})
 		_reload_game()
 		_refresh_sets(id)
-		_say("Utworzono zestaw „%s”. Dodaj pytania przyciskiem „Dodaj pytanie”." % name))
+		_say(I18nService.tf("host.question_editor.set_created", {"name": name})))
 
 
 func _on_rename() -> void:
 	if _set.is_empty():
 		return
-	_ask_name("Zmień nazwę zestawu", str(_set["name"]), func(name: String) -> void:
+	_ask_name(I18nService.t("host.question_editor.rename_title"), str(_set["name"]), func(name: String) -> void:
 		if name == "":
 			return
 		_set["name"] = name
-		_save_current("Zmieniono nazwę na „%s”." % name))
+		_save_current(I18nService.tf("host.question_editor.renamed", {"name": name})))
 
 
 func _on_delete_set() -> void:
@@ -297,12 +331,12 @@ func _on_delete_set() -> void:
 		return
 	var source := str(_set["source"])
 	if source == "builtin":
-		_say("Wbudowanego zestawu nie można usunąć — można go wyłączyć (odznacz „W grze”).", false)
+		_say(I18nService.t("host.question_editor.cannot_delete_builtin"), false)
 		return
 	var name := str(_set["name"])
-	var question := "Usunąć zestaw „%s” (%d pytań)? Tego nie da się cofnąć." % [name, (_set["questions"] as Array).size()]
+	var question := I18nService.tf("host.question_editor.confirm_delete", {"name": name, "count": (_set["questions"] as Array).size()})
 	if source == "edited":
-		question = "Przywrócić oryginalny zestaw „%s”? Twoje zmiany w nim zostaną usunięte." % name
+		question = I18nService.tf("host.question_editor.confirm_revert", {"name": name})
 	_ask_confirm(question, func() -> void:
 		var id := _set_id
 		QuestionBank.delete_user_file(id)
@@ -310,7 +344,7 @@ func _on_delete_set() -> void:
 			QuestionBank.forget_set(id)
 		_reload_game()
 		_refresh_sets(id if source == "edited" else "")
-		_say("Przywrócono oryginał „%s”." % name if source == "edited" else "Usunięto zestaw „%s”." % name))
+		_say(I18nService.tf("host.question_editor.reverted", {"name": name}) if source == "edited" else I18nService.tf("host.question_editor.deleted", {"name": name})))
 
 
 func _on_export() -> void:
@@ -322,9 +356,9 @@ func _on_export() -> void:
 
 func _on_export_path(path: String) -> void:
 	if QuestionBank.export_set(_set_id, path):
-		_say("Wyeksportowano „%s” do %s" % [_set["name"], path])
+		_say(I18nService.tf("host.question_editor.exported_status", {"name": _set["name"], "path": path}))
 	else:
-		_say("Nie udało się zapisać %s" % path, false)
+		_say(I18nService.tf("host.question_editor.save_failed", {"path": path}), false)
 
 
 func _on_files_dropped(files: PackedStringArray) -> void:
@@ -338,15 +372,16 @@ func _on_files_dropped(files: PackedStringArray) -> void:
 func _import_file(path: String) -> void:
 	var r := QuestionBank.import_file(path)
 	if not r["ok"]:
-		_say("Import %s: %s" % [path.get_file(), r["error"]], false)
-		_report("Import nieudany", "%s\n\n%s" % [path.get_file(), r["error"]] + _skipped_text(r["skipped"]))
+		_say(I18nService.tf("host.question_editor.import_failed_msg", {"file": path.get_file(), "error": r["error"]}), false)
+		_report(I18nService.t("host.question_editor.import_failed_title"), "%s\n\n%s" % [path.get_file(), r["error"]] + _skipped_text(r["skipped"]))
 		return
 	_reload_game()
 	_refresh_sets(str(r["id"]))
 	var skipped: Array = r["skipped"]
-	_say("Zaimportowano „%s”: %d pytań%s." % [r["name"], r["imported"], (", pominięto %d" % skipped.size()) if not skipped.is_empty() else ""])
+	var skipped_str := I18nService.tf("host.question_editor.skipped_part", {"count": skipped.size()}) if not skipped.is_empty() else ""
+	_say(I18nService.tf("host.question_editor.imported_status", {"name": r["name"], "count": r["imported"], "skipped": skipped_str}))
 	if not skipped.is_empty():
-		_report("Import: pominięte pytania", "Zaimportowano %d pytań do zestawu „%s”.%s" % [r["imported"], r["name"], _skipped_text(skipped)])
+		_report(I18nService.t("host.question_editor.import_report_title"), I18nService.tf("host.question_editor.import_report_msg", {"count": r["imported"], "name": r["name"], "skipped": _skipped_text(skipped)}))
 
 
 func _skipped_text(skipped: Array) -> String:
@@ -354,10 +389,10 @@ func _skipped_text(skipped: Array) -> String:
 		return ""
 	var lines := PackedStringArray()
 	for s in skipped.slice(0, 20):
-		lines.append("• pytanie %d: %s" % [s["index"], s["reason"]])
+		lines.append(I18nService.tf("host.question_editor.skipped_item", {"index": s["index"], "reason": s["reason"]}))
 	if skipped.size() > 20:
-		lines.append("… i %d więcej" % (skipped.size() - 20))
-	return "\n\nPominięte (%d):\n%s" % [skipped.size(), "\n".join(lines)]
+		lines.append(I18nService.tf("host.question_editor.skipped_more", {"count": skipped.size() - 20}))
+	return "\n\n" + I18nService.tf("host.question_editor.skipped_header", {"count": skipped.size(), "list": "\n".join(lines)})
 
 
 # --- Pytania -----------------------------------------------------------------------------------------
@@ -386,7 +421,7 @@ func _refresh_questions(select_index: int = -1) -> void:
 		it.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 		it.set_editable(0, true)
 		it.set_checked(0, QuestionBank.is_question_enabled(_set_id, str(q.get("id", "")), sel))
-		it.set_text(1, QuestionBank.TYPE_NAMES.get(t, t))
+		it.set_text(1, QuestionBank.get_type_name(t))
 		it.set_text(2, text.replace("\n", " "))
 		it.set_tooltip_text(2, text)
 		it.set_text(3, str(int(q.get("difficulty", 1))))
@@ -416,7 +451,7 @@ func _update_buttons() -> void:
 	_btn_rename.disabled = not has_set
 	var source := str(_set.get("source", ""))
 	_btn_delete_set.disabled = not has_set or source == "builtin"
-	_btn_delete_set.text = "Przywróć oryginał" if source == "edited" else "Usuń zestaw"
+	_btn_delete_set.text = I18nService.t("host.question_editor.btn_revert_original") if source == "edited" else I18nService.t("host.question_editor.btn_delete_set")
 
 
 func _on_question_edited() -> void:
@@ -435,7 +470,8 @@ func _set_all_questions(enabled: bool) -> void:
 		QuestionBank.set_question_enabled(_set_id, str(q.get("id", "")), enabled)
 	_reload_game()
 	_refresh_questions(_selected_question_index())
-	_say("Wszystkie pytania zestawu %s." % ("włączone" if enabled else "wyłączone"))
+	var status_str: String = I18nService.t("host.question_editor.enabled") if enabled else I18nService.t("host.question_editor.disabled")
+	_say(I18nService.tf("host.question_editor.all_questions_status", {"status": status_str}))
 
 
 func _on_duplicate() -> void:
@@ -446,7 +482,7 @@ func _on_duplicate() -> void:
 	var copy: Dictionary = (questions[i] as Dictionary).duplicate(true)
 	copy["id"] = QuestionBank.next_question_id(questions, str(copy.get("type", "multiple_choice")))
 	questions.insert(i + 1, copy)
-	_save_current("Zduplikowano pytanie.", i + 1)
+	_save_current(I18nService.t("host.question_editor.duplicated_q"), i + 1)
 
 
 func _on_delete_question() -> void:
@@ -454,16 +490,16 @@ func _on_delete_question() -> void:
 	if i < 0:
 		return
 	var q: Dictionary = (_set["questions"] as Array)[i]
-	_ask_confirm("Usunąć pytanie „%s”?" % QuestionBank.question_text(q).left(80), func() -> void:
+	_ask_confirm(I18nService.tf("host.question_editor.confirm_delete_q", {"text": QuestionBank.question_text(q).left(80)}), func() -> void:
 		(_set["questions"] as Array).remove_at(i)
 		QuestionBank.set_question_enabled(_set_id, str(q.get("id", "")), true)  # porządek w wyborze
-		_save_current("Usunięto pytanie.", mini(i, (_set["questions"] as Array).size() - 1)))
+		_save_current(I18nService.t("host.question_editor.deleted_q"), mini(i, (_set["questions"] as Array).size() - 1)))
 
 
 ## Zapis bieżącego zestawu (wbudowany -> wersja edytowana w user://) i odświeżenie gry oraz list.
 func _save_current(message: String, select_question: int = -1) -> void:
 	if not QuestionBank.save_set(_set_id, _set):
-		_say("Nie udało się zapisać zestawu.", false)
+		_say(I18nService.t("host.question_editor.save_set_failed"), false)
 		return
 	_reload_game()
 	var keep := _set_id
@@ -509,7 +545,7 @@ func _open_edit(index: int) -> void:
 	var q: Dictionary = (questions[index] as Dictionary).duplicate(true) if index >= 0 and index < questions.size() else {}
 	_edit_original = q
 	var t := str(q.get("type", "multiple_choice"))
-	_dlg_title.text = ("Edycja pytania  —  %s" % q.get("id", "")) if index >= 0 else "Nowe pytanie  —  zestaw „%s”" % _set["name"]
+	_dlg_title.text = I18nService.tf("host.question_editor.edit_q_title", {"id": q.get("id", "")}) if index >= 0 else I18nService.tf("host.question_editor.new_q_title", {"name": _set["name"]})
 	_type_option.select(maxi(QuestionBank.TYPES.find(t), 0))
 	_diff_spin.value = int(q.get("difficulty", 1))
 	_category_edit.text = str(q.get("category", ""))
@@ -555,9 +591,9 @@ func _build_form(t: String, q: Dictionary) -> void:
 	_f["type"] = t
 	match t:
 		"multiple_choice":
-			_label("Pytanie:")
+			_label(I18nService.t("host.question_editor.lbl_question"))
 			_f["question"] = _text_edit(str(q.get("question", "")))
-			_label("Odpowiedzi (zaznacz poprawną):")
+			_label(I18nService.t("host.question_editor.lbl_answers_mc"))
 			var box := VBoxContainer.new()
 			_form.add_child(box)
 			_f["answers_box"] = box
@@ -566,42 +602,42 @@ func _build_form(t: String, q: Dictionary) -> void:
 			for i in range(answers.size()):
 				_add_answer_row(str(answers[i]), i == int(q.get("correct_index", 0)))
 			var add := Button.new()
-			add.text = "+ Odpowiedź"
+			add.text = I18nService.t("host.question_editor.btn_add_answer")
 			add.pressed.connect(func() -> void:
 				if box.get_child_count() < MAX_ANSWERS:
 					_add_answer_row("", false))
 			_form.add_child(add)
 		"true_false":
-			_label("Twierdzenie:")
+			_label(I18nService.t("host.question_editor.lbl_statement"))
 			_f["statement"] = _text_edit(str(q.get("statement", "")))
-			_label("Poprawna odpowiedź:")
+			_label(I18nService.t("host.question_editor.lbl_correct_answer"))
 			var opt := OptionButton.new()
-			opt.add_item("Prawda", 0)
-			opt.add_item("Fałsz", 1)
+			opt.add_item(I18nService.t("host.quiz.true"), 0)
+			opt.add_item(I18nService.t("host.quiz.false"), 1)
 			opt.select(0 if bool(q.get("correct_answer", true)) else 1)
 			opt.custom_minimum_size = Vector2(UIScaleService.px(220), 0)
 			opt.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			_form.add_child(opt)
 			_f["correct"] = opt
 		"fill_text":
-			_label("Pytanie:")
+			_label(I18nService.t("host.question_editor.lbl_question"))
 			_f["prompt"] = _text_edit(str(q.get("prompt", "")))
-			_label("Odpowiedź:")
+			_label(I18nService.t("host.question_editor.lbl_answer"))
 			_f["answer"] = _line_edit(str(q.get("answer", "")))
-			_label("Inne akceptowane odpowiedzi (oddzielone przecinkami):")
-			_f["alts"] = _line_edit(", ".join(PackedStringArray((q.get("accepted_alternatives", []) as Array).map(func(x): return str(x)))), "np. stack")
-			_label("Podpowiedź — wzór (puste = pierwsza i ostatnia litera, np. s__s):")
+			_label(I18nService.t("host.question_editor.lbl_accepted_alts"))
+			_f["alts"] = _line_edit(", ".join(PackedStringArray((q.get("accepted_alternatives", []) as Array).map(func(x): return str(x)))), I18nService.t("host.question_editor.alts_placeholder"))
+			_label(I18nService.t("host.question_editor.lbl_hint_pattern"))
 			_f["pattern"] = _line_edit(str(q.get("prefilled_pattern", "")))
 			var cs := CheckBox.new()
-			cs.text = "Rozróżniaj wielkość liter"
+			cs.text = I18nService.t("host.question_editor.case_sensitive")
 			cs.button_pressed = bool(q.get("case_sensitive", false))
 			_form.add_child(cs)
 			_f["case"] = cs
 		"fill_tiles":
-			_label("Tekst z lukami (w miejscu luki wpisz %s):" % QuestionBank.GAP_MARK)
+			_label(I18nService.tf("host.question_editor.lbl_gaps", {"gap": QuestionBank.GAP_MARK}))
 			var te := _text_edit(str(q.get("text_with_gaps", "")))
 			_f["text"] = te
-			_label("Poprawne odpowiedzi w lukach:")
+			_label(I18nService.t("host.question_editor.lbl_gap_answers"))
 			var gaps_box := VBoxContainer.new()
 			_form.add_child(gaps_box)
 			_f["gaps_box"] = gaps_box
@@ -611,14 +647,14 @@ func _build_form(t: String, q: Dictionary) -> void:
 			_f["gap_values"] = corrects
 			_rebuild_gap_rows()
 			te.text_changed.connect(_rebuild_gap_rows)
-			_label("Dodatkowe (błędne) kafelki, oddzielone przecinkami:")
+			_label(I18nService.t("host.question_editor.lbl_extra_tiles"))
 			var extras: Array = []
 			for tile in q.get("tiles", []):
 				if not corrects.has(str(tile)):
 					extras.append(str(tile))
-			_f["extras"] = _line_edit(", ".join(PackedStringArray(extras)), "np. bąbelkowy, największego")
+			_f["extras"] = _line_edit(", ".join(PackedStringArray(extras)), I18nService.t("host.question_editor.extras_placeholder"))
 		"matching":
-			_label("Pary do dopasowania (lewa ↔ prawa):")
+			_label(I18nService.t("host.question_editor.lbl_matching_pairs"))
 			var pairs_box := VBoxContainer.new()
 			_form.add_child(pairs_box)
 			_f["pairs_box"] = pairs_box
@@ -633,7 +669,7 @@ func _build_form(t: String, q: Dictionary) -> void:
 				var ri := int(p.get("right_index", -1))
 				_add_pair_row(str(left[li]) if li >= 0 and li < left.size() else "", str(right[ri]) if ri >= 0 and ri < right.size() else "")
 			var add := Button.new()
-			add.text = "+ Para"
+			add.text = I18nService.t("host.question_editor.btn_add_pair")
 			add.pressed.connect(func() -> void:
 				if pairs_box.get_child_count() < MAX_PAIRS:
 					_add_pair_row("", ""))
@@ -646,14 +682,14 @@ func _add_answer_row(text: String, correct: bool) -> void:
 	var radio := CheckBox.new()
 	radio.button_group = _f["group"]
 	radio.button_pressed = correct
-	radio.tooltip_text = "Poprawna odpowiedź"
+	radio.tooltip_text = I18nService.t("host.question_editor.tooltip_correct")
 	var le := LineEdit.new()
 	le.text = text
 	le.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	le.placeholder_text = "Odpowiedź"
+	le.placeholder_text = I18nService.t("host.question_editor.placeholder_answer")
 	var del := Button.new()
 	del.text = "✕"
-	del.tooltip_text = "Usuń odpowiedź"
+	del.tooltip_text = I18nService.t("host.question_editor.tooltip_delete_answer")
 	del.pressed.connect(func() -> void:
 		if box.get_child_count() > 2:
 			box.remove_child(row)
@@ -669,13 +705,13 @@ func _add_pair_row(left: String, right: String) -> void:
 	var row := HBoxContainer.new()
 	var l := LineEdit.new()
 	l.text = left
-	l.placeholder_text = "Lewa strona"
+	l.placeholder_text = I18nService.t("host.question_editor.placeholder_left")
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var arrow := Label.new()
 	arrow.text = "↔"
 	var r := LineEdit.new()
 	r.text = right
-	r.placeholder_text = "Prawa strona"
+	r.placeholder_text = I18nService.t("host.question_editor.placeholder_right")
 	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var del := Button.new()
 	del.text = "✕"
@@ -707,7 +743,7 @@ func _rebuild_gap_rows() -> void:
 	for i in range(count):
 		var row := HBoxContainer.new()
 		var l := Label.new()
-		l.text = "Luka %d:" % (i + 1)
+		l.text = I18nService.tf("host.question_editor.lbl_gap_num", {"n": i + 1})
 		l.custom_minimum_size = Vector2(UIScaleService.px(90), 0)
 		var le := LineEdit.new()
 		le.text = str(values[i]) if i < values.size() else ""
@@ -811,7 +847,7 @@ func _on_save_question() -> void:
 	var q := _question_from_form()
 	var err := QuestionBank.validate_question(q)
 	if err != "":
-		_error.text = "Nie można zapisać: " + err + "."
+		_error.text = I18nService.tf("host.question_editor.cannot_save_error", {"err": err})
 		return
 	var questions: Array = _set["questions"]
 	var index := _edit_index
@@ -821,4 +857,4 @@ func _on_save_question() -> void:
 		questions.append(q)
 		index = questions.size() - 1
 	_edit_dialog.visible = false
-	_save_current("Zapisano pytanie „%s”." % QuestionBank.question_text(q).left(60), index)
+	_save_current(I18nService.tf("host.question_editor.saved_q", {"text": QuestionBank.question_text(q).left(60)}), index)

@@ -125,3 +125,131 @@ Kod wyjścia: `0` (sukces).
    W mapie 51 plików `.gd` z polskimi znakami znajdują się skrypty deweloperskie, takie jak `autoloads/services/dev_menu.gd` (57 linii) oraz wewnętrzne generatory proceduralne / preview w `modules/quiz_rpg/scripts/tools/` i `generation/`. Zgodnie z wytycznymi („Nie tłumaczymy: ... dev menu, logów”), pliki te nie będą poddawane ekstrakcji do i18n w kolejnych fazach, chyba że zostanie to inaczej wskazane.
 2. **Kolejny krok:**
    Infrastruktura (Faza 0) jest w pełni gotowa do przejścia do **Fazy 1 — host** (`scenes/ui/*.tscn`, `scripts/ui/*.gd`, `scripts/core/*`, `scripts/shared/*`, serwisy).
+
+---
+
+# Raport z wdrożenia i18n — Faza 1 (Host)
+
+Data: 2026-10-16  
+Zadanie: Faza 1 (host) wg `docs/kontekst/i18n_calosc_dla_gemini.md`
+
+---
+
+## 1. Wykonane prace i zmiany architektoniczne
+
+### A. Kompletne słowniki hosta (`resources/i18n/pl.json` i `en.json`)
+- Rozbudowano słowniki hosta z 1 do **228 symetrycznych kluczy** (`host.*`).
+- Zasady formatowania zachowane: UTF-8 bez BOM, końce linii LF, 2 spacje wcięcia, identyczny zestaw kluczy w obu plikach, 100% zgodności znaczników formatowania `{...}`.
+- Pokryto 100% tekstów w scenach hosta (`scenes/ui/*.tscn`) oraz dynamiczne ciągi znaków generowane w kodzie GDScript.
+
+### B. Zachowanie zasad WYSIWYG dla scen (.tscn)
+- We wszystkich plikach `.tscn` hosta (`scenes/ui/main_menu.tscn`, `options_menu.tscn`, `question_editor.tscn`, `game_container.tscn`, `game_over.tscn`) pozostawiono oryginalny tekst w języku polskim.
+- Tłumaczenie scen odbywa się przez TranslationServer rejestrowany transparentnie przez `I18nService`.
+
+### C. Modyfikacje w skryptach hosta
+1. **`scripts/ui/main_menu.gd`:**
+   - Podpięto pod sygnał `I18nService.language_changed` — dynamiczne odświeżanie kafelków modułów w menu głównym w locie.
+   - Zlokalizowano fallbacki statusów modułów oraz informację o nieznanym module.
+2. **`scripts/main.gd`:**
+   - Zlokalizowano komunikaty przejścia i etykiety stanów ładowania (`loading`, `starting`, `closing_game`, `default_module`).
+3. **`scripts/core/module_transition.gd`:**
+   - Zlokalizowano domyślny tekst etapu ładowania.
+4. **`autoloads/services/ui_scale_service.gd`:**
+   - Zlokalizowano etykiety trybów skalowania (`100%`, `125%`, `150%`, `175%`, `200%`, `Auto`).
+5. **`scripts/core/input_binds.gd`:**
+   - Zlokalizowano nazwy klawiszy specjalnych (`host.binds.key.space` — "Spacja" / "Space").
+6. **`scripts/ui/options_menu.gd`:**
+   - Tytuły zakładek `TabContainer` są dynamicznie aktualizowane przez `_update_tab_titles()` w `_ready()`, `open()` oraz `_on_language_changed()`.
+   - Zlokalizowano etykiety monitorów, listę rozdzielczości, limitu FPS, suwaka jasności.
+   - Wdrożono odmiany liczby pytań w zestawach z wykorzystaniem `I18nService.plural("host.options.questions_count", count, {"n": count})`.
+   - Zlokalizowano opisy i przechwytywanie klawiszy w zakładce sterowania.
+   - Zlokalizowano okno dialogowe potwierdzenia zmian z odliczaniem sekund (`countdown`).
+   - Pełna reakcja na zmianę języka na żywo przy otwartym menu.
+7. **`scripts/core/question_bank.gd`:**
+   - Dodano pomocniki `_t()`, `_tf()` i `get_type_name(type: String) -> String`.
+   - Zlokalizowano komunikaty walidacji pytań i błędów importu pliku JSON.
+   - Zastąpiono wartości w słowniku fallbacków `TYPE_NAMES` bezpiecznymi ciągami ASCII.
+8. **`scripts/ui/question_editor.gd`:**
+   - Tytuły kolumn drzew `_sets_tree` oraz `_q_tree` aktualizowane dynamicznie przez `_setup_trees()`.
+   - Zlokalizowano listy wyboru typów pytań (filtr oraz wybór w edytorze) z dynamiczną re-inicjalizacją po zmianie języka (`_on_language_changed`).
+   - Zlokalizowano formularze dla wszystkich 5 typów pytań: jednokrotny wybór, prawda/fałsz, wpisz odpowiedź, uzupełnij kafelkami, dopasuj pary.
+   - Zlokalizowano wszystkie okna dialogowe (`_import_dialog`, `_export_dialog`, `_confirm_dialog`, `_name_dialog`, `_report_dialog`).
+   - Zlokalizowano toasty, raporty importu z listą pominiętych pytań oraz komunikaty błędów walidacji.
+9. **`autoloads/services/quiz_service.gd`:**
+   - Zlokalizowano domyślne polecenia promptów pytań (`Uzupełnij luki kafelkami`, `Połącz w pary`).
+   - Zlokalizowano podpowiedzi sterowania w `get_question_hint()`.
+   - Zlokalizowano prefiksy poprawnych odpowiedzi w `get_correct_answer_text()`.
+10. **`scripts/shared/quiz/quiz_panel_controller.gd`:**
+    - Zlokalizowano etykiety wyników (`Poprawnie!`, `Błędna odpowiedź!`, `Czas minął!`).
+    - Zlokalizowano etykiety przycisków prawda / fałsz w `_build_tf()`.
+    - Zlokalizowano tekst podpowiedzi wzorca w `_build_fill_text()`.
+    - Zlokalizowano treść ujawnionej odpowiedzi w `_show_correct_answer()`.
+11. **`autoloads/services/cheat_service.gd`:**
+    - Zlokalizowano toasty wszystkich cheatów: God Mode, prędkość gracza, wyłączanie/włączanie przeciwników i quizów, Instant Win oraz tryb układu UI quizu.
+
+---
+
+## 2. Wynik działania `python tools/check_i18n.py --phase 1`
+
+Uruchomiono: `python tools/check_i18n.py --phase 1`
+
+```text
+======================================================================
+  WALIDATOR I18N — Artefakt Wiedzy
+  Faza: 1
+======================================================================
+
+[1/4] Znalezione katalogi i18n (2):
+  - modules/quiz_rpg/resources/i18n
+  - resources/i18n
+
+[2/4] Teksty w scenach (.tscn):
+  Łącznie wystąpień tekstu w scenach: 284 (unikalnych: 217)
+  - host      :  63 wystąpień | przetłumaczonych:  63 | oczekujących:   0 (unikalnych: 0)
+  - quiz_rpg  : 160 wystąpień | przetłumaczonych:   4 | oczekujących: 156 (unikalnych: 119)
+  - BitBomber :  61 wystąpień | przetłumaczonych:  19 | oczekujących:  42 (unikalnych: 39)
+
+[3/4] Literały z polskimi znakami w kodzie GDScript (.gd):
+  Plików .gd wymagających i18n: 44
+  Łącznie linii z literałami PL: 361
+
+======================================================================
+  WYNIKI WERYFIKACJI
+======================================================================
+
+Brak krytycznych błędów dla aktualnej fazy!
+
+----------------------------------------------------------------------
+Podsumowanie Fazy 1:
+  - Błędy JSON:               0
+  - Błędy scen dla tej fazy:  0
+  - Oczekujące teksty scen:   198 (unikalnych: 156)
+  - Oczekujące pliki .gd:     44 (361 linii)
+----------------------------------------------------------------------
+```
+
+Kod wyjścia: `0` (sukces).
+
+Stan plików GDScript hosta:
+- `scripts/ui/main_menu.gd` -> 0 linii PL
+- `scripts/ui/options_menu.gd` -> 0 linii PL
+- `scripts/ui/question_editor.gd` -> 0 linii PL
+- `scripts/main.gd` -> 0 linii PL
+- `scripts/core/module_transition.gd` -> 0 linii PL
+- `scripts/core/input_binds.gd` -> 0 linii PL
+- `autoloads/services/ui_scale_service.gd` -> 0 linii PL
+- `autoloads/services/cheat_service.gd` -> 0 linii PL
+- `autoloads/services/quiz_service.gd` -> 0 linii PL (poza 1 komentarzem)
+- `scripts/shared/quiz/quiz_panel_controller.gd` -> 0 linii PL
+- `scripts/core/question_bank.gd` -> 0 literałów użytkownika (1 linia to wewnętrzny słownik transliteracji do slugów: `{"ą": "a", ...}`)
+- `autoloads/services/dev_menu.gd` -> wyłączony z zakresu i18n zgodnie ze specyfikacją.
+
+---
+
+## 3. Zgodność z ograniczeniami
+
+- **Brak zmian w serwisach bazowych:** Pliki `autoloads/services/i18n_service.gd` oraz `modules/quiz_rpg/scripts/i18n/quiz_i18n.gd` pozostały nienaruszone.
+- **Brak zmian w plikach chronionych:** Nie modyfikowano `.tres`, `project.godot`, katalogów `assets/`, `tests/`, `modules/quiz_rpg/_host/`.
+- **Brak uruchomień gry/testów:** Silnik Godot nie był uruchamiany w trakcie prac (brak modyfikacji plików konfiguracyjnych użytkownika).
+- Faza 1 zakończona i gotowa do weryfikacji przez Claude'a.
+
