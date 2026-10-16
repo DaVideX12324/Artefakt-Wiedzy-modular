@@ -72,6 +72,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 |---|---|---|
 | [kontekst/druzyna_szkic.md](kontekst/druzyna_szkic.md) | Szkic systemu drużyny: 3 towarzyszy, zadania rekrutacyjne, osobne pule XP i brak limitu w walce. | `SZKIC (niezatwierdzone)` |
 | [kontekst/ekwipunek_szkic.md](kontekst/ekwipunek_szkic.md) | Szkic ekonomii i ekwipunku: złoto, mikstury, tiery skrzyń i kluczy, sklepy oraz ulepszenia broni. | `SZKIC (niezatwierdzone)` |
+| [kontekst/fabula_krag_i_zakonczenia_szkic.md](kontekst/fabula_krag_i_zakonczenia_szkic.md) | Szkic fabuły: zamiana ciał, krąg zamiast maszyny, magia 10. poziomu, trzy zakończenia, NG+ i walka finałowa. | `SZKIC (niezatwierdzone)` |
 | [kontekst/sloty_umiejetnosci_szkic.md](kontekst/sloty_umiejetnosci_szkic.md) | Szkic mechaniki slotów umiejętności, 4 tierów, budżetu slotów oraz odblokowywania trybu combo. | `SZKIC (niezatwierdzone)` |
 | [kontekst/klasy_postaci_i_bronie.md](kontekst/klasy_postaci_i_bronie.md) | Szkic klas postaci (Wojownik, Łotrzyk, Mag, Kapłan) i 16 broni na strefę (Pixel Crawler). | `SZKIC (niezatwierdzone)` |
 | [kontekst/balans_i_skalowanie.md](kontekst/balans_i_skalowanie.md) | Szkic i wstępna kalibracja parametrów walki (HP, ATK, DEF, TTK) względem FNaFB. | `SZKIC (niezatwierdzone)` |
