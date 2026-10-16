@@ -524,3 +524,163 @@ Jedyne ostrzeżenie to naturalne rozróżnienie słowa „Broń” jako zakładk
 - **Wyłączenia zachowane:** Pliki w `scripts/tools/`, `scripts/generation/` oraz menu deweloperskie nie były tłumaczone.
 - **Brak uruchomień silnika Godot:** Silnik Godot nie był uruchamiany w trakcie prac.
 - Faza 3 w pełni zakończona — STOP.
+# Raport z wdrożenia i18n — Faza 4 (Cień Mgły: dane z zasobów)
+
+Data: 2026-10-16
+Zadanie: Faza 4 wg `docs/kontekst/i18n_calosc_dla_gemini.md` oraz `docs/kontekst/i18n_log_wrogow_dla_gemini.md`
+
+---
+
+## 1. Wykonane prace i zmiany architektoniczne
+
+### A. Brak modyfikacji zasobów `.tres`
+Zgodnie z bezwzględnym wymogiem specyfikacji żaden plik `.tres` nie został zmodyfikowany (`git status` w module i hoście nie zawiera ani jednego pliku zasobów). Wszystkie teksty pozostały w swoich oryginalnych plikach `.tres` jako tekst zapasowy, a ich klucze i tłumaczenia zostały przeniesione do słowników i18n.
+
+### B. Dodanie metod `localized_*()` w klasach danych
+1. **`modules/quiz_rpg/scripts/items/item_data.gd` (`QuizRpgItemData`):**
+   - Dodano metodę `localized_name() -> String` (odpytuje klucz `item.<plik>.name` z fallbackiem do `display_name`).
+   - Dodano metodę `localized_description() -> String` (odpytuje klucz `item.<plik>.desc` z fallbackiem do `description`).
+   - W metodzie `get_effect_summary()` zastąpiono sztywny ciąg `"leczy zatrucie"` wywołaniem `QuizRpgI18n.t("item.effect.cures_poison", "leczy zatrucie")`.
+2. **`modules/quiz_rpg/scripts/enemies/enemy_data.gd` (`QuizRpgEnemyData`):**
+   - Dodano metodę `localized_name() -> String` (odpytuje klucz `enemy.<plik>.name` z fallbackiem do `enemy_name`).
+   - Dodano metodę `localized_scan_text() -> String` (odpytuje klucz `enemy.<plik>.scan` z fallbackiem do `scan_text`).
+3. **`modules/quiz_rpg/scripts/enemies/enemy_base.gd` (`EnemyBase`):**
+   - Dodano metodę `localized_name() -> String` — transparentnie deleguje do `enemy_data.localized_name()` jeśli dostępne, lub zwraca `enemy_name`.
+   - Dodano metodę `localized_scan_text() -> String` — deleguje do `enemy_data.localized_scan_text()` jeśli dostępne, lub zwraca `scan_text`.
+4. **`modules/quiz_rpg/scripts/heroes/hero_data.gd` (`QuizRpgHeroData`):**
+   - Dodano metodę `localized_name() -> String` (odpytuje klucz `hero.<id>.name` z fallbackiem do `display_name`).
+   - W metodzie `build_member_data()` zainicjalizowano pole `"name"` wartością zwracaną przez `localized_name()`.
+5. **`modules/quiz_rpg/scripts/enemies/enemy_skill.gd` (`QuizRpgEnemySkill`):**
+   - Uproszczono metodę `localized_log_text()` do postaci `return QuizRpgI18n.t(key, log_text)`.
+
+### C. Podmiana odczytów pól w UI i logice
+1. **`modules/quiz_rpg/autoloads/inventory_service.gd`:**
+   - W sortowaniu `get_all_items()` zastąpiono `a.display_name` wywołaniem `a.localized_name()`.
+   - W `get_menu_entries()` oraz `use_item()` pola `"name"` i `"description"` wypełniane są przez `item_data.localized_name()` i `item_data.localized_description()`.
+   - W `_build_use_message()` nazwa przedmiotu w komunikacie użycia pobierana jest z `localized_name()`.
+   - W `_register_item()` do rejestru nazw `_display_name_to_id` dodano zarówno oryginalną nazwę `display_name`, jak i `localized_name()`.
+2. **`modules/quiz_rpg/autoloads/player_stats.gd`:**
+   - W `use_item_on_member()` pola `"name"`, `"description"` i komunikat `"message"` używają `item_data.localized_name()` i `item_data.localized_description()`.
+   - W `get_equip_slot_options()` wpis aktualnie założonego przedmiotu generuje pola `"name"` i `"description"` przez `item_data.localized_name()` i `item_data.localized_description()`.
+3. **`modules/quiz_rpg/autoloads/loot_manager.gd`:**
+   - W `award_loot()` pole `"item_name"` pobierane jest przez `item_data.localized_name()`.
+4. **`modules/quiz_rpg/scripts/interactables/chest.gd`:**
+   - Przy otwieraniu skrzyni nazwa przedmiotu `item_name` w popupie pobierana jest przez `item_data.localized_name()`.
+5. **`modules/quiz_rpg/scripts/quiz/quiz_combat_controller.gd`:**
+   - W `setup()` pole `enemy_name_str` inicjalizowane jest przez `p_enemy.localized_name()`.
+   - W `_scan_enemy()` tekst opisu pobierany jest za pomocą `src.localized_scan_text()`.
+   - W `_setup_enemy_display()` etykieta wroga oraz domyślny wpis jednostki pobierają nazwę z `enemy.localized_name()`.
+   - W `_roll_enemy_party()` unikalne zliczanie i numerowanie jednostek grupy (`sources`) operuje na `src.localized_name()`.
+   - W `_item_display_name()` zwracana jest nazwa z `data.localized_name()`.
+6. **`modules/quiz_rpg/scripts/ui/pause_menu.gd`:**
+   - W `_get_equipped_item_name()` nazwa przedmiotu zwracana jest przez `item_data.localized_name()`, a pusty slot zlokalizowano kluczem `equip.empty_slot_name`.
+   - Poprawiono odwołania do `CoreManager` na bezpieczne `get_node_or_null("/root/CoreManager")`, co zapewnia prawidłową kompilację i działanie w trybie autonomicznym.
+7. **`modules/quiz_rpg/scripts/npc/companion_npc.gd`:**
+   - W oknie dialogowym `DialogBox.open` imię rekrutowanego towarzysza pobierane jest przez `hero.localized_name()`.
+   - Przy wypełnianiu dialogu questowego `_fill()` nazwa przedmiotu `quest_item_id` pobierana jest przez `it.localized_name()`.
+8. **`modules/quiz_rpg/scripts/maps/procedural_level.gd`:**
+   - Na ekranie ładowania poziomu proceduralnego nazwa lokacji tłumaczona jest kluczem `map.<key>.name` (np. `map.forest.name`, `map.castle.name`).
+
+### D. Rozbudowa słowników `pl.json` i `en.json`
+Do obu słowników dodano **202 symetryczne klucze**:
+1. **37 przedmiotów:** `item.<plik>.name` oraz `item.<plik>.desc` dla wszystkich 37 plików `.tres` w `resources/items/`.
+2. **1 efekt przedmiotu:** `item.effect.cures_poison` ("leczy zatrucie" / "cures poison").
+3. **50 wrogów:** `enemy.<plik>.name` oraz `enemy.<plik>.scan` dla wszystkich 50 plików w `pixel_crawler/data/`.
+4. **4 bohaterów:** `hero.<id>.name` dla 4 bohaterów (`bohater`, `kaplan`, `lotrzyk`, `mag`) z zachowaniem zasady EN = PL.
+5. **2 nazwy map:** `map.forest.name` ("Las" / "Forest"), `map.castle.name` ("Zamek" / "Castle").
+6. **21 logów umiejętności wrogów:** `skill.<plik>.log` dla 21 skilli wrogów zgodnie ze specyfikacją `docs/kontekst/i18n_log_wrogow_dla_gemini.md`.
+Plik `docs/kontekst/i18n_log_wrogow_dla_gemini.md` został oznaczony wpisem `GOTOWE (2026-10-16)`.
+
+---
+
+## 2. Wynik działania `python tools/check_i18n.py --phase 4`
+
+Uruchomiono: `python tools/check_i18n.py --phase 4`
+
+```text
+======================================================================
+  WALIDATOR I18N — Artefakt Wiedzy
+  Faza: 4
+======================================================================
+
+[1/4] Znalezione katalogi i18n (2):
+  - modules/quiz_rpg/resources/i18n
+  - resources/i18n
+
+[2/4] Teksty w scenach (.tscn):
+  Łącznie wystąpień tekstu w scenach: 214 (unikalnych: 153)
+  - host      :  64 wystąpień | przetłumaczonych:  64 | oczekujących:   0 (unikalnych: 0)
+  - quiz_rpg  :  89 wystąpień | przetłumaczonych:  89 | oczekujących:   0 (unikalnych: 0)
+  - BitBomber :  61 wystąpień | przetłumaczonych:  22 | oczekujących:  39 (unikalnych: 37)
+
+[3/4] Literały z polskimi znakami w kodzie GDScript (.gd):
+  Plików .gd wymagających i18n: 49
+  Łącznie linii z literałami PL: 388
+
+======================================================================
+  WYNIKI WERYFIKACJI
+======================================================================
+
+OSTRZEŻENIA (4):
+  [WARN] Polski tekst "Bohater" ma różne tłumaczenia angielskie:
+  'Bohater' -> hero.bohater.name (modules/quiz_rpg/resources/i18n)
+  'Hero' -> combat.default_hero_name (modules/quiz_rpg/resources/i18n)
+  [WARN] Polski tekst "Łotrzyk" ma różne tłumaczenia angielskie:
+  'Rogue' -> class.rogue (modules/quiz_rpg/resources/i18n)
+  'Łotrzyk' -> hero.lotrzyk.name (modules/quiz_rpg/resources/i18n)
+  [WARN] Polski tekst "Kapłan" ma różne tłumaczenia angielskie:
+  'Royal Priest' -> enemy.royal_priest.name (modules/quiz_rpg/resources/i18n)
+  'Kapłan' -> hero.kaplan.name (modules/quiz_rpg/resources/i18n)
+  'Priest' -> class.priest (modules/quiz_rpg/resources/i18n)
+  [WARN] Polski tekst "Mag" ma różne tłumaczenia angielskie:
+  'Mage' -> class.mage (modules/quiz_rpg/resources/i18n)
+  'Mag' -> hero.mag.name (modules/quiz_rpg/resources/i18n)
+
+Brak krytycznych błędów dla aktualnej fazy!
+
+----------------------------------------------------------------------
+Podsumowanie Fazy 4:
+  - Błędy JSON:               0
+  - Błędy scen dla tej fazy:  0
+  - Oczekujące teksty scen:   39 (unikalnych: 37)
+  - Oczekujące pliki .gd:     49 (388 linii)
+----------------------------------------------------------------------
+```
+
+Kod wyjścia: `0` (sukces).
+Ostrzeżenia dotyczą zamierzonej zasady EN = PL dla imion 4 bohaterów (`Bohater`, `Kapłan`, `Łotrzyk`, `Mag`) w opozycji do generycznych nazw klas lub typu wroga.
+
+---
+
+## 3. Zgodność z ograniczeniami i weryfikacja
+
+1. **BEZWZGLĘDNA WERYFIKACJA KOŃCÓW LINII (LF):**
+   Wszystkie zmodyfikowane pliki (`.gd`, `.json`, `.md`) zostały sprawdzone pod kątem obecności znaku `
+`. Każdy plik ma **dokładnie 0 bajtów CR** (`b'
+' not in data` / `grep -c $'
+' plik == 0`).
+2. **Kompilacja i składnia Godot Engine:**
+   Wszystkie 13 zmodyfikowanych plików `.gd` pomyślnie przeszły test `Godot_v4.7.2-stable_win64_console.exe --headless --check-only --script <plik>` z kodem wyjścia `0`:
+   - `autoloads/inventory_service.gd`
+   - `autoloads/loot_manager.gd`
+   - `autoloads/player_stats.gd`
+   - `scripts/enemies/enemy_base.gd`
+   - `scripts/enemies/enemy_data.gd`
+   - `scripts/enemies/enemy_skill.gd`
+   - `scripts/heroes/hero_data.gd`
+   - `scripts/interactables/chest.gd`
+   - `scripts/items/item_data.gd`
+   - `scripts/maps/procedural_level.gd`
+   - `scripts/npc/companion_npc.gd`
+   - `scripts/quiz/quiz_combat_controller.gd`
+   - `scripts/ui/pause_menu.gd`
+3. **Brak duplikacji kodu:**
+   Wszystkie edycje zostały zweryfikowane przez `git diff` — żaden blok kodu nie został wklejony dwukrotnie.
+4. **Identyfikatory serwisów:**
+   W skryptach modułu nie użyto identyfikatora `I18nService`, wyłącznie `QuizRpgI18n`.
+5. **Nienaruszone pliki `.tres`:**
+   Żaden plik `.tres` nie był modyfikowany.
+6. **Czystość repozytorium:**
+   Brak jakichkolwiek plików `__pycache__` ani `*.pyc` w repozytorium.
+
+Faza 4 w pełni zrealizowana — STOP.

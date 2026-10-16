@@ -38,3 +38,5 @@ Kod już go czyta (`QuizRpgEnemySkill.localized_log_text()`); bez klucza gra uż
 | `whirling_slash` | {enemy} tnie wirującym ostrzem! |
 
 Liczba pozycji: 21.
+
+GOTOWE (2026-10-16)
