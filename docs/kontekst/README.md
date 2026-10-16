@@ -42,6 +42,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 | [skille_i_pierwowzory.docx](skille_i_pierwowzory.docx) | Plik binarny Word zawierający bazową tabelę umiejętności i kosztów SP/TP. | `SZKIC (niezatwierdzone)` |
 | [i18n_opisy_dla_gemini.md](i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do `pl.json` i `en.json`. | `ZROBIONE` |
 | [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie tekstów logu walki dla umiejętności przeciwników. | `NIE ZROBIONE` |
+| [i18n_calosc_dla_gemini.md](i18n_calosc_dla_gemini.md) | Brief dla Gemini: tłumaczenia PL / EN całego Artefaktu (host, Cień Mgły, BitBomber) — `I18nService`, sceny przez `TranslationServer`, fazy 0–5. | `NIE ZROBIONE` |
 | [zadania_dla_antigravity.md](zadania_dla_antigravity.md) | Rejestr zadań mechanicznych i tekstowych delegowanych modelom pomocniczym (Gemini/Antigravity). | `W TOKU` |
 | [porzadkowanie_docs_dla_gemini.md](porzadkowanie_docs_dla_gemini.md) | Brief na uporządkowanie struktury `docs/`, ujednolicenie statusów i utworzenie indeksów (Zadanie E). | `W TOKU` |
 | [raport_porzadkowania.md](raport_porzadkowania.md) | Raport z przeprowadzonego porządkowania dokumentacji, weryfikacji linków i ewentualnych rozbieżności. | `ZROBIONE` |

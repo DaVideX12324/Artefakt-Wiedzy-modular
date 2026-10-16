@@ -89,6 +89,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/porzadkowanie_docs_dla_gemini.md](kontekst/porzadkowanie_docs_dla_gemini.md) | Brief uporządkowania struktury folderu `docs/`, ujednolicenia statusów i indeksów (Zadanie E). | `W TOKU` |
 | [kontekst/i18n_opisy_dla_gemini.md](kontekst/i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do JSON. | `ZROBIONE` |
 | [kontekst/i18n_log_wrogow_dla_gemini.md](kontekst/i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie komunikatów logu walki umiejętności przeciwników. | `NIE ZROBIONE` |
+| [kontekst/i18n_calosc_dla_gemini.md](kontekst/i18n_calosc_dla_gemini.md) | Brief dla Gemini: tłumaczenia PL / EN całego Artefaktu (host, Cień Mgły, BitBomber) — `I18nService`, sceny przez `TranslationServer`, fazy 0–5. | `NIE ZROBIONE` |
 | [kontekst/raport_porzadkowania.md](kontekst/raport_porzadkowania.md) | Raport z przeprowadzonego porządkowania dokumentacji, weryfikacji linków i ewentualnych rozbieżności. | `ZROBIONE` |
 
 ---
