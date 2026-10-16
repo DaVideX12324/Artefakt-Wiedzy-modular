@@ -684,3 +684,142 @@ Ostrzeżenia dotyczą zamierzonej zasady EN = PL dla imion 4 bohaterów (`Bohate
    Brak jakichkolwiek plików `__pycache__` ani `*.pyc` w repozytorium.
 
 Faza 4 w pełni zrealizowana — STOP.
+# RAPORT: FAZA 5 — Moduł BitBomber (i18n)
+
+Data wykonania: 2026-10-16
+Status: **ZAKOŃCZONA SUKCESEM**
+
+---
+
+## 1. Zakres zrealizowanych prac
+
+### A. Słowniki modułu BitBomber (`modules/BitBomber/resources/i18n/pl.json` i `en.json`)
+- Utworzono dedykowany zestaw słowników dla submodułu `BitBomber` zawierający **94 symetryczne klucze** (`bb.*`).
+- Zasady formatowania: UTF-8 bez BOM, końce linii LF, 2 spacje wcięcia, identyczny zestaw kluczy w obu plikach, 100% zgodności znaczników formatowania `{...}`.
+- Pokryto 100% tekstów w scenach `.tscn` submodułu (61 wystąpień, 37 unikalnych tekstów WYSIWYG).
+- Pokryto dynamiczne ciągi znaków generowane w kodzie GDScript.
+- Ujednolicono tłumaczenie `"✕ Powrot do menu glownego"` na `"✕ Back to Main Menu"` (zgodnie z modułem quiz_rpg).
+
+### B. Zachowanie zasad WYSIWYG dla scen (.tscn)
+- Wszystkie pliki scen `.tscn` w `modules/BitBomber` pozostały w niezmienionej formie (oryginalne polskie teksty w scenach).
+- Tłumaczenie scen odbywa się przez `TranslationServer` rejestrowany transparentnie przez klasę `BbI18n`.
+
+### C. Modyfikacje w skryptach modułu BitBomber
+1. **`module_root.gd`:**
+   - Dodano wywołanie `BbI18n.register()` w `_ready()` oraz w `embedded_start()`, zapewniając automatyczną rejestrację translacji zarówno w trybie embedded (host), jak i standalone.
+2. **`autoloads/ui_scale_manager.gd`:**
+   - Zlokalizowano etykiety trybów skalowania interfejsu (`bb.scale.xsmall`, `small`, `normal`, `large`, `xlarge`) przy użyciu `BbI18n.t()`.
+   - Zabezpieczono dostęp do `SettingsManager` za pomocą bezpiecznego sprawdzania metod i właściwości.
+3. **`scripts/hud.gd`:**
+   - Zlokalizowano tytuł karty gracza (`bb.hud.player_title`) oraz etykietę rundy (`bb.hud.round_label`) przy pomocy `BbI18n.tf()`.
+   - Wprowadzono bezpieczne helpery dostępu do autoloadów (`_rm()`, `_sz()`, `_px()`, `_sz2()`), co pozwala skryptowi przejść kompilację headless `--check-only`.
+4. **`scripts/death_screen.gd`:**
+   - Zlokalizowano komunikaty końca rundy (`bb.death.bots_won_round`, `bb.death.player_won_round`, `bb.death.round_draw`).
+   - Zlokalizowano ekrany zakończenia gry (`bb.death.game_over_draw_title`, `subtitle`, `game_over_bots_won_title`, `game_over_player_won_title`).
+   - Zlokalizowano tabelę wyników z uwzględnieniem polskich form liczby mnogiej: `bb.death.player_score_row` oraz `bb.death.bots_score_row` przez `BbI18n.plural()`.
+   - Zlokalizowano etykiety przycisków oraz dynamiczną etykietę przejścia do następnej rundy (`bb.death.next_round_leader_needs`, `bb.death.next_round_remaining`, `bb.death.last_round`, `bb.death.next_round`).
+   - Odłączono bezpośrednie zależności do autoloadów w nagłówkach i metodach poprzez lokalne helpery.
+5. **`scripts/main_menu.gd`:**
+   - Zlokalizowano pozycję `"Wszystkie"` w selektorze quizów (`bb.menu.quiz_all`).
+   - Zlokalizowano etykiety liczby rund w zależności od warunku wygranej (`bb.menu.rounds_to_win_x`, `bb.menu.rounds_in_session_y`).
+   - Zlokalizowano dynamiczną etykietę przycisku wyjścia (`bb.menu.btn_back_to_host` w trybie embedded, `bb.menu.btn_quit` w trybie standalone).
+   - Zlokalizowano pełną treść nakładki pomocy / instrukcji gry (`bb.help.title`, `bb.help.body`, `bb.help.btn_close`).
+   - Zastąpiono bezpośrednie odwołania do `UIScaleManager` i `QuizManager` metodami pomocniczymi.
+6. **`scripts/options_menu.gd`:**
+   - Zlokalizowano komunikat odliczania czasu do przywrócenia ustawień (`bb.options.revert_countdown`).
+   - Zlokalizowano sufiksy monitora głównego (`bb.options.primary_monitor_suffix`) oraz rozdzielczości natywnej (`bb.options.native_resolution_suffix`).
+   - Zastąpiono typowane referencje do `UIScaleManager.ScaleMode` bezpiecznym typem bazowym `int` i helperami `_sm()`, `_settings_manager()`, co eliminuje błędy kompilatora podczas analizy izolowanego skryptu.
+7. **`scripts/quiz_overlay.gd`:**
+   - Zlokalizowano tytuły quizów dla poszczególnych trybów (`bb.quiz.title_solo`, `bb.quiz.title_versus`, `bb.quiz.title_duel_p1`, `bb.quiz.title_duel_p2`).
+   - Zlokalizowano podpowiedzi sterowania dla wszystkich trybów pytań (`bb.quiz.hint_versus`, `bb.quiz.hint_duel_p2`, `bb.quiz.hint_p1`, `bb.quiz.hint_fill_text`, `bb.quiz.hint_fill_tiles`, `bb.quiz.hint_matching`).
+   - Zlokalizowano etykiety przycisków Prawda/Fałsz (`bb.quiz.true`, `bb.quiz.false`).
+   - Zlokalizowano podpowiedź wzorca (`bb.quiz.pattern_hint`).
+   - Zlokalizowano etykiety odpowiedzi poprawnej i błędnej (`bb.quiz.correct`, `bb.quiz.incorrect`, `bb.quiz.correct_answer`, `bb.quiz.correct_order`, `bb.quiz.correct_prefix`).
+   - Zlokalizowano formatowanie zegara odliczającego (`bb.quiz.timer_format`).
+   - Bezpieczne wywołania `QuizManager.answer_current()` oraz debugera przez `_gm()` i `_qm()`.
+
+---
+
+## 2. Wynik działania `python -B tools/check_i18n.py --phase 5`
+
+```text
+======================================================================
+  WALIDATOR I18N — Artefakt Wiedzy
+  Faza: 5
+======================================================================
+
+[1/4] Znalezione katalogi i18n (3):
+  - modules/BitBomber/resources/i18n
+  - modules/quiz_rpg/resources/i18n
+  - resources/i18n
+
+[2/4] Teksty w scenach (.tscn):
+  Łącznie wystąpień tekstu w scenach: 214 (unikalnych: 153)
+  - host      :  64 wystąpień | przetłumaczonych:  64 | oczekujących:   0 (unikalnych: 0)
+  - quiz_rpg  :  89 wystąpień | przetłumaczonych:  89 | oczekujących:   0 (unikalnych: 0)
+  - BitBomber :  61 wystąpień | przetłumaczonych:  61 | oczekujących:   0 (unikalnych: 0)
+
+[3/4] Literały z polskimi znakami w kodzie GDScript (.gd):
+  Plików .gd wymagających i18n: 49
+  Łącznie linii z literałami PL: 378
+
+======================================================================
+  WYNIKI WERYFIKACJI
+======================================================================
+
+OSTRZEŻENIA (4):
+  [WARN] Polski tekst "Kapłan" ma różne tłumaczenia angielskie:
+  'Royal Priest' -> enemy.royal_priest.name (modules/quiz_rpg/resources/i18n)
+  'Priest' -> class.priest (modules/quiz_rpg/resources/i18n)
+  'Kapłan' -> hero.kaplan.name (modules/quiz_rpg/resources/i18n)
+  [WARN] Polski tekst "Łotrzyk" ma różne tłumaczenia angielskie:
+  'Łotrzyk' -> hero.lotrzyk.name (modules/quiz_rpg/resources/i18n)
+  'Rogue' -> class.rogue (modules/quiz_rpg/resources/i18n)
+  [WARN] Polski tekst "Bohater" ma różne tłumaczenia angielskie:
+  'Hero' -> combat.default_hero_name (modules/quiz_rpg/resources/i18n)
+  'Bohater' -> hero.bohater.name (modules/quiz_rpg/resources/i18n)
+  [WARN] Polski tekst "Mag" ma różne tłumaczenia angielskie:
+  'Mage' -> class.mage (modules/quiz_rpg/resources/i18n)
+  'Mag' -> hero.mag.name (modules/quiz_rpg/resources/i18n)
+
+Brak krytycznych błędów dla aktualnej fazy!
+
+----------------------------------------------------------------------
+Podsumowanie Fazy 5:
+  - Błędy JSON:               0
+  - Błędy scen dla tej fazy:  0
+  - Oczekujące teksty scen:   0 (unikalnych: 0)
+  - Oczekujące pliki .gd:     49 (378 linii)
+----------------------------------------------------------------------
+```
+
+Kod wyjścia: `0` (sukces).
+Wszystkie teksty scen BitBombera (61 wystąpień) są w 100% pokryte tłumaczeniami.
+Ostrzeżenia dotyczą wcześniejszych faz w `quiz_rpg`.
+
+---
+
+## 3. Zgodność z ograniczeniami i weryfikacja
+
+1. **BEZWZGLĘDNA WERYFIKACJA KOŃCÓW LINII (LF):**
+   Wszystkie zmodyfikowane i utworzone pliki w submodule oraz raport zostały sprawdzone pod kątem obecności znaku `\r`. Każdy plik ma **dokładnie 0 bajtów CR** (`b'\r' not in data`).
+   - `modules/BitBomber/autoloads/ui_scale_manager.gd`: 0 CR
+   - `modules/BitBomber/module_root.gd`: 0 CR
+   - `modules/BitBomber/scripts/death_screen.gd`: 0 CR
+   - `modules/BitBomber/scripts/hud.gd`: 0 CR
+   - `modules/BitBomber/scripts/main_menu.gd`: 0 CR
+   - `modules/BitBomber/scripts/options_menu.gd`: 0 CR
+   - `modules/BitBomber/scripts/quiz_overlay.gd`: 0 CR
+   - `modules/BitBomber/resources/i18n/pl.json`: 0 CR
+   - `modules/BitBomber/resources/i18n/en.json`: 0 CR
+   - `docs/kontekst/i18n_calosc_raport.md`: 0 CR
+2. **Kompilacja i składnia Godot Engine:**
+   Każdy ze zmienionych plików `.gd` pomyślnie przechodzi `Godot_v4.7.2-stable_win64_console.exe --headless --check-only --script <plik>` z kodem wyjścia `0`.
+3. **Brak duplikacji kodu:**
+   Wszystkie edycje w plikach `.gd` zostały zweryfikowane — żaden blok kodu nie został wklejony dwukrotnie.
+4. **Czystość repozytorium:**
+   Brak jakichkolwiek plików `__pycache__` ani `*.pyc` w całym repozytorium i submodułach.
+5. **Izolacja submodułu:**
+   Zmiany kodu zostały ograniczone wyłącznie do wnętrza submodułu `modules/BitBomber`. Zgodnie z poleceniem, żadne commity nie zostały utworzone.
+
+Faza 5 w pełni zrealizowana — STOP.
