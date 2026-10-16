@@ -29,6 +29,8 @@ func _ready() -> void:
 	_btn_quit.pressed.connect(_on_quit)
 	ModuleRegistry.modules_changed.connect(refresh_modules)
 	UIScaleService.scale_changed.connect(_on_scale_changed)
+	if I18nService:
+		I18nService.language_changed.connect(func(_l: String) -> void: refresh_modules())
 	refresh_modules()
 	_on_scale_changed(UIScaleService.scale_factor)
 	if AudioService:
@@ -46,7 +48,7 @@ func refresh_modules() -> void:
 
 	var modules := ModuleRegistry.all()
 	if modules.is_empty():
-		_status.text = "Brak modulow w res://modules."
+		_status.text = I18nService.t("host.menu.no_modules", "Brak modulow w res://modules.")
 		return
 
 	_status.text = ""
@@ -56,7 +58,7 @@ func refresh_modules() -> void:
 		_module_list.add_child(_build_module_button(manifest))
 
 	if _module_list.get_child_count() == 0:
-		_status.text = "Brak aktywnych modulow. Template jest ukryty."
+		_status.text = I18nService.t("host.menu.no_active_modules", "Brak aktywnych modulow. Template jest ukryty.")
 
 
 func show_status(message: String) -> void:
@@ -76,7 +78,8 @@ func _build_module_button(manifest: Dictionary) -> Button:
 
 
 func _module_button_text(manifest: Dictionary) -> String:
-	var title := str(manifest.get("name", manifest.get("id", "Unknown module")))
+	var unknown_name: String = I18nService.t("host.menu.unknown_module") if I18nService else "Unknown"
+	var title := str(manifest.get("name", manifest.get("id", unknown_name)))
 	var description := str(manifest.get("description", ""))
 	if description == "":
 		return title
