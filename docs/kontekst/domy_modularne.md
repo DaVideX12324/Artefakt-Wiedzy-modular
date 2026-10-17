@@ -22,3 +22,13 @@ logika wejść do budynków i przejść między poziomami (spawny to same znaczn
 **Podłoga osady (2026-10-17):** warstwy `Ground` (ziemia, pełne kafle `Floors_Full` (4,14)/(5,14) zamiast piasku), `Grass` (nakładka trawy) i `Path` (kamień)
 z przejściami blob-47 wg tabeli `szablon_terenu_47_ze_zrzutu_16px.txt` (lewa połowa arkusza; bloki: trawa wiersze 0–4, kamień 5–9, ziemia 10–14, źródło 22).
 ODWRÓCONE na prośbę usera: ziemia (podłoże) widoczna tylko tam, gdzie w Desert Town była trawa (1208 komórek) + ~220 komórek małych plam; reszta (dawny piasek) = trawa. Ścieżki = dawne `Path`. Skrypt poza repo (scratchpad sesji); wariant flat = kolumny +12.
+
+## Warianty domów i domy z kafli (2026-10-17)
+
+- **Chaty z PNG (`house_builder.py`):** 9 presetów (`chata_mala/duza/zielona`, `chata_zielona_mala/duza`, `chata_brazowa_prawa`, `chata_wysoka`, `chata_wysoka_zielona`, `dom_dlugi`; parametr `door: "right"`, `eave` 56/64/72) + 5 złożonych (`COMPOSITES`: `dom_l_prawy`, `dom_l_lewy`, `dom_szeregowy`, `dom_t`, `dom_schodkowy` — bryły obok siebie, cofnięte o `up` px, jeden `Body` + `Roof`, kolizja per bryła). Ponowne uruchomienie nadpisuje sceny.
+- **Dom z kafli zbudowany ręcznie przez usera (lepszy od PNG):** `scenes/objects/buildings/dom_l_lewy.tscn` — sześć `TileMapLayer` (źródło 5 = Walls, 6 = Roofs, 7 = Props z `pixel_crawler_free.tres`), dach ze skosem co 2 kolumny kafli, komin, lukarna, schodek, dobudówka. Dodałem korzeń `StaticBody2D` (warstwa 32), warstwy przesunięte o (336, 96) tak, że origin = środek drzwi na dolnej krawędzi ściany, kolizje (główna 128×16, dobudówka 64×16 w (-96, -40)), `DoorArea`, `DoorSpot`.
+- **`tools/house_tile_variants.py`:** z `dom_l_lewy` robi `dom_l_lewy_zielony`, `dom_l_lewy_bez_komina`, `dom_l_prawy`, `dom_l_prawy_zielony`, `dom_l_prawy_bez_komina` (odbicie x -> -43 - x + FLIP_H; zielony dach = kafle Roofs +8 kolumn atlasu; bez komina = usunięta warstwa `TileMapLayer5` z dzieckiem). Odbite dachy mają odwrócone światło. Nadpisuje te sceny.
+- **Poszerzanie / inne kształty z kafli:** niezrobione — okna i drzwi leżą w kolumnach ściany, dach schodkuje co 2 kolumny, więc wymaga ręcznego rozcięcia; do zrobienia z userem.
+- Moich 9 chat z PNG osada (`town.tscn`) nadal używa; podmiana na domy z kafli czeka na decyzję usera.
+- `tests/render_scene.gd` (lokalny, gitignored): render dowolnej sceny do PNG (`SCENE_PATH`, `SCENE_OUT`, `SCENE_SCALE`, origin w (450, 560)).
+- 7 zrzutów wzorów od usera odzyskane z transkryptu sesji do `scratchpad/ref_dom_1..7.png` (jedno zestawienie: `wzory_domow.png`).
