@@ -21,4 +21,4 @@ logika wejść do budynków i przejść między poziomami (spawny to same znaczn
 
 **Podłoga osady (2026-10-17):** warstwy `Ground` (ziemia, pełne kafle `Floors_Full` (4,14)/(5,14) zamiast piasku), `Grass` (nakładka trawy) i `Path` (kamień)
 z przejściami blob-47 wg tabeli `szablon_terenu_47_ze_zrzutu_16px.txt` (lewa połowa arkusza; bloki: trawa wiersze 0–4, kamień 5–9, ziemia 10–14, źródło 22).
-Trawa = dawne komórki trawy `Ground`; ścieżki = dawne `Path`. Skrypt poza repo (scratchpad sesji); wariant flat = kolumny +12.
+ODWRÓCONE na prośbę usera: ziemia (podłoże) widoczna tylko tam, gdzie w Desert Town była trawa (1208 komórek) + ~220 komórek małych plam; reszta (dawny piasek) = trawa. Ścieżki = dawne `Path`. Skrypt poza repo (scratchpad sesji); wariant flat = kolumny +12.
