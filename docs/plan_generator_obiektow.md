@@ -166,3 +166,12 @@ Wszystkie reguły to odczyt O(1) z tablic — żadnych BFS-ów na obiekt:
 - Czy statyczne przeszkody mają być niszczalne / reagować (→ INTERACTIVE, węzły)?
 - Czy wrogowie mają omijać drobne przeszkody (nav) czy wystarczą kolizje?
 - Gęstości i lista obiektów na start (co wchodzi do katalogu caves w F2–F3).
+
+## Obiekty z Pixel Crawler free pack (2026-10-17)
+
+Sceny `scenes/objects/pixel_crawler/<grupa>/` + katalog `config/objects_pixel_crawler.json` (biom `pixel_crawler`, jeszcze nie podpięty do żadnej mapy): 135 scen `StaticBody2D` (AtlasTexture z `Props/Static`, origin 2 px nad dołem sprite'a, kolizja przy podstawie), wypiekane przez `ObjectBake`.
+- `trees` (70 drzew w 3 modelach × 4 rozmiarach × pory roku/martwe/oszronione + sadzonki + 2 martwe z Vegetation), `stumps` (23), `bushes` (12: 4 kolory × 3 rozmiary), `rocks` (12), `crystals` (3).
+- Grupy katalogu: `trees_small/medium/large` (z rozmiaru arkusza), `stumps`, `bushes`, `rocks`, `crystals` — gęstości i konteksty orientacyjne, do dostrojenia przy podpięciu biomu.
+- Arkusze drzew to siatki wariantów (komórki np. 48×96 px, rząd 0/1 = inne kolory liści); generator tnie po komórkach, nazwy `tree_m<model>_s<rozmiar>_r<rząd>c<kolumna>`.
+- Generator: `modules/quiz_rpg/tools/gen_pixel_crawler_free_objects.py` (nadpisuje sceny; wpisy katalogu dopisuje `ObjectCatalogSync`). Kolizje pnia/podstawy szacowane z szerokości dołu sprite'a — do ręcznej poprawki.
+- Nie zrobione: meble, narzędzia, farma, kwiaty/trawa (kafle w TileSecie `pixel_crawler_free.tres`), animowane patelnie.
