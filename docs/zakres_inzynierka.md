@@ -21,9 +21,9 @@ przetestował (ewaluacja z użytkownikami). Nie ocenia się ilości treści gry.
 | **Musi** | Testy i pomiary (parytet generatora, profil generowania), dokumentacja architektury, ewaluacja z użytkownikami, tekst pracy |
 | Powinno | BitBomber: więcej kształtów map (jak w Bomb It 7), motywy wizualne, ekran wyników |
 | Powinno | 2–3 wnętrza w mieście (sklep, Hideout, ewentualnie kowal) |
-| Może | Kowal i ulepszenia broni, rekrutacja towarzyszy |
+| Może | Kowal i ulepszenia broni (rekrutacja towarzyszy: zrobiona, MVP) |
 | Dalszy rozwój | Trzy zakończenia, NG+, fabuła z zamianą ciał, magia 10. poziomu (szkic: [`kontekst/fabula_krag_i_zakonczenia_szkic.md`](kontekst/fabula_krag_i_zakonczenia_szkic.md)), ~15 map, kolejne moduły |
-| Poza zakresem | Przepisywanie generatora na C# (patrz „Wydajność”) |
+| Poza zakresem | Przepisywanie generatora na C# (patrz „Wydajność”); tilesety kolejnych map (Cemetery, Fairy Forest itd.) — osobny branch **[U]** |
 
 ## 3. Orientacyjny harmonogram [P]
 
@@ -67,7 +67,7 @@ Stan (`modules/BitBomber`): arena to prosta siatka 17×17 o kafelku 64 px (`scri
 
 ## 6. Wydajność generatora (C#)
 
-500×500 spadło z ok. 68 s do ok. 32 s po optymalizacjach. Przepisywanie skryptów na C# **[P] nie na tym etapie**: projekt jest dziś
+500×500 spadło z ok. 68 s do ok. 32 s po optymalizacjach; **[U] generator przyspieszony, ile się da bez C# (2026-10-17), temat zamknięty**. Przepisywanie skryptów na C# **[P] nie na tym etapie**: projekt jest dziś
 zwykłym Godotem (GDScript, bez `.csproj`), a C# wymaga edytora .NET, SDK, innych szablonów eksportu i budowania modułów; eksport na web
 w Godot 4 nie był wspierany dla C# (sprawdzić dla 4.7). Wąskim gardłem są `Dictionary[Vector2i]` i wywołania na kratkę, więc najpierw
 płaska siatka `PackedByteArray` (krok 3 w [`plan_przyspieszenie_generowania.md`](plan_przyspieszenie_generowania.md)); porty tylko tych etapów,
