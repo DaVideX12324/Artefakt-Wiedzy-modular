@@ -318,7 +318,8 @@
 - Zasady, które się sprawdziły (Godot 4.7.2): UID w `ext_resource` ma pierwszeństwo przed ścieżką (scena z błędną ścieżką, ale poprawnym UID wczytuje właściwy plik); względne `path="../…"` działają przy wczytaniu, ale zapis sceny / zasobu zmienia je na `res://…`; pliki `.import` są w repo (UID-y assetów wspólne dla klonów); po zmianie zasobów hosta trzeba ponownie zsynchronizować `_host/` (uwaga: synchronizacja nadpisuje też pliki hosta, które w `_host/` są nowsze — sprawdzać diff, np. `Tiles.png`).
 
 ### Optymalizacja ekwipunku członków drużyny uwzględnia tylko ATK i DEF
-- **Stan 2026-10-12: NIE ZROBIONE** — `optimize_member_equipment` w `player_stats.gd` liczy prostą sumę ATK + DEF, ignorując inne statystyki.
+- **Stan 2026-10-17: ZROBIONE (MAT / MDF / AGI wg klasy; efekty specjalne przedmiotów nadal pomijane)** — ocena `_equipment_score` w `player_stats.gd`: główny atak klasy (ATK wojownik/łotrzyk, MAT mag/kapłan) w całości, drugi w połowie, DEF i MDF w całości, AGI w połowie; wpisy ekwipunku niosą teraz też `mat_bonus` / `mdf_bonus` / `agi_bonus`. Test lokalny `check_optimize_equipment.gd`.
+- Stan 2026-10-12 (stary opis): `optimize_member_equipment` w `player_stats.gd` liczył prostą sumę ATK + DEF, ignorując inne statystyki.
 - Zgłoszenie 2026-10-12 (`otwarte.md`). Metoda `optimize_member_equipment` (`player_stats.gd`) dobiera sprzęt na podstawie sumy ATK + DEF, pomijając MAT, MDF oraz efekty specjalne przedmiotów.
 - Do zrobienia: wagi statystyk zależne od klasy postaci (np. Mag preferuje MAT/MDF, Wojownik ATK/DEF) lub uwzględnienie ról bojowych.
 
@@ -326,6 +327,8 @@
 - **Stan 2026-10-12: DO WERYFIKACJI** — formuła obrażeń w `enemy_stats.gd` liczy cios wroga z ułamka HP (`HIT_FRAC`), co osłabia wpływ pancerza na późniejszych poziomach.
 - Zgłoszenie 2026-10-12 (`otwarte.md`, `balans_i_skalowanie.md`). Przy skalowaniu do lv 100 pancerz (DEF) ma malejący wpływ na przeżywalność, ponieważ cios wroga bazuje na ułamku HP bohatera.
 - Do zrobienia: przejrzeć i zrewidować definicję obrażeń oraz pancerza w `enemy_stats.gd` niezależnie od reszty drabiny sprzętu.
+- **Pomiar 2026-10-17** (wróg tieru 2, ciosy zwykłe, % maks. HP na cios): lv 1 — z pancerzem wzorcowym 14,0 %, bez pancerza 29,0 %; lv 20 — 14,0 % / 21,9 %; lv 50 — 14,0 % / 17,8 %; lv 100 — 14,0 % / 15,3 %. Pancerz ±30 % wzorca zmienia cios o ±0,4 pp na lv 100 (±4,5 pp na lv 1). Przyczyna: ATK wroga ≈ (HIT_FRAC·HP + 2·DEF)/4, a HP rośnie ~150× do lv 100, DEF ~13×.
+- **Decyzja usera 2026-10-17: zostawić do czasu decyzji o skali drabiny sprzętu.** Opcje: (a) wzór procentowy ATK×4 × 100/(100+DEF·k) (zalecane), (b) DEF w krzywych ~6× mocniejszy (GEAR_DEF_END ~1100–1900).
 
 ### Propozycja: korzeń modułu z położenia skryptu (zamiast nazwy folderu)
 - **Stan 2026-10-13: PROPOZYCJA (niezatwierdzona).** Wynikła z pytania o `ModuleConfig.path()` — starą klasę z pierwszego
