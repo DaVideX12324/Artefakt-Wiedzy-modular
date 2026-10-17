@@ -51,6 +51,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [plan_generator_sciekow.md](plan_generator_sciekow.md) | Plan wykonawczy układu structured dla generatora ścieków (reguły R1–R7, kanały, kładki). | `ZROBIONE` |
 | [plan_generator_obiektow.md](plan_generator_obiektow.md) | Plan faz F0–F5 generatora obiektów i dekoracji (obiekty jako sceny, niszczalność, interakcje). | `W TOKU` |
 | [plan_przyspieszenie_generowania.md](plan_przyspieszenie_generowania.md) | Plan optymalizacji czasu generacji poziomów (wątek roboczy, chunking navmesh 64×64). | `W TOKU` |
+| [zakres_inzynierka.md](zakres_inzynierka.md) | Zakres pracy inżynierskiej: wycinek gry (miasto + NPC, BitBomber), harmonogram do obrony, klify w Pixel Crawler, mapy BitBombera. Narzędzia: [prototypy/makieta_miasta](prototypy/makieta_miasta/README.md). | `SZKIC (niezatwierdzone)` |
 | [universal_interior_generator_refactor.md](universal_interior_generator_refactor.md) | Architektura etapowa i plan refaktoryzacji uniwersalnego generatora wnętrz (architektura etapowa). | `W TOKU` |
 | [migration_plan.md](migration_plan.md) | Plan początkowej migracji projektów do architektury modułowej (zrealizowany na starcie). | `HISTORYCZNE` |
 
