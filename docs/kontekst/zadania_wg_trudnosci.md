@@ -1,42 +1,46 @@
 # Zadania od najłatwiejszych / najszybszych
 
-> Widok pomocniczy, **nie** źródło prawdy — szczegóły i statusy: [`docs/znane_problemy.md`](../znane_problemy.md). Stan na 2026-10-13.
-> Skróty: **U** = robi user (gra/LDtk/grafika), **G** = nadaje się dla Gemini/Antigravity (brief w docs), **S** = Sonnet wystarczy, **O** = lepiej Opus (projekt/architektura).
+> Widok pomocniczy, **nie** źródło prawdy — szczegóły i statusy: [`docs/znane_problemy.md`](../znane_problemy.md). Stan na 2026-10-17.
+> Skróty: **U** = robi user (gra/LDtk/grafika), **S** = Sonnet wystarczy, **O** = lepiej Opus (projekt/architektura). ✅ = zrobione.
 
-## 1. Minuty (sprawdzenia i drobiazgi)
+## 1. Minuty
 
-1. **U** — otworzyć `miasto.ldtk` w LDtk, zamalować próbkę trawy/kamienia/ziemi/cegieł (zwykłe i flat), sprawdzić wynik reguł; zgłosić, który kafel cegieł nie pasuje.
-2. **U** — zdecydować, co z 78 cudzymi usunięciami w `assets/pixel_crawler/environments/world_build/` (przywrócić albo skomitować).
-3. **U** — skomitować `Floor_Full.xcf` i `miasto.ldtk` (submoduł: commit + push, potem wskaźnik w hoście).
-4. **U** — sprawdzić w grze: ekran śmierci + trucizna, wygląd skrzyń i klucze na tier, beczki 3/(2n), złoto, koszt walki (~70 % HP na parę wrogów), zakładka „Ogólne” w opcjach, klik po odzyskaniu fokusu, build wydaniowy bez narzędzi dev.
-5. **S** — usunąć nieśledzoną kopię `modules/quiz_rpg/resources/maps/pixel_crawler_free.tres` po sprawdzeniu referencji (`grep`).
-6. **S** — odebrać i zweryfikować pracę Gemini: zadanie E (porządkowanie `docs/` — `sh .claude/hooks/przypomnienia.sh`, linki, `git diff --stat`, commit) i D (teksty logu wrogów `skill.<plik>.log`).
+1. **U** — sprawdzić w grze: poprawki ekranu śmierci i trucizny, skrzynie i klucze na tier, beczki 3/(2n), złoto, koszt walki, zakładkę „Ogólne”, a po ostatnich zmianach: scroll drużyny w pauzie, wczytywanie map z dysku, grę po angielsku w oknie.
+2. **U** — skomitować `Floor_Full.xcf` i `miasto.ldtk` (submoduł, potem wskaźnik w hoście).
+3. **U** — zdecydować, co z 78 cudzymi usunięciami w `assets/.../world_build/`.
+4. **S** — usunąć nieśledzoną kopię `pixel_crawler_free.tres` po sprawdzeniu referencji.
 
-## 2. Godziny (jasno określone, małe ryzyko)
+## 2. Godziny
 
-7. **G/S** — teksty logu wrogów i opisy i18n (briefy `i18n_log_wrogow_dla_gemini.md`, `i18n_opisy_dla_gemini.md`).
-8. **U** — Snow i Sand: reguły autotile w LDtk przy ich mapach (analogicznie do Grass/Stone; dodać wartość IntGrid `Sand`).
-9. **S** — poprawka pancerza: cios wroga liczony z ułamka HP, przez co DEF prawie nie wpływa późno (`enemy_stats.gd`, opis w `znane_problemy.md`).
-10. **S** — `optimize_member_equipment` uwzględniający MAT/MDF i efekty (dziś tylko ATK + DEF).
-11. **U/S** — ikony mikstur (user) i tabela mikstur w tierach ze stałymi wartościami (`ekwipunek_szkic.md`, sekcja 9) po teście w grze.
-12. **S** — aktualizacja `miasto_makieta.ldtk` względem nowych warstw/reguł (opcjonalne).
-13. **S** — szkielety scen wnętrz budynków (osobna scena na budynek, wyjście do `town.tscn`).
+5. ✅ **S** — przegląd gry po angielsku (skan danych i scen UI bez polskich znaków; w oknie nikt nie sprawdzał).
+6. ✅ **S** — poprawki i18n: klucze `bb.options.bind_*`, imiona bohaterów w EN = nazwy klas (tymczasowo). Zostało: **prawdziwe imiona** (czekają na nazwy usera) i jedna nieszkodliwa kolizja „Kapłan”/Priest.
+7. ✅ **S** — pancerz: zmierzony, decyzja usera **„zostaw na razie”** do czasu decyzji o skali drabiny sprzętu (pkt 20).
+8. ✅ **S** — `optimize_member_equipment` z MAT/MDF (mag/kapłan → MAT).
+9. **S** — tła walki 16:9: rysowanie na cały ekran w `folder_battle_background.gd`.
+10. ✅ **S** — scroll drużyny > 4 w pauzie. Szyk w Status: zostaje osobno (decyzja usera). Okno pytania: już zgodne z życzeniem (najpierw rozszerza się na maks., potem rośnie w górę; może zasłaniać UI).
+11. ✅ **S** — stare FAIL-e testów naprawione (`check_combat_lists`, `check_start_safety`, `check_pause_lists`).
+12. **U/S** — ikony i tabela mikstur w tierach.
 
-## 3. Pół dnia (wymaga uwagi, schemat znany)
+## 3. Pół dnia
 
-14. **S** — konwerter LDtk JSON → `TileMapLayer` (`pixel_crawler_free.tres`) + encje → węzły gry; test headless; zasilenie `town.tscn` (wzorzec `cave.tscn`: spawn, wyjścia, kolizje z `Kolizje` + `Sciany`).
-15. **S** — interfejs zakupu w sklepie (po mieście; dotąd menu deweloperskie), ceny w „zabiciach” (pełne leczenie ≈ 1,2–1,3 × złoto z wroga).
-16. **S** — dodatkowe warianty skrzyń z innych paczek (zielona, czerwona, ozdobna, pustynia).
-17. **S/O** — skrzynie specjalne w rzadkich pomieszczeniach/niszach: znacznik „rzadki pokój” w generatorze obiektów, osobny `chest_tier`/tabela łupu, ewent. klucz wyższego tieru.
-18. **S** — więcej mikstur w jaskiniach (beczki, skrzynie, wrogowie) po teście.
+13. **S** — klucze i wytrychy uniwersalne (drop, wytrych otwiera quizem).
+14. **S** — konwerter LDtk → `TileMapLayer` i zasilenie `town.tscn` (krok do miasta).
+15. **S** — interfejs sklepu, bez flag fabularnych. Ceny zależą od skali drabiny sprzętu (pkt 20), więc najpierw wspólny szkielet interakcji z NPC (pkt 21–24).
+16. **S** — warianty skrzyń z innych paczek i więcej mikstur w jaskiniach.
+17. ✅ **S** — zapis map na dysk (`map_disk_cache.gd`, wejście z pliku ≈ 0,25 s zamiast 2–2,5 s). Zostało: zapis po policzeniu mapy z wyprzedzeniem (prefetch), podbijanie `MAP_CACHE_VERSION` w wydaniu, osobne unieważnianie przy usunięciu slotu.
+18. **S/O** — skrzynie specjalne w rzadkich pokojach.
+19. **S/O** — generator obiektów F5: niszczalne beczki, dźwignie, nakładka podglądu.
 
-## 4. Dni (projekt, balans, architektura — Opus po resecie limitu)
+## 4. Dni
 
-19. **O** — krzywe XP i bohatera do lv 100 oraz skala drabiny sprzętu (`ekwipunek_szkic.md`, sekcja 11: pułap sklepu ≈ 600 ATK / mniejszy wzrost z poziomu / bez zmian); skalowanie wrogów przy ~15 mapach.
-20. **O** — sklep + tiery blokowane flagami fabularnymi (`LevelStateManager.register_device_progress`).
-21. **O** — kowal: bronie z potencjałem (etapy jako osobne `item_id`, `upgrade_to`, koszt, pole `budget_map`, test limitu mapa + 2), sekretne bronie ponad budżet.
-22. **O** — rekrutacja towarzyszy (Łotrzyk, Mag, Kapłan), zadania fabularne, skille klasowe Maga i Łotrzyka; sloty umiejętności, 4 tiery (`sloty_umiejetnosci_szkic.md`).
-23. **O** — logika miasta/hub: flagi, odblokowanie po wyjściu z jaskiń, NPC, wnętrza budynków.
-24. **O** — generator obiektów, faza F5: dźwignie, niszczalne sceny, nakładka podglądu (`plan_generator_obiektow.md`).
-25. **O** — generator ścieków na poziomie makiet autora (`plan_generator_sciekow.md`, fazy F0–F7), winiety; schody N/E/W i rury robi user.
-26. Merge `druzyna-balans` → `main` — **tylko na polecenie usera**.
+20. **O** — krzywe XP do lv 100 i skala drabiny sprzętu (od tego zależą ceny, drop, koszt ulepszeń i wzór pancerza).
+21. **O** — wspólny szkielet interakcji z NPC (dialog, opcje, sklep/kowal/rekrutacja/zadania).
+22. **O** — sklep z tierami blokowanymi flagami fabularnymi.
+23. **O** — kowal i bronie z potencjałem.
+24. **O** — rekrutacja towarzyszy, ich skille klasowe i sloty umiejętności.
+25. **O** — logika miasta: flagi, NPC, wnętrza.
+26. **O** — finał: fabuła, zabranie towarzyszy, „Wzmocnienie tarczy”, fazy bossa, umiejętność 10. poziomu.
+
+Odłożone poza inżynierkę: tilesety kolejnych map i dalsze przyspieszanie generatora.
+
+**Następny sensowny krok:** Opus robi szkic ekonomii/drabiny sprzętu (20) i szkielet NPC (21); potem UI scen (15, 22) może zrobić Sonnet albo Antigravity z briefem. Bez blokady: 9 (tła 16:9), 13 (klucze i wytrychy).
