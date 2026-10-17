@@ -10,7 +10,9 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### ⚠ WAŻNE: (#1) Przyspieszenie generowania / powrót do bazy commita „Speed up cave generation and add loading bar” (8915c89)
+### (#1) Przyspieszenie generowania / powrót do bazy commita „Speed up cave generation and add loading bar” (8915c89)
+- **Stan 2026-10-17: ZROBIONE (decyzja usera)** — generator przyspieszony, ile się da bez C#. Dalszy zysk wymagałby płaskiej siatki w topologii
+  albo C# / GDExtension, co jest poza zakresem inżynierki ([zakres_inzynierka.md](zakres_inzynierka.md), sekcja „Wydajność generatora”).
 - **Stan 2026-10-15: W TOKU — część zrobiona** (gałęzie `optymalizacja-generowania`, niezmergowane). Ścieki 500²
   69,8 → 32,0 s, ścieki 160² 3,0 → 2,3 s, czas niezależny od FPS, wynik identyczny. Tabela, lista zmian i co
   zostało (m.in. ~0,4 s zacięcia przed ekranem ładowania): [plan_przyspieszenie_generowania.md](plan_przyspieszenie_generowania.md), sekcja „Sesja 2026-10-15”.
@@ -41,7 +43,9 @@
   (DoT), dopóki nie użyje się przedmiotu leczącego statusy. Do ustalenia: tempo DoT i czy może zabić (jak pułapki —
   do 1 HP?). Wymaga przeniesienia statusów z walki do stanu drużyny (`PlayerStats.party`).
 
-### ⚠ WAŻNE: (1) tilesety kolejnych map — ścieki zrobione, kolejne mapy po stronie autora
+### (1) tilesety kolejnych map — ścieki zrobione, kolejne mapy po stronie autora
+- **Stan 2026-10-17: ODŁOŻONE POZA INŻYNIERKĘ (decyzja usera)** — na teraz zostaje tylko miasto (punkt (5) niżej); tilesety kolejnych map
+  (Cemetery, Fairy Forest itd.) później albo na osobnym branchu.
 - **Stan 2026-10-12: CZEKA NA USERA** — ścieki ZROBIONE (na `main`), kolejne tilesety po stronie usera. Ścieki: gałąź `sewer-structured` zmergowana 2026-10-09 (CienMgly 9e901a4, host d5a9cfa), platformy PR #1 2026-10-10; mapa `levels/sewer.tscn` podpięta po jaskini (tymczasowo — docelowo jaskinia → miasto → ścieki). W repo są paczki Pixel Crawler: cave, castle, desert, forge, garden, library, sewer (+ sewer_old); brak tilesetów i konfiguracji dla Cemetery, Fairy Forest, Desert / Desert Temple, Forge, Dense Forest / zima, Library, Garden, Castle.
 - Zgłoszenie 2026-10-03, priorytet z 2026-10-04: **pierwsze z trzech ważnych todo, przede wszystkim ścieki
   (sewer)**. Kolejność map w grze: jaskinia -> miasto -> ścieki; w ściekach przejście raczej drabiną, pod E
@@ -97,6 +101,7 @@
 
 
 ### ⚠ WAŻNE: (2) dokończyć generator obiektów — w większości zrobione
+- **Stan 2026-10-17: W TOKU — user dokończy wkrótce.**
 - **Stan 2026-10-12: W TOKU (większość zrobiona).** Zrobione: F0–F4, obiekty jako sceny (`ObjectBake`), niszczalne beczki (`barrel.gd`, łup jako toast, model 3 / (2n)), skrzynie z kluczami i tierem, obiekty ścieków (kolce, bramy, płyta naciskowa, klucz bramy, skrzynia ścieków). Zostało: dźwignie, leniwe sceny, nakładka podglądu (zajętość / przejścia / statystyki), obejrzenie kafli wielokratkowych na `Props`.
 - Zgłoszenie 2026-10-04 (drugie z trzech ważnych todo). Generator obiektów: dalsze fazy F2–F5 wg
   `docs/plan_generator_obiektow.md` (stan: [kontekst/obiekty.md](kontekst/obiekty.md)). Zostało: F5 (niszczalne
@@ -114,14 +119,15 @@
 - Opis stanu: [kontekst/walka.md](kontekst/walka.md) „Tła walki: kadr 16:9”.
 
 
-### ⚠ WAŻNE: (4) grywalne postacie — teammate'owie
+### (4) grywalne postacie — teammate'owie
+- **Stan 2026-10-17: ZROBIONE (potwierdzone przez usera).**
 - **Stan 2026-10-16: GRYWALNE (MVP, gałąź `druzyna-balans`).** Trzech towarzyszy (Łotrzyk / Mag / Kapłan, grafika Pixel Crawler), `PlayerStats.recruit`, XP i poziom każdego członka (martwy 50 %), towarzysze idą za bohaterem na każdej mapie, cała drużyna w walce (wróg bije losowego, porażka po upadku wszystkich), NPC rekrutacji z zadaniem i oknem rozmowy (trzech w `town.tscn`), karta „Drużyna” w menu deweloperskim. Szczegóły i pytania: [kontekst/druzyna_szkic.md](kontekst/druzyna_szkic.md) („Zrobione 2026-10-16”). Zostało: imiona / fabuła, skille klasowe, czy w turze działa każdy członek.
 - Stan 2026-10-12: W TOKU (projekt i podstawy). Zrobione: klasy w kodzie (`character_class` w `QuizRpgHeroData` i członku, `allowed_classes` w przedmiotach, ograniczenie ekwipunku), infrastruktura per członek (statystyki, ekwipunek, umiejętności, statusy, XP członka), szkic `kontekst/druzyna_szkic.md` (3 towarzyszy z klas Łotrzyk / Mag / Kapłan, własne pule XP, dołączanie po zadaniu, martwy 50 % XP, bez limitu). Nie zrobione: rekrutacja (`recruit`), dane i grafiki towarzyszy, zadania, skille klasowe (Mag i Łotrzyk), imiona / fabuła, UI składu.
 - Zgłoszenie 2026-10-04 (przesunięte za tła walki 2026-10-05). Dziś jest tylko Bohater. Zaczątki: `player.gd` ma tryb
   członka drużyny (`is_party_follower`, podążanie po śladzie lidera, bieg razem z liderem — `is_running()`),
   menu Esc ma wiersze drużyny, komunikaty walki piszą „Bohater i drużyna”.
 
-### ⚠ WAŻNE — NASTĘPNY ETAP: (5) miasto / hub z modularnych zasobów paczki free
+### ⚠ WAŻNE: (5) miasto / hub z modularnych zasobów paczki free — następny etap
 - **Decyzja 2026-10-15:** miasto robione **ręcznie** przez usera (scena w edytorze), **bez generowania** — punkt „mapa składana z modułów paczki przez generator” odpada. Po stronie kodu: NPC, sklep, kowal / ulepszenia, rekrutacja towarzyszy (logika niezależna od mapy).
 - Stan 2026-10-12: NIE ZROBIONE (brak mapy miasta w `scenes/maps/levels/`: są `cave.tscn`, `sewer.tscn`). Od miasta zależą: sklepy (po wyjściu z jaskiń), kowal i ulepszenia broni z tierami blokowanymi fabułą, wydawanie złota (`kontekst/ekwipunek_szkic.md`), rekrutacja towarzyszy. Do czasu miasta sklep w menu deweloperskim.
 > **Priorytet 2026-10-11:** user ustawił miasto / hub jako następny etap prac (po drużynie i balansie).
