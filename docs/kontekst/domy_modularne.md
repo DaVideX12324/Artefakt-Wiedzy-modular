@@ -32,3 +32,10 @@ ODWRÓCONE na prośbę usera: ziemia (podłoże) widoczna tylko tam, gdzie w Des
 - Moich 9 chat z PNG osada (`town.tscn`) nadal używa; podmiana na domy z kafli czeka na decyzję usera.
 - `tests/render_scene.gd` (lokalny, gitignored): render dowolnej sceny do PNG (`SCENE_PATH`, `SCENE_OUT`, `SCENE_SCALE`, origin w (450, 560)).
 - 7 zrzutów wzorów od usera odzyskane z transkryptu sesji do `scratchpad/ref_dom_1..7.png` (jedno zestawienie: `wzory_domow.png`).
+
+## Generator domów z kafli `tools/house_tiles.py` (2026-10-17)
+
+Nowe domy zbudowane od zera z kafli (a nie przekopiowane z `dom_l_lewy`): `dom_k_chata_8`, `dom_k_chata_12`, `dom_k_dluga_16`, `dom_k_deski_12`, `dom_k_pionowe_8`, `dom_k_tynk_12`, `dom_k_wysoki_8`.
+Parametry (`HOUSES`): `n` (pary płata, szerokość ściany W = 4 + 4n kolumn), `d` (głębokość dachu), `e` (wysokość ściany pod okapem, 6 = bazowa), `kit` (0 kłody, 1 deski poziome, 2 deski pionowe, 3 tynk), `teal`, `chimney`.
+Odkryte reguły (też w docstringu): dach A = próbka 8x6 kafli Roofs, szerokość przez powielanie par kolumn (każda para o wiersz niżej), głębokość przez powielanie wiersza 3; ściany = pasy 1x3 kafle (`size_in_atlas` + `texture_origin`, kotwica w dolnym wierszu pasa): dolny (x,8), wyższe (x,12), kit = +6 kolumn; cień pod ścianą (x,49); drzwi = rama Props (2..3,1..4) + skrzydło (8..9,1..3), okna łukowe (6..7,4..5), okna szczytowe (8..9,6..7), komin Props (0..1,4..7) + dwa kafle dachu nad nim.
+Origin sceny = środek drzwi na dolnej krawędzi ściany. Dachy/ściany po stronie ridge są symetryczne. Brak: dach „bokiem” (Roofs 2..5 x 10..12), lukarna (Roofs 3..4 x 13..14), dobudówki, drzwi poza środkiem. Ponowne uruchomienie nadpisuje te sceny.
