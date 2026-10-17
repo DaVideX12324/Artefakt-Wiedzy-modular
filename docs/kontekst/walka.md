@@ -236,3 +236,9 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
 - (2026-10-11) Okno komunikatów po bitwie (MessageWindow) ma szerokość UI walki: wyśrodkowane, zakres okien paska tuż przed ich ukryciem (min. `status_only_width`) — `_fit_message_window_width`.
 - (2026-10-11) Skan (wzór FNaFB CC „Scan”): umiejętność `scan` (QuizRpgSkillData.scan, learn_level 1, bez kosztu) — wybór wroga pokazuje w logu nazwę i HP oraz opis `scan_text` (QuizRpgEnemyData / EnemyBase) albo ATK/DEF/MAT/MDF i umiejętności; bez quizu, bez zużycia tury i kosztu, powrót do menu postaci (`_scan_enemy`). Opisy wrogów (`scan_text`) do uzupełnienia (Gemini). Test `check_scan`.
 - (2026-10-11) Wybór celu w walce: siatka 2 kolumn (GridContainer `TargetListVBox`; góra / dół o wiersz, lewo / prawo o pozycję), bez HP wroga — HP pokazuje Skan.
+
+## Decyzje 2026-10-17
+
+- **Wysokie okno pytania:** najpierw okno rozszerza się na maksymalną szerokość, dopiero potem rośnie wzwyż (zawijanie tekstu). Okno pytania **może zasłaniać potwory** — pole walki się nie przesuwa. Obecny kod już tak działa: górne okno (`TopWindow`) ma pełną szerokość z zawijaniem, a okno w menu walki w trybie „na szerokość treści” rośnie do 0,95 szerokości ekranu.
+- **Szyk** zostaje osobną pozycją menu pauzy (nie przenosimy do Status).
+- Lista drużyny w pauzie jest przewijana (`PartyListScroll` w `party_panel.tscn`), wybrany wiersz zostaje widoczny.
