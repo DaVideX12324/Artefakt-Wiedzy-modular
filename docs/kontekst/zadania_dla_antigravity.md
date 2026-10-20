@@ -97,3 +97,8 @@ Osobny brief: [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) (21
 
 Osobny brief: [porzadkowanie_docs_dla_gemini.md](porzadkowanie_docs_dla_gemini.md) (rola `otwarte.md` vs `znane_problemy.md`, indeks `docs/README.md`, statusy planów, raport).
 Uwaga: nie ruszać nagłówków `### ⚠ WAŻNE:` w `znane_problemy.md` (hook przypomnień).
+
+## Zadanie F — imiona postaci (propozycje, bez zmian w plikach gry)
+
+Osobny brief: [imiona_postaci_dla_gemini.md](imiona_postaci_dla_gemini.md) (trzech towarzyszy, prawdziwe imiona Strażnika i Arcymaga,
+opcjonalnie NPC-e miasta; wdrożenie dopiero po wyborze usera).
