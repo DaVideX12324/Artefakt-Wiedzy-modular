@@ -21,6 +21,7 @@ do wstawienia w dowolną mapę (edytor / LDtk).
 | Sklep | `QuizRpgNpcShop` | `stock` (`QuizRpgShopEntry`: przedmiot, cena, `required_flag`), `can_sell` |
 | Odpoczynek | `QuizRpgNpcInn` | `price` — pełne HP (też nieprzytomni), SP, bez statusów (`PlayerStats.rest_party`) |
 | Nauka | `QuizRpgNpcSkillTeacher` | `lessons` (`QuizRpgSkillLesson`: skill_id, hero_id, złoto, przedmiot-żeton, min. poziom, flaga) |
+| Ulepszanie (kowal, 2026-10-21) | `QuizRpgNpcUpgrade` | dane w przedmiotach: `upgrade_to`, `upgrade_gold`, `upgrade_flag`, `upgrade_item_id` / `_count` (etap = osobny przedmiot); okno `scenes/ui/upgrade_panel.tscn` — broń założona (zostaje założona) i z ekwipunku, powód blokady („nie pamiętam jeszcze…” bez flagi) |
 
 Każda usługa ma `required_flag` (bez flagi nie ma jej w menu). Okna: `scenes/ui/shop_panel.tscn` (Kup / Sprzedaj,
 ←/→ zakładki, Enter kupuje 1 szt.), `scenes/ui/skill_teacher_panel.tscn` (wiersze „postać — umiejętność”, koszt,
@@ -69,4 +70,5 @@ zapisu (bariera po zapisie).
 - Nie ruszać kluczy `shop.*`, `teacher.*`, `npc.inn.*`, `npc.service.*`, `npc.bye`, `npc.menu_question`.
 
 ## Otwarte
-- Hideout jako wnętrze, kowal (ulepszenia broni — osobna usługa), zadania NPC.
+- Hideout jako wnętrze, zadania NPC. Kowal ma już ulepszanie (wyżej); flagi etapów to zastępcze `boss:sewer` /
+  `boss:forge` / `boss:library` — do ustawienia, gdy będzie kolejność map.

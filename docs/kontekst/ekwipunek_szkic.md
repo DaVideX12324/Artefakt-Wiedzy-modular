@@ -385,8 +385,12 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
 | 5 | mapa 12 (lv 80) | 1 690 | 169 / 338 / 169 | runic_claymore, crown_of_clarity, warden_cuirass, aegis_shield |
 | 6 | mapa 15 (lv 100) | 5 700 | — | shadowbane_sword (pułap sklepu) |
 
-- Łup jaskiń (mapa 1) tylko do tieru 2 = moc mapy 3 (reguła „mapa + 2”); nisze, sekretne pokoje i relikwia (zastępczo
-  `iron_sword`) poprawione w `caves.json` (wcześniej tier 3).
+- Łup jaskiń (mapa 1) tylko do tieru 2 = moc mapy 3 (reguła „mapa + 2”); nisze i sekretne pokoje poprawione w
+  `caves.json` (wcześniej tier 3).
+- **Pierwsza broń z potencjałem (2026-10-21): Ostrze Mgły** (`mist_blade_1`…`_4`, miecz) — relikwia krypty w jaskiniach.
+  Etapy = budżet sklepu map 3 / 6 / 10 / 15 + 3 %: ATK 50 / 163 / 773 / 5900; ulepszenie u kowala (`QuizRpgNpcUpgrade`,
+  `npc.md`) za 5 zabić zwykłego wroga z poziomu odblokowania (500 / 2480 / 16 900 D) po flagach zastępczych `boss:sewer` /
+  `boss:forge` / `boss:library`. Bez ceny (nie do kupienia ani sprzedania). Test `check_upgrade`.
 - Brakuje przedmiotów pośrednich (każda mapa ×1,2–1,3) i pancerza na lv 100 — dane do dorobienia (np. Gemini) z tabeli wyżej.
 - Kowal w mieście: tier 3 po `boss:sewer` (flagi zastępcze) — przestroić z tierami map, gdy powstaną sklepy.
 - Mikstury dalej stałe (100 HP) — tiery leczenia z tabeli w sekcji 9 do zrobienia.
