@@ -145,6 +145,12 @@
   (ściana + dach + cień, warianty) wyczytać z warstw, nie zgadywać z PNG. Obiekty przez generator obiektów
   ([kontekst/obiekty.md](kontekst/obiekty.md)), podgląd przez MCP `godot-runtime`.
 
+### ⚠ WAŻNE: (6) puścić Opusa na NPC, gdy user robi miasto (kod niezależny od mapy)
+- **Przypomnienie (zgłoszone 2026-10-20):** gdy user zacznie ręcznie budować scenę miasta, uruchomić osobną sesję Opusa na **kod NPC** — nie wymaga gotowej mapy.
+- Zakres (minimum z [zakres_inzynierka.md](zakres_inzynierka.md), „Musi”): sklep, nauczyciel umiejętności w Hideout, zapis / odpoczynek, jeden mieszkaniec z dialogiem; do tego system dialogów i UI sklepu / nauki umiejętności (wycenić przed grafiką).
+- Brief dla Opusa: NPC jako samodzielne sceny-szablony do wstawienia w LDtk / edytorze (encje `Npc`, `Station`), interakcja jak w istniejących interactables, bez zależności od układu miasta. Kontekst: punkt (5) powyżej, [kontekst/ekwipunek_szkic.md](kontekst/ekwipunek_szkic.md).
+- Po uruchomieniu Opusa usunąć nagłówek albo znacznik `⚠ WAŻNE:`.
+
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
 - **Stan 2026-10-12: NIE ZROBIONE** (brak kodu; są tylko nisze-przejścia, `NichePlacer`).
 - Zgłoszenie 2026-10-03. Ukryte przejście może łączyć dwa pokoje — gracz wchodzi w nie (np. nisza-przejście,
