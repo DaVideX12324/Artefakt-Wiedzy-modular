@@ -393,4 +393,18 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
   `boss:forge` / `boss:library`. Bez ceny (nie do kupienia ani sprzedania). Test `check_upgrade`.
 - Brakuje przedmiotów pośrednich (każda mapa ×1,2–1,3) i pancerza na lv 100 — dane do dorobienia (np. Gemini) z tabeli wyżej.
 - Kowal w mieście: tier 3 po `boss:sewer` (flagi zastępcze) — przestroić z tierami map, gdy powstaną sklepy.
-- Mikstury dalej stałe (100 HP) — tiery leczenia z tabeli w sekcji 9 do zrobienia.
+- **Tiery mikstur i eterów (wdrożone 2026-10-21):** tier t = mapy 3t−2…3t (jak sprzęt), rozmiary mała / duża / wielka
+  ≈ 15 / 35 / 60 % HP lub SP końca mapy 3t−2 (lv 9 / 28 / 48 / 67 / 87); `potion` (100 HP) i `ether` (40 SP) = tier 1
+  mały, bez zmian. Id `potion_<t><s|m|l>`, `ether_<t><s|m|l>`, nazwy „Duża mikstura II”, „Wielki eter III”… Ceny jak FNaFB:
+  mikstura = ułamek HP × 1,25 × złoto z wroga tieru 2, eter = ułamek SP × 2 × złoto (pełne leczenie ≈ 1,25 zabicia, pełne
+  SP ≈ 2 zabicia). Zielarka: tier 1 od razu, 2–5 po `boss:sewer` / `forge` / `library` / `garden` (flagi zastępcze).
+  Jaskinie: duża mikstura w skrzyniach i niszach, wielka w skarbie sekretnych pokoi. Ikony wspólne (potion / ether) — do
+  zrobienia osobne. Test `check_potion_tiers`.
+
+  | Tier (mapy) | mikstura mała / duża / wielka (HP) | eter mały / duży / wielki (SP) |
+  |---|---|---|
+  | 1 (1–3) | 100 / 240 / 410 | 40 / 95 / 160 |
+  | 2 (4–6) | 320 / 760 / 1300 | 85 / 200 / 340 |
+  | 3 (7–9) | 840 / 1950 / 3350 | 135 / 310 / 540 |
+  | 4 (10–12) | 1900 / 4450 / 7600 | 180 / 420 / 720 |
+  | 5 (13–15) | 4400 / 10 300 / 17 600 | 230 / 540 / 920 |
