@@ -63,8 +63,8 @@ pokazuje własny ekran generowania. Gracz zamrożony (`PROCESS_MODE_DISABLED`) d
 
 ## Niezrobione
 
-- Grafiki z Gemini dla jaskini są w `loading_screens/cave/` (c205e80), dla tutoriala 2 z 3
-  (`tutorial_area/variant_1_ruins_in_cave.jpg`, `variant_2_brazier_hall.jpg`, 2026-10-21 — prompty tutoriala przepisane: ruiny wewnątrz jaskiń, bez
+- Grafiki z Gemini dla jaskini są w `loading_screens/cave/` (c205e80), dla tutoriala komplet 3
+  (`tutorial_area/variant_1_ruins_in_cave.jpg`, `variant_2_brazier_hall.jpg`, `variant_3_stairs_golden_doors.jpg`, 2026-10-21 — prompty tutoriala przepisane: ruiny wewnątrz jaskiń, bez
   wejścia z zewnątrz); pozostałe foldery puste.
 
 ## Jedno tło przy wejściu na mapę proceduralną (2026-10-11)
