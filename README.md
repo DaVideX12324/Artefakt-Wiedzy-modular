@@ -26,7 +26,7 @@ git clone --recurse-submodules https://github.com/DaVideX12324/Artefakt-Wiedzy-m
 
 BitBomber to gra 2D typu bomberman-like z wbudowanym systemem quizów edukacyjnych — pierwszy artefakt wykonawczy platformy.
 
-Cień Mgły (moduł Quiz RPG) to gra RPG z eksploracją, walką turową i quizami edukacyjnymi wplecionymi w mechanikę — drużyna, ekwipunek, sloty zapisu, generowany świat. Opis: [`modules/quiz_rpg/README.md`](modules/quiz_rpg/README.md) (plik jest w repo modułu — widoczny po pobraniu submodułów).
+Cień Mgły (moduł Quiz RPG) to gra RPG z eksploracją, walką turową i quizami edukacyjnymi wplecionymi w mechanikę — drużyna, ekwipunek, sloty zapisu, generowany świat (jaskinie, ścieki), NPC miasta z usługami (sklepy, kowal, nauczyciel umiejętności) i wersja PL / EN. Opis: [`modules/quiz_rpg/README.md`](modules/quiz_rpg/README.md) (plik jest w repo modułu — widoczny po pobraniu submodułów).
 
 > **Submoduły w pracy:** zmiany w pliku modułu (np. README Cienia Mgły) commituje się w **repo modułu**, a w hoście
 > trzeba potem zacommitować nowy wskaźnik submodułu (`git add modules/quiz_rpg`). Sam host zapisuje tylko hash
@@ -70,6 +70,7 @@ Artefakt-Wiedzy-modular/
 │   ├── services/
 │   │   ├── quiz_service.gd      # Wspólny silnik quizów (namespace per moduł)
 │   │   ├── settings_service.gd  # Ustawienia globalne i per moduł
+│   │   ├── i18n_service.gd      # Tłumaczenia PL / EN (języki, TranslationServer)
 │   │   ├── asset_service.gd     # Ładowanie assetów z katalogu modułu
 │   │   ├── ui_scale_service.gd  # Wspólne skalowanie UI
 │   │   ├── window_service.gd    # Tryb okna, rozdzielczość, monitor, rozmiar okna
@@ -83,10 +84,11 @@ Artefakt-Wiedzy-modular/
 │   └── _template/               # Szablon startowy do tworzenia nowych modułów
 ├── scenes/                      # main.tscn + ui/ (menu główne, okno opcji, edytor pytań)
 ├── scripts/
-│   ├── core/                    # module_host(+_api), module_paths, input_binds (zmiana klawiszy), question_bank
+│   ├── core/                    # module_host(+_api), module_transition (ekran przejścia), module_paths, input_binds (zmiana klawiszy), question_bank
 │   ├── ui/                      # menu główne, okno opcji, edytor pytań
 │   └── shared/quiz/             # wspólny kontroler panelu quizu
-├── resources/                   # Zasoby hosta (quizzes/, fonts/, audio/)
+├── resources/                   # Zasoby hosta (quizzes/, fonts/, audio/, i18n/)
+├── tools/                       # Narzędzia pomocnicze (check_i18n.py — kontrola kluczy tłumaczeń)
 ├── addons/object_catalog_sync/  # Wtyczka edytora (katalogi obiektów generatora Cienia Mgły) — nie jest zależnością gry
 ├── assets/                      # PRYWATNY submoduł (Artefakt-Wiedzy-assets): paczki Pixel Crawler, tilesety, ikony;
 │                                #   nieużywane leżą w assets/_nieuzywane/ (z .gdignore, wyłączone z projektu i eksportu)
@@ -110,6 +112,7 @@ Nowe moduły **nie tworzą własnych** `QuizManager`, `SettingsManager`, `UIScal
 |--------|------------------|
 | `QuizService` | Silnik quizów z namespace per moduł |
 | `SettingsService` | Ustawienia globalne i per moduł |
+| `I18nService` | Tłumaczenia PL / EN całego Artefaktu (host i moduły; klucze w `resources/i18n/`, kontrola: `tools/check_i18n.py`) |
 | `AssetService` | Ładowanie assetów z katalogu modułu |
 | `UIScaleService` | Skalowanie UI |
 | `WindowService` | Tryb okna (okno / bez ramki / pełny ekran), rozdzielczość, monitor; zapamiętuje ręczny rozmiar i maksymalizację okna |
