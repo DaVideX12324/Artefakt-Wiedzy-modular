@@ -32,7 +32,7 @@
 
 ## 4. Dni
 
-20. **O** — krzywe XP do lv 100 i skala drabiny sprzętu (od tego zależą ceny, drop, koszt ulepszeń i wzór pancerza).
+20. ✅ **O** — krzywe XP do lv 100 (były) i skala drabiny sprzętu jak FNaFB1 (2026-10-21, `kontekst/ekwipunek_szkic.md` sekcja 12). Zostało: przedmioty pośrednie per mapa, tiery mikstur, ceny w sklepach.
 21. ✅ **O** — wspólny szkielet interakcji z NPC: usługi sklep / odpoczynek / nauka / rozmowa (2026-10-21, `kontekst/npc.md`). Zostały: kowal, zadania NPC.
 22. ✅ **O** — sklep z tierami blokowanymi flagami fabularnymi (mechanizm; flagi to placeholdery).
 23. **O** — kowal i bronie z potencjałem.

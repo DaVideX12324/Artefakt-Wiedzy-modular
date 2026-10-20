@@ -66,8 +66,8 @@ Pasma poziomów wrogów dla kolejnej mapy: tier 1 = początek mapy .. +1/3 zakre
 - ~~**Statystyki wrogów z poziomu**~~ — zrobione (sekcja wyżej). Pierwotny opis: generator z krzywej: HP / ATK / DEF z `enemy_level` i archetypu; tiery jako mnożniki, tak
   żeby proporcje walki z `backlog_druzyna_balans.md` S5 (cios wroga ≈ 14 % HP bohatera, bohater zabija w 3–4 trafieniach) trzymały się
   na każdej mapie. Dziś staty wrogów są stałe (tiery 1–4 z S5) — poziom wpływa tylko na XP.
-- **Krzywe bohatera do lv 100:** ATK +1,95 / DEF +1,1 na poziom (lv 100 ≈ 214 / 120 bez ekwipunku) vs ekwipunek +320 ATK / +192 DEF —
-  przemyśleć wagę ekwipunku (decyzja usera: bardzo ważny), tiery przedmiotów na 15 map, sklepy.
+- ~~**Krzywe bohatera do lv 100**~~ — zrobione 2026-10-21: skala jak FNaFB1 (lv 1–100 = rozciągnięte lv 1–20 FNaFB, × krzywa HP),
+  sprzęt ze sklepu 73 % ATK na lv 100, atak wroga z własnej krzywej; `ekwipunek_szkic.md` sekcja 12, `QuizRpgStatScale`.
 - **Poziomy umiejętności z poziomu bohatera** (dziś uczone na lv 1 / 5 / 10 / 15 / 20 — rozciągnąć na 100).
 - Tutorial: wrogowie mają stałe XP (enemy_level 0); upewnić się, że tutorial + jaskinie dają łącznie lv 8–9.
 

@@ -1,6 +1,6 @@
 # Ekwipunek i progresja — szkic modelu (do oceny)
 
-Stan: **propozycja z 2026-10-12, nic z sekcji 2–6 nie jest zaimplementowane ani zatwierdzone.** Odpowiada na brief „Ekwipunek i progresja — kontekst oraz zadanie dla Claude”.
+Stan: propozycja z 2026-10-12; **skala drabiny (decyzja druga) wdrożona 2026-10-21 — sekcja 12**; sekcje 1–3 i 8 opisują stan sprzed niej. Odpowiada na brief „Ekwipunek i progresja — kontekst oraz zadanie dla Claude”.
 Sekcja 1 to stan faktyczny z kodu (ścieżki względem `modules/quiz_rpg/`). Wszystkie nazwy i liczby w propozycjach są przykładowe.
 Liczby scenariuszy pochodzą z `tests/diag_gear_scenarios.gd` (lokalny, nie w repo): te same wzory co w grze, bez losowości i krytyków.
 
@@ -326,11 +326,67 @@ Niezrobione: sklep, tiery sklepu z flagami fabularnymi, mikstury w kolejnych tie
 
 **Czwarta (jaskinie) — rozstrzygnięta:** złoto wypada od początku, już od tutorialu.
 
-**Druga:** skala drabiny przy 100 poziomach: **A.** wydłużyć drabinę (pułap sklepu ≈ 600 ATK, rzadki ≈ 1200, najrzadszy ≈ 1850 ATK z bonusami HP / SP; przyrost z poziomu bez zmian, „szalone liczby” z ustaleń usera), **B.** zmniejszyć przyrost z poziomu (`atk_per_level` / `def_per_level`, sekcja 8), **C.** zostawić jak teraz (nasz pułap 320 = FNaFB-owy rzadki drop, poziom dominuje do lv 80).
+**Druga — rozstrzygnięta przez usera 2026-10-21 („jak we FNaFB, pamiętając, że tam skalowanie kończy się na lv 20”; skala liczb:
+„duże — HP do 50 000 zostaje”; pancerz: „atak wroga z własnej krzywej”).** Wdrożenie: sekcja 12. Pierwotne warianty:
+skala drabiny przy 100 poziomach: **A.** wydłużyć drabinę (pułap sklepu ≈ 600 ATK, rzadki ≈ 1200, najrzadszy ≈ 1850 ATK z bonusami HP / SP; przyrost z poziomu bez zmian, „szalone liczby” z ustaleń usera), **B.** zmniejszyć przyrost z poziomu (`atk_per_level` / `def_per_level`, sekcja 8), **C.** zostawić jak teraz (nasz pułap 320 = FNaFB-owy rzadki drop, poziom dominuje do lv 80).
 Uwaga: **zmiana A / B przesuwa wzorzec wrogów** w `enemy_stats.gd` (`GEAR_*` albo `*_per_level`); stosunek w walce zostaje, liczby w grze rosną.
 
 **Uwaga o roli FNaFB:** to przykład progresji i wyjątkowych nagród, nie specyfikacja (user: nasza gra jest znacznie bardziej rozbudowana). Z FNaFB wynika tylko, że drop może przekraczać zwykłą progresję i że może być przypisany do konkretnej postaci i tieru wroga. **Nie** ustalamy jednej broni ostatecznej na postać, tabeli dropów „tier = postać” ani liczby takich broni; kampanię balansujemy pod zwykły, dostępny sprzęt (broń ostateczna nie jest wymagana do finału), a ostateczne i sekretne bronie są świadomymi wyjątkami (także sekretne ponad budżet). Cechy przedmiotu (dostępność, moc początkowa, potencjał, ścieżka ulepszeń, specjalizacja) są niezależne, więc „ostateczna z dropu” i „rozwijana u NPC” to dwie osobne drogi, nie jeden obowiązkowy etap.
 
 **Trzecia — rozstrzygnięta przez usera:** wczesny rzadki drop **nie** daje od razu mocy endgame; moc początkowa ≤ moc mapy + 2, pełny potencjał przez ulepszenia u kowala (wariant „moc rośnie etapami”, sekcja 10).
 
-W każdym wariancie osobna poprawka: pancerz prawie nie wpływa na przeżywalność późno (sekcja 8), więc definicję ciosu wroga w `enemy_stats.gd` trzeba przejrzeć niezależnie od wyborów.
+W każdym wariancie osobna poprawka: pancerz prawie nie wpływa na przeżywalność późno (sekcja 8), więc definicję ciosu wroga w `enemy_stats.gd` trzeba przejrzeć niezależnie od wyborów. **Rozwiązane 2026-10-21 (sekcja 12).**
+
+## 12. Skala jak FNaFB1 do lv 100 (wdrożone 2026-10-21)
+
+Jedno źródło liczb: `scripts/heroes/stat_scale.gd` (`QuizRpgStatScale`). Nasze lv 1–100 to rozciągnięte lv 1–20 FNaFB1
+(`fnafb_level` = 1 + (L − 1) × 19 / 99), a wszystko poza HP i SP rośnie dodatkowo z krzywą HP: `factor(L)` = HP bohatera
+wzorcowego / HP Freddy'ego w tym samym punkcie FNaFB (lv 1: 1, lv 100: 35,7). Krzywe HP, SP i XP bez zmian.
+- **Bohater:** ATK / DEF / MAT / MDF = (baza + przyrost × (poziom FNaFB − 1)) × factor; `*_per_level` w danych postaci to
+  przyrost na poziom FNaFB (bohater 1,95 ATK = Freddy 21 -> 58). AGI bez skali (kolejność tur). `PlayerStats.get_member_total_stat`.
+- **Sprzęt ze sklepu (standard):** broń 10 -> 160 i komplet pancerza (głowa + korpus + tarcza razem, ¼ / ½ / ¼) 4 -> 64 jak
+  sklepy FNaFB1, wykładniczo po poziomie FNaFB, × factor. Rzadki drop ≈ 2 × sklep (Kingly), najrzadszy ≈ 3 × (Godly) — do
+  zaprojektowania przy relikwiach / broniach z potencjałem.
+- **Wróg:** ATK z własnej krzywej (Party Hat Alpha 20 -> Omega 160, × factor) × `ENEMY_ATK_MULT` tieru (0,79 / 0,96 / 1,04 / 1,0 —
+  na lv 1 cios jak dotąd: 10 / 14 / 16 / 15 % HP); HP i DEF jak dotąd z bohatera wzorcowego (`HITS_TO_KILL`, `DEF_RATIO`).
+  Pancerz waży jak w FNaFB: komplet ze sklepu tnie cios o 14 % (lv 1) -> 22 % (lv 100); cios rośnie z 14 % do ≈ 30 % HP
+  na lv 100 (Omega na Freddym lv 20: 32 %). `enemy_stats.gd`.
+- **Złoto z wroga:** 2 × broń ze sklepu z jego poziomu × waga tieru (`enemy_gold.gd`) — rośnie razem z cenami.
+
+Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`):
+
+| Mapa | lv | factor | HP | ATK bez sprzętu | broń sklep | komplet pancerza | ATK wroga (Omega) | sprzęt w ATK | pancerz tnie | cios t1 / t2 / t3 / boss |
+|---|---|---|---|---|---|---|---|---|---|---|
+| start | 1 | 1,0 | 334 | 21 | 10 | 4 | 20 | 32 % | 14 % | 10 / 14 / 16 / 15 % |
+| 1 | 9 | 1,6 | 687 | 39 | 20 | 8 | 39 | 34 % | 14 % | 9 / 13 / 15 / 14 % |
+| 2 | 15 | 2,1 | 1 037 | 56 | 32 | 13 | 57 | 36 % | 15 % | 9 / 13 / 15 / 14 % |
+| 3 | 22 | 2,8 | 1 570 | 81 | 50 | 20 | 87 | 38 % | 15 % | 9 / 13 / 15 / 14 % |
+| 4 | 28 | 3,5 | 2 163 | 108 | 74 | 29 | 122 | 41 % | 16 % | 10 / 14 / 15 / 14 % |
+| 5 | 35 | 4,4 | 3 063 | 147 | 113 | 45 | 179 | 43 % | 16 % | 10 / 14 / 16 / 15 % |
+| 6 | 41 | 5,3 | 4 066 | 191 | 163 | 65 | 246 | 46 % | 17 % | 11 / 15 / 17 / 16 % |
+| 7 | 48 | 6,7 | 5 590 | 256 | 248 | 99 | 357 | 49 % | 17 % | 12 / 16 / 18 / 17 % |
+| 8 | 54 | 8,0 | 7 286 | 328 | 355 | 142 | 490 | 52 % | 18 % | 12 / 17 / 19 / 18 % |
+| 9 | 61 | 10,1 | 9 863 | 437 | 539 | 216 | 709 | 55 % | 18 % | 14 / 18 / 21 / 20 % |
+| 10 | 67 | 12,2 | 12 733 | 556 | 773 | 309 | 974 | 58 % | 19 % | 15 / 20 / 22 / 21 % |
+| 11 | 74 | 15,2 | 17 091 | 736 | 1 177 | 471 | 1 412 | 62 % | 19 % | 16 / 22 / 24 / 23 % |
+| 12 | 80 | 18,5 | 21 946 | 935 | 1 691 | 676 | 1 945 | 64 % | 20 % | 17 / 23 / 26 / 25 % |
+| 13 | 87 | 23,2 | 29 318 | 1 236 | 2 583 | 1 033 | 2 829 | 68 % | 21 % | 19 / 25 / 28 / 27 % |
+| 14 | 93 | 28,3 | 37 529 | 1 568 | 3 721 | 1 488 | 3 908 | 70 % | 21 % | 20 / 27 / 31 / 29 % |
+| 15 | 100 | 35,7 | 50 000 | 2 070 | 5 706 | 2 282 | 5 706 | 73 % | 22 % | 22 / 30 / 34 / 32 % |
+
+**Tiery istniejących przedmiotów = budżet sklepu co 3 mapy** (cena broni 2,5 × ATK; pancerz: 2,5 × broń tieru × 0,4 / 0,6 / 0,4):
+
+| Tier | budżet | broń | głowa / korpus / tarcza | przedmioty |
+|---|---|---|---|---|
+| 1 | start (lv 1) | 10 | 1 / 2 / 1 | training_sword (i inne bronie 10), cloth_cap, adventurer_tunic, wooden_shield |
+| 2 | mapa 3 (lv 22) | 50 | 5 / 10 / 5 | iron_sword, leather_hood, reinforced_tunic, iron_buckler |
+| 3 | mapa 6 (lv 41) | 160 | 16 / 33 / 16 | steel_blade, iron_helmet, iron_chainmail, steel_kite_shield |
+| 4 | mapa 9 (lv 61) | 540 | 54 / 108 / 54 | knight_broadsword, knight_visored_helm, knight_plate_armor, knight_shield |
+| 5 | mapa 12 (lv 80) | 1 690 | 169 / 338 / 169 | runic_claymore, crown_of_clarity, warden_cuirass, aegis_shield |
+| 6 | mapa 15 (lv 100) | 5 700 | — | shadowbane_sword (pułap sklepu) |
+
+- Łup jaskiń (mapa 1) tylko do tieru 2 = moc mapy 3 (reguła „mapa + 2”); nisze, sekretne pokoje i relikwia (zastępczo
+  `iron_sword`) poprawione w `caves.json` (wcześniej tier 3).
+- Brakuje przedmiotów pośrednich (każda mapa ×1,2–1,3) i pancerza na lv 100 — dane do dorobienia (np. Gemini) z tabeli wyżej.
+- Kowal w mieście: tier 3 po `boss:sewer` (flagi zastępcze) — przestroić z tierami map, gdy powstaną sklepy.
+- Mikstury dalej stałe (100 HP) — tiery leczenia z tabeli w sekcji 9 do zrobienia.
