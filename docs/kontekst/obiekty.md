@@ -47,8 +47,15 @@ Nie oglądane jeszcze w grze.
   Render z obiektami: `tests/render_sewer.gd` (`RS_CROP=x,y,w,h` = zbliżenie ×2); runtime w eksploratorze:
   `tests/diag_sewer_objects_runtime.gd`.
 
-Zostało w planie generatora: F5 (niszczalne beczki, dźwignie, leniwe sceny), podgląd (nakładka zajętości /
-przejść, statystyki), obejrzenie kafli wielokratkowych na `Props`. Dla ścieków: barierki przy kanałach,
+**Dźwignie bram (2026-10-21, CienMgly 3540c84):** trzeci otwieracz bramy z kolców obok klucza z zamkiem i płyty —
+`GatePlanner` zamienia płytę na dźwignię z szansą `lever_chance` (katalog `gates`: `"lever"`, `"lever_chance"`;
+w ściekach 0,5), scena `scenes/objects/sewer/gate_lever.tscn` (Pixel Crawler free pack `Dungeon_Props.png`: rączka
+w lewo = off, pion, w prawo = on; bez kolizji) na kratce `canals.levers`, interakcja klawiszem, stan w zapisie jak
+zamek (`GateState`), otwiera tylko swoją bramę (nie jest wspólna jak płyta). Test `tests/check_gate_lever.gd`.
+W arkuszu są też dźwignie w widoku z boku (rząd 2) — na lico, gdyby były potrzebne.
+
+Zostało w planie generatora: F5 (leniwe sceny), podgląd (nakładka zajętości / przejść, statystyki), obejrzenie
+kafli wielokratkowych na `Props`. Dla ścieków: barierki przy kanałach,
 mech (teren foliage), filary w licu, skrzynia w grafice ścieków.
 
 Test: `tests/diag_object_access.gd` (w zestawie `run_plateau_suite.sh`). Parytet: zmieniło się tylko
