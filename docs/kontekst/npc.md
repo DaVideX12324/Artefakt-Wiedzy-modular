@@ -4,8 +4,11 @@ Stan: **ZROBIONE (MVP)**, CienMgly `cbb0218a`…`698acc2e`. Kod niezależny od u
 do wstawienia w dowolną mapę (edytor / LDtk).
 
 ## Jak użyć
-- Wstaw scenę z `scenes/npc/`: `shopkeeper.tscn` (Sklepikarka), `innkeeper.tscn` (Karczmarka), `skill_teacher.tscn`
-  (Mistrz Fechtunku), `villager.tscn` (Mieszkanka). Wszystkie dziedziczą po `npc.tscn` (zmiany wspólne tylko w bazie).
+- Wstaw scenę z `scenes/npc/`: `shopkeeper.tscn` (Zielarka — mikstury, odtrutki, wytrychy, amulet), `blacksmith.tscn`
+  (Kowal — broń), `armorer.tscn` (Płatnerz — tarcze, hełmy, pancerze), `innkeeper.tscn` (Karczmarka), `skill_teacher.tscn`
+  (Mistrz Fechtunku), `villager.tscn` (Mieszkanka). Sklepy podzielone wstępnie (decyzja usera 2026-10-21); sprzęt tieru 3
+  u kowala i płatnerza po `boss:sewer`. Sprite'y kowala (royal Soldier) i płatnerza (Elf Base) tymczasowe — to wrogowie
+  z paczki; `sprite_offset` -30 dla klatek ze stopami na dole. Wszystkie dziedziczą po `npc.tscn` (zmiany wspólne tylko w bazie).
 - W Inspectorze: `npc_name` (+ klucz tłumaczenia), `sprite_frames` (animacja `idle`), `face_left`, `greeting`,
   `services` (lista usług), `farewell`. Wygląd widać w edytorze.
 - Rozmowa: powitanie → menu usług + „Do widzenia” → po usłudze menu wraca. NPC z jedną rozmową mówi ją od razu.
@@ -56,9 +59,9 @@ zapisu (bariera po zapisie).
 
 ## Brief dla Gemini: imiona i teksty NPC
 - Pliki: `modules/quiz_rpg/resources/i18n/pl.json` i `en.json` (UTF-8, **LF**, wcięcie 2 spacje, klucze w kolejności
-  alfabetycznej), sceny `modules/quiz_rpg/scenes/npc/{shopkeeper,innkeeper,skill_teacher,villager}.tscn`.
+  alfabetycznej), sceny `modules/quiz_rpg/scenes/npc/{shopkeeper,blacksmith,armorer,innkeeper,skill_teacher,villager}.tscn`.
 - Klucze: `npc.<rola>.name`, `npc.<rola>.greeting_<n>`, `npc.innkeeper.talk_<n>`, `npc.villager.talk_<n>`
-  (role: `shopkeeper`, `innkeeper`, `teacher`, `villager`). W scenie zmienić też `npc_name` / `greeting` / `lines`
+  (role: `shopkeeper`, `blacksmith`, `armorer`, `innkeeper`, `teacher`, `villager`). W scenie zmienić też `npc_name` / `greeting` / `lines`
   (zapasowe teksty) na te same polskie wersje; liczba linii w scenie = liczba kluczy `_<n>`.
 - Ton: osada odcięta mgłą, ludzie tracą wspomnienia (`docs/game_design.md`, „Zarys fabuły — co gracz wie na
   początku”); nauczyciel w Hideout — dialog „formuły przekażę, osobistej techniki nie”
