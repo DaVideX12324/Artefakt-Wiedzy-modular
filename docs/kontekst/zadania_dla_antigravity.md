@@ -98,7 +98,15 @@ Osobny brief: [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) (21
 Osobny brief: [porzadkowanie_docs_dla_gemini.md](porzadkowanie_docs_dla_gemini.md) (rola `otwarte.md` vs `znane_problemy.md`, indeks `docs/README.md`, statusy planów, raport).
 Uwaga: nie ruszać nagłówków `### ⚠ WAŻNE:` w `znane_problemy.md` (hook przypomnień).
 
-## Zadanie F — imiona postaci (propozycje, bez zmian w plikach gry)
+## Zadanie F — imiona postaci (propozycje i wdrożenie)
 
-Osobny brief: [imiona_postaci_dla_gemini.md](imiona_postaci_dla_gemini.md) (trzech towarzyszy, prawdziwe imiona Strażnika i Arcymaga,
-opcjonalnie NPC-e miasta; wdrożenie dopiero po wyborze usera).
+Osobny brief: [imiona_postaci_dla_gemini.md](imiona_postaci_dla_gemini.md).
+- 2026-10-21: Przygotowano propozycje. User zatwierdził imiona towarzyszy: Łotrzyk = **Kael**, Mag = **Eldon**, Kapłan = **Selene**.
+- Wdrożono zgodnie z sekcją 6: klucze hero.<id>.name w pl.json i en.json (EN = PL), display_name w hero_*.tres oraz uild_companions.gd. Zamknięto otwarte punkty w druzyna_szkic.md i zadania_wg_trudnosci.md.
+
+## Zadanie G — imiona i teksty NPC (wdrożenie)
+
+Osobny brief: [npc.md](npc.md) sekcja „Brief dla Gemini: imiona i teksty NPC”.
+- 2026-10-21: Wdrożono imiona NPC (Fenna, Brann, Kastor, Greta, Corvus, Lina) w `pl.json`, `en.json` i scenach `modules/quiz_rpg/scenes/npc/*.tscn`.
+- Zaktualizowano powitania i kwestie dialogowe (klimat osady odciętej mgłą, zanik pamięci, szlifowanie form u Corvusa, wskazówka Liny o kanałach).
+- Zweryfikowano `check_i18n.py` (0 błędów, 0 kolizji) oraz brak znaków CR w zmodyfikowanych plikach.

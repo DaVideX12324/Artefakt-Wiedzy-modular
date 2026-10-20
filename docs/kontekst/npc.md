@@ -56,7 +56,7 @@ zapisu (bariera po zapisie).
   `cemetery`, `fairy_forest`…). Szablony: sprzęt tieru 3 w sklepie po `boss:sewer` (tier 2 od razu — miasto jest po
   jaskini), umiejętności z blokad biomów (`onslaught`, `reckless_blow`, `leap_series`) po `boss:fairy_forest` (hub
   przed trzema bramami). Do korekty w Inspectorze, gdy ustali się kolejność.
-- **Imiona i teksty NPC robi Gemini** (brief niżej).
+- **Imiona i teksty NPC zrobione przez Gemini** (2026-10-21: wdrożono imiona Fenna, Brann, Kastor, Greta, Corvus, Lina oraz kwestie powitań i dialogów w pl.json, en.json i scenach .tscn).
 
 ## Brief dla Gemini: imiona i teksty NPC
 - Pliki: `modules/quiz_rpg/resources/i18n/pl.json` i `en.json` (UTF-8, **LF**, wcięcie 2 spacje, klucze w kolejności

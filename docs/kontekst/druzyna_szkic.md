@@ -102,7 +102,7 @@ Decyzje usera (2026-10-12):
 
 **Odpowiedzi (2026-10-16):** (1) „zależne od AGI” — zrobione: każdy przytomny działa raz na rundę w kolejności wg AGI
 (opis w `walka.md`); (4) „tak” — bohater to Knight z `royal_crew` (`resources/heroes/frames/bohater_frames.tres`,
-też w `player.tscn`). Otwarte: (2) imiona / charakter; (3) skille klasowe — zrobione 2026-10-21 (sekcja niżej).
+też w `player.tscn`). Otwarte: brak — (2) imiona / charakter: wybrane i wdrożone 2026-10-21 (Kael, Eldon, Selene); (3) skille klasowe — zrobione 2026-10-21 (sekcja niżej).
 
 **Merge (2026-10-16):** `druzyna-balans` zmergowana do `main` CienMgly (merge commit `9a764ec0`) — dalej praca na `main`.
 

@@ -13,7 +13,7 @@
 ## 2. Godziny
 
 5. ✅ **S** — przegląd gry po angielsku (skan danych i scen UI bez polskich znaków; w oknie nikt nie sprawdzał).
-6. ✅ **S** — poprawki i18n: klucze `bb.options.bind_*`, imiona bohaterów w EN = nazwy klas (tymczasowo). Zostało: **prawdziwe imiona** (czekają na nazwy usera) i jedna nieszkodliwa kolizja „Kapłan”/Priest.
+6. ✅ **S** — poprawki i18n: klucze `bb.options.bind_*`, imiona bohaterów wdrożone 2026-10-21 (Kael, Eldon, Selene — EN = PL). Kolizje msgid z nazwami klas usunięte.
 7. ✅ **S** — pancerz: zmierzony, decyzja usera **„zostaw na razie”** do czasu decyzji o skali drabiny sprzętu (pkt 20).
 8. ✅ **S** — `optimize_member_equipment` z MAT/MDF (mag/kapłan → MAT).
 10. ✅ **S** — scroll drużyny > 4 w pauzie. Szyk w Status: zostaje osobno (decyzja usera). Okno pytania: już zgodne z życzeniem (najpierw rozszerza się na maks., potem rośnie w górę; może zasłaniać UI).
