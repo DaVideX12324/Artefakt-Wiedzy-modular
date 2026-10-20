@@ -1,6 +1,11 @@
 # Plan: generator obiektów statycznych i interaktywnych (jaskinie)
 
-> Status (2026-10-21): W TOKU — fazy F0–F4 zrobione (sceny obiektów, skrzynie, beczki, obiekty ścieków); z F5 zrobione dźwignie bram (2026-10-21); do dokończenia leniwe sceny i nakładka podglądu.
+> Status (2026-10-21): ZROBIONE — F0–F5 i podgląd. F5: niszczalne beczki, dźwignie bram, zawartość nisz; leniwe
+> sceny **niepotrzebne** (pomiar `tests/diag_interactive_cost.gd`, seed 103107: interaktywnych 15 / 37 / 109 na mapach
+> 160² / 250² / 500², instancjonowanie 6 / 11 / 45 ms ≈ 0,4 ms/szt., etap `props` ≤ 0,5–1 % generowania; DECAL/PROP to
+> canvas items bez węzłów). Podgląd: eksplorator map — „Pokaż zajętość obiektów” (nakładka `ObjectPlan.occupancy`:
+> interaktywne / kolizja / zajęte / przejścia / bez drobnicy / zakaz), statystyki obiektów w panelu (klasy, czas planu,
+> zdjęte dla osiągalności, najczęstsze), zajętość i obiekty kratki w inspektorze; render `tests/render_objects_mask.gd`.
 >
 > Spisane 2026-09-25. Cel: dużo obiektów na mapie — od dużych przeszkód po drobne sprite'y — bez
 > spowalniania generowania i gry, deterministycznie (seed), z zachowaniem osiągalności. Skrzynie

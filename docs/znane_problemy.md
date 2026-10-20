@@ -100,7 +100,10 @@
   uskoki lica o 1 przy pokojach dostawionych (detektor: `tests/diag_sewer_thin_walls.gd`).
 
 
-### ⚠ WAŻNE: (2) dokończyć generator obiektów — w większości zrobione
+### (2) dokończyć generator obiektów — ZROBIONE 2026-10-21
+- **Stan 2026-10-21: ZROBIONE.** Nakładka podglądu w eksploratorze map (zajętość, przejścia, statystyki, inspektor
+  kratki); leniwe sceny odrzucone po pomiarze (≈ 0,4 ms na obiekt interaktywny, 45 ms na 500², `plan_generator_obiektow.md`);
+  barierki kanałów były już zrobione (warstwa `Rails`, `kontekst/scieki.md`). Znacznik ⚠ zdjęty.
 - **Stan 2026-10-17: W TOKU — user dokończy wkrótce.**
 - **Stan 2026-10-12: W TOKU (większość zrobiona).** Zrobione: F0–F4, obiekty jako sceny (`ObjectBake`), niszczalne beczki (`barrel.gd`, łup jako toast, model 3 / (2n)), skrzynie z kluczami i tierem, obiekty ścieków (kolce, bramy, płyta naciskowa, klucz bramy, skrzynia ścieków). Zostało: dźwignie, leniwe sceny, nakładka podglądu (zajętość / przejścia / statystyki), obejrzenie kafli wielokratkowych na `Props`.
 - Zgłoszenie 2026-10-04 (drugie z trzech ważnych todo). Generator obiektów: dalsze fazy F2–F5 wg

@@ -28,7 +28,7 @@
 16. **S** — warianty skrzyń z innych paczek i więcej mikstur w jaskiniach.
 17. ✅ **S** — zapis map na dysk (`map_disk_cache.gd`, wejście z pliku ≈ 0,25 s zamiast 2–2,5 s). Zostało: zapis po policzeniu mapy z wyprzedzeniem (prefetch), podbijanie `MAP_CACHE_VERSION` w wydaniu, osobne unieważnianie przy usunięciu slotu.
 18. **S/O** — skrzynie specjalne w rzadkich pokojach. Nisze out w jaskiniach ✅ (2026-10-21: przedmiot, skrzynia tieru 2 albo sekretny pokój — osobna mapa z 1–3 pokoi; jedna nisza na mapę do krypty relikwii z bossem, `kontekst/obiekty.md` „Zawartość nisz out”). Zostało: przedmiot relikwii, rzadkie pokoje.
-19. **S/O** — generator obiektów F5: nakładka podglądu, leniwe sceny. Niszczalne beczki ✅, dźwignie bram ✅ (2026-10-21).
+19. ✅ **S/O** — generator obiektów F5: niszczalne beczki, dźwignie bram, nakładka podglądu (2026-10-21); leniwe sceny niepotrzebne (pomiar).
 
 ## 4. Dni
 
