@@ -29,8 +29,8 @@ urządzenia. `has_story_flag` przyjmuje też id pokonanego story-bossa (tier skl
 
 ## Ceny (`QuizRpgItemData.price`)
 Broń 2,5 × ATK, pancerz / tarcza / hełm 3 × DEF; mikstura 8, eter 10, tonik 15, odtrutka 6, wytrych 20, amulet 60.
-Odniesienie: wróg mapy 1 daje ok. 15–25 zł (`QuizRpgEnemyGold`), tier 2 sprzętu ≈ 2 zabicia (FNaFB). Nocleg 20 zł,
-lekcje 60–300 zł. Wszystko do strojenia w danych.
+Odniesienie: wróg mapy 1 daje ok. 15–25 D (`QuizRpgEnemyGold`), tier 2 sprzętu ≈ 2 zabicia (FNaFB). Nocleg 20 D,
+lekcje 60–300 D. Wszystko do strojenia w danych.
 
 ## Punkt narzuconego zapisu (`scenes/objects/save_point.tscn`)
 Decyzja usera: zapis dostępny prawie zawsze z menu pauzy, karczma nie zapisuje; narzucony zapis tylko w punktach
@@ -44,7 +44,8 @@ okno bez zapisu. Opcja `once`.
 zapisu (bariera po zapisie).
 
 ## Decyzje usera (2026-10-21)
-- **Waluta nauczyciela: złoto.** Opcjonalnie później dodatkowo przedmiot z dropu potworów albo z zadania pobocznego
+- **Waluta: dukaty, symbol „D” w każdym języku** (nazwa Dukaty / Ducats; niepowiązana z prawdziwą walutą; w kodzie
+  nadal `gold`). **Nauczyciel bierze dukaty.** Opcjonalnie później dodatkowo przedmiot z dropu potworów albo z zadania pobocznego
   (pole `item_id` / `item_count` lekcji — bez zmian w kodzie).
 - **Flagi = pokonani bossowie.** Pokonany boss zawsze ustawia flagę `boss:<id>` (`EnemyBase._persist_boss_defeat`;
   id = `boss_story_id` albo nazwa sceny mapy, np. `boss:cave`, `boss:sewer` — nowe mapy nazywać jak strefy:
