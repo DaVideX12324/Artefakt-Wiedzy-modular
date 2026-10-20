@@ -111,7 +111,14 @@ pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
   nisza relikwii, wymuszona nisza przy szansie 0), `check_secret_room` (cele i markery przejść, mapy sekretu i krypty:
   rozmiar, pokoje, bez wyjścia, skarb / relikwia osiągalne, boss przed relikwią, powrót), `check_ground_item` (też flaga
   relikwii), rendery `render_niche_content` / `render_secret_room` (z oknem), diagnostyka `diag_out_niches`.
-- Zostało: rzadkie pokoje ze skrzyniami specjalnymi, nisze w ściekach (brak kafli nisz out), sprawdzenie w grze.
+- **Skrzynie specjalne w rzadkich pokojach (2026-10-21, pomysł usera 2026-10-12):** `TreasurePlanner.plan_rare`,
+  sekcja `rare_rooms` w `caves.json` — 1–2 na mapę (`count`, z seeda), w pokojach najdalej od głównej drogi wejście ->
+  wyjście (zboczenie ≥ `min_detour` 12 kratek po podłodze), bez pokoju wejścia i wyjścia, blisko środka pokoju na otwartej
+  podłodze. Skrzynia tieru 3 (szafirowa, wytrych = trudniejszy quiz) z łupem w regule „mapa + 2” (sprzęt tieru 2,
+  klucz tieru 2, wielkie mikstury, amulet); unique_id `rare_chest_…`. Mapy bez wyjścia (sekretne pokoje) — bez nich.
+  Wspólne z TreasurePlanner: `_place_in_room` / `_commit`. Test `check_rare_rooms`. Nie zrobione: skrzynia przeklęta
+  (czaszka z „RPG Chests” kol. 8) — brak ustaleń, co robi.
+- Zostało: nisze w ściekach (brak kafli nisz out), sprawdzenie w grze.
 
 ## Beczki — łup (2026-10-11)
 - Łup z beczki to powiadomienie bez pauzy (`LootManager.show_loot_toast`: ikona + nazwa ×liczba, prawy dolny róg, znika po 3 s, maks. 8 naraz) — bez popupu i klikania. Skrzynie nadal używają popupu (`show_loot_popup`).
