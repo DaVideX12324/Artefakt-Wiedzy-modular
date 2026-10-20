@@ -95,10 +95,22 @@ pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
   - Skarb: `TreasurePlanner` (sekcja `treasure`) — `count` skrzyń w pokoju najdalszym od wejścia, blisko środka, na
     otwartej podłodze; unique_id `treasure_chest_…`, tier 2 i własny łup (stal, łuk, włócznia, amulet, klucz tieru 2,
     mikstury ×3) w `_apply_special_chests`.
-- Testy: `check_niche_content` (4 mapy: jedna zawartość na niszę, czysto przed niszą, proporcje, powtarzalność),
-  `check_secret_room` (cele i markery przejść, mapy sekretu: rozmiar, pokoje, bez wyjścia i bossa, skarb osiągalny,
-  powrót), `check_ground_item`, rendery `render_niche_content` / `render_secret_room` (z oknem), diagnostyka
-  `diag_out_niches`.
+- **Pokój relikwii** (`niche_relic`, 2026-10-21) — **decyzja usera: zawsze dokładnie jedna nisza na mapę prowadzi do
+  osobnej mapy z 2–3 pokoi, relikwia w ostatnim pokoju, przed nim boss**:
+  - `niche_content.relic_scene` (jaskinie: `levels/cave_relic.tscn`, „Zapomniana krypta”). `NicheContentPlanner` daje
+    przejście jednej niszy (z hash(seed mapy), spośród nisz dalszych od wejścia niż mediana), reszta losuje jak zwykle.
+  - Gdy plan kafli nie dał żadnej niszy out, `CaveGenerator.plan_cave_tiles` liczy go jeszcze raz z tym samym stanem RNG
+    i `ctx.force_out_niche` — nisza w pierwszym miejscu, gdzie może stanąć (reszta mapy bez zmian).
+  - Nakładka `relic_room`: jak `secret_room`, ale `"rooms": [2, 3]`, `exit_enemy_tier: 0`; `treasure` z `"kind": "relic"`
+    (relic_item.tscn: przedmiot na ziemi ze złotą poświatą, `item_id` — **na razie `steel_blade` jako zastępstwo**),
+    `"guard_tier": 4` — boss na drodze od wejścia, 2 kratki przed ostatnim pokojem (`TreasurePlanner._guard_cell`).
+  - Relikwia ustawia flagę fabularną (`flag`, jaskinie `relic.cave`) — podniesiona nie wraca też po rerollu seeda zapisu.
+    Boss krypty: `"boss": {"story_id": "cave_relic", "counts_toward_device": false}` — nie liczy się do urządzenia.
+  - Sekretne pokoje i krypta nie mają własnych przejść (`relic_scene: ""`, waga `secret_room` 0 w nakładkach).
+- Testy: `check_niche_content` (4 mapy: jedna zawartość na niszę, czysto przed niszą, proporcje, powtarzalność, jedna
+  nisza relikwii, wymuszona nisza przy szansie 0), `check_secret_room` (cele i markery przejść, mapy sekretu i krypty:
+  rozmiar, pokoje, bez wyjścia, skarb / relikwia osiągalne, boss przed relikwią, powrót), `check_ground_item` (też flaga
+  relikwii), rendery `render_niche_content` / `render_secret_room` (z oknem), diagnostyka `diag_out_niches`.
 - Zostało: rzadkie pokoje ze skrzyniami specjalnymi, nisze w ściekach (brak kafli nisz out), sprawdzenie w grze.
 
 ## Beczki — łup (2026-10-11)
