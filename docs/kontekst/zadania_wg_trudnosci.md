@@ -3,6 +3,11 @@
 > Widok pomocniczy, **nie** źródło prawdy — szczegóły i statusy: [`docs/znane_problemy.md`](../znane_problemy.md). Stan na 2026-10-17.
 > Skróty: **U** = robi user (gra/LDtk/grafika), **S** = Sonnet wystarczy, **O** = lepiej Opus (projekt/architektura). ✅ = zrobione.
 
+> **TODO (user 2026-10-21):** przenieść otwarte punkty z [`znane_problemy.md`](../znane_problemy.md) do tej listy, posortowane
+> trudnością (lista z 2026-10-21 w [`sesja_2026-10-21.md`](sesja_2026-10-21.md) „Otwarte ze znanych problemów”), i przy okazji
+> przenieść tam zrobione wpisy do „Rozwiązane” (teammate'owie, NPC, beczki, generator obiektów, optymalizacja ekwipunku,
+> tłumaczenia, przyspieszenie generowania, tło 16:9 — user: „można wywalić”).
+
 ## 1. Minuty
 
 1. **U** — sprawdzić w grze: poprawki ekranu śmierci i trucizny, skrzynie i klucze na tier, beczki 3/(2n), złoto, koszt walki, zakładkę „Ogólne”, a po ostatnich zmianach: scroll drużyny w pauzie, wczytywanie map z dysku, grę po angielsku w oknie.
