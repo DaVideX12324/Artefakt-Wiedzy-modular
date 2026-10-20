@@ -1,7 +1,7 @@
 # Sloty umiejętności wg tierów — szkic do oceny
 
-Stan: **pomysł usera z 2026-10-12, nic nie jest zaimplementowane.** W grze dziś nie ma limitu aktywnych skilli (cała odblokowana pula jest
-dostępna w walce). Wszystkie liczby poniżej to propozycje do przerobienia; punkt odniesienia: `LEVEL_CAP` 20 teraz, docelowo 100 lvl i 15 map.
+Stan: **zrobione 2026-10-21 (Opus) według rekomendacji z sekcji 2** — opis wdrożenia w sekcji 6. Liczby to nadal propozycje
+do przestrojenia (stałe w `QuizRpgSkillSlots`); punkt odniesienia: `LEVEL_CAP` 20 teraz, docelowo 100 lvl i 15 map.
 
 ## 1. Założenia (decyzje usera)
 
@@ -94,3 +94,22 @@ Skille-klucze zamku (Rushdown, Backup Bash, Rapid Flurry) mają niski tier start
 4. Format akcesoriów (jednostki budżetu, ±1 tier) i które z obecnych `lucky_charm` / nowych dostają bonus.
 5. UI: ekran w menu pauzy (lista skilli, suwak poziomu, pasek budżetu), widok w walce bez zmian.
 6. Zapis: lista (skill, poziom) na członka.
+
+## 6. Wdrożenie (2026-10-21)
+
+- **Wartości:** koszt T1–T4 = 1 / 2 / 3 / 5, budżet liniowo 3 → 11 (lv 1 → 20; lv 6 = 5, lv 12 = 8), maks. tier od lv 1 / 6 / 12 / 20,
+  najwyżej 6 aktywnych, skan poza budżetem — `scripts/skills/skill_slots.gd` (`QuizRpgSkillSlots`).
+- **Dane skilla** (`QuizRpgSkillData`, grupa „Tiery (sloty)”): `tier_min`, `tier_max`, `tier_overrides` = `{tier: {pole: wartość}}`
+  kumulatywnie od `tier_min + 1`; `at_tier(t)` daje kopię z nałożonymi zmianami (nazwa i opis z tłumaczeń źródła), `tier_summary(t)` —
+  krótki opis w menu. Zakresy i zmiany wg tabeli z sekcji 3 (bez czasu trwania buffów — tego pola nie ma: Hymn Bojowy i Pancerz Wiary
+  na T3 działają na całą drużynę, Błogosławieństwo Wiatru T4 tańsze w SP); skille klasowe towarzyszy też mają tiery (`druzyna_szkic.md`).
+- **Członek:** `member["loadout"]` = `{skill_id: tier}`. `PlayerStats.set_member_skill_tier` (0 = zdejmij), `get_member_slot_info`,
+  `get_member_battle_skills` — **walka i menu pauzy używają tylko skilli ze slotów** (+ skan). Nowo nauczony skill (poziom, NPC) wchodzi
+  sam na tier startowy, jeśli się mieści; inaczej czeka na liście. Stary zapis bez slotów: znane skille po kolei, ile się zmieści.
+- **Akcesoria:** pola `slot_budget` i `max_tier_bonus` w `QuizRpgItemData` (suma ze sprzętu); po zmianie sprzętu nadmiar schodzi ze slotów
+  od końca puli. **Żaden przedmiot jeszcze ich nie ma** — pkt 4 nadal do decyzji.
+- **UI:** panel Umiejętności w menu pauzy (`scenes/ui/skills_panel.tscn`): pasek slotów (budżet, aktywne, maks. tier), 16 wierszy,
+  tier przy nazwie albo „poza slotem”, **Q / E = tier w dół / w górę** (poniżej startowego = zdjęcie ze slotu), w opisie zakres tierów
+  i to, co daje bieżący tier. Walka bez zmian w wyglądzie.
+- Testy lokalne: `check_skill_slots`, `shot_skill_slots` (okno).
+- Otwarte: akcesoria z bonusem (pkt 4), tiery 5+ (poziomy powyżej 20), podpowiedź po awansie, że odblokował się nowy tier.

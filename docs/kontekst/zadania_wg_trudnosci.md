@@ -36,7 +36,7 @@
 21. ✅ **O** — wspólny szkielet interakcji z NPC: usługi sklep / odpoczynek / nauka / rozmowa (2026-10-21, `kontekst/npc.md`). Zostały: kowal, zadania NPC.
 22. ✅ **O** — sklep z tierami blokowanymi flagami fabularnymi (mechanizm; flagi to placeholdery).
 23. ✅ **O** — kowal i bronie z potencjałem (2026-10-21: usługa ulepszania + Ostrze Mgły w 4 etapach jako relikwia jaskiń, `kontekst/npc.md`). Zostało: kolejne bronie z potencjałem (inne klasy), materiały z bossów, prawdziwe flagi etapów.
-24. **O** — rekrutacja towarzyszy ✅, skille klasowe ✅ (2026-10-21, `kontekst/druzyna_szkic.md`); zostały sloty umiejętności.
+24. ✅ **O** — rekrutacja towarzyszy, skille klasowe i sloty umiejętności (2026-10-21, `kontekst/druzyna_szkic.md`, `kontekst/sloty_umiejetnosci_szkic.md` sekcja 6). Zostały: imiona towarzyszy, akcesoria z bonusem slotów.
 25. **O** — logika miasta: flagi, NPC, wnętrza.
 26. **O** — finał: fabuła, zabranie towarzyszy, „Wzmocnienie tarczy”, fazy bossa, umiejętność 10. poziomu.
 

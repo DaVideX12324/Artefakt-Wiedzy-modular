@@ -119,7 +119,8 @@ bo używa ich też bohater. Czary maga i kapłana liczą obrażenia z MAT przeci
 | **Kapłan** | Święte Światło `holy_light` (1, 30 SP, MAT ×3,5) · Krąg Odnowy `renewal_circle` (5, 60 SP, regeneracja całej drużyny) · Zbiorowa Modlitwa `mass_prayer` (10, 110 SP, cała żywa drużyna +MAT × 2,5, też w menu) · Łaska Powrotu `resurrection` (15, 120 SP, wskrzeszenie z 50 % HP, też w menu) | — |
 
 Opisy PL / EN w `resources/i18n` (`skill.<plik>.name/.desc`). Generator `tests/build_companions.gd` ma te same pule.
-Test lokalny: `check_class_skills`. Następne: sloty umiejętności (`sloty_umiejetnosci_szkic.md`).
+Test lokalny: `check_class_skills`. Sloty umiejętności też zrobione (`sloty_umiejetnosci_szkic.md` sekcja 6): każdy członek ma własny
+budżet z poziomu, a skille klasowe mają tiery (np. Kula Ognia T2–T4, Łaska Powrotu T3–T4 ze 100 % HP na T4).
 
 **Szyk (2026-10-16, decyzja usera):** kolejność drużyny i lider wg preferencji gracza — menu pauzy „Szyk” (dwie postacie
 → zamiana miejsc). Pierwsza postać prowadzi na mapie (jej grafika), w walce kolejność wierszy i cel ataków w lidera idą
