@@ -14,13 +14,16 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 
 | Plik | Opis zawartości | Status |
 |---|---|---|
+| [sesja_2026-10-21.md](sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |
 | [sesja_2026-10-16b_walka_fnafb_fabula.md](sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, dane FNaFB2, decyzje fabuły finału. | `AKTUALNE` |
 | [sesja_2026-10-16_druzyna_ui.md](sesja_2026-10-16_druzyna_ui.md) | Handoff sesji 2026-10-15/16: drużyna + AGI + szyk, merge do main, paski i opcje (V-Sync / FPS), pułapki, następne kroki. | `AKTUALNE` |
 | [zasady.md](zasady.md) | Stałe zasady pracy z repozytorium (commity, ochrona kodu), uruchamianie testów i architektura modułu. | `ZROBIONE` |
 | [scieki.md](scieki.md) | Specyfikacja techniczna i stan prac nad generatorem ścieków (układ structured, kanały, kładki, platformy). | `ZROBIONE` |
 | [sciany_i_kafle.md](sciany_i_kafle.md) | Generator jaskiń: filary 2H, autotiling ścian, wypustki, fasady płaskowyżu i warianty kafli RIM. | `ZROBIONE` |
 | [npc.md](npc.md) | NPC miasta: usługi (sklep, odpoczynek, nauka, rozmowa), szablony scen, flagi fabularne, punkt narzuconego zapisu. | `ZROBIONE (MVP)` |
-| [obiekty.md](obiekty.md) | Generator obiektów: katalogi JSON, obiekty jako sceny, niszczalne beczki, skrzynie i obiekty ścieków. | `W TOKU` |
+| [obiekty.md](obiekty.md) | Generator obiektów: katalogi JSON, obiekty jako sceny, niszczalne beczki, skrzynie i obiekty ścieków. | `ZROBIONE` |
+| [npc.md](npc.md) | NPC miasta: sceny-szablony, usługi (rozmowa, sklep, nauczyciel, zapis), flagi, sklepy podzielone, fabuła NPC. | `ZROBIONE (MVP)` |
+| [domy_modularne.md](domy_modularne.md) | Domy modułowe z Pixel Crawler Free Pack: `house_builder.py`, presety, dach, cień, do zrobienia. | `W TOKU` |
 | [ekran_ladowania.md](ekran_ladowania.md) | Ekran ładowania map, podgląd tła, obsługa wątku w tle i prompty grafik. | `ZROBIONE` |
 | [pytania.md](pytania.md) | System pytań quizowych, edytor pytań w grze, eksport/import JSON i kategorie. | `ZROBIONE` |
 | [menu_i_opcje.md](menu_i_opcje.md) | Menu główne, menu pauzy Esc, HUD, ustawienia okna/grafiki/dźwięku i konfiguracja sterowania. | `ZROBIONE` |
@@ -35,12 +38,15 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 | [sesja_2026-10-13_miasto_ldtk.md](sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach. | `W TOKU` |
 | [druzyna_szkic.md](druzyna_szkic.md) | Szkic systemu drużyny: 3 towarzyszy, rekrutacja po zadaniach, osobne pule XP i brak limitu w walce. | `SZKIC (niezatwierdzone)` |
 | [ekwipunek_szkic.md](ekwipunek_szkic.md) | Szkic ekonomii i ekwipunku: złoto, mikstury, tiery skrzyń i kluczy, sklepy oraz ulepszenia broni. | `SZKIC (niezatwierdzone)` |
+| [imiona_postaci_dla_gemini.md](imiona_postaci_dla_gemini.md) | Brief i propozycje imion (towarzysze, NPC, Strażnik, Arcymag); imiona wdrożone 2026-10-21. | `ZROBIONE` |
+| [i18n_calosc_raport.md](i18n_calosc_raport.md) | Raport z wdrożenia i18n — faza 0 (infrastruktura, `I18nService`). | `ZROBIONE` |
 | [fabula_krag_i_zakonczenia_szkic.md](fabula_krag_i_zakonczenia_szkic.md) | Szkic fabuły: zamiana ciał, krąg zamiast maszyny, magia 10. poziomu, trzy zakończenia, NG+ i walka finałowa. | `SZKIC (niezatwierdzone)` |
 | [fabula_szkic_dopiski_i_konflikty.md](fabula_szkic_dopiski_i_konflikty.md) | Dopiski 2026-10-16 do szkicu fabuły, konflikty z `game_design.md`, wzór z FNaFB2, otwarte sprawy. | `SZKIC (niezatwierdzone)` |
 | [sloty_umiejetnosci_szkic.md](sloty_umiejetnosci_szkic.md) | Szkic mechaniki slotów umiejętności, 4 tierów, budżetu slotów oraz odblokowywania trybu combo. | `SZKIC (niezatwierdzone)` |
 | [poziomy_i_xp.md](poziomy_i_xp.md) | Matematyka poziomów wrogów, skalowania statystyk z poziomu oraz krzywe doświadczenia na 15 map. | `W TOKU` |
 | [skille_i_pierwowzory.md](skille_i_pierwowzory.md) | Zestawienie umiejętności bohaterów i wrogów z ich pierwowzorami z FNaFB, kosztami i efektami. | `SZKIC (niezatwierdzone)` |
 | [skille_i_pierwowzory.docx](skille_i_pierwowzory.docx) | Plik binarny Word zawierający bazową tabelę umiejętności i kosztów SP/TP. | `SZKIC (niezatwierdzone)` |
+| [sesja_2026-10-15_assety_i_przejscia.md](sesja_2026-10-15_assety_i_przejscia.md) | Handoff 2026-10-14/15: prywatny submoduł `assets`, przepisana historia, przejścia. | `HISTORYCZNE` |
 | [sesja_2026-10-16c_i18n.md](sesja_2026-10-16c_i18n.md) | Handoff: tłumaczenia PL / EN całego Artefaktu (fazy 0–5), poprawki po Gemini, ekran zapisów z koszem, otwarte. | `ZROBIONE` |
 | [i18n_opisy_dla_gemini.md](i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do `pl.json` i `en.json`. | `ZROBIONE` |
 | [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie tekstów logu walki dla umiejętności przeciwników. | `ZROBIONE` |
