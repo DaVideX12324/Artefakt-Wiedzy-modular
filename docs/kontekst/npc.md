@@ -43,8 +43,26 @@ okno bez zapisu. Opcja `once`.
 `tests/shot_npc_ui.gd` (zrzuty z oknem). **Nie przechodzone w grze:** pełna rozmowa z klawiatury w mieście, punkt
 zapisu (bariera po zapisie).
 
-## Otwarte (do decyzji usera)
-- Waluta nauczyciela: złoto (teraz) / żeton „Skill Slip” z lv 5 / 10 / 15 jak FNaFB / sama flaga — zmiana w danych.
-- Flagi asortymentu i lekcji to placeholdery (`shop_tier3`, `teacher_desert` / `_forge` / `_forest`) — podpiąć pod
-  realne zdarzenia fabularne.
-- Imiona i teksty NPC (robocze), Hideout jako wnętrze, kowal (ulepszenia broni — osobna usługa), zadania NPC.
+## Decyzje usera (2026-10-21)
+- **Waluta nauczyciela: złoto.** Opcjonalnie później dodatkowo przedmiot z dropu potworów albo z zadania pobocznego
+  (pole `item_id` / `item_count` lekcji — bez zmian w kodzie).
+- **Flagi = pokonani bossowie.** Pokonany boss zawsze ustawia flagę `boss:<id>` (`EnemyBase._persist_boss_defeat`;
+  id = `boss_story_id` albo nazwa sceny mapy, np. `boss:cave`, `boss:sewer` — nowe mapy nazywać jak strefy:
+  `cemetery`, `fairy_forest`…). Szablony: sprzęt tieru 3 w sklepie po `boss:sewer` (tier 2 od razu — miasto jest po
+  jaskini), umiejętności z blokad biomów (`onslaught`, `reckless_blow`, `leap_series`) po `boss:fairy_forest` (hub
+  przed trzema bramami). Do korekty w Inspectorze, gdy ustali się kolejność.
+- **Imiona i teksty NPC robi Gemini** (brief niżej).
+
+## Brief dla Gemini: imiona i teksty NPC
+- Pliki: `modules/quiz_rpg/resources/i18n/pl.json` i `en.json` (UTF-8, **LF**, wcięcie 2 spacje, klucze w kolejności
+  alfabetycznej), sceny `modules/quiz_rpg/scenes/npc/{shopkeeper,innkeeper,skill_teacher,villager}.tscn`.
+- Klucze: `npc.<rola>.name`, `npc.<rola>.greeting_<n>`, `npc.innkeeper.talk_<n>`, `npc.villager.talk_<n>`
+  (role: `shopkeeper`, `innkeeper`, `teacher`, `villager`). W scenie zmienić też `npc_name` / `greeting` / `lines`
+  (zapasowe teksty) na te same polskie wersje; liczba linii w scenie = liczba kluczy `_<n>`.
+- Ton: osada odcięta mgłą, ludzie tracą wspomnienia (`docs/game_design.md`, „Zarys fabuły — co gracz wie na
+  początku”); nauczyciel w Hideout — dialog „formuły przekażę, osobistej techniki nie”
+  (`kontekst/fabula_krag_i_zakonczenia_szkic.md`, „Kropka 1”). Bez zdradzania twistu fabuły.
+- Nie ruszać kluczy `shop.*`, `teacher.*`, `npc.inn.*`, `npc.service.*`, `npc.bye`, `npc.menu_question`.
+
+## Otwarte
+- Hideout jako wnętrze, kowal (ulepszenia broni — osobna usługa), zadania NPC.
