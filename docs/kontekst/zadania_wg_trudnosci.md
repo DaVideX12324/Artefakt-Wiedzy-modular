@@ -24,7 +24,7 @@
 
 13. ✅ **S** — klucze i wytrychy uniwersalne (zrobione 2026-10-11, `kontekst/obiekty.md` „Klucze i wytrychy”).
 14. **S** — konwerter LDtk → `TileMapLayer` i zasilenie `town.tscn` (krok do miasta).
-15. **S** — interfejs sklepu, bez flag fabularnych. Ceny zależą od skali drabiny sprzętu (pkt 20), więc najpierw wspólny szkielet interakcji z NPC (pkt 21–24).
+15. ✅ **S** — interfejs sklepu (2026-10-21, `kontekst/npc.md`); ceny robocze do czasu pkt 20. Ceny zależą od skali drabiny sprzętu (pkt 20), więc najpierw wspólny szkielet interakcji z NPC (pkt 21–24).
 16. **S** — warianty skrzyń z innych paczek i więcej mikstur w jaskiniach.
 17. ✅ **S** — zapis map na dysk (`map_disk_cache.gd`, wejście z pliku ≈ 0,25 s zamiast 2–2,5 s). Zostało: zapis po policzeniu mapy z wyprzedzeniem (prefetch), podbijanie `MAP_CACHE_VERSION` w wydaniu, osobne unieważnianie przy usunięciu slotu.
 18. **S/O** — skrzynie specjalne w rzadkich pokojach.
@@ -33,8 +33,8 @@
 ## 4. Dni
 
 20. **O** — krzywe XP do lv 100 i skala drabiny sprzętu (od tego zależą ceny, drop, koszt ulepszeń i wzór pancerza).
-21. **O** — wspólny szkielet interakcji z NPC (dialog, opcje, sklep/kowal/rekrutacja/zadania).
-22. **O** — sklep z tierami blokowanymi flagami fabularnymi.
+21. ✅ **O** — wspólny szkielet interakcji z NPC: usługi sklep / odpoczynek / nauka / rozmowa (2026-10-21, `kontekst/npc.md`). Zostały: kowal, zadania NPC.
+22. ✅ **O** — sklep z tierami blokowanymi flagami fabularnymi (mechanizm; flagi to placeholdery).
 23. **O** — kowal i bronie z potencjałem.
 24. **O** — rekrutacja towarzyszy, ich skille klasowe i sloty umiejętności.
 25. **O** — logika miasta: flagi, NPC, wnętrza.
