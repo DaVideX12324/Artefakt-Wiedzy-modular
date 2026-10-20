@@ -281,7 +281,16 @@
   w generatorze obiektów (dziś `objects_caves.json` tylko preferuje nisze dla zwykłych skrzyń), osobny tier i tabela łupu dla takiej skrzyni, ewent. wymóg klucza wyższego tieru.
 
 ### Spójna ścieżka postępu między mapami (kierunki wejść i wyjść)
-- **Stan 2026-10-12: NIE ZROBIONE** (brak wymuszania krawędzi wejścia / wyjścia między mapami; zrobione osobno: wejścia i wyjścia map — drabina, schody przez ścianę, wnęki).
+- **Stan 2026-10-21: ZROBIONE** (CienMgly `833d7c0c`). `scripts/maps/map_links.gd` + `LevelStateManager.map_links` (w zapisie):
+  mapa łańcucha zapamiętuje krawędź wejścia, dozwolone wyjścia, faktyczne wyjście i pole na siatce świata [x, y, warstwa].
+  Następna mapa ma wejście na krawędzi przeciwnej do wyjścia poprzedniej; wyjście dowolne (nie musi być w linii — decyzja
+  usera), byle nie stroną wejścia ani w stronę pola odwiedzonego już przez inną mapę (otoczona — tylko bez zawracania).
+  Drabina / schody w ścianie (bez krawędzi) = nowa warstwa siatki. Ograniczenia mapy stałe od pierwszego wejścia (ta sama
+  mapa po powrocie). `PortalGenerator`: wnęka na wymuszonej krawędzi w pokoju najbliżej niej, w którym się mieści
+  (`plan_alcove_on_edge`); bez wymuszeń mapy identyczne jak wcześniej (parytet 42/42). Ruiny tutorialu: wyjście N (`exit_edge`
+  w `tutorial_area.gd`) → jaskinia wchodzi od południa. Sekretne pokoje i eksplorator map poza trasą. Test lokalny
+  `check_map_links` (48 / 48 map 160² i 250² trzyma krawędzie). Stare zapisy: trasa od następnej nowej mapy.
+- Stan 2026-10-12 (stary opis poniżej): NIE ZROBIONE (brak wymuszania krawędzi wejścia / wyjścia między mapami; zrobione osobno: wejścia i wyjścia map — drabina, schody przez ścianę, wnęki).
 - Zgłoszenie 2026-09-30. Kolejne mapy mają układać się w jedną ciągłą trasę: jeśli mapa ma wejście na
   południu i wyjście na północy, następna musi mieć wejście na południu (przyszliśmy z jej południa), a nie
   wyjście na południe — inaczej mapy „nakładają się” w wyobrażonej przestrzeni świata. Tak samo przy
