@@ -150,7 +150,11 @@ Na końcu każdej podsekcji jedna linia: **„Moja rekomendacja: …”** z uzas
 ### C. NPC-e miasta
 
 #### Koncepcja pamięci u mieszkańców:
-Mieszkańcy pod wpływem Mgły zapomnieli swoje imiona, dawne więzi rodzinne i przeszłość sprzed zamknięcia bram. Na co dzień posługują się wyłącznie rolami zawodowymi (**Zielarka**, **Kowal**, **Płatnerz**, **Karczmarka**, **Nauczyciel**, **Mieszkanka**), ponieważ nawyk rzemieślniczy, pamięć mięśniowa i warsztat okazały się trwalsze niż wspomnienia tożsamości.
+> **Odrzucone przez usera (2026-10-21) — obowiązuje odwrotnie:** mieszkańcy **pamiętają swoje imiona, ale słabo swoje
+> rzemiosło**; z biegiem gry przypominają sobie umiejętności i stąd przedmioty kolejnych tierów (`npc.md`, „Decyzje usera”).
+> Kolumna „pamiątka” poniżej przydaje się najwyżej jako ozdobnik.
+
+Propozycja Gemini (nieaktualna): Mieszkańcy pod wpływem Mgły zapomnieli swoje imiona, dawne więzi rodzinne i przeszłość sprzed zamknięcia bram. Na co dzień posługują się wyłącznie rolami zawodowymi (**Zielarka**, **Kowal**, **Płatnerz**, **Karczmarka**, **Nauczyciel**, **Mieszkanka**), ponieważ nawyk rzemieślniczy, pamięć mięśniowa i warsztat okazały się trwalsze niż wspomnienia tożsamości.
 Ich prawdziwe imiona nie zostały jednak bezpowrotnie zniszczone — przetrwały wyryte na spodzie kowadła, wyszyte spłowiałą nicią na fartuchu zielarskim, wygrawerowane na starym kuflu czy zapisane w spisie cechowym. Imiona te mogą powracać jako nagroda za zadania poboczne lub wybrzmieć w pełnej krasie po zdjęciu Mgły w zakończeniu gry.
 
 | NPC / rola | Proponowane imię | Skojarzenie / etymologia | Charakter i zachowanie | Szczegół pamięci / pamiątka |

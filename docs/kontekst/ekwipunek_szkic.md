@@ -257,7 +257,8 @@ Wnioski:
 - Niższe tiery gwarantują, że gracz bez szczęścia nie jest zablokowany; wyższe są opcjonalne.
 - **Złoto wypada od początku, już od tutorialu** (decyzja usera 2026-10-12): zbierane w jaskiniach na wizytę w mieście. Nie ma w nim żadnego zakupu przed miastem, więc w jaskiniach liczy się tylko to, żeby gracz miał zapas.
 
-**Tiery sprzętu w sklepach blokuje postęp i fabuła (decyzja usera 2026-10-12):** kowal „nie pamięta, jak się robi lepsze rzeczy”, więc dostępny tier zależy od odblokowanych etapów fabuły, a nie od poziomu gracza, od samego dotarcia do lokacji ani od ilości złota. Konsekwencje:
+**Tiery sprzętu w sklepach blokuje postęp i fabuła (decyzja usera 2026-10-12; 2026-10-21 rozszerzona na wszystkich rzemieślników:
+pamiętają swoje imiona, ale słabo rzemiosło, i przypominają je sobie z postępem — `npc.md`):** kowal „nie pamięta, jak się robi lepsze rzeczy”, więc dostępny tier zależy od odblokowanych etapów fabuły, a nie od poziomu gracza, od samego dotarcia do lokacji ani od ilości złota. Konsekwencje:
 - Barierą zakupu jest odblokowanie tieru, nie cena: złoto może się gromadzić (od tutorialu), a odblokowanie kolejnego tieru nie robi z niego natychmiast „pustego” zakupu, bo cena to ułamek zapasu. Cena służy więc głównie jako wydatek i wyważenie (sekcja 9 pokrętło), a nie jako bramka tempa; poważny wydatek złota dają też stałe wzmocnienia, mikstury i opłaty za ulepszenia u NPC.
 - Mechanizm już istnieje: `LevelStateManager.register_device_progress(story_id)` / `has_device_progress(story_id)` (`autoloads/level_state_manager.gd`, monotoniczne flagi fabularne zapisywane z grą). Odblokowanie tieru kowala = flaga fabularna (np. po wykonaniu zadania kowala, po pokonaniu bossa); lista „tier → wymagana flaga” w danych sklepu. Nowy system nie jest potrzebny.
 - Rozmiar mapy ani poziom wroga nie zmienia dostępności sprzętu (spójne z wcześniejszym ustaleniem, że moc sprzętu nie zależy od powierzchni mapy ani poziomu gracza).

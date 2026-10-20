@@ -56,6 +56,12 @@ zapisu (bariera po zapisie).
   `cemetery`, `fairy_forest`…). Szablony: sprzęt tieru 3 w sklepie po `boss:sewer` (tier 2 od razu — miasto jest po
   jaskini), umiejętności z blokad biomów (`onslaught`, `reckless_blow`, `leap_series`) po `boss:fairy_forest` (hub
   przed trzema bramami). Do korekty w Inspectorze, gdy ustali się kolejność.
+- **Pamięć rzemieślników (fabuła tierów sklepów):** mieszkańcy pod Mgłą **pamiętają swoje imiona, ale słabo swoje
+  rzemiosło**. Z biegiem gry przypominają sobie umiejętności — **stąd przedmioty kolejnych tierów** w sklepach, u kowala
+  (ulepszenia: „nie pamiętam jeszcze…”) i u nauczyciela. Mechanicznie to flagi pokonanych bossów (`required_flag`,
+  `upgrade_flag`) — pasuje do fabuły: bossowie przechowują wspomnienia wyssane przez Mgłę (`fabula_krag_i_zakonczenia_szkic.md`
+  1.2), pokonany boss je uwalnia. Teksty NPC piszą się w tym duchu (np. kowal po odblokowaniu tieru: „Przypomniałem sobie,
+  jak hartować stal…”). Pomysł do zrobienia: kwestia NPC przy pierwszej rozmowie po nowym tierze (rozmowa z `required_flag`).
 - **Imiona i teksty NPC zrobione przez Gemini** (2026-10-21: wdrożono imiona Fenna, Brann, Kastor, Greta, Corvus, Lina oraz kwestie powitań i dialogów w pl.json, en.json i scenach .tscn).
 
 ## Brief dla Gemini: imiona i teksty NPC
