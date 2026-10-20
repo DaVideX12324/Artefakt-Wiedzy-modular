@@ -19,6 +19,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 | [zasady.md](zasady.md) | Stałe zasady pracy z repozytorium (commity, ochrona kodu), uruchamianie testów i architektura modułu. | `ZROBIONE` |
 | [scieki.md](scieki.md) | Specyfikacja techniczna i stan prac nad generatorem ścieków (układ structured, kanały, kładki, platformy). | `ZROBIONE` |
 | [sciany_i_kafle.md](sciany_i_kafle.md) | Generator jaskiń: filary 2H, autotiling ścian, wypustki, fasady płaskowyżu i warianty kafli RIM. | `ZROBIONE` |
+| [npc.md](npc.md) | NPC miasta: usługi (sklep, odpoczynek, nauka, rozmowa), szablony scen, flagi fabularne, punkt narzuconego zapisu. | `ZROBIONE (MVP)` |
 | [obiekty.md](obiekty.md) | Generator obiektów: katalogi JSON, obiekty jako sceny, niszczalne beczki, skrzynie i obiekty ścieków. | `W TOKU` |
 | [ekran_ladowania.md](ekran_ladowania.md) | Ekran ładowania map, podgląd tła, obsługa wątku w tle i prompty grafik. | `ZROBIONE` |
 | [pytania.md](pytania.md) | System pytań quizowych, edytor pytań w grze, eksport/import JSON i kategorie. | `ZROBIONE` |
