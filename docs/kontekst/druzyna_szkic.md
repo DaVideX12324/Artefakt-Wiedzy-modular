@@ -75,7 +75,7 @@ Decyzje usera (2026-10-12):
 3. Czy zadania towarzyszy są powiązane z odnogami i blokadami zamku (sekcja 5).
 4. Poziom startowy dołączającego (propozycja: najwyższy poziom w drużynie − 1–2); krzywe XP per klasa (parametry `xp_*` w danych postaci) czy wspólna krzywa.
 5. Czy bohater też ma klasę (Wojownik) i czy da się zmieniać klasę (propozycja: nie).
-6. Skille klasowe: Mag i Łotrzyk mają za mało skilli (sekcja 4); dane i opisy do Gemini wg briefu jak S6 — najpierw ustalić, jakie skille (lista pomysłów).
+6. ✅ Skille klasowe — zrobione 2026-10-21 (sekcja „Skille klasowe” na końcu).
 7. Grafiki: jakich postaci użyć z paczki, czy potrzebne są nowe animacje.
 
 ## Zrobione 2026-10-16 (Opus, gałąź `druzyna-balans`)
@@ -102,9 +102,24 @@ Decyzje usera (2026-10-12):
 
 **Odpowiedzi (2026-10-16):** (1) „zależne od AGI” — zrobione: każdy przytomny działa raz na rundę w kolejności wg AGI
 (opis w `walka.md`); (4) „tak” — bohater to Knight z `royal_crew` (`resources/heroes/frames/bohater_frames.tres`,
-też w `player.tscn`). Otwarte: (2) imiona / charakter, (3) skille klasowe.
+też w `player.tscn`). Otwarte: (2) imiona / charakter; (3) skille klasowe — zrobione 2026-10-21 (sekcja niżej).
 
 **Merge (2026-10-16):** `druzyna-balans` zmergowana do `main` CienMgly (merge commit `9a764ec0`) — dalej praca na `main`.
+
+## Skille klasowe (2026-10-21, Opus)
+
+Pkt (3) i pkt 6 sekcji 7 zamknięte. Wspólne skille bohatera (Lullaby, Aerial Strike, Hearty Meal, Revive Tonic, Double Throw…) bez zmian,
+bo używa ich też bohater. Czary maga i kapłana liczą obrażenia z MAT przeciw MDF (`atk_coeff` / `def_coeff` = 0, `mat_coeff` 4 / 3,5,
+`mdf_coeff` 2); wrogowie skalowani mają MDF = DEF, więc czar ×1,0 maga ≈ zwykły atak wojownika ×1,25 (MAT maga rośnie szybciej niż ATK).
+
+| Klasa | Nowe skille (lv nauki, koszt) | Zmiany w puli |
+|---|---|---|
+| **Mag** | Iskra `arc_spark` (1, 25 SP, ×1,0) · Lodowy Odłamek `ice_shard` (5, 45 SP, ×1,2, 40 % AGI w dół) · Kula Ognia `fireball` (10, 80 SP, ×1,9, wolna) · Łańcuch Błyskawic `chain_lightning` (15, 110 SP, 3 losowe trafienia ×0,9, 15 % paraliżu na trafienie) | bez Mocnego Ataku; Toksyczna Fala (`sound_wave`, tylko mag) z MAT, ×2,0 → ×1,4 (AoE, 50 % trafienia) |
+| **Łotrzyk** | Cios w Plecy `backstab` (1, 35 SP, ×1,4, ×2 na śpiącego) · Zatruty Sztylet `venom_blade` (10, 45 SP, 60 % trucizny, wymaga sztyletu) | bez Mocnego Ataku; doszedł Ryzykowny Cios |
+| **Kapłan** | Święte Światło `holy_light` (1, 30 SP, MAT ×3,5) · Krąg Odnowy `renewal_circle` (5, 60 SP, regeneracja całej drużyny) · Zbiorowa Modlitwa `mass_prayer` (10, 110 SP, cała żywa drużyna +MAT × 2,5, też w menu) · Łaska Powrotu `resurrection` (15, 120 SP, wskrzeszenie z 50 % HP, też w menu) | — |
+
+Opisy PL / EN w `resources/i18n` (`skill.<plik>.name/.desc`). Generator `tests/build_companions.gd` ma te same pule.
+Test lokalny: `check_class_skills`. Następne: sloty umiejętności (`sloty_umiejetnosci_szkic.md`).
 
 **Szyk (2026-10-16, decyzja usera):** kolejność drużyny i lider wg preferencji gracza — menu pauzy „Szyk” (dwie postacie
 → zamiana miejsc). Pierwsza postać prowadzi na mapie (jej grafika), w walce kolejność wierszy i cel ataków w lidera idą
