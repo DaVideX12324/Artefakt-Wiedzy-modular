@@ -253,7 +253,7 @@
   Generator `.tres` z krzywej zamiast edycji ręcznej. To zadanie projektowe (Opus), razem z kalibracją na FNaFB.
 
 ### Zawartość nisz out, sekretne pokoje, klucze i wytrychy do skrzyń
-- **Stan 2026-10-12: W TOKU** — zrobione: tier skrzyni z JSON mapy (`chest_tier`), klucze na tier (brązowy / srebrny / szafirowy / złoty = uniwersalny, klucz tieru ≥ tier skrzyni), wygląd skrzyni wg tieru (`tier_frames`), tabele łupu skrzyń i wrogów z JSON (`chest_loot`, `enemy_loot`), klucze w łupie map. Zostaje: zawartość nisz z losowaniem (przedmiot / skrzynia / sekretny pokój).
+- **Stan 2026-10-21: W TOKU** — zrobione: tier skrzyni z JSON mapy (`chest_tier`), klucze na tier (brązowy / srebrny / szafirowy / złoty = uniwersalny, klucz tieru ≥ tier skrzyni), wygląd skrzyni wg tieru (`tier_frames`), tabele łupu skrzyń i wrogów z JSON (`chest_loot`, `enemy_loot`), klucze w łupie map; **zawartość nisz out w jaskiniach (2026-10-21)**: wagi usera przedmiot 50 / skrzynia 35 / sekretny pokój 15, skrzynia nisz tieru 2 z lepszym łupem, przedmiot na ziemi (`kontekst/obiekty.md` „Zawartość nisz out”). Zostaje: **sekretny pokój** (dziś wypada z losowania) i skrzynie specjalne w rzadkich pokojach.
 - Zgłoszenie 2026-09-29. Dziś nisze z modułów out (`tiling/niche_placer.gd`, szansa
   `secret_niche_spawn_chance`, kandydaci `EdgeContext.is_secret_niche_candidate`) są tylko kaflami ścian.
 - **Każda nisza out ma zawartość, losowaną**: przedmiot na ziemi, skrzynia albo **przejście do

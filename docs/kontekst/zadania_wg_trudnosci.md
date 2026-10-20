@@ -27,7 +27,7 @@
 15. ✅ **S** — interfejs sklepu (2026-10-21, `kontekst/npc.md`); ceny robocze do czasu pkt 20. Ceny zależą od skali drabiny sprzętu (pkt 20), więc najpierw wspólny szkielet interakcji z NPC (pkt 21–24).
 16. **S** — warianty skrzyń z innych paczek i więcej mikstur w jaskiniach.
 17. ✅ **S** — zapis map na dysk (`map_disk_cache.gd`, wejście z pliku ≈ 0,25 s zamiast 2–2,5 s). Zostało: zapis po policzeniu mapy z wyprzedzeniem (prefetch), podbijanie `MAP_CACHE_VERSION` w wydaniu, osobne unieważnianie przy usunięciu slotu.
-18. **S/O** — skrzynie specjalne w rzadkich pokojach.
+18. **S/O** — skrzynie specjalne w rzadkich pokojach. Nisze out w jaskiniach ✅ (2026-10-21: przedmiot albo skrzynia tieru 2, `kontekst/obiekty.md` „Zawartość nisz out”). Zostało: sekretny pokój za niszą, rzadkie pokoje.
 19. **S/O** — generator obiektów F5: nakładka podglądu, leniwe sceny. Niszczalne beczki ✅, dźwignie bram ✅ (2026-10-21).
 
 ## 4. Dni

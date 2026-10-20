@@ -61,6 +61,29 @@ mech (teren foliage), filary w licu, skrzynia w grafice ścieków.
 Test: `tests/diag_object_access.gd` (w zestawie `run_plateau_suite.sh`). Parytet: zmieniło się tylko
 pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
 
+## Zawartość nisz out (2026-10-21)
+- Nisze out (sekretne, `NichePlacer`) powstają dopiero przy kaflach ścian, więc zawartość dokłada osobny krok po planie
+  kafli: `NichePlacer` zapisuje nisze w `ctx.out_niches` (lewa kolumna pary, rząd stopy = podłoga przed niszą),
+  `plan_cave_tiles` przenosi je do `result.out_niches`, a `NicheContentPlanner.plan` (wołany w `ProceduralLevel.GenJob`,
+  przed siatką nawigacji i zapisem mapy na dysk) dopisuje obiekty do `result.objects`.
+- Rodzaj z wag `niche_content.weights` w JSON mapy (jaskinie: przedmiot 50, skrzynia 35, sekretny pokój 15 — **decyzja
+  usera 2026-10-21**). Sekretnego pokoju jeszcze nie ma, więc wypada z losowania, a reszta dzieli się proporcjonalnie
+  (≈ 59 % przedmiot / 41 % skrzynia) — każda nisza ma zawartość. RNG z hash(seed mapy, kratka niszy).
+- Obiekt stoi w głębi niszy (`OFFSET` (8, −14) px: granica kolumn, nad rzędem stopy); gracz sięga go z podłogi przed
+  niszą. Dwa rzędy przed niszą są czyszczone z innych obiektów (zasłaniały zawartość); nisza z obiektem interaktywnym
+  przed nią zostaje pusta.
+- **Skrzynia** (`niche_chest`, scena-alias `chest` mapy): tier `niche_content.chest_tier` (jaskinie 2 — stalowa, wytrych
+  = 4 pytania) i tabela `niche_content.chest_loot` (lepszy sprzęt, mikstury ×2–3), nakładane w
+  `ProceduralLevel._apply_niche_content` po zwykłym `chest_tier` / `chest_loot`.
+- **Przedmiot na ziemi** (`niche_item`, `scenes/objects/ground_item.tscn`, `QuizRpgGroundItem`): Area2D w grupie
+  `interactable` (warstwa 4), ikona przedmiotu z unoszeniem i błyskiem, „Podnieś” (`prompt.pick_up`), toast łupu jak z
+  beczki; stan `picked_items` w `LevelStateManager` (`mark_item_picked` / `is_item_picked`). Przedmiot z
+  `niche_content.item_loot` wybrany po hash(seed mapy, unique_id) — ta sama mapa, ta sama nisza, ten sam przedmiot.
+- Testy: `check_niche_content` (4 mapy: jedna zawartość na niszę, czysto przed niszą, proporcje, powtarzalność),
+  `check_ground_item`, render `render_niche_content` (z oknem), diagnostyka `diag_out_niches`.
+- Zostało: sekretny pokój (przejście do podmapy / podpokoju), rzadkie pokoje ze skrzyniami specjalnymi, nisze w
+  ściekach (brak kafli nisz out).
+
 ## Beczki — łup (2026-10-11)
 - Łup z beczki to powiadomienie bez pauzy (`LootManager.show_loot_toast`: ikona + nazwa ×liczba, prawy dolny róg, znika po 3 s, maks. 8 naraz) — bez popupu i klikania. Skrzynie nadal używają popupu (`show_loot_popup`).
 - `LootManager.search_barrel(extra_chance, decay, max_items)`: **1. losowanie z tabeli jest gwarantowane**, k-te (k ≥ 2) wypada z szansą `extra_chance × decay^(k−2)` pod warunkiem, że wypadły poprzednie (domyślnie 0,6 / 0,5 / limit 4: P(2+) = 60 %, P(3+) = 18 %, P(4) = 2,7 %, średnio ≈ 1,8 losowania); powtórzenia sumują się w kopie (mikstura 1–3, reszta 1–2). Beczki czytają wartości z metadanej rodzica `barrel_loot` {extra_chance, decay, max_items} albo z eksportu `extra_item_chance` (ujemna = domyślne z LootManager); w `tutorial_area` (węzeł Destructibles) 0,85 / 0,7 / 4 (średnio ≈ 2,8 losowania) — do czasu sklepów (po jaskiniach). Testy `check_barrel_model`, `check_barrel_loot`.
