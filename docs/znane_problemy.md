@@ -145,6 +145,31 @@
   (ściana + dach + cień, warianty) wyczytać z warstw, nie zgadywać z PNG. Obiekty przez generator obiektów
   ([kontekst/obiekty.md](kontekst/obiekty.md)), podgląd przez MCP `godot-runtime`.
 
+### ⚠ WAŻNE: (6) puścić Opusa na NPC, gdy user robi miasto (kod niezależny od mapy)
+- **Przypomnienie (zgłoszone 2026-10-20):** gdy user zacznie ręcznie budować scenę miasta, uruchomić osobną sesję Opusa na **kod NPC** — nie wymaga gotowej mapy.
+- Zakres (minimum z [zakres_inzynierka.md](zakres_inzynierka.md), „Musi”): sklep, nauczyciel umiejętności w Hideout, zapis / odpoczynek, jeden mieszkaniec z dialogiem; do tego system dialogów i UI sklepu / nauki umiejętności (wycenić przed grafiką).
+- Brief dla Opusa: NPC jako samodzielne sceny-szablony do wstawienia w LDtk / edytorze (encje `Npc`, `Station`), interakcja jak w istniejących interactables, bez zależności od układu miasta. Kontekst: punkt (5) powyżej, [kontekst/ekwipunek_szkic.md](kontekst/ekwipunek_szkic.md).
+- Po uruchomieniu Opusa usunąć nagłówek albo znacznik `⚠ WAŻNE:`.
+
+### ⚠ WAŻNE: (7) beczki: liczba sztuk ze wzoru scale / k — zmiana NIE jest w repo CienMgly (tylko opis tutaj)
+- **Zgłoszone 2026-10-20.** Beczki dropiły za dużo. Zmiana w `modules/quiz_rpg/autoloads/loot_manager.gd` (submoduł CienMgly) była tylko w katalogu roboczym sesji i **nie została wypchnięta** (CienMgly poza zakresem sesji) — trzeba ją wprowadzić ręcznie albo przy sesji z dostępem do CienMgly.
+- Stan w repo: liczba losowań z wzoru `barrel_scale = 1.5` (3/(2n): 100 %, 75 %, 50 %, 37,5 %…); liczba sztuk jednego przedmiotu to nadal `randi_range` (potion 1–3, ether / focus_tonic / antidote / lockpick 1–2).
+- Do zrobienia: nowa zmienna `var barrel_amount_scale: float = 1.0` (2. sztuka 50 %, 3. sztuka 33 %; przy 1,5 byłoby więcej dropu niż dziś, bo średnia potion 2,13 vs 2,0) i przepisana `_roll_item_count`:
+  ```gdscript
+  func _roll_item_count(item_id: String) -> int:
+  	var cap := 1
+  	match item_id:
+  		"potion":
+  			cap = 3
+  		"ether", "focus_tonic", "antidote", "lockpick":
+  			cap = 2
+  	var n := 1
+  	while n < cap and _rng.randf() < minf(1.0, barrel_amount_scale / float(n + 1)):
+  		n += 1
+  	return n
+  ```
+- Ile różnych przedmiotów: bez zmian, z tabeli wag (`_get_barrel_loot_table`). Po wprowadzeniu zmiany usunąć nagłówek albo znacznik `⚠ WAŻNE:`.
+
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
 - **Stan 2026-10-12: NIE ZROBIONE** (brak kodu; są tylko nisze-przejścia, `NichePlacer`).
 - Zgłoszenie 2026-10-03. Ukryte przejście może łączyć dwa pokoje — gracz wchodzi w nie (np. nisza-przejście,
