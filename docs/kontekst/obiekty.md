@@ -67,8 +67,8 @@ pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
   `plan_cave_tiles` przenosi je do `result.out_niches`, a `NicheContentPlanner.plan` (wołany w `ProceduralLevel.GenJob`,
   przed siatką nawigacji i zapisem mapy na dysk) dopisuje obiekty do `result.objects`.
 - Rodzaj z wag `niche_content.weights` w JSON mapy (jaskinie: przedmiot 50, skrzynia 35, sekretny pokój 15 — **decyzja
-  usera 2026-10-21**). Sekretnego pokoju jeszcze nie ma, więc wypada z losowania, a reszta dzieli się proporcjonalnie
-  (≈ 59 % przedmiot / 41 % skrzynia) — każda nisza ma zawartość. RNG z hash(seed mapy, kratka niszy).
+  usera 2026-10-21**); rodzaj z wagą 0 (albo sekretny pokój bez `secret_scene`) wypada, reszta proporcjonalnie — każda
+  nisza ma zawartość. RNG z hash(seed mapy, kratka niszy).
 - Obiekt stoi w głębi niszy (`OFFSET` (8, −14) px: granica kolumn, nad rzędem stopy); gracz sięga go z podłogi przed
   niszą. Dwa rzędy przed niszą są czyszczone z innych obiektów (zasłaniały zawartość); nisza z obiektem interaktywnym
   przed nią zostaje pusta.
@@ -79,10 +79,27 @@ pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
   `interactable` (warstwa 4), ikona przedmiotu z unoszeniem i błyskiem, „Podnieś” (`prompt.pick_up`), toast łupu jak z
   beczki; stan `picked_items` w `LevelStateManager` (`mark_item_picked` / `is_item_picked`). Przedmiot z
   `niche_content.item_loot` wybrany po hash(seed mapy, unique_id) — ta sama mapa, ta sama nisza, ten sam przedmiot.
+- **Sekretny pokój** (`niche_secret`, 2026-10-21) — **decyzja usera: osobna mapa z 1 pokoju albo najwyżej 2–3 pokoi
+  generatora**:
+  - W niszy `scenes/objects/secret_passage.tscn` (`QuizRpgSecretPassage`): ciemny prześwit i mgła, „Wejdź”
+    (`prompt.enter_secret`). `_apply_niche_content` ustawia mu `on_enter` = zmiana poziomu na
+    `<secret_scene>#<poziom>@<x>,<y>` i stawia przed niszą marker powrotu `Secret_<x>_<y>`.
+  - Ścieżka z argumentem (`QuizRpgPaths.level_scene / level_arg / level_name`): scenę wczytuje się z części przed `#`,
+    stan poziomu trzyma się całej ścieżki, seed mapy i plik mapy na dysku — `level_name` („cave_secret~cave.tscn@x,y”),
+    więc każda nisza ma własną mapę. `level_manager` ustawia `ProceduralLevel.level_path` przed `add_child`; argument
+    `<poziom>@<x>,<y>` daje `previous_level_path` / `previous_spawn_name` (powrót wejściem mapy do markera).
+  - `scenes/maps/levels/cave_secret.tscn` (jaskinia, nazwa „Ukryta grota”) z `config_overlay = "secret_room"`: sekcja
+    `secret_room` w `caves.json` scalana w głąb z resztą pliku — mapa 56×56, pokoje 8–16, liczba pokoi `"rooms": [1, 3]`
+    z seeda mapy, flagi `portal_exit: false` (bez wyjścia) i `exit_enemy_tier: 3` (miniboss w najdalszym pokoju zamiast
+    bossa, nie przy jednym pokoju), bez płaskowyżów, bez kolejnych sekretnych pokoi.
+  - Skarb: `TreasurePlanner` (sekcja `treasure`) — `count` skrzyń w pokoju najdalszym od wejścia, blisko środka, na
+    otwartej podłodze; unique_id `treasure_chest_…`, tier 2 i własny łup (stal, łuk, włócznia, amulet, klucz tieru 2,
+    mikstury ×3) w `_apply_special_chests`.
 - Testy: `check_niche_content` (4 mapy: jedna zawartość na niszę, czysto przed niszą, proporcje, powtarzalność),
-  `check_ground_item`, render `render_niche_content` (z oknem), diagnostyka `diag_out_niches`.
-- Zostało: sekretny pokój (przejście do podmapy / podpokoju), rzadkie pokoje ze skrzyniami specjalnymi, nisze w
-  ściekach (brak kafli nisz out).
+  `check_secret_room` (cele i markery przejść, mapy sekretu: rozmiar, pokoje, bez wyjścia i bossa, skarb osiągalny,
+  powrót), `check_ground_item`, rendery `render_niche_content` / `render_secret_room` (z oknem), diagnostyka
+  `diag_out_niches`.
+- Zostało: rzadkie pokoje ze skrzyniami specjalnymi, nisze w ściekach (brak kafli nisz out), sprawdzenie w grze.
 
 ## Beczki — łup (2026-10-11)
 - Łup z beczki to powiadomienie bez pauzy (`LootManager.show_loot_toast`: ikona + nazwa ×liczba, prawy dolny róg, znika po 3 s, maks. 8 naraz) — bez popupu i klikania. Skrzynie nadal używają popupu (`show_loot_popup`).
