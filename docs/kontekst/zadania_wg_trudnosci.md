@@ -63,7 +63,7 @@ Odłożone poza inżynierkę: tilesety kolejnych map i dalsze przyspieszanie gen
 - **O** — NPC: kwestie przy pierwszej rozmowie po nowym tierze (`required_flag`), prawdziwe flagi etapów kowala i sklepów, skrzynia przeklęta, akcesoria z bonusem slotów.
 
 **Dni**
-- **O** — minimapa z fog of war (promień, zapis maski, mapy ręczne).
+- ✅ **O** — minimapa z fog of war (2026-10-21: róg + pełna mapa pod M, linia wzroku, maska w zapisie, mapy ręczne z warstw; `znane_problemy.md` „Minimapa”).
 - ✅ **O** — losowe spotkania jak w JRPG (2026-10-21, wersja podstawowa: tryb `cleared` w jaskiniach, `random_encounters` w JSON mapy; zostało strojenie w grze i ścieki).
 - **O** — ukryte przejścia między pokojami (tunel pod voidem, shader z Amon-Ra, własne kolizje ścian tunelu) — projekt najpierw.
 
