@@ -52,7 +52,7 @@ Odłożone poza inżynierkę: tilesety kolejnych map i dalsze przyspieszanie gen
 - **U** — sprawdzić w grze: ekran śmierci i trucizna, mysz w walce (klik wroga, listy, znacznik celu, klik po fokusie), pytania bossów, skróty dev w eksporcie, gra po angielsku, skrzynie / klucze / beczki / złoto / trudność jaskiń, kafle wielokratkowe na `Props`, grzyby nad ścianą; nowe: sloty (Q/E), trasa map (jaskinia po tutorialu od południa), skille klasowe.
 - ✅ **S** — zduplikowany UID ikony BitBombera (BitBomber `icon.png.import` ma własny UID, 2026-10-21).
 - **S/O** — `PlateauPass._solve` ~750 ms na 250² (płaskie tablice jak w `ObjectPlanner`). Ocena 2026-10-21: to ~200-liniowa pętla na słownikach w pliku 2000 linii, każda zmiana wymaga parytetu 42/42 — zysk ≤ 0,5 s niewart ryzyka, raczej odpuścić.
-- **S** — resztki i18n: sterowanie BitBombera, ~400 literałów w narzędziach `.gd`.
+- **S** — resztki i18n (stan 2026-10-21): sterowanie BitBombera było już zrobione, etapy generowania na ekranie ładowania zrobione (`gen.stage.*`). Zostało: etykiety opcji motywu w `quiz_theme.gd` (menu opcji hosta czyta `label` / `name` wprost — wymaga `label_key` w `options_menu.gd`), nazwy nagród w `player_stats._check_rewards` (zapisywane jako tekst w save — migracja). Licznik „407 linii” w `check_i18n.py` zawyża: liczy też literały będące zapasowym tekstem `QuizRpgI18n.t(...)`, komentarze, dev menu i narzędzia.
 
 **Pół dnia**
 - **S** — propozycja korzenia modułu z położenia skryptu (`module_root()`), po zatwierdzeniu przez usera.
