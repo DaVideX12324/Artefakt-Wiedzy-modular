@@ -41,7 +41,7 @@
 24. ✅ **O** — rekrutacja towarzyszy, skille klasowe i sloty umiejętności (2026-10-21, `kontekst/druzyna_szkic.md`, `kontekst/sloty_umiejetnosci_szkic.md` sekcja 6). Zostały: imiona towarzyszy, akcesoria z bonusem slotów.
 25. **O** — logika miasta: flagi, NPC, wnętrza.
 26. ➜ **rozszerzony scope** (decyzja usera 2026-10-22, nie na poziom inżynierki) — finał: walka z ostatnim bossem (fazy, inna Faza 2 na ścieżce Good), cutscenka i zakończenia, zabranie towarzyszy, „Wzmocnienie tarczy”, umiejętność 10. poziomu, limit mikstur SP w finale. Szkic: `fabula_krag_i_zakonczenia_szkic.md` sekcje 5–6.
-27. **S/O** — uproszczone zakończenie na inżynierkę (zamiast pkt 26): zwykła walka z ostatnim bossem (bez faz, cutscenek i ścieżek zakończeń), po wygranej ekran końca gry (napisy / podsumowanie: czas gry, poziom, pokonani bossowie, poprawne odpowiedzi) i powrót do menu; zapis oznaczony jako ukończony. Do ustalenia z userem: która mapa i który boss jest ostatni.
+27. ✅ **S/O** — uproszczone zakończenie na inżynierkę (zamiast pkt 26; zrobione 2026-10-22: boss ścieków Szczurzy Król — nazwa robocza — z `"boss": {"ends_game": true}` w `sewer.json`, ekran `scenes/ui/end_screen.tscn`, flaga `game:completed`, zapis w bieżącym slocie, „Ukończono” w opisie slotu, test `check_end_screen`): zwykła walka z ostatnim bossem (bez faz, cutscenek i ścieżek zakończeń), po wygranej ekran końca gry (napisy / podsumowanie: czas gry, poziom, pokonani bossowie, poprawne odpowiedzi) i powrót do menu; zapis oznaczony jako ukończony. Do ustalenia z userem: która mapa i który boss jest ostatni.
 
 Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze przyspieszanie generatora, finał (pkt 26).
 
@@ -59,14 +59,14 @@ Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze
 - **S** — propozycja korzenia modułu z położenia skryptu (`module_root()`), po zatwierdzeniu przez usera.
 - **S** — ścieki: winiety, gruz w skupiskach, mniej zdejmowania obiektów na 250², uskoki lica przy dostawionych pokojach.
 - ✅ **S/O** — umiejętności wrogów skalowane z poziomem (2026-10-21): obrażenia umiejętności liczą się z ATK/MAT wroga, który już skaluje się z poziomem; jedyne stałe liczby to leczenie Mrocznej Regeneracji (zamienione na 25 % maks. HP) oraz niewielkie `base_damage` 40 / 80 w Serii Wybuchów i Oddechu Zgnilizny (zostawione — pomijalne na wyższych poziomach).
-- **S/O** — częstsze nisze-przejścia (dziś 0–2 na mapę; np. celowe wycięcie ściany do głębokości 3).
+- ➜ **opcjonalne** (decyzja usera 2026-10-22: po dopięciu reszty) — częstsze nisze-przejścia (dziś 0–2 na mapę; np. celowe wycięcie ściany do głębokości 3).
 - **O** — pancerz na późnych poziomach: wzór procentowy `ATK×4 × 100/(100+DEF·k)` albo mocniejszy DEF w krzywych (po zmierzeniu drabiny).
 - **O** — NPC: kwestie przy pierwszej rozmowie po nowym tierze (`required_flag`), prawdziwe flagi etapów kowala i sklepów, skrzynia przeklęta, akcesoria z bonusem slotów.
 
 **Dni**
 - ✅ **O** — minimapa z fog of war (2026-10-21: róg + pełna mapa pod M, linia wzroku, maska w zapisie, mapy ręczne z warstw; `znane_problemy.md` „Minimapa”).
 - ✅ **O** — losowe spotkania jak w JRPG (2026-10-21, wersja podstawowa: tryb `cleared` w jaskiniach, `random_encounters` w JSON mapy; zostało strojenie w grze i ścieki).
-- **O** — ukryte przejścia między pokojami (tunel pod voidem, shader z Amon-Ra, własne kolizje ścian tunelu) — projekt najpierw.
+- ➜ **opcjonalne** (decyzja usera 2026-10-22: po dopięciu reszty) — ukryte przejścia między pokojami (tunel pod voidem, shader z Amon-Ra, własne kolizje ścian tunelu) — projekt najpierw.
 
 **User / poza inżynierką**
 - Miasto (ręcznie), wariant kafli RIM nisz-przejść, tilesety kolejnych map, mapy otwarte (las) po tilesetach.
