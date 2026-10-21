@@ -242,3 +242,14 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
 - **Wysokie okno pytania:** najpierw okno rozszerza się na maksymalną szerokość, dopiero potem rośnie wzwyż (zawijanie tekstu). Okno pytania **może zasłaniać potwory** — pole walki się nie przesuwa. Obecny kod już tak działa: górne okno (`TopWindow`) ma pełną szerokość z zawijaniem, a okno w menu walki w trybie „na szerokość treści” rośnie do 0,95 szerokości ekranu.
 - **Szyk** zostaje osobną pozycją menu pauzy (nie przenosimy do Status).
 - Lista drużyny w pauzie jest przewijana (`PartyListScroll` w `party_panel.tscn`), wybrany wiersz zostaje widoczny.
+
+## Pytania rundy przed akcjami (decyzja usera 2026-10-21)
+- Runda: faza wyboru (każda postać wybiera akcję) → **pytania quizu po kolei, w kolejności drużyny** (po jednym na postać;
+  przedmioty bez pytania; postać, która nie może się ruszyć, bez pytania) → wykonanie akcji **wg AGI** razem z wrogami,
+  z wynikiem zapisanym w planie (`plan["correct"]`). Ucieczka bez zmian (pytanie od razu).
+- Kod: `QuizCombatController._ask_round_questions` / `_ask_plan_question`, sygnał `_round_question_answered`;
+  `_start_member_action` z `plan["correct"]` woła od razu `_resolve_action`. Nagłówek „Tura N - pytanie: Imię”.
+- Bezpieczniki (zgłoszenie usera: slime uderzył dwa razy pod rząd w jednym logu — przyczyny nie odtworzono w testach):
+  wróg działa najwyżej raz na rundę (`_acted_enemies`), drugie `_execute_round` w tej samej rundzie pomijane
+  (`_round_running`); oba przypadki wypisują ostrzeżenie `QuizCombat: …` w konsoli — jeśli się powtórzy, szukać go w logu.
+
