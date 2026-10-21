@@ -52,12 +52,12 @@ Odłożone poza inżynierkę: tilesety kolejnych map i dalsze przyspieszanie gen
 - **U** — sprawdzić w grze: ekran śmierci i trucizna, mysz w walce (klik wroga, listy, znacznik celu, klik po fokusie), pytania bossów, skróty dev w eksporcie, gra po angielsku, skrzynie / klucze / beczki / złoto / trudność jaskiń, kafle wielokratkowe na `Props`, grzyby nad ścianą; nowe: sloty (Q/E), trasa map (jaskinia po tutorialu od południa), skille klasowe.
 - ✅ **S** — zduplikowany UID ikony BitBombera (BitBomber `icon.png.import` ma własny UID, 2026-10-21).
 - **S/O** — `PlateauPass._solve` ~750 ms na 250² (płaskie tablice jak w `ObjectPlanner`). Ocena 2026-10-21: to ~200-liniowa pętla na słownikach w pliku 2000 linii, każda zmiana wymaga parytetu 42/42 — zysk ≤ 0,5 s niewart ryzyka, raczej odpuścić.
-- **S** — resztki i18n (stan 2026-10-21): sterowanie BitBombera było już zrobione, etapy generowania na ekranie ładowania zrobione (`gen.stage.*`). Zostało: etykiety opcji motywu w `quiz_theme.gd` (menu opcji hosta czyta `label` / `name` wprost — wymaga `label_key` w `options_menu.gd`), nazwy nagród w `player_stats._check_rewards` (zapisywane jako tekst w save — migracja). Licznik „407 linii” w `check_i18n.py` zawyża: liczy też literały będące zapasowym tekstem `QuizRpgI18n.t(...)`, komentarze, dev menu i narzędzia.
+- ✅ **S** — resztki i18n (2026-10-21): sprawdzone — sterowanie BitBombera, opcje motywu i nagrody były już przetłumaczone, etapy generowania doszły (`gen.stage.*`). Licznik „407 linii” w `check_i18n.py` zawyża (liczy zapasowe teksty `QuizRpgI18n.t(...)`, komentarze, dev menu, narzędzia); zostają tylko narzędzia i komunikaty debug.
 
 **Pół dnia**
 - **S** — propozycja korzenia modułu z położenia skryptu (`module_root()`), po zatwierdzeniu przez usera.
 - **S** — ścieki: winiety, gruz w skupiskach, mniej zdejmowania obiektów na 250², uskoki lica przy dostawionych pokojach.
-- **S/O** — umiejętności wrogów skalowane z poziomem.
+- ✅ **S/O** — umiejętności wrogów skalowane z poziomem (2026-10-21): obrażenia umiejętności liczą się z ATK/MAT wroga, który już skaluje się z poziomem; jedyne stałe liczby to leczenie Mrocznej Regeneracji (zamienione na 25 % maks. HP) oraz niewielkie `base_damage` 40 / 80 w Serii Wybuchów i Oddechu Zgnilizny (zostawione — pomijalne na wyższych poziomach).
 - **S/O** — częstsze nisze-przejścia (dziś 0–2 na mapę; np. celowe wycięcie ściany do głębokości 3).
 - **O** — pancerz na późnych poziomach: wzór procentowy `ATK×4 × 100/(100+DEF·k)` albo mocniejszy DEF w krzywych (po zmierzeniu drabiny).
 - **O** — NPC: kwestie przy pierwszej rozmowie po nowym tierze (`required_flag`), prawdziwe flagi etapów kowala i sklepów, skrzynia przeklęta, akcesoria z bonusem slotów.
