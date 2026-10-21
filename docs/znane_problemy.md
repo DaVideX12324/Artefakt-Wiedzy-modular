@@ -156,7 +156,7 @@
    Makera), więc doszła opcja Opcje -> Motyw -> „Pytanie w walce”: „W oknie logu (u góry)” (domyślnie) /
    „W menu walki (nad odpowiedziami)” — pytanie i pasek czasu w panelu quizu pod tytułem, jak przed oknem logu
    (`_apply_question_position`). Menu opcji hosta obsługuje teraz opcje modułu typu `choice`.
-3. **[POPRAWIONE CZĘŚCIOWO (aa47eaf, a7c4730: wybór myszą, wiersze celów), DO SPRAWDZENIA W GRZE — `kontekst/walka.md` oznacza klikanie wrogów jako niesprawdzone]** **Kliknięcie wroga na polu walki nie atakuje**, choć cel się zmienia (podświetlenie działa). Obsługa kliknięcia:
+3. **[NAPRAWIONE 2026-10-21: puste kontenery `EnemySection` nad warstwą wrogów i podświetlenie celu (ColorRect / Label z filtrem STOP) przechwytywały mysz; klik liczy wroga pod kursorem z prostokątów slotów (`_enemy_slot_at`), nie z sygnałów najechania; test lokalny `diag_enemy_click` z oknem]** **Kliknięcie wroga na polu walki nie atakuje**, choć cel się zmienia (podświetlenie działa). Obsługa kliknięcia:
    `_handle_hovered_enemy_click` (tylko w fazie `TARGET_SELECT`: ustawia cel i woła `_confirm_target_selection`).
    Do sprawdzenia: czy klik w ogóle tam dociera (może go przechwytywać GUI albo inna faza).
 4. **[DO SPRAWDZENIA W GRZE: listy Umiejętności / Przedmioty przerobione 2026-10-11 (wiersze z ikonami), obsługa myszy do potwierdzenia]** **Mysz nie działa w części menu walki** — „Przedmioty” i „Umiejętności” obsługują tylko klawiaturę, pewnie też
