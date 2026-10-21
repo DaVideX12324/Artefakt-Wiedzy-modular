@@ -11,3 +11,4 @@ export_presets.cfg
 __pycache__/
 *.pyc
 /fnafb
+/podglady_ui
