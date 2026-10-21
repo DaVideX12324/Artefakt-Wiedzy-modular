@@ -204,7 +204,8 @@
   w generatorze obiektów (dziś `objects_caves.json` tylko preferuje nisze dla zwykłych skrzyń), osobny tier i tabela łupu dla takiej skrzyni, ewent. wymóg klucza wyższego tieru.
 
 ### Minimapa z fog of war
-- **Stan 2026-10-12: NIE ZROBIONE** (brak kodu minimapy).
+- **Stan 2026-10-21: ZROBIONE (wersja podstawowa).** `QuizRpgMinimapData` (`scripts/maps/minimap_data.gd`: rodzaje kratek z wyniku generacji albo z warstw TileMapLayer — Walls / Cliffs = ściana; odkrywanie w promieniu z linią wzroku Bresenhama, ściany zasłaniają, uskoki płaskowyżów nie; maska DEFLATE + base64) i scena `scenes/ui/minimap.tscn` w HUD (róg: wycinek wokół gracza, zoom 4 px / kratkę; akcja `minimap` = M: cała mapa, Esc zamyka). Promień 12 kratek. Maska per mapa w stanie poziomu (`LevelStateManager`, klucz `fog`) — w zapisie gry, znika z rerollem. Kolory: podłoga, góra płaskowyżu, obrys ścian, uskok, wejście (niebieskie), wyjście (złote). Widoczna tylko w eksploracji. Zostało: znaczniki skrzyń / NPC / odwiedzonych nisz, ikonki zamiast kropki gracza, opcja wyłączenia w ustawieniach, budowa danych w wątku (`from_level` ≈ 25 ms na 160², ~2,5× więcej na 250²). Testy lokalne `check_minimap`, `shot_minimap`.
+- Stan 2026-10-12 (stary opis): NIE ZROBIONE (brak kodu minimapy).
 - Zgłoszenie 2026-09-30. W projekcie nie ma jeszcze minimapy.
 - Minimapa w rogu ekranu (opcjonalnie pełna mapa pod klawiszem), odkrywana w miarę chodzenia: kratki
   w promieniu widzenia gracza przechodzą z „nieznane” na „odkryte” (fog of war); odkryte zostają.
