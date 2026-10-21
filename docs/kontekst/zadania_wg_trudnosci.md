@@ -8,8 +8,8 @@
 ## 1. Minuty
 
 1. **U** — sprawdzić w grze: poprawki ekranu śmierci i trucizny, skrzynie i klucze na tier, beczki 3/(2n), złoto, koszt walki, zakładkę „Ogólne”, a po ostatnich zmianach: scroll drużyny w pauzie, wczytywanie map z dysku, grę po angielsku w oknie.
-2. **U** — skomitować `Floor_Full.xcf` i `miasto.ldtk` (submoduł, potem wskaźnik w hoście).
-3. **U** — zdecydować, co z 78 cudzymi usunięciami w `assets/.../world_build/`.
+2. **U** — skomitować `Floor_Full.xcf` (submoduł, potem wskaźnik w hoście). `miasto.ldtk` niepotrzebne — LDtk pominięty (2026-10-22).
+3. ✅ **U** — `world_build` to wersja 32x, nie nada się: przywrócony do `assets/_nieuzywane/pixel_crawler/environments/world_build/` (2026-10-22, assets `1c92671`).
 4. **S** — usunąć nieśledzoną kopię `pixel_crawler_free.tres` po sprawdzeniu referencji.
 
 ## 2. Godziny
@@ -25,7 +25,7 @@
 ## 3. Pół dnia
 
 13. ✅ **S** — klucze i wytrychy uniwersalne (zrobione 2026-10-11, `kontekst/obiekty.md` „Klucze i wytrychy”).
-14. **S** — konwerter LDtk → `TileMapLayer` i zasilenie `town.tscn` (krok do miasta).
+14. ✖ ~~konwerter LDtk → `TileMapLayer`~~ — odpada (2026-10-22, decyzja usera): miasto robione bezpośrednio w Godocie, na bazie edytowanego desert town.
 15. ✅ **S** — interfejs sklepu (2026-10-21, `kontekst/npc.md`); ceny robocze do czasu pkt 20. Ceny zależą od skali drabiny sprzętu (pkt 20), więc najpierw wspólny szkielet interakcji z NPC (pkt 21–24).
 16. **S** — warianty skrzyń z innych paczek i więcej mikstur w jaskiniach.
 17. ✅ **S** — zapis map na dysk (`map_disk_cache.gd`, wejście z pliku ≈ 0,25 s zamiast 2–2,5 s). Zostało: zapis po policzeniu mapy z wyprzedzeniem (prefetch), podbijanie `MAP_CACHE_VERSION` w wydaniu, osobne unieważnianie przy usunięciu slotu.
