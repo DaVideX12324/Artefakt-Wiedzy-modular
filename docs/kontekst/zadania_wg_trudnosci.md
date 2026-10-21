@@ -40,9 +40,9 @@
 23. ✅ **O** — kowal i bronie z potencjałem (2026-10-21: usługa ulepszania + Ostrze Mgły w 4 etapach jako relikwia jaskiń, `kontekst/npc.md`). Zostało: kolejne bronie z potencjałem (inne klasy), materiały z bossów, prawdziwe flagi etapów.
 24. ✅ **O** — rekrutacja towarzyszy, skille klasowe i sloty umiejętności (2026-10-21, `kontekst/druzyna_szkic.md`, `kontekst/sloty_umiejetnosci_szkic.md` sekcja 6). Zostały: imiona towarzyszy, akcesoria z bonusem slotów.
 25. **O** — logika miasta: flagi, NPC, wnętrza.
-26. **O** — finał: fabuła, zabranie towarzyszy, „Wzmocnienie tarczy”, fazy bossa, umiejętność 10. poziomu.
+26. ➜ **rozszerzony scope** (decyzja usera 2026-10-22, nie na poziom inżynierki) — finał: walka z ostatnim bossem (fazy, inna Faza 2 na ścieżce Good), cutscenka i zakończenia, zabranie towarzyszy, „Wzmocnienie tarczy”, umiejętność 10. poziomu, limit mikstur SP w finale. Szkic: `fabula_krag_i_zakonczenia_szkic.md` sekcje 5–6.
 
-Odłożone poza inżynierkę: tilesety kolejnych map i dalsze przyspieszanie generatora.
+Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze przyspieszanie generatora, finał (pkt 26).
 
 **Następny sensowny krok:** Opus robi szkic ekonomii/drabiny sprzętu (20) i szkielet NPC (21); potem UI scen (15, 22) może zrobić Sonnet albo Antigravity z briefem. Bez blokady: 19 (nakładka podglądu), 16 (warianty skrzyń).
 
