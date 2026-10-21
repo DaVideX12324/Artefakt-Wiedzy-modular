@@ -95,5 +95,8 @@ Plik `user://maps/<world_seed>/<nazwa_sceny>.map` (FileAccess, `var_to_bytes` + 
 - **Test:** `tests/check_map_disk_cache.gd` (env `MC_SCENE`, `MC_SEED`): warstwy kafli identyczne, rodzaje wrogów, skrzynie,
   obiekty, nawigacja, wejście / wyjście, drzewo węzłów; uszkodzony plik; inny podpis. Pozycje wrogów są losowe także przy
   świeżym generowaniu, więc nie są porównywane.
-- **Nie zrobione:** zapis po policzeniu mapy z wyprzedzeniem (krok 4 planu), osobne unieważnianie przy usunięciu slotu.
+- **Zapis map z wyprzedzeniem (2026-10-22):** po policzeniu danych w tle `MapPrefetch` trzyma poziom poza drzewem, a ten (`ProceduralLevel.save_prefetched_async`) maluje kafle z planu w trakcie gry po 2 ms na klatkę (`FrameSlicer` ze stałym budżetem), robi migawkę i zapisuje plik — po restarcie gry sąsiednie mapy wczytują się z pliku. Malowanie bez losowania, więc plik = świeże wejście (test). Gdy wejście weźmie dane wcześniej, tło nie zapisuje (wynik zmienia już gra; wejście zapisuje samo). Koszt w grze: jedna klatka ~+14 ms (podpis; skan skryptów generatora tylko w buildzie debug, raz na sesję), reszta ≤ ~8 ms. Plik po zapisie w tle: wejście ~0,24 s zamiast ~2 s.
+- **Unieważnianie (2026-10-22):** usunięcie slotu (`SaveManager.delete_save_slot`) i reroll świata kasują `user://maps/<seed>/`, o ile seeda nie ma żaden inny slot (`SaveManager.used_world_seeds`) ani bieżąca gra (`MapDiskCache.clear_seed_if_unused`). Dalej działa sprzątanie do 6 folderów.
+- **Test:** `tests/check_map_prefetch_save.gd` (plik z tła bez wejścia, identyczny z świeżym; wejście w trakcie tła; seed bez slotu). Pomiar klatek: `tests/diag_prefetch_frames.gd` (DPF_SAVE=0/1).
+- **Zostało:** podbijanie `MAP_CACHE_VERSION` przy wydaniu ze zmianą generatora. Osobny problem: start mapy z wyprzedzeniem (wczytanie sceny + `_prepare_job` na głównym wątku) daje jedną klatkę ~0,5 s w headless — niezależnie od zapisu.
 
