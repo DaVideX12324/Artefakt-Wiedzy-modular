@@ -252,4 +252,4 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
 - Bezpieczniki (zgłoszenie usera: slime uderzył dwa razy pod rząd w jednym logu — przyczyny nie odtworzono w testach):
   wróg działa najwyżej raz na rundę (`_acted_enemies`), drugie `_execute_round` w tej samej rundzie pomijane
   (`_round_running`); oba przypadki wypisują ostrzeżenie `QuizCombat: …` w konsoli — jeśli się powtórzy, szukać go w logu.
-
+- Zaskoczenie (decyzja usera 2026-10-21): po komunikacie „Zaskoczenie! …” w logu podpowiedź „Enter / Z / klik — dalej”; runda wrogów rusza dopiero po potwierdzeniu (`_wait_notice_confirm` / `confirm_notice`).
