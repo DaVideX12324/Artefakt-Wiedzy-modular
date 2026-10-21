@@ -25,6 +25,6 @@ Decyzje usera 2026-10-22: trasa **jaskinia → miasto → ścieki**; miastem w g
 wnętrze poza trasą, bramka flag.
 
 ## Zostało (logika)
-- Wnętrza konkretnych budynków (które domy, kto w środku), Hideout nauczyciela.
+- **Decyzja usera 2026-10-22: wnętrza budynków na razie odpadają (za duża robota) — NPC stoją przed domami.** Klocki drzwi / szablonu wnętrza zostają na później.
 - Zadania NPC (flagi `quest:*` + rozmowy z `set_flag` / `required_flag` — mechanizm jest).
 - Prawdziwe flagi etapów sklepów / kowala (dziś zastępcze `boss:*`), punkt zapisu przed ściekami (opcjonalnie).
