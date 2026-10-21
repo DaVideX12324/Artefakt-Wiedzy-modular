@@ -41,6 +41,7 @@
 24. ✅ **O** — rekrutacja towarzyszy, skille klasowe i sloty umiejętności (2026-10-21, `kontekst/druzyna_szkic.md`, `kontekst/sloty_umiejetnosci_szkic.md` sekcja 6). Zostały: imiona towarzyszy, akcesoria z bonusem slotów.
 25. **O** — logika miasta: flagi, NPC, wnętrza.
 26. ➜ **rozszerzony scope** (decyzja usera 2026-10-22, nie na poziom inżynierki) — finał: walka z ostatnim bossem (fazy, inna Faza 2 na ścieżce Good), cutscenka i zakończenia, zabranie towarzyszy, „Wzmocnienie tarczy”, umiejętność 10. poziomu, limit mikstur SP w finale. Szkic: `fabula_krag_i_zakonczenia_szkic.md` sekcje 5–6.
+27. **S/O** — uproszczone zakończenie na inżynierkę (zamiast pkt 26): zwykła walka z ostatnim bossem (bez faz, cutscenek i ścieżek zakończeń), po wygranej ekran końca gry (napisy / podsumowanie: czas gry, poziom, pokonani bossowie, poprawne odpowiedzi) i powrót do menu; zapis oznaczony jako ukończony. Do ustalenia z userem: która mapa i który boss jest ostatni.
 
 Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze przyspieszanie generatora, finał (pkt 26).
 
