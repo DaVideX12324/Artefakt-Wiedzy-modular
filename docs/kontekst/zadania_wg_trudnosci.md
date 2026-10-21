@@ -50,8 +50,8 @@ Odłożone poza inżynierkę: tilesety kolejnych map i dalsze przyspieszanie gen
 
 **Minuty / godziny**
 - **U** — sprawdzić w grze: ekran śmierci i trucizna, mysz w walce (klik wroga, listy, znacznik celu, klik po fokusie), pytania bossów, skróty dev w eksporcie, gra po angielsku, skrzynie / klucze / beczki / złoto / trudność jaskiń, kafle wielokratkowe na `Props`, grzyby nad ścianą; nowe: sloty (Q/E), trasa map (jaskinia po tutorialu od południa), skille klasowe.
-- **S** — zduplikowany UID ikony BitBombera (`modules/BitBomber/resources/icon.png`).
-- **S** — `PlateauPass._solve` ~750 ms na 250² (płaskie tablice jak w `ObjectPlanner`).
+- ✅ **S** — zduplikowany UID ikony BitBombera (BitBomber `icon.png.import` ma własny UID, 2026-10-21).
+- **S/O** — `PlateauPass._solve` ~750 ms na 250² (płaskie tablice jak w `ObjectPlanner`). Ocena 2026-10-21: to ~200-liniowa pętla na słownikach w pliku 2000 linii, każda zmiana wymaga parytetu 42/42 — zysk ≤ 0,5 s niewart ryzyka, raczej odpuścić.
 - **S** — resztki i18n: sterowanie BitBombera, ~400 literałów w narzędziach `.gd`.
 
 **Pół dnia**
