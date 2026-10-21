@@ -64,7 +64,7 @@ Odłożone poza inżynierkę: tilesety kolejnych map i dalsze przyspieszanie gen
 
 **Dni**
 - **O** — minimapa z fog of war (promień, zapis maski, mapy ręczne).
-- **O** — losowe spotkania jak w JRPG (tryb obok widocznych wrogów; zasady do ustalenia).
+- ✅ **O** — losowe spotkania jak w JRPG (2026-10-21, wersja podstawowa: tryb `cleared` w jaskiniach, `random_encounters` w JSON mapy; zostało strojenie w grze i ścieki).
 - **O** — ukryte przejścia między pokojami (tunel pod voidem, shader z Amon-Ra, własne kolizje ścian tunelu) — projekt najpierw.
 
 **User / poza inżynierką**
