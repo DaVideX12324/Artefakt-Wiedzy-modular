@@ -3,10 +3,7 @@
 > Widok pomocniczy, **nie** źródło prawdy — szczegóły i statusy: [`docs/znane_problemy.md`](../znane_problemy.md). Stan na 2026-10-17.
 > Skróty: **U** = robi user (gra/LDtk/grafika), **S** = Sonnet wystarczy, **O** = lepiej Opus (projekt/architektura). ✅ = zrobione.
 
-> **TODO (user 2026-10-21):** przenieść otwarte punkty z [`znane_problemy.md`](../znane_problemy.md) do tej listy, posortowane
-> trudnością (lista z 2026-10-21 w [`sesja_2026-10-21.md`](sesja_2026-10-21.md) „Otwarte ze znanych problemów”), i przy okazji
-> przenieść tam zrobione wpisy do „Rozwiązane” (teammate'owie, NPC, beczki, generator obiektów, optymalizacja ekwipunku,
-> tłumaczenia, przyspieszenie generowania, tło 16:9 — user: „można wywalić”).
+> Sekcja „Z znanych problemów” na końcu (przeniesione 2026-10-21 z [`znane_problemy.md`](../znane_problemy.md)); zrobione wpisy są tam w „Rozwiązane”.
 
 ## 1. Minuty
 
@@ -48,3 +45,28 @@
 Odłożone poza inżynierkę: tilesety kolejnych map i dalsze przyspieszanie generatora.
 
 **Następny sensowny krok:** Opus robi szkic ekonomii/drabiny sprzętu (20) i szkielet NPC (21); potem UI scen (15, 22) może zrobić Sonnet albo Antigravity z briefem. Bez blokady: 19 (nakładka podglądu), 16 (warianty skrzyń).
+
+## Z znanych problemów (otwarte, stan 2026-10-21, od najłatwiejszych)
+
+**Minuty / godziny**
+- **U** — sprawdzić w grze: ekran śmierci i trucizna, mysz w walce (klik wroga, listy, znacznik celu, klik po fokusie), pytania bossów, skróty dev w eksporcie, gra po angielsku, skrzynie / klucze / beczki / złoto / trudność jaskiń, kafle wielokratkowe na `Props`, grzyby nad ścianą; nowe: sloty (Q/E), trasa map (jaskinia po tutorialu od południa), skille klasowe.
+- **S** — zduplikowany UID ikony BitBombera (`modules/BitBomber/resources/icon.png`).
+- **S** — `PlateauPass._solve` ~750 ms na 250² (płaskie tablice jak w `ObjectPlanner`).
+- **S** — resztki i18n: sterowanie BitBombera, ~400 literałów w narzędziach `.gd`.
+
+**Pół dnia**
+- **S** — propozycja korzenia modułu z położenia skryptu (`module_root()`), po zatwierdzeniu przez usera.
+- **S** — ścieki: winiety, gruz w skupiskach, mniej zdejmowania obiektów na 250², uskoki lica przy dostawionych pokojach.
+- **S/O** — umiejętności wrogów skalowane z poziomem.
+- **S/O** — częstsze nisze-przejścia (dziś 0–2 na mapę; np. celowe wycięcie ściany do głębokości 3).
+- **O** — pancerz na późnych poziomach: wzór procentowy `ATK×4 × 100/(100+DEF·k)` albo mocniejszy DEF w krzywych (po zmierzeniu drabiny).
+- **O** — NPC: kwestie przy pierwszej rozmowie po nowym tierze (`required_flag`), prawdziwe flagi etapów kowala i sklepów, skrzynia przeklęta, akcesoria z bonusem slotów.
+
+**Dni**
+- **O** — minimapa z fog of war (promień, zapis maski, mapy ręczne).
+- **O** — losowe spotkania jak w JRPG (tryb obok widocznych wrogów; zasady do ustalenia).
+- **O** — ukryte przejścia między pokojami (tunel pod voidem, shader z Amon-Ra, własne kolizje ścian tunelu) — projekt najpierw.
+
+**User / poza inżynierką**
+- Miasto (ręcznie), wariant kafli RIM nisz-przejść, tilesety kolejnych map, mapy otwarte (las) po tilesetach.
+

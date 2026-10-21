@@ -10,20 +10,6 @@
 
 ## Do zrobienia (zgłoszone, następnym razem)
 
-### (#1) Przyspieszenie generowania / powrót do bazy commita „Speed up cave generation and add loading bar” (8915c89)
-- **Stan 2026-10-17: ZROBIONE (decyzja usera)** — generator przyspieszony, ile się da bez C#. Dalszy zysk wymagałby płaskiej siatki w topologii
-  albo C# / GDExtension, co jest poza zakresem inżynierki ([zakres_inzynierka.md](zakres_inzynierka.md), sekcja „Wydajność generatora”).
-- **Stan 2026-10-15: W TOKU — część zrobiona** (gałęzie `optymalizacja-generowania`, niezmergowane). Ścieki 500²
-  69,8 → 32,0 s, ścieki 160² 3,0 → 2,3 s, czas niezależny od FPS, wynik identyczny. Tabela, lista zmian i co
-  zostało (m.in. ~0,4 s zacięcia przed ekranem ładowania): [plan_przyspieszenie_generowania.md](plan_przyspieszenie_generowania.md), sekcja „Sesja 2026-10-15”.
-- Stan 2026-10-13: DO ZROBIENIA Z OPUSEM JUTRO — PRIORYTET #1.
-- **Commit odniesienia:** `8915c89ea89d350fc45f828fcdb8c4f6e1ab6157` (`Speed up cave generation and add loading bar`, 2026-09-24).
-  Hash po przepisaniu historii 2026-10-15 (dawny `1a526846` już nie istnieje w repo). Z historii usunięto assety, więc ten commit nie uruchomi się bez nich — do testów weź go jako osobny worktree i podlinkuj / skopiuj bieżący `assets/` (oryginał z assetami: kopia zapasowa `F:\Programy\GitHub\_kopie_zapasowe_przed_przepisaniem\host-remote.git`).
-- **Kontekst:** Ostatni commit przed większymi zmianami (w tym wprowadzaniem układu `structured`), który skupiał się na ogólnym przyspieszeniu generatora i na którym generowanie działało znacznie szybciej i stabilniej.
-- **Plan działania (do wykonania z Claude Opus):**
-  - Przejście do commita `8915c89` (lub porównanie `git diff 8915c89..HEAD`) i przeanalizowanie różnic wydajnościowych.
-  - Wyczyszczenie narzutu i przywrócenie szybkiego, płynnego generowania map bez zacięć.
-
 ### (#2) ekran śmierci drużyny i trucizna — ZROBIONE, poprawki po teście usera do sprawdzenia
 - **Stan 2026-10-15:** user sprawdził w grze i zgłosił poprawki; zostało tylko sprawdzenie samych poprawek. Znacznik ⚠ zdjęty (decyzja usera).
 - **Stan 2026-10-12: ZROBIONE, DO SPRAWDZENIA W GRZE.** Scena `scenes/ui/death_screen.tscn` (WYSIWYG) pokazywana z `QuizCombatController`, gdy po przegranej walce `PlayerStats.is_party_defeated()`; przyciski „Wczytaj zapis” / „Menu główne”. Trucizna w świecie (DoT co `POISON_WORLD_INTERVAL` 3 s, 1 HP, do 1 HP) i w walce (5 % maks. HP na rundę), odtrutka przez `cure_statuses`; źródło trucizny = umiejętność wroga (`QuizRpgEnemySkill`). Commity CienMgly 6482268, 9a6a049; testy lokalne `check_death_screen`, `check_poison`. Pełna ścieżka (przegrana → ekran, zatrucie w walce) nie była przechodzona w grze — po potwierdzeniu przez usera usunąć ten wpis i znacznik ⚠.
@@ -100,35 +86,6 @@
   uskoki lica o 1 przy pokojach dostawionych (detektor: `tests/diag_sewer_thin_walls.gd`).
 
 
-### (2) dokończyć generator obiektów — ZROBIONE 2026-10-21
-- **Stan 2026-10-21: ZROBIONE.** Nakładka podglądu w eksploratorze map (zajętość, przejścia, statystyki, inspektor
-  kratki); leniwe sceny odrzucone po pomiarze (≈ 0,4 ms na obiekt interaktywny, 45 ms na 500², `plan_generator_obiektow.md`);
-  barierki kanałów były już zrobione (warstwa `Rails`, `kontekst/scieki.md`). Znacznik ⚠ zdjęty.
-- **Stan 2026-10-17: W TOKU — user dokończy wkrótce.**
-- **Stan 2026-10-12: W TOKU (większość zrobiona).** Zrobione: F0–F4, obiekty jako sceny (`ObjectBake`), niszczalne beczki (`barrel.gd`, łup jako toast, model 3 / (2n)), skrzynie z kluczami i tierem, obiekty ścieków (kolce, bramy, płyta naciskowa, klucz bramy, skrzynia ścieków). Zostało: dźwignie, leniwe sceny, nakładka podglądu (zajętość / przejścia / statystyki), obejrzenie kafli wielokratkowych na `Props`.
-- Zgłoszenie 2026-10-04 (drugie z trzech ważnych todo). Generator obiektów: dalsze fazy F2–F5 wg
-  `docs/plan_generator_obiektow.md` (stan: [kontekst/obiekty.md](kontekst/obiekty.md)). Zostało: F5 (niszczalne
-  beczki, dźwignie, leniwe sceny), nakładka podglądu (zajętość / przejścia, statystyki).
-- Kamyki bez kolizji — zrobione 2026-10-05 (`pebble_large` w `sprites/`, CienMgly 4480fff).
-
-### Tła walki: kadr 16:9 (kod zrobiony 2026-10-06, commit `deb8866`)
-- **Stan 2026-10-12: CZEKA NA USERA** — kod ZROBIONY, grafiki po stronie usera (generuje pozostałe tła; dopasowanie trapezów w `battle_layout_preview.tscn`).
-- Kod gotowy: tło rysowane na pełny ekran 1920×1080 (`Background` pod `Root`), pas `BattleWindow` ma
-  `StyleBoxEmpty` (w trybie kompaktowym widać posadzkę zamiast pustki), cień nad UI w grze na y = 795,
-  edytor `battle_layout_preview.gd` pokazuje pełny kadr 16:9 z półprzezroczystym pasem UI.
-- User generuje pozostałe tła walki w kadrze 16:9 na cały ekran (prompty: `battle_backgrounds/*_prompts.md`,
-  `correction_prompts.md`). Nowe już są: `cave/` i `tutorial_area/` `Gemini_Generated_Image_*.jpg` (2752×1536).
-  Dopasowywanie trapezów pól walki do nowych grafik odbywa się w `scenes/tools/battle_layout_preview.tscn`.
-- Opis stanu: [kontekst/walka.md](kontekst/walka.md) „Tła walki: kadr 16:9”.
-
-
-### (4) grywalne postacie — teammate'owie
-- **Stan 2026-10-17: ZROBIONE (potwierdzone przez usera).**
-- **Stan 2026-10-16: GRYWALNE (MVP, gałąź `druzyna-balans`).** Trzech towarzyszy (Łotrzyk / Mag / Kapłan, grafika Pixel Crawler), `PlayerStats.recruit`, XP i poziom każdego członka (martwy 50 %), towarzysze idą za bohaterem na każdej mapie, cała drużyna w walce (wróg bije losowego, porażka po upadku wszystkich), NPC rekrutacji z zadaniem i oknem rozmowy (trzech w `town.tscn`), karta „Drużyna” w menu deweloperskim. Szczegóły i pytania: [kontekst/druzyna_szkic.md](kontekst/druzyna_szkic.md) („Zrobione 2026-10-16”). Zostało: imiona / fabuła, skille klasowe, czy w turze działa każdy członek.
-- Stan 2026-10-12: W TOKU (projekt i podstawy). Zrobione: klasy w kodzie (`character_class` w `QuizRpgHeroData` i członku, `allowed_classes` w przedmiotach, ograniczenie ekwipunku), infrastruktura per członek (statystyki, ekwipunek, umiejętności, statusy, XP członka), szkic `kontekst/druzyna_szkic.md` (3 towarzyszy z klas Łotrzyk / Mag / Kapłan, własne pule XP, dołączanie po zadaniu, martwy 50 % XP, bez limitu). Nie zrobione: rekrutacja (`recruit`), dane i grafiki towarzyszy, zadania, skille klasowe (Mag i Łotrzyk), imiona / fabuła, UI składu.
-- Zgłoszenie 2026-10-04 (przesunięte za tła walki 2026-10-05). Dziś jest tylko Bohater. Zaczątki: `player.gd` ma tryb
-  członka drużyny (`is_party_follower`, podążanie po śladzie lidera, bieg razem z liderem — `is_running()`),
-  menu Esc ma wiersze drużyny, komunikaty walki piszą „Bohater i drużyna”.
 
 ### ⚠ WAŻNE: (5) miasto / hub z modularnych zasobów paczki free — następny etap
 - **Decyzja 2026-10-15:** miasto robione **ręcznie** przez usera (scena w edytorze), **bez generowania** — punkt „mapa składana z modułów paczki przez generator” odpada. Po stronie kodu: NPC, sklep, kowal / ulepszenia, rekrutacja towarzyszy (logika niezależna od mapy).
@@ -147,33 +104,6 @@
 - Przed startem rozłożyć `.aseprite` budynków na warstwy (parser jak przy ściekach) — zasady składania modułów
   (ściana + dach + cień, warianty) wyczytać z warstw, nie zgadywać z PNG. Obiekty przez generator obiektów
   ([kontekst/obiekty.md](kontekst/obiekty.md)), podgląd przez MCP `godot-runtime`.
-
-### (6) NPC (kod niezależny od mapy) — MVP ZROBIONE 2026-10-21, opis: [kontekst/npc.md](kontekst/npc.md)
-- **Przypomnienie (zgłoszone 2026-10-20):** gdy user zacznie ręcznie budować scenę miasta, uruchomić osobną sesję Opusa na **kod NPC** — nie wymaga gotowej mapy.
-- Zakres (minimum z [zakres_inzynierka.md](zakres_inzynierka.md), „Musi”): sklep, nauczyciel umiejętności w Hideout, zapis / odpoczynek, jeden mieszkaniec z dialogiem; do tego system dialogów i UI sklepu / nauki umiejętności (wycenić przed grafiką).
-- Brief dla Opusa: NPC jako samodzielne sceny-szablony do wstawienia w LDtk / edytorze (encje `Npc`, `Station`), interakcja jak w istniejących interactables, bez zależności od układu miasta. Kontekst: punkt (5) powyżej, [kontekst/ekwipunek_szkic.md](kontekst/ekwipunek_szkic.md).
-- Po uruchomieniu Opusa usunąć nagłówek albo znacznik `⚠ WAŻNE:`.
-
-### (7) beczki: liczba sztuk ze wzoru scale / k — ZROBIONE 2026-10-21 (CienMgly ae73bfe6)
-- **Wprowadzone 2026-10-21** zgodnie z opisem poniżej (`barrel_amount_scale` 1,0, `_roll_item_count`); test lokalny
-  `tests/check_barrel_amount.gd` (mikstura 50 / 33 / 17 %, średnio 1,67). Opis poniżej zostaje dla kontekstu.
-- **Zgłoszone 2026-10-20.** Beczki dropiły za dużo. Zmiana w `modules/quiz_rpg/autoloads/loot_manager.gd` (submoduł CienMgly) była tylko w katalogu roboczym sesji i **nie została wypchnięta** (CienMgly poza zakresem sesji) — trzeba ją wprowadzić ręcznie albo przy sesji z dostępem do CienMgly.
-- Stan w repo: liczba losowań z wzoru `barrel_scale = 1.5` (3/(2n): 100 %, 75 %, 50 %, 37,5 %…); liczba sztuk jednego przedmiotu to nadal `randi_range` (potion 1–3, ether / focus_tonic / antidote / lockpick 1–2).
-- Do zrobienia: nowa zmienna `var barrel_amount_scale: float = 1.0` (2. sztuka 50 %, 3. sztuka 33 %; przy 1,5 byłoby więcej dropu niż dziś, bo średnia potion 2,13 vs 2,0) i przepisana `_roll_item_count`:
-  ```gdscript
-  func _roll_item_count(item_id: String) -> int:
-  	var cap := 1
-  	match item_id:
-  		"potion":
-  			cap = 3
-  		"ether", "focus_tonic", "antidote", "lockpick":
-  			cap = 2
-  	var n := 1
-  	while n < cap and _rng.randf() < minf(1.0, barrel_amount_scale / float(n + 1)):
-  		n += 1
-  	return n
-  ```
-- Ile różnych przedmiotów: bez zmian, z tabeli wag (`_get_barrel_loot_table`). Po wprowadzeniu zmiany usunąć nagłówek albo znacznik `⚠ WAŻNE:`.
 
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
 - **Stan 2026-10-12: NIE ZROBIONE** (brak kodu; są tylko nisze-przejścia, `NichePlacer`).
@@ -237,14 +167,6 @@
    do gry jak zwykłe wejście (przycisk akcji albo wróg pod kursorem). Pomysł: ignorować kliknięcia przez chwilę
    po `NOTIFICATION_APPLICATION_FOCUS_IN` (albo gdy okno nie miało fokusu w chwili kliknięcia).
 
-### Nazwy w zmiennych / stałych i tłumaczenia w JSON-ach
-- **Stan 2026-10-16: ZROBIONE (do sprawdzenia w grze po angielsku).** Jeden serwis `I18nService` w hoście (`autoloads/services/i18n_service.gd`): płaskie słowniki JSON per moduł (`resources/i18n/` hosta, Cienia Mgły, BitBombera), język z Opcji → Ogólne (`SettingsService.get_language`, sygnał `language_changed`, zmiana na żywo), łańcuch zapasowy: język → en → tekst z zasobu → klucz; `t` / `tf` / `plural` (PL: one / few / many). Sceny `.tscn` zostają WYSIWYG (polski tekst), tłumaczy je `TranslationServer` z obiektu zbudowanego z `pl.json` → język (przy `pl` nic nie rejestrujemy); węzły z danymi mają `auto_translate_mode = 2`. Moduły: `QuizRpgI18n` i `BbI18n` delegują do serwisu (działają też samodzielnie; w wersji samodzielnej słowniki hosta w `_host/resources/i18n/`). Klucze: `host.*`, `ui.*`, `log.*` itd., `item.<plik>.*`, `enemy.<plik>.name|scan`, `hero.<id>.name`, `map.<scena>.name`, `skill.<plik>.log`, `bb.*`. Walidator `tools/check_i18n.py [--phase N]` (JSON, symetria kluczy, teksty scen, mapa literałów w `.gd`). Plan i raport faz 0–5: `kontekst/i18n_calosc_dla_gemini.md`, `kontekst/i18n_calosc_raport.md`. **Nie tłumaczone celowo:** treść pytań quizu, dev menu, narzędzia i generatory, imiona bohaterów (EN = PL). **Zostało:** nazwy sterowania w opcjach BitBombera, ok. 380 linii literałów w narzędziach `.gd`, kolizje „Mag / Łotrzyk / Kapłan / Bohater” (klasa vs imię), przegląd w grze po angielsku.
-- **TODO (zgłoszenie 2026-10-10):** wszystkie nazwy własne w grze (przedmioty, umiejętności, statusy, wrogowie, postacie,
-  nazwy menu i komunikaty) mają pochodzić ze **zmiennej / stałej / makra**, a nie być wpisane na sztywno w kodzie i
-  `.tres`, oraz mieć **tłumaczenia w plikach JSON** (klucz -> tekst per język). Dziś `display_name`, `description`,
-  teksty walki i menu są po polsku wprost w zasobach i skryptach. Do ustalenia: format kluczy (np. `item.potion.name`),
-  jedno miejsce wczytywania (autoload tłumaczeń), migracja istniejących `.tres`.
-
 ### Skalowanie wrogów przy kilkunastu mapach (system tierów)
 - **Stan 2026-10-12: W TOKU** — w większości zrobione. Poziom wroga z mapy (`enemy_levels` w JSON), XP z poziomu (`QuizRpgEnemyXp`), statystyki wroga z poziomu wg bohatera wzorcowego z ekwipunkiem po krzywej (`QuizRpgEnemyStats`, `tier` jako klasa trudności), złoto z poziomu (`QuizRpgEnemyGold`); szczegóły `kontekst/poziomy_i_xp.md`. Zostaje: umiejętności wrogów ze stałą bazą nie skalują się z poziomem; ocena trudności jaskiń po zmianie (boss lv 9: HP 1555, ATK 48) w grze; krzywe bohatera do lv 100 i tiery sprzętu na 15 map (`ekwipunek_szkic.md`). Generator `.tres` nie jest potrzebny (wartości liczone w kodzie).
 - **TODO (zgłoszenie 2026-10-11):** dziś są 4 tiery wrogów (HP 100 / 350 / 900 / 2200, ATK 26 / 52 / 85 / 150, DEF 30 / 60 / 95 / 140;
@@ -279,28 +201,6 @@
 - **TODO (pomysł usera 2026-10-12, nie dodane): skrzynie specjalne w rzadkich pomieszczeniach / niszach.** Rzadki pokój lub nisza z wyższym tierem skrzyni (3–4, wygląd niebieski / złoty; skrzynia z czaszką
   z arkusza „RPG Chests” kolumna 8 jako przeklęta), z lepszym łupem (sprzęt tieru 2, później broń z potencjałem — `docs/kontekst/ekwipunek_szkic.md`). Potrzebne: znacznik „rzadki pokój / nisza”
   w generatorze obiektów (dziś `objects_caves.json` tylko preferuje nisze dla zwykłych skrzyń), osobny tier i tabela łupu dla takiej skrzyni, ewent. wymóg klucza wyższego tieru.
-
-### Spójna ścieżka postępu między mapami (kierunki wejść i wyjść)
-- **Stan 2026-10-21: ZROBIONE** (CienMgly `833d7c0c`). `scripts/maps/map_links.gd` + `LevelStateManager.map_links` (w zapisie):
-  mapa łańcucha zapamiętuje krawędź wejścia, dozwolone wyjścia, faktyczne wyjście i pole na siatce świata [x, y, warstwa].
-  Następna mapa ma wejście na krawędzi przeciwnej do wyjścia poprzedniej; wyjście dowolne (nie musi być w linii — decyzja
-  usera), byle nie stroną wejścia ani w stronę pola odwiedzonego już przez inną mapę (otoczona — tylko bez zawracania).
-  Drabina / schody w ścianie (bez krawędzi) = nowa warstwa siatki. Ograniczenia mapy stałe od pierwszego wejścia (ta sama
-  mapa po powrocie). `PortalGenerator`: wnęka na wymuszonej krawędzi w pokoju najbliżej niej, w którym się mieści
-  (`plan_alcove_on_edge`); bez wymuszeń mapy identyczne jak wcześniej (parytet 42/42). Ruiny tutorialu: wyjście N (`exit_edge`
-  w `tutorial_area.gd`) → jaskinia wchodzi od południa. Sekretne pokoje i eksplorator map poza trasą. Test lokalny
-  `check_map_links` (48 / 48 map 160² i 250² trzyma krawędzie). Stare zapisy: trasa od następnej nowej mapy.
-- Stan 2026-10-12 (stary opis poniżej): NIE ZROBIONE (brak wymuszania krawędzi wejścia / wyjścia między mapami; zrobione osobno: wejścia i wyjścia map — drabina, schody przez ścianę, wnęki).
-- Zgłoszenie 2026-09-30. Kolejne mapy mają układać się w jedną ciągłą trasę: jeśli mapa ma wejście na
-  południu i wyjście na północy, następna musi mieć wejście na południu (przyszliśmy z jej południa), a nie
-  wyjście na południe — inaczej mapy „nakładają się” w wyobrażonej przestrzeni świata. Tak samo przy
-  powrocie (mapy wstecz): wyjście poprzedniej = wejście bieżącej po przeciwnej stronie.
-- Dziś krawędź portalu wybiera `PortalGenerator.carve_portal_alcove` (najbliższa krawędź pokoju, wyjście
-  tylko `avoid_edge` = inna niż wejście) — bez wiedzy o sąsiednich mapach. Punkty zaczepienia: łańcuch map
-  (`ProceduralLevel.next_level_path` / `level_key`, seedy w `lsm.set_map_seed`), `level_manager.change_level`.
-- Pomysł: zapisywać per mapa krawędź wejścia i wyjścia (albo pozycję mapy na siatce świata) i przekazywać
-  generatorowi wymuszoną krawędź wejścia (= przeciwna do wyjścia poprzedniej) oraz dozwolone krawędzie
-  wyjścia (nie w stronę już odwiedzonych pól siatki).
 
 ### Minimapa z fog of war
 - **Stan 2026-10-12: NIE ZROBIONE** (brak kodu minimapy).
@@ -355,12 +255,6 @@
 ### Modularność assetów i autoloadów (moduł samodzielny bez dublowania w eksporcie)
 - **Stan 2026-10-12: W TOKU** — ZROBIONE dla Cienia Mgły (quiz_rpg), CZĘŚCIOWO dla BitBombera. Cień Mgły to osobne repo (submoduł `modules/quiz_rpg`), ścieżki przez `QuizRpgPaths`, kopie hosta w `_host/` z `.gdignore`, synchronizacja `tools/sync_host_copies.gd`, `tools/make_standalone.sh` (opis w `docs/module_contract.md`, wpis w „Rozwiązane” 2026-10-03). Zostaje: `modules/BitBomber/resources/icon.png` ma ten sam UID co `resources/icon.png` hosta (ostrzeżenie „UID duplicate” przy imporcie, plik leży obok `quizzes/`, więc nie da się ukryć folderu); pełne przeniesienie BitBombera na ten schemat (kopia fontów z `.gdignore` jest, reszta nie).
 - Zasady, które się sprawdziły (Godot 4.7.2): UID w `ext_resource` ma pierwszeństwo przed ścieżką (scena z błędną ścieżką, ale poprawnym UID wczytuje właściwy plik); względne `path="../…"` działają przy wczytaniu, ale zapis sceny / zasobu zmienia je na `res://…`; pliki `.import` są w repo (UID-y assetów wspólne dla klonów); po zmianie zasobów hosta trzeba ponownie zsynchronizować `_host/` (uwaga: synchronizacja nadpisuje też pliki hosta, które w `_host/` są nowsze — sprawdzać diff, np. `Tiles.png`).
-
-### Optymalizacja ekwipunku członków drużyny uwzględnia tylko ATK i DEF
-- **Stan 2026-10-17: ZROBIONE (MAT / MDF / AGI wg klasy; efekty specjalne przedmiotów nadal pomijane)** — ocena `_equipment_score` w `player_stats.gd`: główny atak klasy (ATK wojownik/łotrzyk, MAT mag/kapłan) w całości, drugi w połowie, DEF i MDF w całości, AGI w połowie; wpisy ekwipunku niosą teraz też `mat_bonus` / `mdf_bonus` / `agi_bonus`. Test lokalny `check_optimize_equipment.gd`.
-- Stan 2026-10-12 (stary opis): `optimize_member_equipment` w `player_stats.gd` liczył prostą sumę ATK + DEF, ignorując inne statystyki.
-- Zgłoszenie 2026-10-12 (`otwarte.md`). Metoda `optimize_member_equipment` (`player_stats.gd`) dobiera sprzęt na podstawie sumy ATK + DEF, pomijając MAT, MDF oraz efekty specjalne przedmiotów.
-- Do zrobienia: wagi statystyk zależne od klasy postaci (np. Mag preferuje MAT/MDF, Wojownik ATK/DEF) lub uwzględnienie ról bojowych.
 
 ### Skalowanie pancerza w późnej fazie gry (wpływ DEF na przeżywalność)
 - **Stan 2026-10-12: DO WERYFIKACJI** — formuła obrażeń w `enemy_stats.gd` liczy cios wroga z ułamka HP (`HIT_FRAC`), co osłabia wpływ pancerza na późniejszych poziomach.
@@ -482,6 +376,16 @@ static func path(local: String) -> String:
   `QuizTheme.COMBAT_FONT_SIZE` na 27 albo 54 (ekran walki ma własną kopię motywu — `combat_theme()`).
 
 ## Rozwiązane (dla kontekstu)
+- **Przeniesione z „Do zrobienia” 2026-10-21 (szczegóły w kontekst/ i commitach):**
+  - Przyspieszenie generowania (#1): zrobione, dalszy zysk wymagałby C# / GDExtension — `plan_przyspieszenie_generowania.md`, `plan_zapis_map.md`.
+  - Generator obiektów F5 (dźwignie, beczki, nakładka podglądu): `kontekst/obiekty.md`, `plan_generator_obiektow.md`.
+  - Tła walki 16:9: kod gotowy (2026-10-06); grafiki generuje user, wpis wygaszony (decyzja usera).
+  - Teammate'owie (4): rekrutacja, skille klasowe, sloty umiejętności, imiona Kael / Eldon / Selene — `kontekst/druzyna_szkic.md`, `sloty_umiejetnosci_szkic.md`.
+  - NPC (6): sklep, nauczyciel, odpoczynek, kowal, rozmowa — `kontekst/npc.md`.
+  - Beczki scale / k (7): CienMgly ae73bfe6.
+  - Tłumaczenia JSON: `I18nService` + słowniki, `kontekst/i18n_calosc_raport.md` (resztki w `zadania_wg_trudnosci.md`).
+  - Optymalizacja ekwipunku członków (MAT / MDF / AGI wg klasy): `_equipment_score` w `player_stats.gd`.
+  - Spójna ścieżka między mapami: CienMgly 833d7c0c, `scripts/maps/map_links.gd` (wejście = przeciwna krawędź do wyjścia poprzedniej, bez zawracania; parytet 42/42).
 - **Ekwipunek, złoto i klucze — prototyp w jaskiniach** (2026-10-12, CienMgly): klasy postaci (`character_class`, `allowed_classes`), złoto (`PlayerStats.gold`, `QuizRpgEnemyGold`), tabele łupu z JSON mapy (`chest_loot`, `enemy_loot`), beczki z wzorem 3 / (2n), klucze na tier skrzyni i wygląd skrzyń wg tieru. Szkic i decyzje: `kontekst/ekwipunek_szkic.md`.
 - **Tłumaczenia JSON (system), statystyki wrogów z poziomu, krzywa HP / SP, log progresji, animacja wyjścia z walki, opcje Ogólne z językiem** (2026-10-11 / 12, CienMgly): szczegóły w `kontekst/otwarte.md`, `poziomy_i_xp.md`, `walka.md`.
 - **Kładki na osobnej warstwie i ciągłość opuszczonej krawędzi (ścieki)** (2026-10-05, CienMgly): kładki
