@@ -253,3 +253,4 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
   wróg działa najwyżej raz na rundę (`_acted_enemies`), drugie `_execute_round` w tej samej rundzie pomijane
   (`_round_running`); oba przypadki wypisują ostrzeżenie `QuizCombat: …` w konsoli — jeśli się powtórzy, szukać go w logu.
 - Zaskoczenie (decyzja usera 2026-10-21): po komunikacie „Zaskoczenie! …” w logu podpowiedź „Enter / Z / klik — dalej”; runda wrogów rusza dopiero po potwierdzeniu (`_wait_notice_confirm` / `confirm_notice`).
+- Przewaga / zaskoczenie (decyzja usera 2026-10-21): jak w FNaFB (RPG Maker VX Ace `rate_preemptive` / `rate_surprise`) — losowo, drużyna o średnim AGI >= wrogów: przewaga 5 %, zaskoczenie 3 %; wolniejsza: 3 % / 5 %; zaskoczenie tylko bez przewagi, bossy bez. Sytuacja na mapie (stożek widzenia, plecy, pościg) już nie wpływa — kod `encounter_situation.gd` usunięty. Wrogowie domyślnie widzą 360°.
