@@ -399,10 +399,13 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
   |---|---|---|---|---|
   | tier 1 | start | 10 (training_sword…) | 1 / 2 / 1 | od razu |
   | tier 2 | mapa 3 | 50 (iron_sword) | 5 / 10 / 5 | `boss:cave_relic` (boss jaskini) |
-  | pośredni A | mapa 4 | 74: tempered_sword, tempered_dagger, oak_staff (ATK 30), iron_mace | 7 / 15 / 7: studded_hood, studded_jerkin, banded_buckler | zadania „Hartowanie” (Brann: 10 poprawnych odpowiedzi) i „Ćwieki z pola walki” (Kastor: 8 wrogów) — oferowane po bossie jaskini |
-  | pośredni B | mapa 5 | 113: guardsman_sword, stiletto, runed_staff (ATK 45), flanged_mace | 11 / 23 / 11: iron_coif, scale_armor, iron_round_shield | „Runy na stali” (Brann: 20 odpowiedzi) i „Łuski” (Kastor: 15 wrogów) — po zadaniach A |
+  | pośredni A | mapa 4 | 74: tempered_sword, tempered_dagger, oak_staff (ATK 30), iron_mace | 7 / 15 / 7: studded_hood, studded_jerkin, banded_buckler | „Lepsza ruda” (Brann: 5 × ruda żelaza) i „Surowe skóry” (Kastor: 5 × surowa skóra) — oferowane po bossie jaskini |
+  | pośredni B | mapa 5 | 113: guardsman_sword, stiletto, runed_staff (ATK 45), flanged_mace | 11 / 23 / 11: iron_coif, scale_armor, iron_round_shield | „Węgiel i stal” (Brann: 300 D na surowce u handlarza) i „Żelazne łuski” (Kastor: 8 × ruda) — po zadaniach A |
   | tier 3 | mapa 6 | 160 (steel_blade) | 16 / 33 / 16 | `boss:sewer` |
 
+  Fabuła zadań (user 2026-10-22): rzemieślnik potrzebuje lepszych materiałów / surowców (nie „przypomina sobie fach” — to
+  zostaje przy głównych tierach po bossie). Materiały: `iron_ore` (wrogowie jaskiń 20–35 %, boss 2–3 szt.; ścieki 12–20 %),
+  `raw_hide` (wrogowie ścieków 30–45 %, boss 2–3), cena 6 D, ikony 16 px w `resources/items/icons/` (zastępcze, moje).
   Ceny: broń 2,5 × ATK, hełm / tarcza 10 × DEF, korpus 7,5 × DEF. Ikony pożyczone z najbliższych przedmiotów (do
   zrobienia własne). Dalsze mapy: ten sam wzór (pośrednie map 3t+1 / 3t+2 na zadania, tier co 3 mapy na bossa).
 - Brakuje pancerza na lv 100 i pośrednich dla kolejnych map — dane do dorobienia (np. Gemini) z tabeli wyżej.

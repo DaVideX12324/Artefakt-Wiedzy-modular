@@ -38,7 +38,7 @@ urządzenia. `has_story_flag` przyjmuje też id pokonanego story-bossa (tier skl
   Po oddaniu pozycja zostaje w menu tylko z `after_lines` (puste = znika).
 - Cele: `ANSWER_CORRECT` (poprawne odpowiedzi od przyjęcia), `DEFEAT_ENEMIES` (id pliku danych wroga, np. `rat_base`,
   prefiks `rat_*` albo pusty = dowolni; liczą się zabici od przyjęcia), `BRING_ITEM` (`item_id`, zabierany),
-  `STORY_FLAG` (np. `boss:sewer`; dać `goal_text`).
+  `STORY_FLAG` (np. `boss:sewer`; dać `goal_text`), `PAY_GOLD` (`goal_count` D, pobierane przy oddaniu).
 - Linie: `{count}`, `{left}`, `{target}`, `{reward}`; klucze tłumaczeń `<klucz>_1`, `_2`… jak w rozmowie.
 - Stan w zapisie: `PlayerStats.quests` (wpis z tytułem, celem i licznikiem startowym — dziennik nie potrzebuje sceny
   NPC) i `PlayerStats.enemy_kills` (`record_kill` z `enemy_base` po wygranej, każdy wróg grupy; `kill_count(target)`).
@@ -48,8 +48,9 @@ urządzenia. `has_story_flag` przyjmuje też id pokonanego story-bossa (tier skl
 - Przykład: Lina (`villager.tscn`) — „Szczury w kanałach”: 5 × `rat_*`, 150 D + 2 mikstury (teksty robocze, do Gemini).
 - Etykieta w menu: „Zadanie: <tytuł>” (pusta `label`). Łańcuch zadań: następne z `required_flag = "quest:<poprzednie>"`,
   poprzednie bez `after_lines` (znika z menu po oddaniu).
-- **Zadania odblokowujące rzemiosło (decyzja usera 2026-10-22: pośrednie na zadanie, główne na bossa):** Brann
-  „Hartowanie” → „Runy na stali”, Kastor „Ćwieki z pola walki” → „Łuski” — tabela w `ekwipunek_szkic.md` sekcja 12.
+- **Zadania o materiały (decyzja usera 2026-10-22: pośrednie na zadanie, główne na bossa; zadanie = rzemieślnik
+  potrzebuje lepszych surowców):** Brann „Lepsza ruda” (ruda żelaza) → „Węgiel i stal” (300 D), Kastor „Surowe skóry” →
+  „Żelazne łuski” (ruda) — tabela w `ekwipunek_szkic.md` sekcja 12. Cel `PAY_GOLD`: dukaty pobierane przy oddaniu.
 
 ## Ceny (`QuizRpgItemData.price`)
 Broń 2,5 × ATK, pancerz / tarcza / hełm 3 × DEF; mikstura 8, eter 10, tonik 15, odtrutka 6, wytrych 20, amulet 60.
