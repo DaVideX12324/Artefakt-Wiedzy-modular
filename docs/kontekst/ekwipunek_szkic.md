@@ -393,6 +393,11 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
   Etapy = budżet sklepu map 3 / 6 / 10 / 15 + 3 %: ATK 50 / 163 / 773 / 5900; ulepszenie u kowala (`QuizRpgNpcUpgrade`,
   `npc.md`) za 5 zabić zwykłego wroga z poziomu odblokowania (500 / 2480 / 16 900 D) po flagach zastępczych `boss:sewer` /
   `boss:forge` / `boss:library`. Bez ceny (nie do kupienia ani sprzedania). Test `check_upgrade`.
+- **Bronie z potencjałem dla pozostałych klas (2026-10-22, tylko dane):** Kieł Mgły (`mist_fang_1…4`, sztylet), Kostur
+  Mgły (`mist_staff_1…4`, MAT 50 / 163 / 773 / 5900, ATK = 0,4 × MAT), Buława Mgły (`mist_mace_1…4`) — skala, złoto i flagi
+  ulepszeń jak Ostrze Mgły; nazwy robocze. **Źródło w grze nieustalone (decyzja usera: na razie tylko dane,** dostępne z
+  dev menu). Propozycja do decyzji: Matka Nietoperzy → kostur, krypta w ściekach → sztylet, skarb sekretnych pokoi ścieków
+  → buława. Ikony: kostury Kyrise (CC BY), sztylet / buława zastępcze (`scout_dagger`, `priest_mace` na wszystkich etapach).
 - **Odblokowanie w sklepach (decyzja usera 2026-10-22): główne tiery na bossa, przedmioty pośrednie na zadanie.**
   Wdrożone dla miasta (kowal Brann, płatnerz Kastor; test `check_shop_tiers`):
 

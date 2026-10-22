@@ -94,8 +94,11 @@ bierze A (nie kafel jaskini).
   (`big_canal_gap` 1; przy ścianie wolno), głównie w pokojach i komnatach (`area_weights`, `room_density`,
   `per_chamber`), zestawy z odstępem liczonym po całym rysunku (jadalnia / magazyn / złom / szafa), krzesła przodem
   do stołu. Stoły 3 / 4 / 5 kratek, najwyżej jeden na pokój (`room_group`); filary wolnostojące z odstępem od mebli.
-- Winiety (`vignettes`): kompozycje z makiet (skład pod licem, stos / kąt skrzyń, beczki) i wzory skupisk skrzyń
-  (`cluster.patterns`, `pattern_chance`), tylko w halach, z wolnym pierścieniem.
+- Winiety (`vignettes`): kompozycje z makiet (skład pod licem, stos / kąt skrzyń, beczki, **zakątek** — skrzynka w kącie
+  N + drobiazg + gruz, 2026-10-22) i wzory skupisk skrzyń (`cluster.patterns`, `pattern_chance`), tylko w halach, z wolnym
+  pierścieniem.
+- Gruz (`debris`, 2026-10-22): luźne skupiska 4–10 drobin (promień 2) przy ścianach i w kątach, gęstość 13 (~750 drobin
+  na 160²; user: „może być tego więcej”; było 7 równo po podłodze, ~390); wraki mają obok 1–3 drobiny (`companions`).
 - Wraki (grupa `wrecks`) to duże obiekty, gęstość 0.15. Połamane skrzynie z Furniture (`debris_src5`) usunięte —
   duplikat wraków z Props. Drobnica (`clutter`: deski, patyki, miedź) bez ograniczeń.
 - Wyłączone: przełączniki na ścianie (`wall_switches`), bloki miedzi (miedziane kwadraty to płyty naciskowe).
@@ -124,8 +127,8 @@ bierze A (nie kafel jaskini).
   (`NavOutlines.rebake_chunks`) — wrogowie przechodzą; bramy otwarte w zapisie od razu przy wczytaniu.
 
 ## Do zrobienia
-- Rury z cieniem; kolejne winiety (wyjście ze schodami między filarami, skrzynia przy ścianie, dzbany / worki przy
-  barierce); schody platform N / E / W (kafle robi user — wtedy role w `platform_tiles`); dziura w licu jako
+- Rury z cieniem; kolejne winiety (dzbany / worki przy barierce — brak kafli w paczce i tagu „przy kanale”; wyjście
+  ze schodami między filarami zastąpione drabiną portalu; skrzynia przy ścianie już przez `context` / `prefer` skrzyni); schody platform N / E / W (kafle robi user — wtedy role w `platform_tiles`); dziura w licu jako
   odpowiednik nisz OUT (user da przezroczystą teksturę).
 - Zdejmowanie obiektów: 250² seed 7 19 (było 56), 160² 0–6.
 - Podpięcie ścieków do gry (scena w `levels/`, szczury w puli wrogów).
