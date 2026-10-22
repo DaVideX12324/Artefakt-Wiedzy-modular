@@ -21,6 +21,7 @@ do wstawienia w dowolną mapę (edytor / LDtk).
 | Sklep | `QuizRpgNpcShop` | `stock` (`QuizRpgShopEntry`: przedmiot, cena, `required_flag`), `can_sell` |
 | Odpoczynek | `QuizRpgNpcInn` | `price` — pełne HP (też nieprzytomni), SP, bez statusów (`PlayerStats.rest_party`) |
 | Nauka | `QuizRpgNpcSkillTeacher` | `lessons` (`QuizRpgSkillLesson`: skill_id, hero_id, złoto, przedmiot-żeton, min. poziom, flaga) |
+| Zadanie (2026-10-22) | `QuizRpgNpcQuest` | `quest_id`, tytuł, cel (`QuizRpgQuestLog.Goal`) + `goal_count` / `goal_target` / własny `goal_text`, nagroda (`reward_gold`, `reward_xp`, `reward_items` id → sztuki), linie: propozycja, w trakcie, oddanie, po oddaniu — niżej „Zadania” |
 | Ulepszanie (kowal, 2026-10-21) | `QuizRpgNpcUpgrade` | dane w przedmiotach: `upgrade_to`, `upgrade_gold`, `upgrade_flag`, `upgrade_item_id` / `_count` (etap = osobny przedmiot); okno `scenes/ui/upgrade_panel.tscn` — broń założona (zostaje założona) i z ekwipunku, powód blokady („nie pamiętam jeszcze…” bez flagi) |
 
 Każda usługa ma `required_flag` (bez flagi nie ma jej w menu). Okna: `scenes/ui/shop_panel.tscn` (Kup / Sprzedaj,
@@ -30,6 +31,21 @@ powód niedostępności). Sprzedaż za połowę ceny, przedmioty bez ceny (klucz
 ## Flagi fabularne
 `LevelStateManager.set_story_flag / has_story_flag / clear_story_flag` — globalne, w zapisie, osobno od paska
 urządzenia. `has_story_flag` przyjmuje też id pokonanego story-bossa (tier sklepu po bossie bez dodatkowego kodu).
+
+## Zadania (2026-10-22)
+- Przebieg: propozycja → „Przyjmujesz zadanie?” (Przyjmuję / Nie teraz) → wpis w dzienniku → rozmowa w trakcie
+  (`{left}`) → oddanie: przedmiot celu zabrany, nagroda, flaga **`quest:<quest_id>`**, toast „Zadanie wykonane”.
+  Po oddaniu pozycja zostaje w menu tylko z `after_lines` (puste = znika).
+- Cele: `ANSWER_CORRECT` (poprawne odpowiedzi od przyjęcia), `DEFEAT_ENEMIES` (id pliku danych wroga, np. `rat_base`,
+  prefiks `rat_*` albo pusty = dowolni; liczą się zabici od przyjęcia), `BRING_ITEM` (`item_id`, zabierany),
+  `STORY_FLAG` (np. `boss:sewer`; dać `goal_text`).
+- Linie: `{count}`, `{left}`, `{target}`, `{reward}`; klucze tłumaczeń `<klucz>_1`, `_2`… jak w rozmowie.
+- Stan w zapisie: `PlayerStats.quests` (wpis z tytułem, celem i licznikiem startowym — dziennik nie potrzebuje sceny
+  NPC) i `PlayerStats.enemy_kills` (`record_kill` z `enemy_base` po wygranej, każdy wróg grupy; `kill_count(target)`).
+- Dziennik: menu pauzy → „Zadania” (`scenes/ui/quest_panel.tscn`, wiersz-wzór `QuestRow0`): najpierw gotowe do
+  oddania (zielone „Gotowe — wróć do: …”), potem w toku z postępem, na końcu ukończone (przygaszone).
+- Świat po zadaniu: `QuizRpgFlagGate` / `required_flag` usług i drzwi z flagą `quest:<id>`.
+- Przykład: Lina (`villager.tscn`) — „Szczury w kanałach”: 5 × `rat_*`, 150 D + 2 mikstury (teksty robocze, do Gemini).
 
 ## Ceny (`QuizRpgItemData.price`)
 Broń 2,5 × ATK, pancerz / tarcza / hełm 3 × DEF; mikstura 8, eter 10, tonik 15, odtrutka 6, wytrych 20, amulet 60.
@@ -44,7 +60,8 @@ okno bez zapisu. Opcja `once`.
 
 ## Testy
 `tests/check_npc_services.gd` (headless, 22 sprawdzenia: sklep, karczma, nauczyciel, flagi w zapisie),
-`tests/shot_npc_ui.gd` (zrzuty z oknem). **Nie przechodzone w grze:** pełna rozmowa z klawiatury w mieście, punkt
+`tests/shot_npc_ui.gd` (zrzuty z oknem), `tests/check_quests.gd` (33 sprawdzenia zadań i dziennika),
+`tests/shot_quest_log.gd` (zrzut dziennika). **Nie przechodzone w grze:** pełna rozmowa z klawiatury w mieście, punkt
 zapisu (bariera po zapisie).
 
 ## Decyzje usera (2026-10-21)
@@ -76,5 +93,5 @@ zapisu (bariera po zapisie).
 - Nie ruszać kluczy `shop.*`, `teacher.*`, `npc.inn.*`, `npc.service.*`, `npc.bye`, `npc.menu_question`.
 
 ## Otwarte
-- Hideout jako wnętrze, zadania NPC. Kowal ma już ulepszanie (wyżej); flagi etapów to zastępcze `boss:sewer` /
+- Hideout jako wnętrze. Zadania: mechanizm jest (wyżej) — do napisania konkretne zadania i teksty (Gemini). Kowal ma już ulepszanie (wyżej); flagi etapów to zastępcze `boss:sewer` /
   `boss:forge` / `boss:library` — do ustawienia, gdy będzie kolejność map.

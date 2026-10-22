@@ -26,5 +26,5 @@ wnętrze poza trasą, bramka flag.
 
 ## Zostało (logika)
 - **Decyzja usera 2026-10-22: wnętrza budynków na razie odpadają (za duża robota) — NPC stoją przed domami.** Klocki drzwi / szablonu wnętrza zostają na później.
-- Zadania NPC (flagi `quest:*` + rozmowy z `set_flag` / `required_flag` — mechanizm jest).
+- ~~Zadania NPC~~ — zrobione 2026-10-22 (`QuizRpgNpcQuest`, dziennik w menu pauzy; opis w `kontekst/npc.md` „Zadania”).
 - Prawdziwe flagi etapów sklepów / kowala (dziś zastępcze `boss:*`), punkt zapisu przed ściekami (opcjonalnie).
