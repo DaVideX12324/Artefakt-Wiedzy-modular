@@ -20,6 +20,14 @@ Decyzje usera 2026-10-22: trasa **jaskinia → miasto → ścieki**; miastem w g
 - Stare zapisy: jaskinia z innym wyjściem wygeneruje się na nowo (inny klucz mapy) — tylko zapisy deweloperskie.
 - Obszary przejść w `town.tscn` stoją wstępnie przy końcach ścieżki (S: 869, 1260; N: 551, 150) — do przesunięcia w edytorze.
 
+## Kolizje ścian (2026-10-22)
+`Wall_Tiles` w `pixel_crawler_free.tres` ma kolizje jak ściany jaskiń (`caves.tres`, zwykły zestaw, nie decorated): bloki płaskowyżu
+(wypełnione kolumny 0–17 z jaskiń 0–5, obrysy 18–35 z jaskiń 6–11) rzędy 0–5 -> 0–5, 8 -> 6, 9 -> 7, środek lica (6–7) pełny,
+skrajne kolumny i reszta atlasu (woda, cegły, doły) wg pikseli. Wierzch płaskowyżu (np. 2:3) bez kolizji jak w jaskiniach — w mieście
+linie skał łączone tym kaflem mają dziury; user poprawia kształty ręcznie. Kolizje wody (`Water_tiles`) — user.
+Testy: `tests/check_town_walkable.gd` (BFS kształtem gracza Cave-Town -> Sewer-Town; liczba osiągalnych punktów rośnie przy dziurach
+w obrysie), zrzut `tests/shot_town_collisions.gd`.
+
 ## Test
 `tests/check_town_logic.gd` (20 sprawdzeń): kierunki trasy, przejścia i powroty przy markerach, drzwi (zamknięte / otwarte),
 wnętrze poza trasą, bramka flag.
