@@ -388,7 +388,8 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
 
 - Łup jaskiń (mapa 1) tylko do tieru 2 = moc mapy 3 (reguła „mapa + 2”); nisze i sekretne pokoje poprawione w
   `caves.json` (wcześniej tier 3).
-- **Pierwsza broń z potencjałem (2026-10-21): Ostrze Mgły** (`mist_blade_1`…`_4`, miecz) — relikwia krypty w jaskiniach.
+- **Pierwsza broń z potencjałem (2026-10-21): Ostrze Mgły** (`mist_blade_1`…`_4`, miecz) — w skrzyni tieru 3 w krypcie
+  jaskiń (klucz dropi boss krypty, `obiekty.md`).
   Etapy = budżet sklepu map 3 / 6 / 10 / 15 + 3 %: ATK 50 / 163 / 773 / 5900; ulepszenie u kowala (`QuizRpgNpcUpgrade`,
   `npc.md`) za 5 zabić zwykłego wroga z poziomu odblokowania (500 / 2480 / 16 900 D) po flagach zastępczych `boss:sewer` /
   `boss:forge` / `boss:library`. Bez ceny (nie do kupienia ani sprzedania). Test `check_upgrade`.
@@ -398,8 +399,8 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
   | Stopień | budżet | broń (miecz / sztylet / kostur MAT / buława) | głowa / korpus / tarcza | odblokowanie |
   |---|---|---|---|---|
   | tier 1 | start | 10 (training_sword…) | 1 / 2 / 1 | od razu |
-  | tier 2 | mapa 3 | 50 (iron_sword) | 5 / 10 / 5 | `boss:cave_relic` (boss jaskini) |
-  | pośredni A | mapa 4 | 74: tempered_sword, tempered_dagger, oak_staff (ATK 30), iron_mace | 7 / 15 / 7: studded_hood, studded_jerkin, banded_buckler | „Lepsza ruda” (Brann: 5 × ruda żelaza) i „Surowe skóry” (Kastor: 5 × surowa skóra) — oferowane po bossie jaskini |
+  | tier 2 | mapa 3 | 50 (iron_sword) | 5 / 10 / 5 | od razu (jaskinia nie ma bossa fabularnego; boss krypty jest poza fabułą) |
+  | pośredni A | mapa 4 | 74: tempered_sword, tempered_dagger, oak_staff (ATK 30), iron_mace | 7 / 15 / 7: studded_hood, studded_jerkin, banded_buckler | „Lepsza ruda” (Brann: 5 × ruda żelaza) i „Surowe skóry” (Kastor: 5 × surowa skóra) — od razu |
   | pośredni B | mapa 5 | 113: guardsman_sword, stiletto, runed_staff (ATK 45), flanged_mace | 11 / 23 / 11: iron_coif, scale_armor, iron_round_shield | „Węgiel i stal” (Brann: 300 D na surowce u handlarza) i „Żelazne łuski” (Kastor: 8 × ruda) — po zadaniach A |
   | tier 3 | mapa 6 | 160 (steel_blade) | 16 / 33 / 16 | `boss:sewer` |
 

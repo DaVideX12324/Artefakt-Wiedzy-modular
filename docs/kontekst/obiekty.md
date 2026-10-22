@@ -101,16 +101,18 @@ pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
     przejście jednej niszy (z hash(seed mapy), spośród nisz dalszych od wejścia niż mediana), reszta losuje jak zwykle.
   - Gdy plan kafli nie dał żadnej niszy out, `CaveGenerator.plan_cave_tiles` liczy go jeszcze raz z tym samym stanem RNG
     i `ctx.force_out_niche` — nisza w pierwszym miejscu, gdzie może stanąć (reszta mapy bez zmian).
-  - Nakładka `relic_room`: jak `secret_room`, ale `"rooms": [2, 3]`, `exit_enemy_tier: 0`; `treasure` z `"kind": "relic"`
-    (relic_item.tscn: przedmiot na ziemi ze złotą poświatą, `item_id` — **na razie `steel_blade` jako zastępstwo**),
-    `"guard_tier": 4` — boss na drodze od wejścia, 2 kratki przed ostatnim pokojem (`TreasurePlanner._guard_cell`).
-  - Relikwia ustawia flagę fabularną (`flag`, jaskinie `relic.cave`) — podniesiona nie wraca też po rerollu seeda zapisu.
-    Boss krypty: `"boss": {"story_id": "cave_relic", "counts_toward_device": false}` — nie liczy się do urządzenia.
+  - Nakładka `relic_room`: jak `secret_room`, ale `"rooms": [2, 3]`, `exit_enemy_tier: 0`; `"guard_tier": 4` — boss na
+    drodze od wejścia, 2 kratki przed ostatnim pokojem (`TreasurePlanner._guard_cell`).
+  - **Decyzja usera 2026-10-22: boss krypty jest niezależny od fabuły — tylko dropi gwarantowany klucz wysokiego tieru
+    do skrzyni z sekretnym przedmiotem.** Skarb = skrzynia tieru 3 (`chest_loot` `caves_relic_chest.tres`: Ostrze Mgły),
+    `"flag": "relic.cave"` (otwarta skrzynia nie wraca po rerollu seeda — `Chest.story_flag`), `"prefer_key": true`
+    (klucz przed wytrychem, bez quizu; wytrych nadal działa). Boss: `"boss": {"story": false, "counts_toward_device":
+    false, "loot": "resources/loot/caves_relic_boss.tres"}` — bez flagi `boss:<id>` (`enemy_base.story_boss`), łup =
+    klucz tieru 3 (szansa 1). Relikwia na ziemi (`relic_item.tscn`) usunięta. Test `check_relic_chest`.
   - Sekretne pokoje i krypta nie mają własnych przejść (`relic_scene: ""`, waga `secret_room` 0 w nakładkach).
 - Testy: `check_niche_content` (4 mapy: jedna zawartość na niszę, czysto przed niszą, proporcje, powtarzalność, jedna
   nisza relikwii, wymuszona nisza przy szansie 0), `check_secret_room` (cele i markery przejść, mapy sekretu i krypty:
-  rozmiar, pokoje, bez wyjścia, skarb / relikwia osiągalne, boss przed relikwią, powrót), `check_ground_item` (też flaga
-  relikwii), rendery `render_niche_content` / `render_secret_room` (z oknem), diagnostyka `diag_out_niches`.
+  rozmiar, pokoje, bez wyjścia, skarb osiągalny, boss przed skarbem krypty, łup bossa i skrzyni, powrót), `check_ground_item`, rendery `render_niche_content` / `render_secret_room` (z oknem), diagnostyka `diag_out_niches`.
 - **Skrzynie specjalne w rzadkich pokojach (2026-10-21, pomysł usera 2026-10-12):** `TreasurePlanner.plan_rare`,
   sekcja `rare_rooms` w `caves.json` — 1–2 na mapę (`count`, z seeda), w pokojach najdalej od głównej drogi wejście ->
   wyjście (zboczenie ≥ `min_detour` 12 kratek po podłodze), bez pokoju wejścia i wyjścia, blisko środka pokoju na otwartej

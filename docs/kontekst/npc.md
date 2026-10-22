@@ -99,4 +99,4 @@ zapisu (bariera po zapisie).
 
 ## Otwarte
 - Hideout jako wnętrze. Zadania: mechanizm jest (wyżej) — teksty robocze do poprawy przez Gemini. Kowal ma już ulepszanie (wyżej); flagi
-  etapów: tier 2 `boss:cave_relic`, tier 3 `boss:sewer`, dalej zastępcze `boss:forge` / `boss:library` — do ustawienia, gdy będzie kolejność map.
+  etapów: tier 2 od razu, tier 3 `boss:sewer`, dalej zastępcze `boss:forge` / `boss:library` — do ustawienia, gdy będzie kolejność map.
