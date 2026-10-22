@@ -393,6 +393,12 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
   Etapy = budżet sklepu map 3 / 6 / 10 / 15 + 3 %: ATK 50 / 163 / 773 / 5900; ulepszenie u kowala (`QuizRpgNpcUpgrade`,
   `npc.md`) za 5 zabić zwykłego wroga z poziomu odblokowania (500 / 2480 / 16 900 D) po flagach zastępczych `boss:sewer` /
   `boss:forge` / `boss:library`. Bez ceny (nie do kupienia ani sprzedania). Test `check_upgrade`.
+- **⚠ TYMCZASOWO (decyzja usera 2026-10-22, PRZYWRÓCIĆ przy robieniu całej gry):** etap 1 → 2 wszystkich czterech broni
+  z potencjałem (`mist_blade_1`, `mist_fang_1`, `mist_staff_1`, `mist_mace_1`) odblokowuje `boss:cave_return` (Matka
+  Nietoperzy) zamiast `boss:sewer` i wymaga materiału `bat_matriarch_fang` („Kieł Matki Nietoperzy”, 1 szt., pewny drop
+  Matki: `resources/loot/caves_return_boss.tres`, `loot_data` w `bat_matriarch.tscn`). Powód: `boss:sewer` kończy grę,
+  więc w zakresie inżynierki nic nie dało się ulepszyć. Przywrócenie: `upgrade_flag = "boss:sewer"` w etapach 1, materiał
+  przenieść na bossa ścieków (albo zostawić jako dodatkowy wymóg), testy `check_upgrade` / `check_return_boss`.
 - **Bronie z potencjałem dla pozostałych klas (2026-10-22, tylko dane):** Kieł Mgły (`mist_fang_1…4`, sztylet), Kostur
   Mgły (`mist_staff_1…4`, MAT 50 / 163 / 773 / 5900, ATK = 0,4 × MAT), Buława Mgły (`mist_mace_1…4`) — skala, złoto i flagi
   ulepszeń jak Ostrze Mgły; nazwy robocze. **Źródło w grze nieustalone (decyzja usera: na razie tylko dane,** dostępne z
