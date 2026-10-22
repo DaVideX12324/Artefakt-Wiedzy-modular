@@ -399,8 +399,8 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
   | Stopień | budżet | broń (miecz / sztylet / kostur MAT / buława) | głowa / korpus / tarcza | odblokowanie |
   |---|---|---|---|---|
   | tier 1 | start | 10 (training_sword…) | 1 / 2 / 1 | od razu |
-  | tier 2 | mapa 3 | 50 (iron_sword) | 5 / 10 / 5 | `boss:cave` — Stary Grzyb w pokoju wyjścia z jaskiń (boss krypty jest poza fabułą) |
-  | pośredni A | mapa 4 | 74: tempered_sword, tempered_dagger, oak_staff (ATK 30), iron_mace | 7 / 15 / 7: studded_hood, studded_jerkin, banded_buckler | „Lepsza ruda” (Brann: 5 × ruda żelaza) i „Surowe skóry” (Kastor: 5 × surowa skóra) — po `boss:cave` |
+  | tier 2 | mapa 3 | 50 (iron_sword) | 5 / 10 / 5 | `boss:cave_return` — boss powrotu do jaskiń (Matka Nietoperzy, `obiekty.md`); Stary Grzyb i boss krypty nic nie odblokowują |
+  | pośredni A | mapa 4 | 74: tempered_sword, tempered_dagger, oak_staff (ATK 30), iron_mace | 7 / 15 / 7: studded_hood, studded_jerkin, banded_buckler | „Lepsza ruda” (Brann: 5 × ruda żelaza) i „Surowe skóry” (Kastor: 5 × surowa skóra) — po `boss:cave_return` |
   | pośredni B | mapa 5 | 113: guardsman_sword, stiletto, runed_staff (ATK 45), flanged_mace | 11 / 23 / 11: iron_coif, scale_armor, iron_round_shield | „Węgiel i stal” (Brann: 300 D na surowce u handlarza) i „Żelazne łuski” (Kastor: 8 × ruda) — po zadaniach A |
   | tier 3 | mapa 6 | 160 (steel_blade) | 16 / 33 / 16 | `boss:sewer` |
 

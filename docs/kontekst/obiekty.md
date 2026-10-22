@@ -113,6 +113,14 @@ pole `spawns` (spawny zsuwane z przeszkód) — baseline zaktualizowany.
 - Testy: `check_niche_content` (4 mapy: jedna zawartość na niszę, czysto przed niszą, proporcje, powtarzalność, jedna
   nisza relikwii, wymuszona nisza przy szansie 0), `check_secret_room` (cele i markery przejść, mapy sekretu i krypty:
   rozmiar, pokoje, bez wyjścia, skarb osiągalny, boss przed skarbem krypty, łup bossa i skrzyni, powrót), `check_ground_item`, rendery `render_niche_content` / `render_secret_room` (z oknem), diagnostyka `diag_out_niches`.
+- **Boss powrotu do jaskiń (pomysł usera 2026-10-22):** na pierwszym przejściu jest tylko boss przed wyjściem (Stary
+  Grzyb, `boss:cave` — nic nie odblokowuje, bo do miasta i tak trzeba go pokonać). Po wejściu do miasta (`QuizRpgHandmadeLevel`
+  ustawia `visited:<scena>`, tu `visited:town`) i powrocie w jaskini pojawia się nowy boss w losowym pokoju — sekcja
+  `"return_boss"` w `caves.json`: `scene` (Matka Nietoperzy, `bat_matriarch.tscn`, nazwa robocza), `story_id`
+  (`cave_return` → flaga `boss:cave_return`: żelazo i zadania A w mieście), `requires_flag` (`visited:town`), `level` (14).
+  `TreasurePlanner.plan_return_boss` planuje go zawsze (mapa z pliku / z wyprzedzeniem ta sama; pokój z hash(seed mapy),
+  bez pokoi wejścia i wyjścia, ≥ 2 kratki od wrogów i skrzyń), wróg bez flagi znika w `_ready` (`enemy_base.requires_flag`).
+  Sekretne pokoje i krypta: `"return_boss": {"scene": ""}`. Test `check_return_boss`.
 - **Skrzynie specjalne w rzadkich pokojach (2026-10-21, pomysł usera 2026-10-12):** `TreasurePlanner.plan_rare`,
   sekcja `rare_rooms` w `caves.json` — 1–2 na mapę (`count`, z seeda), w pokojach najdalej od głównej drogi wejście ->
   wyjście (zboczenie ≥ `min_detour` 12 kratek po podłodze), bez pokoju wejścia i wyjścia, blisko środka pokoju na otwartej
