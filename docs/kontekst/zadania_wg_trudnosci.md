@@ -10,7 +10,7 @@
 1. **U** — sprawdzić w grze: poprawki ekranu śmierci i trucizny, skrzynie i klucze na tier, beczki 3/(2n), złoto, koszt walki, zakładkę „Ogólne”, a po ostatnich zmianach: scroll drużyny w pauzie, wczytywanie map z dysku, grę po angielsku w oknie.
 2. **U** — skomitować `Floor_Full.xcf` (submoduł, potem wskaźnik w hoście). `miasto.ldtk` niepotrzebne — LDtk pominięty (2026-10-22).
 3. ✅ **U** — `world_build` to wersja 32x, nie nada się: przywrócony do `assets/_nieuzywane/pixel_crawler/environments/world_build/` (2026-10-22, assets `1c92671`).
-4. **S** — usunąć nieśledzoną kopię `pixel_crawler_free.tres` po sprawdzeniu referencji.
+4. ✅ **S** — nieśledzona kopia `pixel_crawler_free.tres` już nie istnieje (sprawdzone 2026-10-22).
 
 ## 2. Godziny
 
@@ -20,7 +20,7 @@
 8. ✅ **S** — `optimize_member_equipment` z MAT/MDF (mag/kapłan → MAT).
 10. ✅ **S** — scroll drużyny > 4 w pauzie. Szyk w Status: zostaje osobno (decyzja usera). Okno pytania: już zgodne z życzeniem (najpierw rozszerza się na maks., potem rośnie w górę; może zasłaniać UI).
 11. ✅ **S** — stare FAIL-e testów naprawione (`check_combat_lists`, `check_start_safety`, `check_pause_lists`).
-12. **U/S** — ikony i tabela mikstur w tierach.
+12. ✅ **U/S** — tabela mikstur w tierach (2026-10-21) i ikony wg rozmiaru (2026-10-22: Kyrise 16x16, CC BY 4.0 — mała / duża / wielka, czerwone HP, niebieskie SP; `resources/items/icons/potions/CREDITS.md`). Tier tylko w nazwie.
 
 ## 3. Pół dnia
 
