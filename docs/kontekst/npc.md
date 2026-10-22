@@ -46,6 +46,10 @@ urządzenia. `has_story_flag` przyjmuje też id pokonanego story-bossa (tier skl
   oddania (zielone „Gotowe — wróć do: …”), potem w toku z postępem, na końcu ukończone (przygaszone).
 - Świat po zadaniu: `QuizRpgFlagGate` / `required_flag` usług i drzwi z flagą `quest:<id>`.
 - Przykład: Lina (`villager.tscn`) — „Szczury w kanałach”: 5 × `rat_*`, 150 D + 2 mikstury (teksty robocze, do Gemini).
+- Etykieta w menu: „Zadanie: <tytuł>” (pusta `label`). Łańcuch zadań: następne z `required_flag = "quest:<poprzednie>"`,
+  poprzednie bez `after_lines` (znika z menu po oddaniu).
+- **Zadania odblokowujące rzemiosło (decyzja usera 2026-10-22: pośrednie na zadanie, główne na bossa):** Brann
+  „Hartowanie” → „Runy na stali”, Kastor „Ćwieki z pola walki” → „Łuski” — tabela w `ekwipunek_szkic.md` sekcja 12.
 
 ## Ceny (`QuizRpgItemData.price`)
 Broń 2,5 × ATK, pancerz / tarcza / hełm 3 × DEF; mikstura 8, eter 10, tonik 15, odtrutka 6, wytrych 20, amulet 60.
@@ -93,5 +97,5 @@ zapisu (bariera po zapisie).
 - Nie ruszać kluczy `shop.*`, `teacher.*`, `npc.inn.*`, `npc.service.*`, `npc.bye`, `npc.menu_question`.
 
 ## Otwarte
-- Hideout jako wnętrze. Zadania: mechanizm jest (wyżej) — do napisania konkretne zadania i teksty (Gemini). Kowal ma już ulepszanie (wyżej); flagi etapów to zastępcze `boss:sewer` /
-  `boss:forge` / `boss:library` — do ustawienia, gdy będzie kolejność map.
+- Hideout jako wnętrze. Zadania: mechanizm jest (wyżej) — teksty robocze do poprawy przez Gemini. Kowal ma już ulepszanie (wyżej); flagi
+  etapów: tier 2 `boss:cave_relic`, tier 3 `boss:sewer`, dalej zastępcze `boss:forge` / `boss:library` — do ustawienia, gdy będzie kolejność map.

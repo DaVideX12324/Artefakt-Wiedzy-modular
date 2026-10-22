@@ -392,7 +392,20 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
   Etapy = budżet sklepu map 3 / 6 / 10 / 15 + 3 %: ATK 50 / 163 / 773 / 5900; ulepszenie u kowala (`QuizRpgNpcUpgrade`,
   `npc.md`) za 5 zabić zwykłego wroga z poziomu odblokowania (500 / 2480 / 16 900 D) po flagach zastępczych `boss:sewer` /
   `boss:forge` / `boss:library`. Bez ceny (nie do kupienia ani sprzedania). Test `check_upgrade`.
-- Brakuje przedmiotów pośrednich (każda mapa ×1,2–1,3) i pancerza na lv 100 — dane do dorobienia (np. Gemini) z tabeli wyżej.
+- **Odblokowanie w sklepach (decyzja usera 2026-10-22): główne tiery na bossa, przedmioty pośrednie na zadanie.**
+  Wdrożone dla miasta (kowal Brann, płatnerz Kastor; test `check_shop_tiers`):
+
+  | Stopień | budżet | broń (miecz / sztylet / kostur MAT / buława) | głowa / korpus / tarcza | odblokowanie |
+  |---|---|---|---|---|
+  | tier 1 | start | 10 (training_sword…) | 1 / 2 / 1 | od razu |
+  | tier 2 | mapa 3 | 50 (iron_sword) | 5 / 10 / 5 | `boss:cave_relic` (boss jaskini) |
+  | pośredni A | mapa 4 | 74: tempered_sword, tempered_dagger, oak_staff (ATK 30), iron_mace | 7 / 15 / 7: studded_hood, studded_jerkin, banded_buckler | zadania „Hartowanie” (Brann: 10 poprawnych odpowiedzi) i „Ćwieki z pola walki” (Kastor: 8 wrogów) — oferowane po bossie jaskini |
+  | pośredni B | mapa 5 | 113: guardsman_sword, stiletto, runed_staff (ATK 45), flanged_mace | 11 / 23 / 11: iron_coif, scale_armor, iron_round_shield | „Runy na stali” (Brann: 20 odpowiedzi) i „Łuski” (Kastor: 15 wrogów) — po zadaniach A |
+  | tier 3 | mapa 6 | 160 (steel_blade) | 16 / 33 / 16 | `boss:sewer` |
+
+  Ceny: broń 2,5 × ATK, hełm / tarcza 10 × DEF, korpus 7,5 × DEF. Ikony pożyczone z najbliższych przedmiotów (do
+  zrobienia własne). Dalsze mapy: ten sam wzór (pośrednie map 3t+1 / 3t+2 na zadania, tier co 3 mapy na bossa).
+- Brakuje pancerza na lv 100 i pośrednich dla kolejnych map — dane do dorobienia (np. Gemini) z tabeli wyżej.
 - Kowal w mieście: tier 3 po `boss:sewer` (flagi zastępcze) — przestroić z tierami map, gdy powstaną sklepy.
 - **Tiery mikstur i eterów (wdrożone 2026-10-21):** tier t = mapy 3t−2…3t (jak sprzęt), rozmiary mała / duża / wielka
   ≈ 15 / 35 / 60 % HP lub SP końca mapy 3t−2 (lv 9 / 28 / 48 / 67 / 87); `potion` (100 HP) i `ether` (40 SP) = tier 1
