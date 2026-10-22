@@ -405,7 +405,7 @@ Końce map (bohater wzorcowy ze sprzętem ze sklepu; `tests/diag_stat_scale.gd`)
 
   Fabuła zadań (user 2026-10-22): rzemieślnik potrzebuje lepszych materiałów / surowców (nie „przypomina sobie fach” — to
   zostaje przy głównych tierach po bossie). Materiały: `iron_ore` (wrogowie jaskiń 20–35 %, boss 2–3 szt.; ścieki 12–20 %),
-  `raw_hide` (wrogowie ścieków 30–45 %, boss 2–3), cena 6 D, ikony 16 px w `resources/items/icons/` (zastępcze, moje).
+  `raw_hide` (wrogowie ścieków 30–45 %, boss 2–3), cena 20 / 16 D (sprzedaż 10 / 8 D ≈ pół złota z wroga mapy 1), ikony 16 px w `resources/items/icons/` (zastępcze, moje).
   Ceny: broń 2,5 × ATK, hełm / tarcza 10 × DEF, korpus 7,5 × DEF. Ikony pożyczone z najbliższych przedmiotów (do
   zrobienia własne). Dalsze mapy: ten sam wzór (pośrednie map 3t+1 / 3t+2 na zadania, tier co 3 mapy na bossa).
 - Brakuje pancerza na lv 100 i pośrednich dla kolejnych map — dane do dorobienia (np. Gemini) z tabeli wyżej.
