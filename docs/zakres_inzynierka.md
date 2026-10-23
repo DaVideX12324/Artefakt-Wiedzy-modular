@@ -15,7 +15,7 @@ przetestował (ewaluacja z użytkownikami). Nie ocenia się ilości treści gry.
 | Poziom | Pozycja |
 |---|---|
 | **Musi** | Zamknięta pętla Cienia Mgły: **miasto-hub** z podstawowymi NPC (sklep, nauczyciel umiejętności w Hideout, zapis/odpoczynek, jeden mieszkaniec z dialogiem) |
-| **Musi** | Pełna ścieżka: tutorial → jaskinia → miasto → ścieki, z jednym bossem i **krótkim zakończeniem** (bez rozgałęzień) |
+| **Musi** | Pełna ścieżka: tutorial → jaskinia → miasto → ścieki, **kończąca się na bossie ścieków** (**[U] 2026-10-23**: to koniec Cienia Mgły w zakresie inżynierki; krótkie zakończenie bez rozgałęzień po pokonaniu bossa) |
 | **Musi** | Edytor pytań i quizy działające w całej ścieżce (5 typów pytań, własne zestawy) |
 | **Musi** | **BitBomber** jako drugi moduł dowodzący modularności: kontrakt host↔moduł w obie strony (konfiguracja sesji do modułu, wynik z modułu), stabilne embedded i standalone, podstawowe mapy i tekstury |
 | **Musi** | Testy i pomiary (parytet generatora, profil generowania), dokumentacja architektury, ewaluacja z użytkownikami, tekst pracy |

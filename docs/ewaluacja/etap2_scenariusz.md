@@ -21,7 +21,8 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 ## Zadania
 
-1. **Cień Mgły (ok. 15 min).** Uruchom „Cień Mgły”, zacznij nową grę i zagraj `[do końca samouczka / do pierwszej walki / do miasta]`.
+1. **Cień Mgły (ok. 15 min).** Uruchom „Cień Mgły”, zacznij nową grę i zagraj `[do miasta / do bossa ścieków — ustalić po próbie czasowej]`. Pełna ścieżka kończy się na bossie ścieków;
+   tester nie musi go pokonać.
    Wejdź w walkę i odpowiedz na pytanie quizowe (jeśli możesz, z własnego zestawu z etapu 1).
 2. **Zapis (ok. 1 min).** Zapisz grę w slocie, wyjdź do menu i wczytaj zapis.
 
