@@ -40,6 +40,33 @@ signal exit_requested
 exit_requested.emit()
 ```
 
+## Sesja: konfiguracja z hosta i wynik
+
+Host moze uruchomic modul z gotowymi ustawieniami sesji (`ModuleHost.start_module(manifest, parent, session_config)`,
+w `main.gd` drugi argument `_start_module`). Modul czyta je w `embedded_start`:
+
+```gdscript
+var config: Dictionary = host_api.get_session_config()   # {} = zwykle menu modulu
+```
+
+Klucze ustala modul (BitBomber: README modulu, sekcja „Sesja z hosta”). Na koniec sesji modul oddaje wynik:
+
+```gdscript
+host_api.finish_session({
+	"completed": true,
+	"winner": {"id": 1, "name": "Gracz 1", "is_bot": false},
+	"players": [...],                       # per gracz: wygrane, odpowiedzi
+	"answers": {"correct": 4, "wrong": 1},
+	"duration_s": 312.5,
+	"summary": "Gracz 1 wygral · 3 rundy",  # przetlumaczony tekst do menu hosta
+})
+```
+
+`ModuleHost` dopisuje `module_id` i `finished_at` (czas uniksowy), zapisuje wpis w `SessionResults`
+(`user://artefakt_wiedzy_sessions.json`, ostatnie 200) i emituje `module_session_finished(module_id, result)`.
+Menu hosta pokazuje pod przyciskiem modulu „Ostatnio: <summary>”. Odczyt: `SessionResults.get_history(module_id)`,
+`SessionResults.get_last(module_id)`; testy podmieniaja `SessionResults.save_path`.
+
 ## Sceny embedded i standalone
 
 Godot nie ma aliasow dla `res://`, a `.tscn` przechowuje sciezki wzgledem aktywnego `project.godot`. Ten sam kod dziala wiec w dwoch ukladach:

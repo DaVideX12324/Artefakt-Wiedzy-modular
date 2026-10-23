@@ -80,10 +80,15 @@ func _build_module_button(manifest: Dictionary) -> Button:
 func _module_button_text(manifest: Dictionary) -> String:
 	var unknown_name: String = I18nService.t("host.menu.unknown_module") if I18nService else "Unknown"
 	var title := str(manifest.get("name", manifest.get("id", unknown_name)))
+	var lines: Array[String] = [title]
 	var description := str(manifest.get("description", ""))
-	if description == "":
-		return title
-	return "%s\n%s" % [title, description]
+	if description != "":
+		lines.append(description)
+	# Ostatni wynik sesji (SessionResults) — tekst „summary” przygotowany przez moduł.
+	var summary := str(SessionResults.get_last(str(manifest.get("id", ""))).get("summary", ""))
+	if summary != "":
+		lines.append(I18nService.tf("host.menu.last_session", {"summary": summary}, "Ostatnio: {summary}"))
+	return "\n".join(lines)
 
 
 func _on_scale_changed(_scale: float) -> void:
