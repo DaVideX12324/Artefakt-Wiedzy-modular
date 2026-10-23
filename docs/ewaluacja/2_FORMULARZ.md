@@ -2,7 +2,7 @@
 
 > Szkic. Miejsca w `[nawiasach]` do uzupełnienia.
 
-**Wypełnij dopiero PO zagraniu.** Zajmie około 5 minut. Jeśli nie umiesz odpowiedzieć — napisz **„nie wiem”** albo
+**Wypełnij dopiero PO zagraniu.** Zajmie około 5–7 minut. Jeśli nie umiesz odpowiedzieć — napisz **„nie wiem”** albo
 **„nie zauważyłem”**. To pełnoprawna odpowiedź; wymyślona odpowiedź szkodzi. Przy skali **1–5** pogrub swoją liczbę.
 
 ---
@@ -72,9 +72,22 @@ Dlaczego? >
 
 ---
 
+## D+. BitBomber
+
+**D7. Czy rozumiałeś zasady (bomby, skrzynie, power-upy) bez tłumaczenia?** `1` `2` `3` `4` `5`
+
+**D8. Czy quiz między rundami pasował do gry?**
+- [ ] tak, fajny dodatek  - [ ] obojętny  - [ ] psuł tempo gry  - [ ] nie trafiłem na quiz
+
+**D9. Czy arena i boty były w porządku?** (za prosta / w sam raz / za trudna; czy mapy się nudziły) >
+
+**D10. Czy powrót do menu głównego hosta działał tak, jak się spodziewałeś?** >
+
+---
+
 ## E. Walka i trudność
 
-**E1. Czy walka była za trudna, za łatwa, czy w sam raz?** >
+**E1. Czy walka w Cieniu Mgły była za trudna, za łatwa, czy w sam raz?** >
 
 **E2. Czy był moment, w którym zrobiło się nagle za trudno albo nudno?** >
 
