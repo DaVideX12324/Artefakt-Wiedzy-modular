@@ -1,6 +1,6 @@
-# Artefakt Wiedzy — formularz po teście
+# Artefakt Wiedzy, etap 1 — formularz po teście
 
-> Szkic. Miejsca w `[nawiasach]` do uzupełnienia.
+> Szkic (etap 1). Miejsca w `[nawiasach]` do uzupełnienia.
 
 **Wypełnij dopiero PO zagraniu.** Zajmie około 5–7 minut. Jeśli nie umiesz odpowiedzieć — napisz **„nie wiem”** albo
 **„nie zauważyłem”**. To pełnoprawna odpowiedź; wymyślona odpowiedź szkodzi. Przy skali **1–5** pogrub swoją liczbę.
@@ -33,8 +33,6 @@ Dla każdego: udało się bez pomocy / udało się z trudem / nie udało się.
 
 **B1b. Włączenie własnego zestawu w Opcjach.** >
 
-**B2. Dotarcie w Cieniu Mgły do walki z pytaniem.** >
-
 **B3. Uruchomienie BitBombera z menu głównego.** >
 
 Jeśli „z trudem” lub „nie”: **co dokładnie sprawiło problem?** >
@@ -54,21 +52,13 @@ Dlaczego? >
 
 ---
 
-## D. Pytania quizowe i nauka
-
-**D1. Czy pytania w walce były zrozumiałe?** `1` `2` `3` `4` `5`
-
-**D2. Czy trudność pytań pasowała do ciebie?**
-- [ ] za łatwe  - [ ] w sam raz  - [ ] za trudne  - [ ] różnie
-
-**D3. Czy pytanie w trakcie walki było:**
-- [ ] ciekawym elementem  - [ ] obojętne  - [ ] irytującym przerywnikiem
-
-**D4. Czy po wyjaśnieniu odpowiedzi czegoś się dowiedziałeś lub przypomniałeś?** >
+## D. Edytor pytań
 
 **D5. Czy edytor pytań był zrozumiały?** `1` `2` `3` `4` `5` — co było niejasne? >
 
 **D6. Czy uczyłbyś się z własnych zestawów w takiej grze (lub dał je uczniom)?** >
+
+---
 
 ---
 
@@ -82,14 +72,6 @@ Dlaczego? >
 **D9. Czy arena i boty były w porządku?** (za prosta / w sam raz / za trudna; czy mapy się nudziły) >
 
 **D10. Czy powrót do menu głównego hosta działał tak, jak się spodziewałeś?** >
-
----
-
-## E. Walka i trudność
-
-**E1. Czy walka w Cieniu Mgły była za trudna, za łatwa, czy w sam raz?** >
-
-**E2. Czy był moment, w którym zrobiło się nagle za trudno albo nudno?** >
 
 ---
 
@@ -108,8 +90,8 @@ Dlaczego? >
 
 ## G. Ocena użyteczności (SUS)
 
-Skala dla każdego zdania: 1 = zdecydowanie się nie zgadzam, 5 = zdecydowanie się zgadzam. Ocenę dotyczy całej platformy
-(menu główne, edytor pytań, gry).
+Skala dla każdego zdania: 1 = zdecydowanie się nie zgadzam, 5 = zdecydowanie się zgadzam. Ocena dotyczy całej platformy
+(menu główne, edytor pytań, BitBomber).
 
 | | 1 | 2 | 3 | 4 | 5 |
 |---|---|---|---|---|---|

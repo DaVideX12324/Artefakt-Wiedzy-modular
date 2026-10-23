@@ -1,8 +1,8 @@
-# Artefakt Wiedzy — test gry (scenariusz)
+# Artefakt Wiedzy, etap 2: Cień Mgły — scenariusz
 
-> Szkic wzorowany na materiałach testowych innej pracy. Miejsca w `[nawiasach]` do uzupełnienia przed rozesłaniem.
+> Szkic (etap 2 — po zamrożeniu funkcji). Miejsca w `[nawiasach]` do uzupełnienia przed rozesłaniem.
 
-**Czas: około 25 minut.** Około 20 minut zadań i 5 minut na krótką ankietę.
+**Czas: około 20 minut.** Około 16 minut zadań i 5 minut ankiety.
 
 To jest test do mojej pracy inżynierskiej. **Nie oceniasz mnie — oceniasz grę.** Zdanie „nie rozumiałem, co się dzieje”
 jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zirytowały, są najcenniejsze ze wszystkich.
@@ -19,17 +19,13 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 ---
 
-## Zadania (w tej kolejności)
+## Zadania
 
-1. **Edytor pytań (ok. 5 min).** W menu głównym wejdź w „Pytania”. Utwórz własny zestaw i dodaj do niego dwa pytania
-   różnych typów. Potem zmień treść jednego pytania z zestawu wbudowanego i wyłącz jedno pytanie. Na końcu włącz swój zestaw
-   w Opcje → Pytania.
-2. **Cień Mgły (ok. 8 min).** Uruchom grę „Cień Mgły”, zacznij nową grę i zagraj `[do końca samouczka / do pierwszej walki / do miasta]`.
-   Wejdź w walkę i odpowiedz na pytanie quizowe (jeśli to możliwe, z twojego zestawu).
-3. **BitBomber (ok. 4 min).** Wróć do menu głównego i uruchom drugą grę, BitBomber. Zagraj co najmniej dwie rundy, tak żeby
-   trafić na quiz między rundami. Potem wyjdź do menu głównego hosta.
+1. **Cień Mgły (ok. 15 min).** Uruchom „Cień Mgły”, zacznij nową grę i zagraj `[do końca samouczka / do pierwszej walki / do miasta]`.
+   Wejdź w walkę i odpowiedz na pytanie quizowe (jeśli możesz, z własnego zestawu z etapu 1).
+2. **Zapis (ok. 1 min).** Zapisz grę w slocie, wyjdź do menu i wczytaj zapis.
 
-**Graj normalnie.** Nie szukaj błędów celowo, nie sprawdzaj każdego przycisku. Zachowuj się jak ktoś, kto po prostu uruchomił grę.
+**Graj normalnie.** Nie szukaj błędów celowo, nie sprawdzaj każdego przycisku.
 
 ---
 
@@ -52,6 +48,6 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 **Nie zaglądaj do formularza, zanim zagrasz.** Pytania są tak sformułowane, że gdybyś je znał wcześniej,
 zacząłbyś zwracać uwagę akurat na te rzeczy — a wtedy przestałbyś grać normalnie.
 
-Formularz otwórz dopiero po skończeniu grania: **`2_FORMULARZ.md`**.
+Formularz otwórz dopiero po skończeniu grania: **`etap2_formularz.md`**.
 
 *Dziękuję — to jest jedyna część tej pracy, której nie da się zrobić samemu.*
