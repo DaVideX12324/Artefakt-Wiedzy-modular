@@ -24,6 +24,11 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/backlog_druzyna_balans.md](kontekst/backlog_druzyna_balans.md) | Rejestr zadań (sprint backlog S1–S7 i O1–O7) prac na gałęzi `druzyna-balans`. | `W TOKU` |
 | [kontekst/zadania_wg_trudnosci.md](kontekst/zadania_wg_trudnosci.md) | Widok pomocniczy (nie źródło prawdy): zadania od najłatwiejszych do najtrudniejszych z oznaczeniem wykonawcy (user / Gemini / Sonnet / Opus), stan na 2026-10-13. | `W TOKU` |
 | [kontekst/sesja_2026-10-13_miasto_ldtk.md](kontekst/sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach i wnętrzach. | `W TOKU` |
+| [kontekst/sesja_2026-10-15_assety_i_przejscia.md](kontekst/sesja_2026-10-15_assety_i_przejscia.md) | Handoff 2026-10-14/15: prywatny submoduł `assets`, przepisana historia, przejścia, drobne poprawki. | `HISTORYCZNE` |
+| [kontekst/sesja_2026-10-16_druzyna_ui.md](kontekst/sesja_2026-10-16_druzyna_ui.md) | Handoff 2026-10-15/16: drużyna, AGI, szyk, paski, opcje, merge `druzyna-balans` do main. | `AKTUALNE` |
+| [kontekst/sesja_2026-10-16b_walka_fnafb_fabula.md](kontekst/sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, decyzje fabuły finału. | `AKTUALNE` |
+| [kontekst/sesja_2026-10-16c_i18n.md](kontekst/sesja_2026-10-16c_i18n.md) | Handoff 2026-10-16 cz. 3: tłumaczenia PL / EN (fazy 0–5), ekran zapisów z koszem. | `ZROBIONE` |
+| [kontekst/sesja_2026-10-21.md](kontekst/sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |
 
 ---
 
@@ -34,7 +39,9 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [game_design.md](game_design.md) | Główny dokument projektowy gry Cień Mgły (fabuła i zakończenia, kolejność 12 stref — docelowo ok. 15 map, mechaniki, progresja, pętla rozgrywki). | `W TOKU` |
 | [kontekst/scieki.md](kontekst/scieki.md) | Specyfikacja techniczna i parametry generatora ścieków (układ structured, kanały, kładki, platformy). | `ZROBIONE` |
 | [kontekst/sciany_i_kafle.md](kontekst/sciany_i_kafle.md) | Generator jaskiń: autotiling ścian, filary 2H, wypustki, fasady płaskowyżu i warianty kafli RIM. | `ZROBIONE` |
-| [kontekst/obiekty.md](kontekst/obiekty.md) | Generator obiektów: katalogi JSON, obiekty jako sceny, niszczalne beczki, skrzynie i obiekty ścieków. | `W TOKU` |
+| [kontekst/obiekty.md](kontekst/obiekty.md) | Generator obiektów: katalogi JSON, obiekty jako sceny, niszczalne beczki, skrzynie i obiekty ścieków. | `ZROBIONE` |
+| [kontekst/npc.md](kontekst/npc.md) | NPC miasta: sceny-szablony, usługi (rozmowa, sklep, nauczyciel, zapis), flagi, sklepy podzielone, fabuła NPC. Kod niezależny od mapy. | `ZROBIONE (MVP)` |
+| [kontekst/domy_modularne.md](kontekst/domy_modularne.md) | Domy modułowe z Pixel Crawler Free Pack: narzędzie `house_builder.py`, presety, dach, cień, do zrobienia. | `W TOKU` |
 | [kontekst/walka.md](kontekst/walka.md) | System walki w stylu RPG Makera: UI WYSIWYG, mechanika tur, tła 16:9, trapezy pól i log. | `W TOKU` |
 | [kontekst/wrogowie.md](kontekst/wrogowie.md) | Konfiguracja przeciwników: zasięg wykrywania, dziedziczenie scen, stany AI, scan_text i log wrogów. | `W TOKU` |
 | [kontekst/pytania.md](kontekst/pytania.md) | System pytań quizowych, edytor pytań w grze, eksport/import JSON i kategorie. | `ZROBIONE` |
@@ -49,8 +56,10 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | Plik | Opis zawartości | Status |
 |---|---|---|
 | [plan_generator_sciekow.md](plan_generator_sciekow.md) | Plan wykonawczy układu structured dla generatora ścieków (reguły R1–R7, kanały, kładki). | `ZROBIONE` |
-| [plan_generator_obiektow.md](plan_generator_obiektow.md) | Plan faz F0–F5 generatora obiektów i dekoracji (obiekty jako sceny, niszczalność, interakcje). | `W TOKU` |
+| [plan_generator_obiektow.md](plan_generator_obiektow.md) | Plan faz F0–F5 generatora obiektów i dekoracji (obiekty jako sceny, niszczalność, interakcje). | `ZROBIONE` |
+| [plan_zapis_map.md](plan_zapis_map.md) | Zapis gotowych map na dysk (`map_disk_cache.gd`): pomiary, format, jak działa — jaskinie i ścieki. | `ZROBIONE` |
 | [plan_przyspieszenie_generowania.md](plan_przyspieszenie_generowania.md) | Plan optymalizacji czasu generacji poziomów (wątek roboczy, chunking navmesh 64×64). | `W TOKU` |
+| [ewaluacja/etap1_scenariusz.md](ewaluacja/etap1_scenariusz.md) | Szkice testów z użytkownikami w dwóch etapach: etap 1 (platforma, edytor pytań, BitBomber; formularz [etap1_formularz.md](ewaluacja/etap1_formularz.md)) i etap 2 (Cień Mgły: [etap2_scenariusz.md](ewaluacja/etap2_scenariusz.md), [etap2_formularz.md](ewaluacja/etap2_formularz.md)); w formularzach SUS. | `SZKIC (niezatwierdzone)` |
 | [zakres_inzynierka.md](zakres_inzynierka.md) | Zakres pracy inżynierskiej: wycinek gry (miasto + NPC, BitBomber), harmonogram do obrony, klify w Pixel Crawler, mapy BitBombera. Narzędzia: [prototypy/makieta_miasta](prototypy/makieta_miasta/README.md). | `SZKIC (niezatwierdzone)` |
 | [universal_interior_generator_refactor.md](universal_interior_generator_refactor.md) | Architektura etapowa i plan refaktoryzacji uniwersalnego generatora wnętrz (architektura etapowa). | `W TOKU` |
 | [migration_plan.md](migration_plan.md) | Plan początkowej migracji projektów do architektury modułowej (zrealizowany na starcie). | `HISTORYCZNE` |
@@ -74,6 +83,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/druzyna_szkic.md](kontekst/druzyna_szkic.md) | Szkic systemu drużyny: 3 towarzyszy, zadania rekrutacyjne, osobne pule XP i brak limitu w walce. | `SZKIC (niezatwierdzone)` |
 | [kontekst/ekwipunek_szkic.md](kontekst/ekwipunek_szkic.md) | Szkic ekonomii i ekwipunku: złoto, mikstury, tiery skrzyń i kluczy, sklepy oraz ulepszenia broni. | `SZKIC (niezatwierdzone)` |
 | [kontekst/fabula_krag_i_zakonczenia_szkic.md](kontekst/fabula_krag_i_zakonczenia_szkic.md) | Szkic fabuły: zamiana ciał, krąg zamiast maszyny, magia 10. poziomu, trzy zakończenia, NG+ i walka finałowa. | `SZKIC (niezatwierdzone)` |
+| [kontekst/fabula_szkic_dopiski_i_konflikty.md](kontekst/fabula_szkic_dopiski_i_konflikty.md) | Dopiski 2026-10-16 do szkicu fabuły, konflikty z `game_design.md`, otwarte sprawy. | `SZKIC (niezatwierdzone)` |
 | [kontekst/sloty_umiejetnosci_szkic.md](kontekst/sloty_umiejetnosci_szkic.md) | Szkic mechaniki slotów umiejętności, 4 tierów, budżetu slotów oraz odblokowywania trybu combo. | `SZKIC (niezatwierdzone)` |
 | [kontekst/klasy_postaci_i_bronie.md](kontekst/klasy_postaci_i_bronie.md) | Szkic klas postaci (Wojownik, Łotrzyk, Mag, Kapłan) i 16 broni na strefę (Pixel Crawler). | `SZKIC (niezatwierdzone)` |
 | [kontekst/balans_i_skalowanie.md](kontekst/balans_i_skalowanie.md) | Szkic i wstępna kalibracja parametrów walki (HP, ATK, DEF, TTK) względem FNaFB. | `SZKIC (niezatwierdzone)` |
@@ -91,6 +101,8 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/i18n_opisy_dla_gemini.md](kontekst/i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do JSON. | `ZROBIONE` |
 | [kontekst/i18n_log_wrogow_dla_gemini.md](kontekst/i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie komunikatów logu walki umiejętności przeciwników. | `ZROBIONE` |
 | [kontekst/i18n_calosc_dla_gemini.md](kontekst/i18n_calosc_dla_gemini.md) | Brief dla Gemini: tłumaczenia PL / EN całego Artefaktu (host, Cień Mgły, BitBomber) — `I18nService`, sceny przez `TranslationServer`, fazy 0–5. | `ZROBIONE` |
+| [kontekst/i18n_calosc_raport.md](kontekst/i18n_calosc_raport.md) | Raport z wdrożenia i18n — faza 0 (infrastruktura, `I18nService`). | `ZROBIONE` |
+| [kontekst/imiona_postaci_dla_gemini.md](kontekst/imiona_postaci_dla_gemini.md) | Brief i propozycje imion (towarzysze, NPC, Strażnik, Arcymag); imiona wdrożone 2026-10-21. | `ZROBIONE` |
 | [kontekst/raport_porzadkowania.md](kontekst/raport_porzadkowania.md) | Raport z przeprowadzonego porządkowania dokumentacji, weryfikacji linków i ewentualnych rozbieżności. | `ZROBIONE` |
 
 ---
