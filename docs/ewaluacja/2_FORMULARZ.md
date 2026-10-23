@@ -27,7 +27,11 @@
 
 Dla każdego: udało się bez pomocy / udało się z trudem / nie udało się.
 
-**B1. Utworzenie własnego zestawu i dodanie pytania w edytorze.** >
+**B1. Utworzenie własnego zestawu i dodanie pytań w edytorze.** >
+
+**B1a. Edycja pytania z zestawu wbudowanego i wyłączenie pytania.** >
+
+**B1b. Włączenie własnego zestawu w Opcjach.** >
 
 **B2. Dotarcie w Cieniu Mgły do walki z pytaniem.** >
 
@@ -63,6 +67,8 @@ Dlaczego? >
 **D4. Czy po wyjaśnieniu odpowiedzi czegoś się dowiedziałeś lub przypomniałeś?** >
 
 **D5. Czy edytor pytań był zrozumiały?** `1` `2` `3` `4` `5` — co było niejasne? >
+
+**D6. Czy uczyłbyś się z własnych zestawów w takiej grze (lub dał je uczniom)?** >
 
 ---
 

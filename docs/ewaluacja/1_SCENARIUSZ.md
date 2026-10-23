@@ -2,7 +2,7 @@
 
 > Szkic wzorowany na materiałach testowych innej pracy. Miejsca w `[nawiasach]` do uzupełnienia przed rozesłaniem.
 
-**Czas: około 20 minut.** Około 15 minut gry i 5 minut na krótką ankietę.
+**Czas: około 20 minut.** Około 15 minut zadań i 5 minut na krótką ankietę.
 
 To jest test do mojej pracy inżynierskiej. **Nie oceniasz mnie — oceniasz grę.** Zdanie „nie rozumiałem, co się dzieje”
 jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zirytowały, są najcenniejsze ze wszystkich.
@@ -21,10 +21,11 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 ## Zadania (w tej kolejności)
 
-1. **Edytor pytań (ok. 3 min).** W menu głównym wejdź w „Pytania”, utwórz własny zestaw i dodaj do niego jedno pytanie
-   dowolnego typu. Zapisz.
-2. **Cień Mgły (ok. 10 min).** Uruchom grę „Cień Mgły”, zacznij nową grę i zagraj `[do końca samouczka / do pierwszej walki / do miasta]`.
-   Wejdź w walkę i odpowiedz na pytanie quizowe.
+1. **Edytor pytań (ok. 5 min).** W menu głównym wejdź w „Pytania”. Utwórz własny zestaw i dodaj do niego dwa pytania
+   różnych typów. Potem zmień treść jednego pytania z zestawu wbudowanego i wyłącz jedno pytanie. Na końcu włącz swój zestaw
+   w Opcje → Pytania.
+2. **Cień Mgły (ok. 8 min).** Uruchom grę „Cień Mgły”, zacznij nową grę i zagraj `[do końca samouczka / do pierwszej walki / do miasta]`.
+   Wejdź w walkę i odpowiedz na pytanie quizowe (jeśli to możliwe, z twojego zestawu).
 3. **BitBomber (ok. 2 min).** Wróć do menu głównego i uruchom drugą grę, BitBomber. Zagraj jedną krótką rundę.
 
 **Graj normalnie.** Nie szukaj błędów celowo, nie sprawdzaj każdego przycisku. Zachowuj się jak ktoś, kto po prostu uruchomił grę.

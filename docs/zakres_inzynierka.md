@@ -76,5 +76,5 @@ które po tym nadal przekraczają 2–3 s na realnych rozmiarach (150–250). Pa
 ## 7. Otwarte pytania
 
 - Co dokładnie wymaga promotor (wymagania formalne, wielkość systemu, ewaluacja)?
-- Czy BitBomber ma wejść do ewaluacji z użytkownikami, czy tylko do rozdziału o architekturze?
+- ~~Czy BitBomber ma wejść do ewaluacji?~~ **[U] 2026-10-23: cały Artefakt wchodzi do ewaluacji**, w tym tworzenie i edycja pytań (materiały: [`ewaluacja/`](ewaluacja/1_SCENARIUSZ.md)).
 - Który wariant klifów (renderer stemplami czy mapa płaska z kilkoma tarasami)?

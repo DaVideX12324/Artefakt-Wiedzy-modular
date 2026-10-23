@@ -59,6 +59,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [plan_generator_obiektow.md](plan_generator_obiektow.md) | Plan faz F0–F5 generatora obiektów i dekoracji (obiekty jako sceny, niszczalność, interakcje). | `ZROBIONE` |
 | [plan_zapis_map.md](plan_zapis_map.md) | Zapis gotowych map na dysk (`map_disk_cache.gd`): pomiary, format, jak działa — jaskinie i ścieki. | `ZROBIONE` |
 | [plan_przyspieszenie_generowania.md](plan_przyspieszenie_generowania.md) | Plan optymalizacji czasu generacji poziomów (wątek roboczy, chunking navmesh 64×64). | `W TOKU` |
+| [ewaluacja/1_SCENARIUSZ.md](ewaluacja/1_SCENARIUSZ.md) | Szkic scenariusza testu z użytkownikami (edytor pytań, Cień Mgły, BitBomber); formularz z SUS: [2_FORMULARZ.md](ewaluacja/2_FORMULARZ.md). | `SZKIC (niezatwierdzone)` |
 | [zakres_inzynierka.md](zakres_inzynierka.md) | Zakres pracy inżynierskiej: wycinek gry (miasto + NPC, BitBomber), harmonogram do obrony, klify w Pixel Crawler, mapy BitBombera. Narzędzia: [prototypy/makieta_miasta](prototypy/makieta_miasta/README.md). | `SZKIC (niezatwierdzone)` |
 | [universal_interior_generator_refactor.md](universal_interior_generator_refactor.md) | Architektura etapowa i plan refaktoryzacji uniwersalnego generatora wnętrz (architektura etapowa). | `W TOKU` |
 | [migration_plan.md](migration_plan.md) | Plan początkowej migracji projektów do architektury modułowej (zrealizowany na starcie). | `HISTORYCZNE` |
