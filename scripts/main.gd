@@ -30,7 +30,7 @@ func _ready() -> void:
 
 ## Wejście do modułu: ekran przejścia powstaje pierwszy i jest narysowany, zanim ruszy wczytywanie (scena wejściowa
 ## w tle, pasek za postępem) i start modułu — ścinka dzieje się pod zasłoną.
-func _start_module(manifest: Dictionary) -> void:
+func _start_module(manifest: Dictionary, session_config: Dictionary = {}) -> void:
 	var default_mod_name: String = I18nService.t("host.transition.default_module") if I18nService else "Module"
 	var load_text: String = I18nService.t("host.transition.loading") if I18nService else "Loading"
 	_show_transition(str(manifest.get("name", manifest.get("id", default_mod_name))), load_text)
@@ -46,7 +46,7 @@ func _start_module(manifest: Dictionary) -> void:
 		_transition.set_progress(0.8, start_text)
 		await get_tree().process_frame
 	_menu.visible = false
-	_module_host.start_module(manifest, _module_layer)
+	_module_host.start_module(manifest, _module_layer, session_config)
 
 
 func _on_module_started(_module_id: String) -> void:

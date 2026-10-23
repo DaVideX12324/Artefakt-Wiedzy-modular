@@ -6,6 +6,7 @@
   "host.menu.quit": "Wyjscie",
   "host.menu.version": "Artefakt Wiedzy Modular v0.1-dev",
   "host.menu.no_modules": "Brak modulow w res://modules.",
+  "host.menu.last_session": "Ostatnio: {summary}",
   "host.menu.no_active_modules": "Brak aktywnych modulow. Template jest ukryty.",
   "host.menu.unknown_module": "Nieznany moduł",
   "host.transition.title": "Ładowanie",
