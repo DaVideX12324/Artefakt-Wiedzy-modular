@@ -15,7 +15,7 @@ przetestował (ewaluacja z użytkownikami). Nie ocenia się ilości treści gry.
 | Poziom | Pozycja |
 |---|---|
 | **Musi** | Zamknięta pętla Cienia Mgły: **miasto-hub** z podstawowymi NPC (sklep, nauczyciel umiejętności w Hideout, zapis/odpoczynek, jeden mieszkaniec z dialogiem) |
-| **Musi** | Pełna ścieżka: tutorial → jaskinia → miasto → ścieki, z jednym bossem i **krótkim zakończeniem** (bez rozgałęzień) |
+| **Musi** | Pełna ścieżka: tutorial → jaskinia → miasto → ścieki, **kończąca się na bossie ścieków** (**[U] 2026-10-23**: to koniec Cienia Mgły w zakresie inżynierki; krótkie zakończenie bez rozgałęzień po pokonaniu bossa) |
 | **Musi** | Edytor pytań i quizy działające w całej ścieżce (5 typów pytań, własne zestawy) |
 | **Musi** | **BitBomber** jako drugi moduł dowodzący modularności: kontrakt host↔moduł w obie strony (konfiguracja sesji do modułu, wynik z modułu), stabilne embedded i standalone, podstawowe mapy i tekstury |
 | **Musi** | Testy i pomiary (parytet generatora, profil generowania), dokumentacja architektury, ewaluacja z użytkownikami, tekst pracy |
@@ -73,8 +73,25 @@ w Godot 4 nie był wspierany dla C# (sprawdzić dla 4.7). Wąskim gardłem są `
 płaska siatka `PackedByteArray` (krok 3 w [`plan_przyspieszenie_generowania.md`](plan_przyspieszenie_generowania.md)); porty tylko tych etapów,
 które po tym nadal przekraczają 2–3 s na realnych rozmiarach (150–250). Parytet generatora (digesty IDENTICAL) jest siatką bezpieczeństwa.
 
-## 7. Otwarte pytania
+## 7. Stan kodu Cienia Mgły względem zakresu (sprawdzone 2026-10-23, CienMgly `39da694a`)
+
+Przegląd kodu (nie uruchamiany w grze) pod kątem ścieżki „tutorial → jaskinia → miasto → ścieki, koniec na bossie ścieków”:
+
+| Element | Stan w kodzie |
+|---|---|
+| Łańcuch map | `tutorial_area` → `cave` → `sewer` → `world_map`. **Miasta nie ma w łańcuchu:** `cave.tscn` ma `next_level_path` = `sewer.tscn`, a `town.tscn` jest osobną sceną w budowie |
+| Boss jaskini | Jest: `caves.json` ma `"boss": {"story_id": "cave_relic", "counts_toward_device": false}`, pokój wyjścia z miniebossem (`exit_enemy_tier` 3) |
+| Boss ścieków | **Brak osobnego bossa.** `sewer.json` nie ma bloku `"boss"` ani `exit_enemy_tier`, więc działa domyślne `exit_enemy_tier = 4` (boss końcowy w pokoju wyjścia, `generation_flags.gd`) z puli zwykłych wrogów mapy (szczury, bandyci). Bez `boss_story_id`, więc flaga `boss:sewer` (sklepy, kowal) nie ma pewnego źródła |
+| Koniec po bossie | **Brak.** `sewer.tscn` kieruje do `world_map.tscn` (mapa świata z programmer art), nie ma sceny zakończenia ani napisów |
+
+Do zrobienia, żeby zakres był domknięty **[P]**:
+1. Wpiąć miasto w łańcuch: `cave` → `town` → `sewer` (wejście do ścieków z miasta).
+2. Boss ścieków: blok `"boss"` w `sewer.json` (`story_id: "sewer"`, `counts_toward_device: true`) i dedykowany wróg (scena z unikalnym wyglądem i skillami; dziś są tylko szczury i bandyci).
+3. Krótkie zakończenie po bossie (scena: wyrwa w barierze, wyjście za mury) zamiast przejścia do `world_map`.
+4. Zastępcze flagi `boss:sewer` / `forge` / `library` / `garden` w sklepach: przestroić na prawdziwe źródła (przynajmniej `boss:sewer` z bloku `"boss"`).
+
+## 8. Otwarte pytania
 
 - Co dokładnie wymaga promotor (wymagania formalne, wielkość systemu, ewaluacja)?
-- Czy BitBomber ma wejść do ewaluacji z użytkownikami, czy tylko do rozdziału o architekturze?
+- ~~Czy BitBomber ma wejść do ewaluacji?~~ **[U] 2026-10-23: cały Artefakt wchodzi do ewaluacji**, w tym tworzenie i edycja pytań; dwa etapy testów: (1) platforma + edytor pytań + BitBomber, wcześnie, (2) Cień Mgły po zamrożeniu funkcji (materiały: [`ewaluacja/`](ewaluacja/etap1_scenariusz.md)).
 - Który wariant klifów (renderer stemplami czy mapa płaska z kilkoma tarasami)?
