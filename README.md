@@ -24,7 +24,7 @@ git clone --recurse-submodules https://github.com/DaVideX12324/Artefakt-Wiedzy-m
 | **BitBomber** | [github.com/DaVideX12324/BitBomber](https://github.com/DaVideX12324/BitBomber) (submoduł w `modules/BitBomber`) | Działa jako moduł hosta |
 | **Cień Mgły** (Quiz RPG) | [github.com/DaVideX12324/CienMgly](https://github.com/DaVideX12324/CienMgly) (submoduł w `modules/quiz_rpg`, id `quiz_rpg`) | W rozwoju (pre-alpha) |
 
-BitBomber to gra 2D typu bomberman-like z wbudowanym systemem quizów edukacyjnych — pierwszy artefakt wykonawczy platformy.
+BitBomber to gra 2D typu bomberman-like z quizami wplecionymi w rozgrywkę (ostatnia szansa, pytanie-bonus, quiz odrodzenia) — pierwszy artefakt wykonawczy platformy. Tryby Ostatni żywy i Zabójstwa, 28 map, AI botów, grafika i dźwięk wzorowane na Bomb It 7 (zasoby generowane skryptami). Opis: [`modules/BitBomber/README.md`](modules/BitBomber/README.md).
 
 Cień Mgły (moduł Quiz RPG) to gra RPG z eksploracją, walką turową i quizami edukacyjnymi wplecionymi w mechanikę — drużyna, ekwipunek, sloty zapisu, generowany świat. Opis: [`modules/quiz_rpg/README.md`](modules/quiz_rpg/README.md) (plik jest w repo modułu — widoczny po pobraniu submodułów).
 
@@ -118,6 +118,7 @@ Nowe moduły **nie tworzą własnych** `QuizManager`, `SettingsManager`, `UIScal
 | `ModuleRegistry` | Wykrywanie i rejestracja modułów |
 | `InputBinds` (klasa) | Zmienione klawisze akcji per moduł (zakładka „Sterowanie”) |
 | `QuestionBank` (klasa) | Zestawy pytań: wbudowane i własne, import / eksport, wybór aktywnych (ładuje je `QuizService`) |
+| `SessionResults` (klasa) | Historia wyników sesji modułów (`user://artefakt_wiedzy_sessions.json`); menu hosta pokazuje „Ostatnio: …” |
 
 ## Okno opcji
 
@@ -149,6 +150,10 @@ Pola opcjonalne używane przez okno opcji:
 - `action_labels` — nazwy akcji do wyświetlenia (`{akcja: nazwa}`);
 - `control_options` — listy wyboru nad klawiszami (`[{key, label, default, options: [{id, name}]}]`), zapis
   w `SettingsService.set_module(<id>, key, …)` (np. domyślny chód / bieg w Cieniu Mgły).
+
+Sesja: host może uruchomić moduł z ustawieniami (`ModuleHost.start_module(manifest, parent, session_config)`, w module
+`host_api.get_session_config()`), a moduł oddaje wynik przez `host_api.finish_session(result)` — host zapisuje go
+w `SessionResults` i emituje `module_session_finished`. Przykład: sekcja „Sesja z hosta” w README BitBombera.
 
 Szczegóły kontraktu: [`docs/module_contract.md`](docs/module_contract.md)
 
