@@ -10,8 +10,13 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Preset eksportu „Windows Desktop” (`export_presets.cfg`, w repo): jeden plik `build/windows/ArtefaktWiedzy.exe`
   (~340 MB, paczka wbudowana) bez folderów roboczych, testów i narzędzi; wersja pliku Windows `0.8.0.0`.
 
+### Naprawiono
+- Brakujące polskie znaki w menu głównym, oknie opcji i podpowiedziach quizu („Wybierz moduł”, „Wyjście”,
+  „Rozdzielczość”, „Głośność ogólna” itd.).
+
 ### Moduły
-- Cień Mgły: commit `237a942f` — wyjście ze ścieków zamknięte do pokonania bossa, drabiny przejść zawsze przy ścianie.
+- Cień Mgły: commit `973260ca` — wyjście ze ścieków zamknięte do pokonania bossa, drabiny przejść zawsze przy ścianie,
+  koniec gry po wyjściu ze ścieków na cmentarzysko (nie po bossie).
 
 ## [0.8.0-alpha] — 2026-10-24
 
