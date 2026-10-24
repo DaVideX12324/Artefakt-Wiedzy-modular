@@ -15,7 +15,7 @@ przetestował (ewaluacja z użytkownikami). Nie ocenia się ilości treści gry.
 | Poziom | Pozycja |
 |---|---|
 | **Musi** | Zamknięta pętla Cienia Mgły: **miasto-hub** z podstawowymi NPC (sklep, nauczyciel umiejętności w Hideout, zapis/odpoczynek, jeden mieszkaniec z dialogiem) |
-| **Musi** | Pełna ścieżka: tutorial → jaskinia → miasto → ścieki, **kończąca się na bossie ścieków** (**[U] 2026-10-23**: to koniec Cienia Mgły w zakresie inżynierki; krótkie zakończenie bez rozgałęzień po pokonaniu bossa) |
+| **Musi** | Pełna ścieżka: tutorial → jaskinia → miasto → ścieki, **kończąca się na bossie ścieków** (**[U] 2026-10-23**: to koniec Cienia Mgły w zakresie inżynierki; krótkie zakończenie bez rozgałęzień po pokonaniu bossa; **[U] 2026-10-24**: ekran końca po wyjściu ze ścieków na cmentarzysko — boss otwiera wyjście) |
 | **Musi** | Edytor pytań i quizy działające w całej ścieżce (5 typów pytań, własne zestawy) |
 | **Musi** | **BitBomber** jako drugi moduł dowodzący modularności: kontrakt host↔moduł w obie strony (konfiguracja sesji do modułu, wynik z modułu), stabilne embedded i standalone, podstawowe mapy i tekstury |
 | **Musi** | Testy i pomiary (parytet generatora, profil generowania), dokumentacja architektury, ewaluacja z użytkownikami, tekst pracy |
@@ -82,15 +82,15 @@ które po tym nadal przekraczają 2–3 s na realnych rozmiarach (150–250). Pa
 > Poprzednia wersja tej sekcji (2026-10-23) opisywała starszy commit `39da694a` — miasto i boss ścieków doszły po nim
 > (handoff `kontekst/sesja_2026-10-22.md`).
 
-Przegląd kodu pod kątem ścieżki „tutorial → jaskinia → miasto → ścieki, koniec na bossie ścieków”:
+Przegląd kodu pod kątem ścieżki „tutorial → jaskinia → miasto → ścieki, koniec na bossie ścieków” (od 2026-10-24: na wyjściu ze ścieków po bossie):
 
 | Element | Stan w kodzie |
 |---|---|
 | Łańcuch map | `tutorial_area` → `cave` → `town` → `sewer` (`next_level_path` w scenach `levels/`); powrót do poprzednich map działa |
 | Miasto | `town.tscn` z NPC (sklepy, kowal, nauczyciel, karczma, zadania) i przejściami; **mapa w budowie** u usera (warstwa Walls, obiekty, domki) — po przeniesieniu warstw test przejścia i szczelności granic |
 | Boss jaskini | `caves.json` `"boss"` (`cave_relic`) w pokoju wyjścia; po wizycie w mieście boss powrotny Matka Nietoperzy (`boss:cave_return`) |
-| Boss ścieków | Szczurzy Król (`rat_king.tscn`, najwyższy tier puli `beasts`) w pokoju wyjścia; `sewer.json` `"boss": {"ends_game": true, "locks_exit": true}` — wyjście (drabina) zamknięte i bez snopu światła do pokonania bossa (2026-10-24); flaga `boss:sewer` z nazwy sceny |
-| Koniec po bossie | `end_screen.tscn` po pokonaniu bossa z `ends_game` (znacznik „Ukończono” w slocie zapisu) ; `sewer.tscn` ma jeszcze `next_level_path` = `world_map.tscn` (zaślepka — osiągalna dopiero po bossie i ekranie końca, „Graj dalej”; do zamiany przy 0.9) |
+| Boss ścieków | Szczurzy Król (`rat_king.tscn`, najwyższy tier puli `beasts`) w pokoju wyjścia; `sewer.json` `"boss": {"locks_exit": true}` — wyjście (drabina) zamknięte i bez snopu światła do pokonania bossa (2026-10-24); flaga `boss:sewer` z nazwy sceny |
+| Koniec po wyjściu ze ścieków | `end_screen.tscn` po wejściu w wyjście ścieków (na cmentarzysko) — `sewer.json` `"exit_ends_game": true` zamiast przejścia na następną mapę (decyzja usera 2026-10-24; znacznik „Ukończono” w slocie zapisu). `sewer.tscn` nie ma `next_level_path` (zaślepka `world_map.tscn` odpięta); mapa cmentarzyska to zakres 2.0 |
 
 Do zrobienia, żeby zakres był domknięty **[P]**:
 1. Dokończenie mapy miasta (user) i test przejścia jaskinia → miasto → ścieki na `town.tscn`.
