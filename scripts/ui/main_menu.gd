@@ -49,7 +49,7 @@ func refresh_modules() -> void:
 
 	var modules := ModuleRegistry.all()
 	if modules.is_empty():
-		_status.text = I18nService.t("host.menu.no_modules", "Brak modulow w res://modules.")
+		_status.text = I18nService.t("host.menu.no_modules", "Brak modułów w res://modules.")
 		return
 
 	_status.text = ""
@@ -59,7 +59,7 @@ func refresh_modules() -> void:
 		_module_list.add_child(_build_module_button(manifest))
 
 	if _module_list.get_child_count() == 0:
-		_status.text = I18nService.t("host.menu.no_active_modules", "Brak aktywnych modulow. Template jest ukryty.")
+		_status.text = I18nService.t("host.menu.no_active_modules", "Brak aktywnych modułów. Template jest ukryty.")
 
 
 func show_status(message: String) -> void:

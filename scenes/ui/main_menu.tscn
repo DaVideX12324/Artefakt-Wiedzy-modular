@@ -48,7 +48,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.7, 0.85, 1)
 theme_override_font_sizes/font_size = 15
-text = "Wybierz modul"
+text = "Wybierz moduł"
 horizontal_alignment = 1
 
 [node name="Sep1" type="HSeparator" parent="Center/Panel/Margin/VBox"]
@@ -90,7 +90,7 @@ custom_minimum_size = Vector2(170, 38)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
-text = "Wyjscie"
+text = "Wyjście"
 
 [node name="VerLabel" type="Label" parent="."]
 anchors_preset = 3
