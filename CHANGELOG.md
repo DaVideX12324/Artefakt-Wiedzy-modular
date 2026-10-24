@@ -8,6 +8,8 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ### Dodano
 - Menu deweloperskie → Drużyna: usuwanie towarzyszy (pojedynczo albo wszystkich).
+- Menu deweloperskie → „🥚 Easter eggi imion”: przełącznik odsłaniający ukryte opcje ekranu imienia w Cieniu Mgły
+  (`CheatService.name_eggs_revealed`).
 - Preset eksportu „Windows Desktop” (`export_presets.cfg`, w repo): jeden plik `build/windows/ArtefaktWiedzy.exe`
   (~340 MB, paczka wbudowana) bez folderów roboczych, testów i narzędzi; wersja pliku Windows `0.8.0.0`.
 
