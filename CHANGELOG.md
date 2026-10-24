@@ -17,6 +17,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
   (~340 MB, paczka wbudowana) bez folderów roboczych, testów i narzędzi; wersja pliku Windows `0.8.0.0`.
 
 ### Naprawiono
+- Quiz: pytania z kafelkami pokazywały zdanie z lukami dwa razy (nad paskiem czasu i w wierszu luk) — wczytywanie
+  wpisuje zdanie do treści pytania, więc wcześniejsza poprawka nie działała; teraz nad lukami polecenie „Uzupełnij luki
+  kafelkami”. Pary bez treści: „Połącz w pary” w bieżącym języku zamiast stałego „Dopasuj elementy.”.
 - Brakujące polskie znaki w menu głównym, oknie opcji i podpowiedziach quizu („Wybierz moduł”, „Wyjście”,
   „Rozdzielczość”, „Głośność ogólna” itd.).
 
