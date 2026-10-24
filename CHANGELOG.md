@@ -7,6 +7,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 ## [Unreleased]
 
 ### Dodano
+- Menu deweloperskie → Drużyna: usuwanie towarzyszy (pojedynczo albo wszystkich).
 - Preset eksportu „Windows Desktop” (`export_presets.cfg`, w repo): jeden plik `build/windows/ArtefaktWiedzy.exe`
   (~340 MB, paczka wbudowana) bez folderów roboczych, testów i narzędzi; wersja pliku Windows `0.8.0.0`.
 
@@ -15,8 +16,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
   „Rozdzielczość”, „Głośność ogólna” itd.).
 
 ### Moduły
-- Cień Mgły: commit `973260ca` — wyjście ze ścieków zamknięte do pokonania bossa, drabiny przejść zawsze przy ścianie,
-  koniec gry po wyjściu ze ścieków na cmentarzysko (nie po bossie).
+- Cień Mgły: commit `267d98fa` — wyjście ze ścieków zamknięte do pokonania bossa, drabiny przejść zawsze przy ścianie,
+  koniec gry po wyjściu ze ścieków na cmentarzysko (nie po bossie), poprawka łupu wrogów bez tabeli, wrogowie
+  dochodzą do celu poza siatką nawigacji, imię bohatera przy nowej grze (z easter eggami).
 
 ## [0.8.0-alpha] — 2026-10-24
 
