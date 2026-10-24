@@ -7,12 +7,15 @@ Minimalny modul musi miec manifest:
   "id": "quiz_rpg",
   "name": "Cień Mgły",
   "description": "Krotki opis",
-  "version": "0.1.0",
+  "version": "0.8.0-alpha",
   "entry_scene": "module_root.tscn",
   "quiz_path": "resources/quizzes",
   "asset_path": "assets"
 }
 ```
+
+`version` to wersja modulu wg [`wersjonowanie.md`](wersjonowanie.md) (`MAJOR.MINOR.PATCH[-etap]`); host pokazuje ja
+na przycisku modulu, a modul moze ja czytac do wlasnego menu.
 
 Wymagane sa tylko `id`, `name` i `entry_scene` (`ModuleRegistry.REQUIRED_FIELDS`); reszta jest opcjonalna. Pola dla okna opcji hosta
 (`controls`, `action_labels`, `control_options`) opisuje glowny README.

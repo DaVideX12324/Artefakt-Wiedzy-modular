@@ -32,6 +32,7 @@ func _ready() -> void:
 	if I18nService:
 		I18nService.language_changed.connect(func(_l: String) -> void: refresh_modules())
 	refresh_modules()
+	_ver_label.text = "Artefakt Wiedzy " + version_label(str(ProjectSettings.get_setting("application/config/version", "")))
 	_on_scale_changed(UIScaleService.scale_factor)
 	if AudioService:
 		AudioService.play_music("menu")
@@ -80,7 +81,8 @@ func _build_module_button(manifest: Dictionary) -> Button:
 func _module_button_text(manifest: Dictionary) -> String:
 	var unknown_name: String = I18nService.t("host.menu.unknown_module") if I18nService else "Unknown"
 	var title := str(manifest.get("name", manifest.get("id", unknown_name)))
-	var lines: Array[String] = [title]
+	var version := str(manifest.get("version", ""))
+	var lines: Array[String] = [title + ("  ·  " + version_label(version) if version != "" else "")]
 	var description := str(manifest.get("description", ""))
 	if description != "":
 		lines.append(description)
@@ -89,6 +91,16 @@ func _module_button_text(manifest: Dictionary) -> String:
 	if summary != "":
 		lines.append(I18nService.tf("host.menu.last_session", {"summary": summary}, "Ostatnio: {summary}"))
 	return "\n".join(lines)
+
+
+## Wersja do wyświetlenia: "0.8.0-alpha" -> "0.8.0 Alpha" (zasady: docs/wersjonowanie.md).
+static func version_label(version: String) -> String:
+	var parts := version.split("-", true, 1)
+	if parts.size() < 2:
+		return version
+	var stage := parts[1]
+	stage = "RC" + stage.substr(2) if stage.begins_with("rc") else stage.left(1).to_upper() + stage.substr(1)
+	return "%s %s" % [parts[0], stage]
 
 
 func _on_scale_changed(_scale: float) -> void:

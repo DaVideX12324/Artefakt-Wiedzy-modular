@@ -17,12 +17,18 @@ git clone --recurse-submodules https://github.com/DaVideX12324/Artefakt-Wiedzy-m
 > zwykłym `git clone` (+ `git submodule update --init modules/BitBomber modules/quiz_rpg`), ale gra bez assetów się
 > nie uruchomi. Publicznie dostępny jest tylko zbudowany plik wykonywalny.
 
+## Wersja
+
+**Artefakt Wiedzy `0.8.0-alpha`** (Alpha). Platforma jest gotowa do testów; paczka pozostaje w Alphie, dopóki Cień Mgły
+nie przejdzie do Bety (mapa miasta w budowie). Zasady numerów i plan wydań: [`docs/wersjonowanie.md`](docs/wersjonowanie.md),
+zmiany: [`CHANGELOG.md`](CHANGELOG.md).
+
 ## Moduły
 
-| Moduł | Repo | Status |
+| Moduł | Repo | Wersja |
 |-------|------|--------|
-| **BitBomber** | [github.com/DaVideX12324/BitBomber](https://github.com/DaVideX12324/BitBomber) (submoduł w `modules/BitBomber`) | Działa jako moduł hosta |
-| **Cień Mgły** (Quiz RPG) | [github.com/DaVideX12324/CienMgly](https://github.com/DaVideX12324/CienMgly) (submoduł w `modules/quiz_rpg`, id `quiz_rpg`) | W rozwoju (pre-alpha) |
+| **BitBomber** | [github.com/DaVideX12324/BitBomber](https://github.com/DaVideX12324/BitBomber) (submoduł w `modules/BitBomber`) | `0.9.0-beta` (Beta) |
+| **Cień Mgły** (Quiz RPG) | [github.com/DaVideX12324/CienMgly](https://github.com/DaVideX12324/CienMgly) (submoduł w `modules/quiz_rpg`, id `quiz_rpg`) | `0.8.0-alpha` (Alpha) |
 
 BitBomber to gra 2D typu bomberman-like z quizami wplecionymi w rozgrywkę (ostatnia szansa, pytanie-bonus, quiz odrodzenia) — pierwszy artefakt wykonawczy platformy. Tryby Ostatni żywy i Zabójstwa, 28 map, AI botów, grafika i dźwięk wzorowane na Bomb It 7 (zasoby generowane skryptami). Opis: [`modules/BitBomber/README.md`](modules/BitBomber/README.md).
 
