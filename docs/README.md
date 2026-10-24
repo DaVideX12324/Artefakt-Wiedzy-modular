@@ -16,6 +16,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | Plik | Opis zawartości | Status |
 |---|---|---|
 | [znane_problemy.md](znane_problemy.md) | Jedyne źródło prawdy dla todo i problemów: priorytety `⚠ WAŻNE:` (hook), Do zrobienia, Do sprawdzenia w grze, Pułapki konfiguracji, Rozwiązane. | `W TOKU` |
+| [wersjonowanie.md](wersjonowanie.md) | Numery wersji i etapy (Alpha / Beta / RC) hosta i modułów, gdzie są zapisane, plan wydań 0.9 / 1.0 / 2.0, changelogi, kroki wydania. Aktualnie: Artefakt Wiedzy i Cień Mgły `0.8.0-alpha`, BitBomber `0.9.0-beta`. | `ZROBIONE` |
 | [module_contract.md](module_contract.md) | Kontrakt modułowy gry, izolacja modułów, konwencje ścieżek (`QuizRpgPaths`) i synchronizacja zasobów hosta. | `ZROBIONE` |
 | [kontekst/README.md](kontekst/README.md) | Szczegółowy indeks dokumentów technicznych i specyfikacji roboczych w folderze `docs/kontekst/`. | `ZROBIONE` |
 | [kontekst/otwarte.md](kontekst/otwarte.md) | Zwięzłe przekazanie stanu bieżącej sesji (handoff), ostatnie decyzje usera oraz odnośniki do `znane_problemy.md`. | `W TOKU` |

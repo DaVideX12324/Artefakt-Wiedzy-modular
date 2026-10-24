@@ -53,7 +53,11 @@ i UI nauki umiejętności (osobne kawałki kodu — wycenić przed pracą nad gr
 
 ## 5. BitBomber
 
-Stan (`modules/BitBomber`): arena to prosta siatka 17×17 o kafelku 64 px (`scripts/arena.gd`) z filarami i skrzyniami, rysowana
+> **Stan 2026-10-24: nieaktualne — plan z 2026-10-16, zrealizowany i rozszerzony.** BitBomber `0.9.0-beta` ma 28 map
+> (układy z Bomb It 7, format JSON), generowaną grafikę i dźwięk, tryby Ostatni żywy i Zabójstwa, quizy w grze i kontrakt
+> sesji z hostem w obie strony — opis w `modules/BitBomber/README.md` i `CHANGELOG.md`. Niżej treść historyczna.
+
+Stan 2026-10-16 (`modules/BitBomber`): arena to prosta siatka 17×17 o kafelku 64 px (`scripts/arena.gd`) z filarami i skrzyniami, rysowana
 `ColorRect`-ami (bez tekstur). Są gracze, boty, bomby, power-upy, quiz między rundami, menu, opcje, pauza. Brakuje map i tekstur
 **[U]**; generator jest bardzo prosty, a Bomb It 7 miał wiele kształtów aren **[U]**.
 
@@ -73,22 +77,26 @@ w Godot 4 nie był wspierany dla C# (sprawdzić dla 4.7). Wąskim gardłem są `
 płaska siatka `PackedByteArray` (krok 3 w [`plan_przyspieszenie_generowania.md`](plan_przyspieszenie_generowania.md)); porty tylko tych etapów,
 które po tym nadal przekraczają 2–3 s na realnych rozmiarach (150–250). Parytet generatora (digesty IDENTICAL) jest siatką bezpieczeństwa.
 
-## 7. Stan kodu Cienia Mgły względem zakresu (sprawdzone 2026-10-23, CienMgly `39da694a`)
+## 7. Stan kodu Cienia Mgły względem zakresu (sprawdzone 2026-10-24, CienMgly `955bb5c8`, wersja `0.8.0-alpha`)
 
-Przegląd kodu (nie uruchamiany w grze) pod kątem ścieżki „tutorial → jaskinia → miasto → ścieki, koniec na bossie ścieków”:
+> Poprzednia wersja tej sekcji (2026-10-23) opisywała starszy commit `39da694a` — miasto i boss ścieków doszły po nim
+> (handoff `kontekst/sesja_2026-10-22.md`).
+
+Przegląd kodu pod kątem ścieżki „tutorial → jaskinia → miasto → ścieki, koniec na bossie ścieków”:
 
 | Element | Stan w kodzie |
 |---|---|
-| Łańcuch map | `tutorial_area` → `cave` → `sewer` → `world_map`. **Miasta nie ma w łańcuchu:** `cave.tscn` ma `next_level_path` = `sewer.tscn`, a `town.tscn` jest osobną sceną w budowie |
-| Boss jaskini | Jest: `caves.json` ma `"boss": {"story_id": "cave_relic", "counts_toward_device": false}`, pokój wyjścia z miniebossem (`exit_enemy_tier` 3) |
-| Boss ścieków | **Brak osobnego bossa.** `sewer.json` nie ma bloku `"boss"` ani `exit_enemy_tier`, więc działa domyślne `exit_enemy_tier = 4` (boss końcowy w pokoju wyjścia, `generation_flags.gd`) z puli zwykłych wrogów mapy (szczury, bandyci). Bez `boss_story_id`, więc flaga `boss:sewer` (sklepy, kowal) nie ma pewnego źródła |
-| Koniec po bossie | **Brak.** `sewer.tscn` kieruje do `world_map.tscn` (mapa świata z programmer art), nie ma sceny zakończenia ani napisów |
+| Łańcuch map | `tutorial_area` → `cave` → `town` → `sewer` (`next_level_path` w scenach `levels/`); powrót do poprzednich map działa |
+| Miasto | `town.tscn` z NPC (sklepy, kowal, nauczyciel, karczma, zadania) i przejściami; **mapa w budowie** u usera (warstwa Walls, obiekty, domki) — po przeniesieniu warstw test przejścia i szczelności granic |
+| Boss jaskini | `caves.json` `"boss"` (`cave_relic`) w pokoju wyjścia; po wizycie w mieście boss powrotny Matka Nietoperzy (`boss:cave_return`) |
+| Boss ścieków | Szczurzy Król (`rat_king.tscn`, najwyższy tier puli `beasts`) w pokoju wyjścia; `sewer.json` `"boss": {"ends_game": true}`; flaga `boss:sewer` z nazwy sceny |
+| Koniec po bossie | `end_screen.tscn` po pokonaniu bossa z `ends_game` (znacznik „Ukończono” w slocie zapisu) ; `sewer.tscn` ma jeszcze `next_level_path` = `world_map.tscn` (zaślepka — do usunięcia albo zamiany przy 0.9) |
 
 Do zrobienia, żeby zakres był domknięty **[P]**:
-1. Wpiąć miasto w łańcuch: `cave` → `town` → `sewer` (wejście do ścieków z miasta).
-2. Boss ścieków: blok `"boss"` w `sewer.json` (`story_id: "sewer"`, `counts_toward_device: true`) i dedykowany wróg (scena z unikalnym wyglądem i skillami; dziś są tylko szczury i bandyci).
-3. Krótkie zakończenie po bossie (scena: wyrwa w barierze, wyjście za mury) zamiast przejścia do `world_map`.
-4. Zastępcze flagi `boss:sewer` / `forge` / `library` / `garden` w sklepach: przestroić na prawdziwe źródła (przynajmniej `boss:sewer` z bloku `"boss"`).
+1. Dokończenie mapy miasta (user) i test przejścia jaskinia → miasto → ścieki na `town.tscn`.
+2. Przejście ścieżki od nowej gry do ekranu końca w grze (bez komend deweloperskich) — warunek Bety (`0.9.0-beta`).
+3. Zastępcze flagi `forge` / `library` / `garden` w sklepach: zostają pod pełną grę; ulepszenie broni etap 1 → 2 jest
+   tymczasowo pod `boss:cave_return` (docelowo `boss:sewer`, który w tym zakresie kończy grę).
 
 ## 8. Otwarte pytania
 
