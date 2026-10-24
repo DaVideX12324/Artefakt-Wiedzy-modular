@@ -4,7 +4,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 
 > **Zasady organizacji dokumentacji:**
 > - **Pojedyncze źródło prawdy dla błędów i zadań:** [`docs/znane_problemy.md`](znane_problemy.md) — zawiera priorytety `⚠ WAŻNE:` (odczytywane przez hook startowy Claude Code), sekcje „Do zrobienia”, „Do sprawdzenia w grze”, „Pułapki konfiguracji” i „Rozwiązane”.
-> - **Bieżący stan sesji (handoff):** [`docs/kontekst/otwarte.md`](kontekst/otwarte.md) — zwięzły stan ostatniej sesji, kluczowe decyzje usera i odnośniki do zadań.
+> - **Bieżący stan sesji (handoff):** najnowszy [`docs/kontekst/sesja_2026-10-22.md`](kontekst/sesja_2026-10-22.md) (Cień Mgły; od 2026-10-21 handoffy są w plikach `kontekst/sesja_*.md`, [`otwarte.md`](kontekst/otwarte.md) — starsze), BitBomber: `modules/BitBomber/docs/zadania.md`.
 > - **Indeks dokumentów roboczych modułu RPG:** [`docs/kontekst/README.md`](kontekst/README.md).
 > - **Materiały zarchiwizowane:** [`docs/archiwum/`](archiwum/).
 > - **Submoduły:** kod gier leży w repo modułów (`modules/BitBomber`, `modules/quiz_rpg` = Cień Mgły), a dokumentacja Cienia Mgły — w tym katalogu hosta. README modułów są w ich repo (zmiana = commit w repo modułu + nowy wskaźnik submodułu w hoście).
@@ -29,6 +29,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/sesja_2026-10-16_druzyna_ui.md](kontekst/sesja_2026-10-16_druzyna_ui.md) | Handoff 2026-10-15/16: drużyna, AGI, szyk, paski, opcje, merge `druzyna-balans` do main. | `AKTUALNE` |
 | [kontekst/sesja_2026-10-16b_walka_fnafb_fabula.md](kontekst/sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, decyzje fabuły finału. | `AKTUALNE` |
 | [kontekst/sesja_2026-10-16c_i18n.md](kontekst/sesja_2026-10-16c_i18n.md) | Handoff 2026-10-16 cz. 3: tłumaczenia PL / EN (fazy 0–5), ekran zapisów z koszem. | `ZROBIONE` |
+| [kontekst/sesja_2026-10-22.md](kontekst/sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `AKTUALNE` |
 | [kontekst/sesja_2026-10-21.md](kontekst/sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |
 
 ---

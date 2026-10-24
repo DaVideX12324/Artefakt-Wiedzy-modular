@@ -5,7 +5,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 > **Przypomnienia na start sesji (hook Claude Code):** hook `SessionStart` w `.claude/settings.json` uruchamia `.claude/hooks/przypomnienia.sh`, który wypisuje wszystkie nagłówki `### ⚠ WAŻNE: …` z [`docs/znane_problemy.md`](../znane_problemy.md). Nowe ważne todo = nowy nagłówek z tym znacznikiem; po załatwieniu usunąć nagłówek albo znacznik — przypomnienie znika samo.
 >
 > **Pojedyncze źródło prawdy dla błędów i zadań:** [`docs/znane_problemy.md`](../znane_problemy.md).  
-> **Bieżący stan sesji (handoff):** [`otwarte.md`](otwarte.md).  
+> **Bieżący stan sesji (handoff):** najnowszy [`sesja_2026-10-22.md`](sesja_2026-10-22.md) (od 2026-10-21 handoffy są w plikach `sesja_*.md`; [`otwarte.md`](otwarte.md) — starsze).  
 > **Archiwum dzienników sesji:** [`docs/archiwum/kontekst_README_sesje_do_2026-10-06.md`](../archiwum/kontekst_README_sesje_do_2026-10-06.md).
 
 ---
@@ -14,6 +14,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 
 | Plik | Opis zawartości | Status |
 |---|---|---|
+| [sesja_2026-10-22.md](sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `AKTUALNE` |
 | [sesja_2026-10-21.md](sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |
 | [sesja_2026-10-16b_walka_fnafb_fabula.md](sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, dane FNaFB2, decyzje fabuły finału. | `AKTUALNE` |
 | [sesja_2026-10-16_druzyna_ui.md](sesja_2026-10-16_druzyna_ui.md) | Handoff sesji 2026-10-15/16: drużyna + AGI + szyk, merge do main, paski i opcje (V-Sync / FPS), pułapki, następne kroki. | `AKTUALNE` |
