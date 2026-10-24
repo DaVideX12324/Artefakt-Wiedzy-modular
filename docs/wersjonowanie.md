@@ -79,5 +79,11 @@ Każde repo ma `CHANGELOG.md` (host, CienMgly, BitBomber):
 1. Podbić `version` (manifest modułu i/lub `project.godot`).
 2. W `CHANGELOG.md` zamienić `[Unreleased]` na `[wersja] — data`, dodać nowe puste `[Unreleased]`.
 3. Commit „Wydanie X.Y.Z-etap”, tag `vX.Y.Z-etap` (annotated) w repo komponentu, push z tagami.
+   Gdy zmienił się generator map — podbić `MAP_CACHE_VERSION` (zapisane mapy graczy generują się od nowa).
 4. W hoście: wskaźnik submodułu + wpis w changelogu hosta (wersja i commit modułu); przy wydaniu paczki — tag hosta.
-5. Do zgłoszeń błędów dołączać wersję i krótki hash commita.
+5. Build: preset „Windows Desktop” w `export_presets.cfg` (host, w repo; wynik w `build/`, poza gitem):
+   `Godot_v4.7.2-stable_win64_console.exe --headless --path . --export-release "Windows Desktop" build/windows/ArtefaktWiedzy.exe`.
+   Wymaga wzorców eksportu 4.7.2. Przy podbiciu wersji zmienić też `application/file_version` / `product_version`
+   w presecie (Windows przyjmuje tylko liczby: `0.8.0-alpha` → `0.8.0.0`). Poza paczką: `scratch/`, `podglady_ui/`, `fnafb/`, testy, narzędzia, `addons/`,
+   `_template`, `standalone/` modułów i foldery z `.gdignore` (`assets/_nieuzywane`, `docs`, `_host`).
+6. Do zgłoszeń błędów dołączać wersję i krótki hash commita.
