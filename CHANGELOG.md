@@ -6,6 +6,13 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Dodano
+- Preset eksportu „Windows Desktop” (`export_presets.cfg`, w repo): jeden plik `build/windows/ArtefaktWiedzy.exe`
+  (~340 MB, paczka wbudowana) bez folderów roboczych, testów i narzędzi; wersja pliku Windows `0.8.0.0`.
+
+### Moduły
+- Cień Mgły: commit `237a942f` — wyjście ze ścieków zamknięte do pokonania bossa, drabiny przejść zawsze przy ścianie.
+
 ## [0.8.0-alpha] — 2026-10-24
 
 Pierwsza wersjonowana Alpha — punkt odniesienia (wcześniej zastępcze „v0.1-dev”). Opisuje stan platformy, nie zmiany

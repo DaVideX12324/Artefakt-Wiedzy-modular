@@ -2,7 +2,7 @@
 /modules/*/.godot
 /assets/Pixel Crawler
 /scratch/
-export_presets.cfg
+/build/
 /modules/quiz_rpg/tests
 /fnafb
 .mcp/
