@@ -7,6 +7,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 ## [Unreleased]
 
 ### Dodano
+- Opcje → Dźwięk: osobne suwaki grup efektów pod „Efekty dźwiękowe” — interfejs, walka, otoczenie. Szyny `SFX_UI`,
+  `SFX_Combat`, `SFX_Env` wysyłają do `SFX` (główny suwak skaluje wszystkie); `AudioService.play_sfx_by_name` wybiera
+  grupę wg nazwy dźwięku albo parametru `bus`, `play_sfx` przyjmuje szynę (domyślnie `SFX`, np. BitBomber).
 - Menu deweloperskie → Drużyna: usuwanie towarzyszy (pojedynczo albo wszystkich).
 - Menu deweloperskie → „🥚 Easter eggi imion”: przełącznik odsłaniający ukryte opcje ekranu imienia w Cieniu Mgły
   (`CheatService.name_eggs_revealed`).
