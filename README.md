@@ -1,6 +1,6 @@
 # Artefakt Wiedzy — platforma modularna
 
-Platforma edukacyjno-techniczna zbudowana w **Godot 4.x**. Host wykrywa i uruchamia niezależne moduły (gry, quizy, narzędzia edukacyjne) bez znajomości ich wewnętrznej struktury. Każdy moduł może działać zarówno osadzony w hoście, jak i standalone.
+Platforma edukacyjno-techniczna zbudowana w **Godot 4.7**. Host wykrywa i uruchamia niezależne moduły (gry, quizy, narzędzia edukacyjne) bez znajomości ich wewnętrznej struktury. Każdy moduł może działać zarówno osadzony w hoście, jak i standalone.
 
 > Repo: [github.com/DaVideX12324/Artefakt-Wiedzy-modular](https://github.com/DaVideX12324/Artefakt-Wiedzy-modular)
 
@@ -90,7 +90,8 @@ Artefakt-Wiedzy-modular/
 │   └── _template/               # Szablon startowy do tworzenia nowych modułów
 ├── scenes/                      # main.tscn + ui/ (menu główne, okno opcji, edytor pytań)
 ├── scripts/
-│   ├── core/                    # module_host(+_api), module_transition (ekran przejścia), module_paths, input_binds (zmiana klawiszy), question_bank
+│   ├── core/                    # module_host(+_api), module_transition (ekran przejścia), module_paths, input_binds (zmiana klawiszy), question_bank,
+│   │                            #   session_results (historia wyników sesji)
 │   ├── ui/                      # menu główne, okno opcji, edytor pytań
 │   └── shared/quiz/             # wspólny kontroler panelu quizu
 ├── resources/                   # Zasoby hosta (quizzes/, fonts/, audio/, i18n/)
@@ -101,13 +102,19 @@ Artefakt-Wiedzy-modular/
 ├── .claude/                     # Hook startowy Claude Code (przypomnienia o ważnych todo)
 ├── docs/
 │   ├── README.md                # Indeks całej dokumentacji (statusy plików)
+│   ├── wersjonowanie.md         # Numery wersji, etapy, plan wydań, changelogi
 │   ├── module_contract.md       # Kontrakt modułu — co musi zawierać
-│   ├── migration_plan.md        # Plan migracji istniejących modułów (historyczny)
+│   ├── zakres_inzynierka.md     # Zakres pracy inżynierskiej i stan kodu względem niego
+│   ├── ewaluacja/               # Scenariusze i formularze testów z użytkownikami (etap 1 i 2)
 │   ├── game_design.md           # Projekt gry Cień Mgły (fabuła, strefy, mechaniki)
-│   ├── kontekst/                # Bieżący stan prac (na start sesji), opisy tematyczne
+│   ├── plan_*.md                # Plany techniczne (generator ścieków / obiektów, przyspieszenie, zapis map)
+│   ├── migration_plan.md        # Plan migracji istniejących modułów (historyczny)
+│   ├── kontekst/                # Bieżący stan prac (handoffy sesji), opisy tematyczne
+│   ├── prototypy/               # Narzędzia pomocnicze (makieta miasta)
 │   ├── archiwum/                # Dzienniki sesji i przeniesione notatki
 │   └── znane_problemy.md        # Do zrobienia, pułapki, rozwiązane
-└── project.godot
+├── CHANGELOG.md                 # Zmiany platformy i wersje dołączonych modułów
+└── project.godot                # Wersja Artefaktu: application/config/version
 ```
 
 ## Serwisy globalne
@@ -145,12 +152,13 @@ Każdy moduł musi zawierać `module_manifest.json`:
 {
   "id": "bitbomber",
   "name": "BitBomber",
-  "version": "0.1.0",
+  "version": "0.9.0-beta",
   "entry_scene": "module_root.tscn"
 }
 ```
 
-Wymagane: `id`, `name`, `entry_scene`. Opcjonalne m.in. `description`, `version`, `quiz_path` (zestawy pytań modułu),
+Wymagane: `id`, `name`, `entry_scene`. Opcjonalne m.in. `description`, `version` (wg
+[`docs/wersjonowanie.md`](docs/wersjonowanie.md), pokazywana na przycisku modułu w menu hosta), `quiz_path` (zestawy pytań modułu),
 `asset_path` (assety dla `AssetService`).
 
 Pola opcjonalne używane przez okno opcji:
@@ -236,4 +244,6 @@ BitBomber i Cień Mgły są już modułami hosta; kolejne powstają według szab
 ## Dokumentacja
 
 Indeks dokumentów ze statusami: [`docs/README.md`](docs/README.md). Do zrobienia i znane problemy:
-[`docs/znane_problemy.md`](docs/znane_problemy.md); stan ostatniej sesji: [`docs/kontekst/otwarte.md`](docs/kontekst/otwarte.md).
+[`docs/znane_problemy.md`](docs/znane_problemy.md); stan ostatniej sesji Cienia Mgły (handoff):
+[`docs/kontekst/sesja_2026-10-22.md`](docs/kontekst/sesja_2026-10-22.md), BitBombera: `modules/BitBomber/docs/zadania.md`.
+Wersje i plan wydań: [`docs/wersjonowanie.md`](docs/wersjonowanie.md), zmiany: [`CHANGELOG.md`](CHANGELOG.md).
