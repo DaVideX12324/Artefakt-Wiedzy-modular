@@ -16,8 +16,8 @@ czytają ją z plików powyżej, więc numer zmienia się **tylko tam**. Edytor 
 `AudioService`, …) i `_template` nie mają osobnych numerów — należą do wersji hosta.
 
 Dlaczego takie etapy:
-- **Cień Mgły — Alpha:** systemy działają, ścieżka tutorial → jaskinia → miasto → ścieki → boss ścieków → ekran końca jest
-  spięta w kodzie, ale mapa miasta jest jeszcze w budowie (warstwa Walls, obiekty, domki).
+- **Cień Mgły — Alpha:** systemy działają, ścieżka tutorial → jaskinia → miasto → ścieki → boss ścieków → wyjście na cmentarzysko →
+  ekran końca jest spięta w kodzie, ale mapa miasta jest jeszcze w budowie (warstwa Walls, obiekty, domki).
 - **BitBomber — Beta:** zakres gry meczowej jest kompletny (dwa tryby, 28 map, boty, quizy w grze, oprawa, sesja z hostem);
   zostają testy i balans. Kampania i bot kopiący bomby to rozszerzenia po 1.0.
 - **Artefakt Wiedzy — Alpha:** platforma (moduły, opcje, edytor pytań, wyniki sesji) jest gotowa do testów, ale paczka
