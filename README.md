@@ -245,5 +245,5 @@ BitBomber i Cień Mgły są już modułami hosta; kolejne powstają według szab
 
 Indeks dokumentów ze statusami: [`docs/README.md`](docs/README.md). Do zrobienia i znane problemy:
 [`docs/znane_problemy.md`](docs/znane_problemy.md); stan ostatniej sesji Cienia Mgły (handoff):
-[`docs/kontekst/sesja_2026-10-22.md`](docs/kontekst/sesja_2026-10-22.md), BitBombera: `modules/BitBomber/docs/zadania.md`.
+[`docs/kontekst/sesja_2026-10-24.md`](docs/kontekst/sesja_2026-10-24.md), BitBombera: `modules/BitBomber/docs/zadania.md`.
 Wersje i plan wydań: [`docs/wersjonowanie.md`](docs/wersjonowanie.md), zmiany: [`CHANGELOG.md`](CHANGELOG.md).
