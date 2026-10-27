@@ -147,7 +147,7 @@ bierze A (nie kafel jaskini).
   `probe_slivers.gd`, `probe_big_gap.gd`, `probe_edge_gap.gd`, `probe_count.gd`, `probe_region.gd` (mapa znakowa).
 - Przed testem `--check-only` (błąd parsowania = test wisi), krótkie timeouty.
 
-## Ręce i broń szczurów (rig, 2026-10-27)
+## Ręce i broń wrogów — rig (szczury, grzyby; 2026-10-27)
 
 - Szczury (`scenes/enemies/pixel_crawler/rat_*.tscn`, też `rat_king` z klatkami wojownika) mają pod `AnimatedSprite2D`
   węzeł `Rig` (`scripts/enemies/sprite_rig.gd`, `SpriteRig`): `Sprite2D` z wycinkami atlasu broni
@@ -159,6 +159,11 @@ bierze A (nie kafel jaskini).
   pasującą klatkę (klatka i = i / fps animacji ciała), kluczować `position` / `visible` / `region_rect` / `flip_h`
   części. Pozycje w pikselach klatki (0,0 = lewy górny róg klatki 64×64). W grze klatka ciała ustawia wartości ścieżek
   value (inne typy ścieżek są pomijane); `flip_h` ciała odbija cały rig.
-- Walka: `EnemyBattleDisplay` kopiuje ciało z rigiem (`duplicate`), więc ręce są też w walce.
-- `modules/quiz_rpg/tools/gen_rat_hands.py` wstawia rig z wartościami startowymi ze wzoru — **ponowne uruchomienie
-  nadpisuje zmiany z edytora** w scenach szczurów.
+- Grzyby z jaskiń (`fungus_*.tscn`) — ten sam rig, atlas `assets/pixel_crawler/environments/cave/Enemies/Fungus Weapons.png`
+  („Spore_Roots” z `environments/cave`; dłonie = szare kamyki z lewego górnego rogu): młody — maczuga, długi — łuk,
+  ciężki — tarcza z kłody + topór, stary — kostur z kulą; animacje `idle` / `walk` / `hurt` / `death`.
+- Walka: `EnemyBattleDisplay` kopiuje ciało z rigiem (`duplicate`), więc ręce są też w walce. Części mają
+  `region_filter_clip_enabled` (walka skaluje niecałkowicie — inaczej przecieka rząd pikseli sąsiada z atlasu).
+- `modules/quiz_rpg/tools/gen_enemy_hands.py <rat|fungus>` wstawia rig z wartościami startowymi ze wzorów (tabela
+  `FAMILIES`: atlas, arkusze, animacje, układ części; nowa rodzina = nowy wpis) — **ponowne uruchomienie nadpisuje
+  zmiany z edytora** w scenach tej rodziny.
