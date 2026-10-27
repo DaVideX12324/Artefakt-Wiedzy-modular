@@ -4,7 +4,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 
 > **Zasady organizacji dokumentacji:**
 > - **Pojedyncze źródło prawdy dla błędów i zadań:** [`docs/znane_problemy.md`](znane_problemy.md) — zawiera priorytety `⚠ WAŻNE:` (odczytywane przez hook startowy Claude Code), sekcje „Do zrobienia”, „Do sprawdzenia w grze”, „Pułapki konfiguracji” i „Rozwiązane”.
-> - **Bieżący stan sesji (handoff):** najnowszy [`docs/kontekst/sesja_2026-10-24.md`](kontekst/sesja_2026-10-24.md) (Cień Mgły; od 2026-10-21 handoffy są w plikach `kontekst/sesja_*.md`, [`otwarte.md`](kontekst/otwarte.md) — starsze), BitBomber: `modules/BitBomber/docs/zadania.md`.
+> - **Bieżący stan sesji (handoff):** najnowszy [`docs/kontekst/sesja_2026-10-27.md`](kontekst/sesja_2026-10-27.md) (Cień Mgły; od 2026-10-21 handoffy są w plikach `kontekst/sesja_*.md`, [`otwarte.md`](kontekst/otwarte.md) — starsze), BitBomber: `modules/BitBomber/docs/zadania.md`.
 > - **Indeks dokumentów roboczych modułu RPG:** [`docs/kontekst/README.md`](kontekst/README.md).
 > - **Materiały zarchiwizowane:** [`docs/archiwum/`](archiwum/).
 > - **Submoduły:** kod gier leży w repo modułów (`modules/BitBomber`, `modules/quiz_rpg` = Cień Mgły), a dokumentacja Cienia Mgły — w tym katalogu hosta. README modułów są w ich repo (zmiana = commit w repo modułu + nowy wskaźnik submodułu w hoście).
@@ -29,6 +29,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/sesja_2026-10-16_druzyna_ui.md](kontekst/sesja_2026-10-16_druzyna_ui.md) | Handoff 2026-10-15/16: drużyna, AGI, szyk, paski, opcje, merge `druzyna-balans` do main. | `AKTUALNE` |
 | [kontekst/sesja_2026-10-16b_walka_fnafb_fabula.md](kontekst/sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, decyzje fabuły finału. | `AKTUALNE` |
 | [kontekst/sesja_2026-10-16c_i18n.md](kontekst/sesja_2026-10-16c_i18n.md) | Handoff 2026-10-16 cz. 3: tłumaczenia PL / EN (fazy 0–5), ekran zapisów z koszem. | `ZROBIONE` |
+| [kontekst/sesja_2026-10-27.md](kontekst/sesja_2026-10-27.md) | Handoff 2026-10-27: okno zagadek / skrzyń w stylu walki (kursor, licznik), rig rąk i broni wrogów (szczury, grzyby; edycja w edytorze, `gen_enemy_hands.py`), Tiny Questers dla bohatera i Liny, Godot na tej maszynie. | `AKTUALNE` |
 | [kontekst/sesja_2026-10-24.md](kontekst/sesja_2026-10-24.md) | Handoff 2026-10-24/25: wersjonowanie i eksport, koniec gry po wyjściu ze ścieków, imię bohatera + easter eggi, kroki, grupy SFX, boss + stała świta, statystyki wrogów z poziomu i sprzętu mapy, mikstury procentowe, schody, menu zapisu; niezacommitowane testy postaci (SRW / Tiny Questers). | `AKTUALNE` |
 | [kontekst/sesja_2026-10-22.md](kontekst/sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `AKTUALNE` |
 | [kontekst/sesja_2026-10-21.md](kontekst/sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |

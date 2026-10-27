@@ -5,7 +5,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 > **Przypomnienia na start sesji (hook Claude Code):** hook `SessionStart` w `.claude/settings.json` uruchamia `.claude/hooks/przypomnienia.sh`, który wypisuje wszystkie nagłówki `### ⚠ WAŻNE: …` z [`docs/znane_problemy.md`](../znane_problemy.md). Nowe ważne todo = nowy nagłówek z tym znacznikiem; po załatwieniu usunąć nagłówek albo znacznik — przypomnienie znika samo.
 >
 > **Pojedyncze źródło prawdy dla błędów i zadań:** [`docs/znane_problemy.md`](../znane_problemy.md).  
-> **Bieżący stan sesji (handoff):** najnowszy [`sesja_2026-10-24.md`](sesja_2026-10-24.md) (od 2026-10-21 handoffy są w plikach `sesja_*.md`; [`otwarte.md`](otwarte.md) — starsze).  
+> **Bieżący stan sesji (handoff):** najnowszy [`sesja_2026-10-27.md`](sesja_2026-10-27.md) (od 2026-10-21 handoffy są w plikach `sesja_*.md`; [`otwarte.md`](otwarte.md) — starsze).  
 > **Archiwum dzienników sesji:** [`docs/archiwum/kontekst_README_sesje_do_2026-10-06.md`](../archiwum/kontekst_README_sesje_do_2026-10-06.md).
 
 ---
@@ -14,6 +14,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 
 | Plik | Opis zawartości | Status |
 |---|---|---|
+| [sesja_2026-10-27.md](sesja_2026-10-27.md) | Handoff 2026-10-27: okno zagadek / skrzyń w stylu walki (kursor, licznik), rig rąk i broni wrogów (szczury, grzyby; edycja w edytorze, `gen_enemy_hands.py`), Tiny Questers dla bohatera i Liny, Godot na tej maszynie. | `AKTUALNE` |
 | [sesja_2026-10-24.md](sesja_2026-10-24.md) | Handoff 2026-10-24/25: wersjonowanie i eksport, koniec gry po wyjściu ze ścieków, imię bohatera + easter eggi, kroki, grupy SFX, boss + stała świta, statystyki wrogów z poziomu i sprzętu mapy, mikstury procentowe, schody, menu zapisu; niezacommitowane testy postaci (SRW / Tiny Questers). | `AKTUALNE` |
 | [sesja_2026-10-22.md](sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `AKTUALNE` |
 | [sesja_2026-10-21.md](sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |
