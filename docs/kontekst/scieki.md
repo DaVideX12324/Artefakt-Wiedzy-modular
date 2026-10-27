@@ -146,3 +146,19 @@ bierze A (nie kafel jaskini).
   `check_gate_drop.gd` (wymuszone odrzucenie bramy), `probe_gates.gd`, `probe_gate_objs.gd`, `probe_partitions.gd`,
   `probe_slivers.gd`, `probe_big_gap.gd`, `probe_edge_gap.gd`, `probe_count.gd`, `probe_region.gd` (mapa znakowa).
 - Przed testem `--check-only` (błąd parsowania = test wisi), krótkie timeouty.
+
+## Ręce i broń szczurów (rig, 2026-10-27)
+
+- Szczury (`scenes/enemies/pixel_crawler/rat_*.tscn`, też `rat_king` z klatkami wojownika) mają pod `AnimatedSprite2D`
+  węzeł `Rig` (`scripts/enemies/sprite_rig.gd`, `SpriteRig`): `Sprite2D` z wycinkami atlasu broni
+  (`assets/pixel_crawler/enemies/rat_enemy/Rat Weapons.png` = „Poison Weapons” z paczki ściekowej; dłonie z prawego
+  dolnego rogu) i `AnimationPlayer` `RigAnim` z animacjami `idle` / `walk` / `death` (nazwy jak animacje ciała).
+- Układ jak na wzorze autora paczki: zwykły — zakrzywiony sztylet, łotrzyk — strzała + łuk, wojownik / król — tarcza +
+  włócznia, mag — mikstura + kostur; w `death` części ukryte.
+- **Edycja w edytorze:** otworzyć scenę szczura, w `RigAnim` wybrać animację i przewijać oś czasu — ciało pokazuje
+  pasującą klatkę (klatka i = i / fps animacji ciała), kluczować `position` / `visible` / `region_rect` / `flip_h`
+  części. Pozycje w pikselach klatki (0,0 = lewy górny róg klatki 64×64). W grze klatka ciała ustawia wartości ścieżek
+  value (inne typy ścieżek są pomijane); `flip_h` ciała odbija cały rig.
+- Walka: `EnemyBattleDisplay` kopiuje ciało z rigiem (`duplicate`), więc ręce są też w walce.
+- `modules/quiz_rpg/tools/gen_rat_hands.py` wstawia rig z wartościami startowymi ze wzoru — **ponowne uruchomienie
+  nadpisuje zmiany z edytora** w scenach szczurów.
