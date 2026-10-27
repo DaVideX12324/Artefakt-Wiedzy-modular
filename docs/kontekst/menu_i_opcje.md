@@ -100,3 +100,10 @@
 - Monitor wydajności (build debug, `scripts/tools/perf_monitor.gd`): F3 nakładka, F4 VSync, `user://perf_log.txt`
   (ZACIĘCIE / ZAWIESZENIE / PUŁS co 5 s). Zawieszenia przy ruchu myszy 2026-10-11 rozwiązał restart edytora —
   `docs/krytyczne_zawieszenia_klatek.md`, narzędzia `tools/diag_input/`.
+
+## Menu główne z klawiatury (2026-10-27)
+
+Kursor prowadzony skryptem (`modules/quiz_rpg/scripts/ui/main_menu.gd`, przyciski `FOCUS_NONE`): W / S / strzałki,
+Enter / Z / spacja, mysz przesuwa kursor; styl `selected` z `QuizMenuItem`. Ekrany treści (zapisy, opcje, statystyki,
+imię) chodzą na fokusie Godota, WASD / Z / X -> `ui_*` (`KEY_AS_UI_ACTION`), poza `LineEdit` / `TextEdit`. Powrót do
+menu zwalnia fokus. Launcher hosta bez obsługi klawiatury.

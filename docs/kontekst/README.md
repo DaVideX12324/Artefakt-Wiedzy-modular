@@ -14,7 +14,7 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 
 | Plik | Opis zawartości | Status |
 |---|---|---|
-| [sesja_2026-10-27.md](sesja_2026-10-27.md) | Handoff 2026-10-27: okno zagadek / skrzyń w stylu walki (kursor, licznik), rig rąk i broni wrogów (szczury, grzyby; edycja w edytorze, `gen_enemy_hands.py`), Tiny Questers dla bohatera i Liny, Godot na tej maszynie. | `AKTUALNE` |
+| [sesja_2026-10-27.md](sesja_2026-10-27.md) | Handoff 2026-10-27: okno zagadek / skrzyń w stylu walki (kursor, licznik), rig rąk i broni wrogów (szczury, grzyby; edycja w edytorze, `gen_enemy_hands.py`), Tiny Questers dla bohatera i Liny; animacje wejścia / komunikatów walki, offset gracza ze sceny, menu główne z klawiatury; Godot na tej maszynie. | `AKTUALNE` |
 | [sesja_2026-10-24.md](sesja_2026-10-24.md) | Handoff 2026-10-24/25: wersjonowanie i eksport, koniec gry po wyjściu ze ścieków, imię bohatera + easter eggi, kroki, grupy SFX, boss + stała świta, statystyki wrogów z poziomu i sprzętu mapy, mikstury procentowe, schody, menu zapisu; niezacommitowane testy postaci (SRW / Tiny Questers). | `AKTUALNE` |
 | [sesja_2026-10-22.md](sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `AKTUALNE` |
 | [sesja_2026-10-21.md](sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |

@@ -254,3 +254,10 @@ Umiejętności przygotowane dla pozostałych członków drużyny:
   (`_round_running`); oba przypadki wypisują ostrzeżenie `QuizCombat: …` w konsoli — jeśli się powtórzy, szukać go w logu.
 - Zaskoczenie (decyzja usera 2026-10-21): po komunikacie „Zaskoczenie! …” w logu podpowiedź „Enter / Z / klik — dalej”; runda wrogów rusza dopiero po potwierdzeniu (`_wait_notice_confirm` / `confirm_notice`).
 - Przewaga / zaskoczenie (decyzja usera 2026-10-21): jak w FNaFB (RPG Maker VX Ace `rate_preemptive` / `rate_surprise`) — losowo, drużyna o średnim AGI >= wrogów: przewaga 5 %, zaskoczenie 3 %; wolniejsza: 3 % / 5 %; zaskoczenie tylko bez przewagi, bossy bez. Sytuacja na mapie (stożek widzenia, plecy, pościg) już nie wpływa — kod `encounter_situation.gd` usunięty. Wrogowie domyślnie widzą 360°.
+
+## Wejście do walki i komunikaty (2026-10-27)
+
+Styl animacji wejścia do wyboru w opcjach (wir ze źrenicą / paski z glitchem). Po odsłonięciu z czerni najpierw samo
+pole walki, potem „X pojawił się!” w dolnym pasie (fade + wypisywanie), po zatwierdzeniu okna walki wchodzą fade'em.
+Komunikaty po walce: fade okna, wypisywanie linii (`_type_label`, `MESSAGE_CHARS_PER_SEC`), Enter / Z / klik dopisuje
+resztę. Szczegóły: [`sesja_2026-10-27.md`](sesja_2026-10-27.md).
