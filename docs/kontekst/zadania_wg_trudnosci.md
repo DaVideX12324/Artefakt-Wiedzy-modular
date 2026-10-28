@@ -43,7 +43,9 @@
 26. ➜ **rozszerzony scope** (decyzja usera 2026-10-22, nie na poziom inżynierki) — finał: walka z ostatnim bossem (fazy, inna Faza 2 na ścieżce Good), cutscenka i zakończenia, zabranie towarzyszy, „Wzmocnienie tarczy”, umiejętność 10. poziomu, limit mikstur SP w finale. Szkic: `fabula_krag_i_zakonczenia_szkic.md` sekcje 5–6.
 27. ✅ **S/O** — uproszczone zakończenie na inżynierkę (zamiast pkt 26; zrobione 2026-10-22: boss ścieków Szczurzy Król — nazwa robocza — z `"boss": {"ends_game": true}` w `sewer.json`, ekran `scenes/ui/end_screen.tscn`, flaga `game:completed`, zapis w bieżącym slocie, „Ukończono” w opisie slotu, test `check_end_screen`): zwykła walka z ostatnim bossem (bez faz, cutscenek i ścieżek zakończeń), po wygranej ekran końca gry (napisy / podsumowanie: czas gry, poziom, pokonani bossowie, poprawne odpowiedzi) i powrót do menu; zapis oznaczony jako ukończony. Do ustalenia z userem: która mapa i który boss jest ostatni.
 
-Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze przyspieszanie generatora, finał (pkt 26).
+28. ➜ **rozszerzony scope, wersja 2.0 Cienia Mgły** (decyzja usera 2026-10-28) — walki jak w demie Desire Fantasy (noiracide.itch.io/df-demo, RPG Maker MV): widok z boku, **wrogowie z lewej, bohaterowie z prawej**, postacie drużyny na polu walki jako sprite'y (animacje ataku / czaru / trafienia / śmierci z szablonu LumenLorePixels, z którego postacie są generowane skryptem — decyzja 2026-10-28) zamiast obecnego UI walki.
+
+Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze przyspieszanie generatora, finał (pkt 26), walki z widokiem z boku (pkt 28).
 
 **Następny sensowny krok:** Opus robi szkic ekonomii/drabiny sprzętu (20) i szkielet NPC (21); potem UI scen (15, 22) może zrobić Sonnet albo Antigravity z briefem. Bez blokady: 19 (nakładka podglądu), 16 (warianty skrzyń).
 
