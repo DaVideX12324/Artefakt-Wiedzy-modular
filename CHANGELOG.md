@@ -6,6 +6,10 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.7-beta] — 2026-10-29
+
+Cień Mgły 0.9.7-beta (zapis pozycji, trwała śmierć wrogów, bez pauzy w walce, klawisze, balans), BitBomber bez zmian.
+
 ### Zmieniono
 - Wszystkie klawisze gry zmienialne w Opcje → Sterowanie: nowe akcje zatwierdź / wróć (Z / X), odpowiedzi 1–4,
   zakładki (Q / E), mapa i zoom (M, = / -); panel quizu korzysta z akcji (Enter, spacja, Esc i strzałki działają zawsze).
