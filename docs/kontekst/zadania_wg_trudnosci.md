@@ -45,6 +45,8 @@
 
 28. ➜ **rozszerzony scope, wersja 2.0 Cienia Mgły** (decyzja usera 2026-10-28) — walki jak w demie Desire Fantasy (noiracide.itch.io/df-demo, RPG Maker MV): widok z boku, **wrogowie z lewej, bohaterowie z prawej**, postacie drużyny na polu walki jako sprite'y (animacje ataku / czaru / trafienia / śmierci z szablonu LumenLorePixels, z którego postacie są generowane skryptem — decyzja 2026-10-28) zamiast obecnego UI walki.
 
+29. **S** — inżynierka, nie blokuje release'u (user 2026-10-29): ujednolicić skrzynie w jednym stylu Pixel Crawlera. Dziś tutorial i jaskinie (`closed_chest_tutorial.tscn`, generator) używają `legacy_amonra/.../RPG Chests.png`, ścieki — skrzyni z `sewer/Assets/Props.png`, a miasto dostanie inną. Kandydaci: drewniana skrzynia z okuciami z kryjówki (`_nieuzywane/.../hideout`), skrzynie z kuźni / Desert / biblioteki (wszystkie mają klatkę otwartą) — jeden zestaw na tiery skrzyń.
+
 Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze przyspieszanie generatora, finał (pkt 26), walki z widokiem z boku (pkt 28).
 
 **Następny sensowny krok:** Opus robi szkic ekonomii/drabiny sprzętu (20) i szkielet NPC (21); potem UI scen (15, 22) może zrobić Sonnet albo Antigravity z briefem. Bez blokady: 19 (nakładka podglądu), 16 (warianty skrzyń).
