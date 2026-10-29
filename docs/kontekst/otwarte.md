@@ -72,7 +72,7 @@ większość złota idzie na mikstury HP / SP (stałe wartości, nie %; walka z 
 
 ## Najbliższe kroki
 
-> **Najnowszy handoff (2026-10-16):** [`sesja_2026-10-16_druzyna_ui.md`](sesja_2026-10-16_druzyna_ui.md) — drużyna / AGI / szyk na `main`, paski, opcje, następne kroki.
+> **Najnowszy handoff (2026-10-16):** [`sesja_2026-10-16_druzyna_ui.md`](../archiwum/sesja_2026-10-16_druzyna_ui.md) — drużyna / AGI / szyk na `main`, paski, opcje, następne kroki.
 
 Zadania i otwarte wątki zostały skonsolidowane w dokumencie [`docs/znane_problemy.md`](../znane_problemy.md):
 - **Priorytety `### ⚠ WAŻNE:`:**
@@ -84,4 +84,4 @@ Zadania i otwarte wątki zostały skonsolidowane w dokumencie [`docs/znane_probl
   - Krzywe bohatera i wrogów do lv 100 oraz tiery sprzętu na 15 map (`docs/znane_problemy.md` → „Skalowanie wrogów przy kilkunastu mapach”).
   - Sklepy, kowal, ulepszanie broni z potencjałem (`docs/znane_problemy.md` → „miasto / hub” oraz `docs/kontekst/ekwipunek_szkic.md`).
   - Rewizja wpływu pancerza DEF w późnej fazie gry oraz wielostatystykowej optymalizacji ekwipunku (`docs/znane_problemy.md` → „Do zrobienia”).
-  - Teksty logu wrogów `skill.<plik>.log` (brief [`docs/kontekst/i18n_log_wrogow_dla_gemini.md`](i18n_log_wrogow_dla_gemini.md)).
+  - Teksty logu wrogów `skill.<plik>.log` (brief [`docs/archiwum/i18n_log_wrogow_dla_gemini.md`](../archiwum/i18n_log_wrogow_dla_gemini.md)).

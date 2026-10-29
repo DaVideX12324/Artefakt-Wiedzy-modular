@@ -91,16 +91,16 @@ Podpięcie kluczy do kodu zrobi Claude po oddaniu (osobny krok).
 
 ## Zadanie D — teksty logu wrogów (EN + PL)
 
-Osobny brief: [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) (21 kluczy `skill.<plik>.log`).
+Osobny brief: [archiwum/i18n_log_wrogow_dla_gemini.md](../archiwum/i18n_log_wrogow_dla_gemini.md) (21 kluczy `skill.<plik>.log`).
 
 ## Zadanie E — uporządkowanie folderu `docs/` (indeksy, statusy, archiwum, bez zmiany treści)
 
-Osobny brief: [porzadkowanie_docs_dla_gemini.md](porzadkowanie_docs_dla_gemini.md) (rola `otwarte.md` vs `znane_problemy.md`, indeks `docs/README.md`, statusy planów, raport).
+Osobny brief: [archiwum/porzadkowanie_docs_dla_gemini.md](../archiwum/porzadkowanie_docs_dla_gemini.md) (rola `otwarte.md` vs `znane_problemy.md`, indeks `docs/README.md`, statusy planów, raport).
 Uwaga: nie ruszać nagłówków `### ⚠ WAŻNE:` w `znane_problemy.md` (hook przypomnień).
 
 ## Zadanie F — imiona postaci (propozycje i wdrożenie)
 
-Osobny brief: [imiona_postaci_dla_gemini.md](imiona_postaci_dla_gemini.md).
+Osobny brief: [archiwum/imiona_postaci_dla_gemini.md](../archiwum/imiona_postaci_dla_gemini.md).
 - 2026-10-21: Przygotowano propozycje. User zatwierdził imiona towarzyszy: Łotrzyk = **Kael**, Mag = **Eldon**, Kapłan = **Selene**.
 - Wdrożono zgodnie z sekcją 6: klucze hero.<id>.name w pl.json i en.json (EN = PL), display_name w hero_*.tres oraz uild_companions.gd. Zamknięto otwarte punkty w druzyna_szkic.md i zadania_wg_trudnosci.md.
 

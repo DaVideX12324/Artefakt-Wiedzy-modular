@@ -39,7 +39,7 @@ host `main`. Dalej pracować na `main` CienMgly; gałąź `druzyna-balans` zosta
   `[display] vsync, max_fps`. Host + kopia `_host`.
 
 ### Inne
-- Optymalizacja generowania (sesja wcześniej): `plan_przyspieszenie_generowania.md` „Sesja 2026-10-16”.
+- Optymalizacja generowania (sesja wcześniej): `archiwum/plan_przyspieszenie_generowania.md` „Sesja 2026-10-16”.
 - Point and click zapisany jako dodatkowy feature, niski priorytet (`game_design.md`, Otwarte zadania -> Mechaniczne).
 
 ## Ważne pułapki

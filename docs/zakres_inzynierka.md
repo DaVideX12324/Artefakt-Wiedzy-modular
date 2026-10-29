@@ -74,13 +74,13 @@ Stan 2026-10-16 (`modules/BitBomber`): arena to prosta siatka 17×17 o kafelku 6
 500×500 spadło z ok. 68 s do ok. 32 s po optymalizacjach; **[U] generator przyspieszony, ile się da bez C# (2026-10-17), temat zamknięty**. Przepisywanie skryptów na C# **[P] nie na tym etapie**: projekt jest dziś
 zwykłym Godotem (GDScript, bez `.csproj`), a C# wymaga edytora .NET, SDK, innych szablonów eksportu i budowania modułów; eksport na web
 w Godot 4 nie był wspierany dla C# (sprawdzić dla 4.7). Wąskim gardłem są `Dictionary[Vector2i]` i wywołania na kratkę, więc najpierw
-płaska siatka `PackedByteArray` (krok 3 w [`plan_przyspieszenie_generowania.md`](plan_przyspieszenie_generowania.md)); porty tylko tych etapów,
+płaska siatka `PackedByteArray` (krok 3 w [`archiwum/plan_przyspieszenie_generowania.md`](archiwum/plan_przyspieszenie_generowania.md)); porty tylko tych etapów,
 które po tym nadal przekraczają 2–3 s na realnych rozmiarach (150–250). Parytet generatora (digesty IDENTICAL) jest siatką bezpieczeństwa.
 
 ## 7. Stan kodu Cienia Mgły względem zakresu (sprawdzone 2026-10-24, CienMgly `955bb5c8`, wersja `0.8.0-alpha`)
 
 > Poprzednia wersja tej sekcji (2026-10-23) opisywała starszy commit `39da694a` — miasto i boss ścieków doszły po nim
-> (handoff `kontekst/sesja_2026-10-22.md`).
+> (handoff `archiwum/sesja_2026-10-22.md`).
 
 Przegląd kodu pod kątem ścieżki „tutorial → jaskinia → miasto → ścieki, koniec na bossie ścieków” (od 2026-10-24: na wyjściu ze ścieków po bossie):
 

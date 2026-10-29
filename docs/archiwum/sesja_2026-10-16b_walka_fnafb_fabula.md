@@ -74,6 +74,6 @@ Na laptopie: `git pull` + `git submodule update`.
 - Finał w kodzie: zabranie towarzyszy na start fazy 1, umiejętność „Wzmocnienie tarczy” (100 TP → `recruit` kolejnego),
   fazy bossa, umiejętność 10. poziomu z krzywą kosztów.
 - Decyzja usera: wysokie okno pytania zasłania potwory (podjazd pola tylko gdy trzeba vs zostawić).
-- Wcześniejsze: zapis map na dysk (`docs/plan_zapis_map.md`), `distance_to` w korytarzach ścieków, zacięcie pierwszej klatki
+- Wcześniejsze: zapis map na dysk (`docs/archiwum/plan_zapis_map.md`), `distance_to` w korytarzach ścieków, zacięcie pierwszej klatki
   po generowaniu, scroll drużyny > 4 w pauzie, szyk w Status (bez zmian bez potwierdzenia), sprite'y, osada / sklep / NPC,
   tła 16:9, generator obiektów.

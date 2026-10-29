@@ -14,12 +14,13 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 
 | Plik | Opis zawartości | Status |
 |---|---|---|
+| [sesja_2026-10-29.md](sesja_2026-10-29.md) | Handoff 2026-10-28/29: miasto scalone do `town.tscn`, atlas ruin, schody `dom_pietro`, postacie LumenLore; następne: przejścia obustronne, test start-finish, beta 0.9. | `AKTUALNE` |
 | [sesja_2026-10-27.md](sesja_2026-10-27.md) | Handoff 2026-10-27: okno zagadek / skrzyń w stylu walki (kursor, licznik), rig rąk i broni wrogów (szczury, grzyby; edycja w edytorze, `gen_enemy_hands.py`), Tiny Questers dla bohatera i Liny; animacje wejścia / komunikatów walki, offset gracza ze sceny, menu główne z klawiatury; Godot na tej maszynie. | `AKTUALNE` |
-| [sesja_2026-10-24.md](sesja_2026-10-24.md) | Handoff 2026-10-24/25: wersjonowanie i eksport, koniec gry po wyjściu ze ścieków, imię bohatera + easter eggi, kroki, grupy SFX, boss + stała świta, statystyki wrogów z poziomu i sprzętu mapy, mikstury procentowe, schody, menu zapisu; niezacommitowane testy postaci (SRW / Tiny Questers). | `AKTUALNE` |
-| [sesja_2026-10-22.md](sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `AKTUALNE` |
-| [sesja_2026-10-21.md](sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |
-| [sesja_2026-10-16b_walka_fnafb_fabula.md](sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, dane FNaFB2, decyzje fabuły finału. | `AKTUALNE` |
-| [sesja_2026-10-16_druzyna_ui.md](sesja_2026-10-16_druzyna_ui.md) | Handoff sesji 2026-10-15/16: drużyna + AGI + szyk, merge do main, paski i opcje (V-Sync / FPS), pułapki, następne kroki. | `AKTUALNE` |
+| [archiwum/sesja_2026-10-24.md](../archiwum/sesja_2026-10-24.md) | Handoff 2026-10-24/25: wersjonowanie i eksport, koniec gry po wyjściu ze ścieków, imię bohatera + easter eggi, kroki, grupy SFX, boss + stała świta, statystyki wrogów z poziomu i sprzętu mapy, mikstury procentowe, schody, menu zapisu; niezacommitowane testy postaci (SRW / Tiny Questers). | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-22.md](../archiwum/sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-21.md](../archiwum/sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-16b_walka_fnafb_fabula.md](../archiwum/sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, dane FNaFB2, decyzje fabuły finału. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-16_druzyna_ui.md](../archiwum/sesja_2026-10-16_druzyna_ui.md) | Handoff sesji 2026-10-15/16: drużyna + AGI + szyk, merge do main, paski i opcje (V-Sync / FPS), pułapki, następne kroki. | `HISTORYCZNE` |
 | [zasady.md](zasady.md) | Stałe zasady pracy z repozytorium (commity, ochrona kodu), uruchamianie testów i architektura modułu. | `ZROBIONE` |
 | [scieki.md](scieki.md) | Specyfikacja techniczna i stan prac nad generatorem ścieków (układ structured, kanały, kładki, platformy). | `ZROBIONE` |
 | [sciany_i_kafle.md](sciany_i_kafle.md) | Generator jaskiń: filary 2H, autotiling ścian, wypustki, fasady płaskowyżu i warianty kafli RIM. | `ZROBIONE` |
@@ -38,22 +39,22 @@ Krótkie notatki robocze, specyfikacje i ustalenia dotyczące modułu RPG `quiz_
 | [otwarte.md](otwarte.md) | Podsumowanie ostatniej sesji (handoff), decyzje usera i odnośniki do bieżących zadań w `znane_problemy.md`. | `W TOKU` |
 | [backlog_druzyna_balans.md](backlog_druzyna_balans.md) | Sprint backlog (etapy S1–S7 i O1–O7) prac na gałęzi `druzyna-balans`. | `W TOKU` |
 | [zadania_wg_trudnosci.md](zadania_wg_trudnosci.md) | Widok pomocniczy (nie źródło prawdy): zadania od najłatwiejszych do najtrudniejszych z oznaczeniem wykonawcy, stan na 2026-10-13. | `W TOKU` |
-| [sesja_2026-10-13_miasto_ldtk.md](sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach. | `W TOKU` |
+| [archiwum/sesja_2026-10-13_miasto_ldtk.md](../archiwum/sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach. | `HISTORYCZNE` |
 | [druzyna_szkic.md](druzyna_szkic.md) | Szkic systemu drużyny: 3 towarzyszy, rekrutacja po zadaniach, osobne pule XP i brak limitu w walce. | `SZKIC (niezatwierdzone)` |
 | [ekwipunek_szkic.md](ekwipunek_szkic.md) | Szkic ekonomii i ekwipunku: złoto, mikstury, tiery skrzyń i kluczy, sklepy oraz ulepszenia broni. | `SZKIC (niezatwierdzone)` |
-| [imiona_postaci_dla_gemini.md](imiona_postaci_dla_gemini.md) | Brief i propozycje imion (towarzysze, NPC, Strażnik, Arcymag); imiona wdrożone 2026-10-21. | `ZROBIONE` |
-| [i18n_calosc_raport.md](i18n_calosc_raport.md) | Raport z wdrożenia i18n — faza 0 (infrastruktura, `I18nService`). | `ZROBIONE` |
+| [archiwum/imiona_postaci_dla_gemini.md](../archiwum/imiona_postaci_dla_gemini.md) | Brief i propozycje imion (towarzysze, NPC, Strażnik, Arcymag); imiona wdrożone 2026-10-21. | `ZROBIONE` |
+| [archiwum/i18n_calosc_raport.md](../archiwum/i18n_calosc_raport.md) | Raport z wdrożenia i18n — faza 0 (infrastruktura, `I18nService`). | `ZROBIONE` |
 | [fabula_krag_i_zakonczenia_szkic.md](fabula_krag_i_zakonczenia_szkic.md) | Szkic fabuły: zamiana ciał, krąg zamiast maszyny, magia 10. poziomu, trzy zakończenia, NG+ i walka finałowa. | `SZKIC (niezatwierdzone)` |
 | [fabula_szkic_dopiski_i_konflikty.md](fabula_szkic_dopiski_i_konflikty.md) | Dopiski 2026-10-16 do szkicu fabuły, konflikty z `game_design.md`, wzór z FNaFB2, otwarte sprawy. | `SZKIC (niezatwierdzone)` |
 | [sloty_umiejetnosci_szkic.md](sloty_umiejetnosci_szkic.md) | Szkic mechaniki slotów umiejętności, 4 tierów, budżetu slotów oraz odblokowywania trybu combo. | `SZKIC (niezatwierdzone)` |
 | [poziomy_i_xp.md](poziomy_i_xp.md) | Matematyka poziomów wrogów, skalowania statystyk z poziomu oraz krzywe doświadczenia na 15 map. | `W TOKU` |
 | [skille_i_pierwowzory.md](skille_i_pierwowzory.md) | Zestawienie umiejętności bohaterów i wrogów z ich pierwowzorami z FNaFB, kosztami i efektami. | `SZKIC (niezatwierdzone)` |
 | [skille_i_pierwowzory.docx](skille_i_pierwowzory.docx) | Plik binarny Word zawierający bazową tabelę umiejętności i kosztów SP/TP. | `SZKIC (niezatwierdzone)` |
-| [sesja_2026-10-15_assety_i_przejscia.md](sesja_2026-10-15_assety_i_przejscia.md) | Handoff 2026-10-14/15: prywatny submoduł `assets`, przepisana historia, przejścia. | `HISTORYCZNE` |
-| [sesja_2026-10-16c_i18n.md](sesja_2026-10-16c_i18n.md) | Handoff: tłumaczenia PL / EN całego Artefaktu (fazy 0–5), poprawki po Gemini, ekran zapisów z koszem, otwarte. | `ZROBIONE` |
-| [i18n_opisy_dla_gemini.md](i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do `pl.json` i `en.json`. | `ZROBIONE` |
-| [i18n_log_wrogow_dla_gemini.md](i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie tekstów logu walki dla umiejętności przeciwników. | `ZROBIONE` |
-| [i18n_calosc_dla_gemini.md](i18n_calosc_dla_gemini.md) | Brief dla Gemini: tłumaczenia PL / EN całego Artefaktu (host, Cień Mgły, BitBomber) — `I18nService`, sceny przez `TranslationServer`, fazy 0–5. | `ZROBIONE` |
+| [archiwum/sesja_2026-10-15_assety_i_przejscia.md](../archiwum/sesja_2026-10-15_assety_i_przejscia.md) | Handoff 2026-10-14/15: prywatny submoduł `assets`, przepisana historia, przejścia. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-16c_i18n.md](../archiwum/sesja_2026-10-16c_i18n.md) | Handoff: tłumaczenia PL / EN całego Artefaktu (fazy 0–5), poprawki po Gemini, ekran zapisów z koszem, otwarte. | `ZROBIONE` |
+| [archiwum/i18n_opisy_dla_gemini.md](../archiwum/i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do `pl.json` i `en.json`. | `ZROBIONE` |
+| [archiwum/i18n_log_wrogow_dla_gemini.md](../archiwum/i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie tekstów logu walki dla umiejętności przeciwników. | `ZROBIONE` |
+| [archiwum/i18n_calosc_dla_gemini.md](../archiwum/i18n_calosc_dla_gemini.md) | Brief dla Gemini: tłumaczenia PL / EN całego Artefaktu (host, Cień Mgły, BitBomber) — `I18nService`, sceny przez `TranslationServer`, fazy 0–5. | `ZROBIONE` |
 | [zadania_dla_antigravity.md](zadania_dla_antigravity.md) | Rejestr zadań mechanicznych i tekstowych delegowanych modelom pomocniczym (Gemini/Antigravity). | `W TOKU` |
-| [porzadkowanie_docs_dla_gemini.md](porzadkowanie_docs_dla_gemini.md) | Brief na uporządkowanie struktury `docs/`, ujednolicenie statusów i utworzenie indeksów (Zadanie E). | `W TOKU` |
-| [raport_porzadkowania.md](raport_porzadkowania.md) | Raport z przeprowadzonego porządkowania dokumentacji, weryfikacji linków i ewentualnych rozbieżności. | `ZROBIONE` |
+| [archiwum/porzadkowanie_docs_dla_gemini.md](../archiwum/porzadkowanie_docs_dla_gemini.md) | Brief na uporządkowanie struktury `docs/`, ujednolicenie statusów i utworzenie indeksów (Zadanie E). | `HISTORYCZNE` |
+| [archiwum/raport_porzadkowania.md](../archiwum/raport_porzadkowania.md) | Raport z przeprowadzonego porządkowania dokumentacji, weryfikacji linków i ewentualnych rozbieżności. | `ZROBIONE` |

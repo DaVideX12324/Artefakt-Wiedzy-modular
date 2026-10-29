@@ -97,7 +97,7 @@ kontrolkach (przyciski, nagłówki kolumn) — gdy nie da się skrócić, wpisz 
 7. Słowniki hosta (`res://resources/i18n/pl.json`, `en.json`) — na start choćby jeden klucz (`host.options.language`), żeby
    ścieżka działała.
 
-**Raport po fazie 0** (`docs/kontekst/i18n_calosc_raport.md`): co zmieniłeś (pliki, funkcje), wynik `check_i18n.py`
+**Raport po fazie 0** (`docs/archiwum/i18n_calosc_raport.md`): co zmieniłeś (pliki, funkcje), wynik `check_i18n.py`
 (ile tekstów scen i plików `.gd` czeka), pytania. Potem STOP.
 
 ## Faza 1 — host
@@ -141,6 +141,6 @@ Klucze z nazwy pliku, **bez edycji `.tres`**: w klasach danych dopisz metody w s
 
 1. `python tools/check_i18n.py` — zero błędów dla plików tej fazy (ostrzeżenia z kodu kolejnych faz mogą zostać).
 2. Każdy zmieniony `.gd` przejrzyj pod kątem składni (Godot 4.7; typowanie jak w otoczeniu, wcięcia tabami).
-3. Dopisz do `docs/kontekst/i18n_calosc_raport.md`: faza, zmienione pliki, ile kluczy doszło, kolizje, teksty za długie po
+3. Dopisz do `docs/archiwum/i18n_calosc_raport.md`: faza, zmienione pliki, ile kluczy doszło, kolizje, teksty za długie po
    angielsku, literówki poprawione w PL, pytania. Gier i testów Godota nie uruchamiaj (zmieniają plik ustawień usera) — testy
    robi Claude.
