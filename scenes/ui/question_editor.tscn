@@ -109,6 +109,10 @@ text = "Importuj JSON"
 layout_mode = 2
 text = "Eksportuj"
 
+[node name="BtnTemplate" type="Button" parent="Root/Margin/VBox/Body/SetsBox/SetButtons"]
+layout_mode = 2
+text = "Szablon JSON"
+
 [node name="BtnRename" type="Button" parent="Root/Margin/VBox/Body/SetsBox/SetButtons"]
 layout_mode = 2
 text = "Zmień nazwę"
