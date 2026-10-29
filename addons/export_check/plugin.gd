@@ -1,0 +1,74 @@
+@tool
+extends EditorPlugin
+
+## Po każdym eksporcie: wzorzec danych z edytora (przed eksportem) porównany z zasobami w wyeksportowanej paczce
+## (osobny proces Godota z --main-pack). Wynik w konsoli i w okienku. Zgłoszenie 2026-10-29: odtrutka gubiła pole przy
+## konwersji eksportu — w edytorze działało, w exe nie.
+
+const Check = preload("check_pack.gd")
+const CHECK_SCRIPT := "res://addons/export_check/check_pack.gd"
+
+var _export_plugin: ExportHook
+
+
+func _enter_tree() -> void:
+	_export_plugin = ExportHook.new()
+	_export_plugin.owner_plugin = self
+	add_export_plugin(_export_plugin)
+
+
+func _exit_tree() -> void:
+	remove_export_plugin(_export_plugin)
+	_export_plugin = null
+
+
+func run_check(pack_path: String, ref: Dictionary) -> void:
+	var dir := ProjectSettings.globalize_path("user://export_check")
+	DirAccess.make_dir_recursive_absolute(dir)
+	var ref_path := dir.path_join("reference.json")
+	var out_path := dir.path_join("result.txt")
+	var f := FileAccess.open(ref_path, FileAccess.WRITE)
+	f.store_string(JSON.stringify(ref))
+	f.close()
+	if FileAccess.file_exists(out_path):
+		DirAccess.remove_absolute(out_path)
+	var output := []
+	OS.execute(OS.get_executable_path(), ["--headless", "--main-pack", pack_path, "-s",
+			ProjectSettings.globalize_path(CHECK_SCRIPT), "--", ref_path, out_path], output, true)
+	var result := FileAccess.get_file_as_string(out_path) if FileAccess.file_exists(out_path) else "Sprawdzenie nie zwróciło wyniku:\n" + "\n".join(output)
+	var ok := result.begins_with("OK")
+	print("[ExportCheck] ", result if ok else "BŁĘDY EKSPORTU:\n" + result)
+	var dlg := AcceptDialog.new()
+	dlg.title = "Sprawdzenie eksportu"
+	dlg.dialog_text = ("Eksport OK — dane gry (%s zasobów) takie jak w edytorze." % result.get_slice(" ", 1).strip_edges()) if ok \
+			else "Dane w eksporcie różnią się od edytora:\n\n" + result.left(3000)
+	EditorInterface.get_base_control().add_child(dlg)
+	dlg.confirmed.connect(dlg.queue_free)
+	dlg.canceled.connect(dlg.queue_free)
+	dlg.popup_centered()
+
+
+class ExportHook extends EditorExportPlugin:
+	var owner_plugin: EditorPlugin
+	var _path := ""
+	var _ref := {}
+
+	func _get_name() -> String:
+		return "ExportCheck"
+
+	func _export_begin(_features: PackedStringArray, _is_debug: bool, path: String, _flags: int) -> void:
+		_path = path
+		_ref = {}
+		for p in Check.data_paths():
+			var res := load(p)
+			if res != null:
+				_ref[p] = JSON.parse_string(JSON.stringify(Check.snapshot(res)))
+
+	func _export_end() -> void:
+		if _path == "" or _ref.is_empty():
+			return
+		var pack := ProjectSettings.globalize_path(_path) if _path.begins_with("res://") else _path
+		if not pack.is_absolute_path():
+			pack = ProjectSettings.globalize_path("res://").path_join(pack)
+		if pack.get_extension().to_lower() in ["exe", "pck", "zip"]:
+			owner_plugin.call_deferred("run_check", pack, _ref)

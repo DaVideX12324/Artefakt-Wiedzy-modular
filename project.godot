@@ -46,7 +46,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/object_catalog_sync/plugin.cfg")
+enabled=PackedStringArray("res://addons/export_check/plugin.cfg", "res://addons/object_catalog_sync/plugin.cfg")
 
 [gui]
 
