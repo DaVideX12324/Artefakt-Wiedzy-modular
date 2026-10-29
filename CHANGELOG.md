@@ -6,6 +6,14 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.4-beta] — 2026-10-29
+
+Cień Mgły 0.9.4-beta, BitBomber bez zmian.
+
+### Zmieniono
+- Ikona aplikacji w eksporcie Windows; utwory w `music_tracks.json` (bez `world_map`, inne przypisania `cave` / `castle`).
+- Usunięte szczegółowe scenariusz i formularz ewaluacji etapu 2.
+
 ## [0.9.3-beta] — 2026-10-29
 
 Cień Mgły 0.9.3-beta, BitBomber bez zmian.
