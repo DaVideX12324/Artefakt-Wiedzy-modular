@@ -6,6 +6,10 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.6-beta] — 2026-10-29
+
+Cień Mgły 0.9.6-beta (poprawki z testów: ekran śmierci, pauza, balans, ekwipunek, losowe spotkania), BitBomber bez zmian.
+
 ### Dodano
 - Skala UI 1,25 („Średnie”); zapisany wybór „Duże” / „4K” przenosi się bez zmian.
 
