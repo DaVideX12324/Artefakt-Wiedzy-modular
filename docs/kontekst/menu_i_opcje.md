@@ -99,7 +99,7 @@
   przy hoverze slotów liczona względem przedmiotu tego slotu (`check_equip_hover`).
 - Monitor wydajności (build debug, `scripts/tools/perf_monitor.gd`): F3 nakładka, F4 VSync, `user://perf_log.txt`
   (ZACIĘCIE / ZAWIESZENIE / PUŁS co 5 s). Zawieszenia przy ruchu myszy 2026-10-11 rozwiązał restart edytora —
-  `docs/archiwum/krytyczne_zawieszenia_klatek.md`, narzędzia `tools/diag_input/`.
+  `docs/archiwum/krytyczne_zawieszenia_klatek.md`; narzędzia diagnostyczne usunięte 2026-10-29 (są w historii gita).
 
 ## Menu główne z klawiatury (2026-10-27)
 
