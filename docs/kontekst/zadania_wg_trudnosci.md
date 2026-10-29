@@ -61,7 +61,7 @@ Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze
 
 **Pół dnia**
 - **S** — propozycja korzenia modułu z położenia skryptu (`module_root()`), po zatwierdzeniu przez usera.
-- **S** — ścieki: winiety, gruz w skupiskach, mniej zdejmowania obiektów na 250², uskoki lica przy dostawionych pokojach.
+- **S** — ścieki: uskoki lica przy dostawionych pokojach (`tests/diag_sewer_thin_walls.gd`); opcjonalnie mniej zdejmowania obiektów (250² seed 7: 19, 160²: 0–6). Winiety i gruz w skupiskach zrobione 2026-10-22.
 - ✅ **S/O** — umiejętności wrogów skalowane z poziomem (2026-10-21): obrażenia umiejętności liczą się z ATK/MAT wroga, który już skaluje się z poziomem; jedyne stałe liczby to leczenie Mrocznej Regeneracji (zamienione na 25 % maks. HP) oraz niewielkie `base_damage` 40 / 80 w Serii Wybuchów i Oddechu Zgnilizny (zostawione — pomijalne na wyższych poziomach).
 - ➜ **opcjonalne** (decyzja usera 2026-10-22: po dopięciu reszty) — częstsze nisze-przejścia (dziś 0–2 na mapę; np. celowe wycięcie ściany do głębokości 3).
 - **O** — pancerz na późnych poziomach: wzór procentowy `ATK×4 × 100/(100+DEF·k)` albo mocniejszy DEF w krzywych (po zmierzeniu drabiny).
