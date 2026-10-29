@@ -6,6 +6,10 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.0-beta] — 2026-10-29
+
+Cień Mgły 0.9.0-beta (CienMgly 2caf7a2e, tag v0.9.0-beta), BitBomber 0.9.0-beta. Eksport na Androida (preset, podpis wydania lokalnie).
+
 ### Dodano
 - Opcje → Dźwięk: osobne suwaki grup efektów pod „Efekty dźwiękowe” — interfejs, walka, otoczenie. Szyny `SFX_UI`,
   `SFX_Combat`, `SFX_Env` wysyłają do `SFX` (główny suwak skaluje wszystkie); `AudioService.play_sfx_by_name` wybiera
