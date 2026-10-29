@@ -6,6 +6,16 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Dodano
+- Skala UI 1,25 („Średnie”); zapisany wybór „Duże” / „4K” przenosi się bez zmian.
+
+### Zmieniono
+- Opcje: zakładki przewijane, okno ma stałą wysokość przy każdej skali (wcześniej zakładki zmieniały jego rozmiar).
+- Quiz: pytania z lukami z klawiatury; najechanie myszą po odpowiedzi nie kasuje podświetlenia wyniku.
+
+### Naprawiono
+- Opcje → Dźwięk: font grup efektów (interfejs, walka, otoczenie) nie skalował się ze skalą UI.
+
 ## [0.9.5-beta] — 2026-10-29
 
 Cień Mgły 0.9.5-beta (słabszy boss samouczka, wrogowie nad UI walki), BitBomber bez zmian.
