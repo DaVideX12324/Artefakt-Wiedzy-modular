@@ -4,7 +4,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 
 > **Zasady organizacji dokumentacji:**
 > - **Pojedyncze źródło prawdy dla błędów i zadań:** [`docs/znane_problemy.md`](znane_problemy.md) — zawiera priorytety `⚠ WAŻNE:` (odczytywane przez hook startowy Claude Code), sekcje „Do zrobienia”, „Do sprawdzenia w grze”, „Pułapki konfiguracji” i „Rozwiązane”.
-> - **Bieżący stan sesji (handoff):** najnowszy [`docs/kontekst/sesja_2026-10-27.md`](kontekst/sesja_2026-10-27.md) (Cień Mgły; od 2026-10-21 handoffy są w plikach `kontekst/sesja_*.md`, [`otwarte.md`](kontekst/otwarte.md) — starsze), BitBomber: `modules/BitBomber/docs/zadania.md`.
+> - **Bieżący stan sesji (handoff):** najnowszy [`docs/kontekst/sesja_2026-10-29.md`](kontekst/sesja_2026-10-29.md) (Cień Mgły; od 2026-10-21 handoffy są w plikach `kontekst/sesja_*.md`, [`otwarte.md`](kontekst/otwarte.md) — starsze), BitBomber: `modules/BitBomber/docs/zadania.md`.
 > - **Indeks dokumentów roboczych modułu RPG:** [`docs/kontekst/README.md`](kontekst/README.md).
 > - **Materiały zarchiwizowane:** [`docs/archiwum/`](archiwum/).
 > - **Submoduły:** kod gier leży w repo modułów (`modules/BitBomber`, `modules/quiz_rpg` = Cień Mgły), a dokumentacja Cienia Mgły — w tym katalogu hosta. README modułów są w ich repo (zmiana = commit w repo modułu + nowy wskaźnik submodułu w hoście).
@@ -24,15 +24,16 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/narzedzia_diag.md](kontekst/narzedzia_diag.md) | Skrypty diagnostyczne headless w `tests/` do testów generatora, siatki nawigacji i renderów. | `ZROBIONE` |
 | [kontekst/backlog_druzyna_balans.md](kontekst/backlog_druzyna_balans.md) | Rejestr zadań (sprint backlog S1–S7 i O1–O7) prac na gałęzi `druzyna-balans`. | `W TOKU` |
 | [kontekst/zadania_wg_trudnosci.md](kontekst/zadania_wg_trudnosci.md) | Widok pomocniczy (nie źródło prawdy): zadania od najłatwiejszych do najtrudniejszych z oznaczeniem wykonawcy (user / Gemini / Sonnet / Opus), stan na 2026-10-13. | `W TOKU` |
-| [kontekst/sesja_2026-10-13_miasto_ldtk.md](kontekst/sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach i wnętrzach. | `W TOKU` |
-| [kontekst/sesja_2026-10-15_assety_i_przejscia.md](kontekst/sesja_2026-10-15_assety_i_przejscia.md) | Handoff 2026-10-14/15: prywatny submoduł `assets`, przepisana historia, przejścia, drobne poprawki. | `HISTORYCZNE` |
-| [kontekst/sesja_2026-10-16_druzyna_ui.md](kontekst/sesja_2026-10-16_druzyna_ui.md) | Handoff 2026-10-15/16: drużyna, AGI, szyk, paski, opcje, merge `druzyna-balans` do main. | `AKTUALNE` |
-| [kontekst/sesja_2026-10-16b_walka_fnafb_fabula.md](kontekst/sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, decyzje fabuły finału. | `AKTUALNE` |
-| [kontekst/sesja_2026-10-16c_i18n.md](kontekst/sesja_2026-10-16c_i18n.md) | Handoff 2026-10-16 cz. 3: tłumaczenia PL / EN (fazy 0–5), ekran zapisów z koszem. | `ZROBIONE` |
+| [archiwum/sesja_2026-10-13_miasto_ldtk.md](archiwum/sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach i wnętrzach. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-15_assety_i_przejscia.md](archiwum/sesja_2026-10-15_assety_i_przejscia.md) | Handoff 2026-10-14/15: prywatny submoduł `assets`, przepisana historia, przejścia, drobne poprawki. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-16_druzyna_ui.md](archiwum/sesja_2026-10-16_druzyna_ui.md) | Handoff 2026-10-15/16: drużyna, AGI, szyk, paski, opcje, merge `druzyna-balans` do main. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-16b_walka_fnafb_fabula.md](archiwum/sesja_2026-10-16b_walka_fnafb_fabula.md) | Handoff 2026-10-16 cz. 2: skala UI, runda / TP / prędkość jak w FNaFB, dołączanie w walce, decyzje fabuły finału. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-16c_i18n.md](archiwum/sesja_2026-10-16c_i18n.md) | Handoff 2026-10-16 cz. 3: tłumaczenia PL / EN (fazy 0–5), ekran zapisów z koszem. | `ZROBIONE` |
+| [kontekst/sesja_2026-10-29.md](kontekst/sesja_2026-10-29.md) | Handoff 2026-10-28/29: miasto scalone do `town.tscn`, atlas ruin, schody `dom_pietro` (QuizRpgZTrigger), postacie LumenLore; następne: przejścia obustronne, test start-finish, beta 0.9. | `AKTUALNE` |
 | [kontekst/sesja_2026-10-27.md](kontekst/sesja_2026-10-27.md) | Handoff 2026-10-27: okno zagadek / skrzyń w stylu walki (kursor, licznik), rig rąk i broni wrogów (szczury, grzyby; edycja w edytorze, `gen_enemy_hands.py`), Tiny Questers dla bohatera i Liny, Godot na tej maszynie. | `AKTUALNE` |
-| [kontekst/sesja_2026-10-24.md](kontekst/sesja_2026-10-24.md) | Handoff 2026-10-24/25: wersjonowanie i eksport, koniec gry po wyjściu ze ścieków, imię bohatera + easter eggi, kroki, grupy SFX, boss + stała świta, statystyki wrogów z poziomu i sprzętu mapy, mikstury procentowe, schody, menu zapisu; niezacommitowane testy postaci (SRW / Tiny Questers). | `AKTUALNE` |
-| [kontekst/sesja_2026-10-22.md](kontekst/sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `AKTUALNE` |
-| [kontekst/sesja_2026-10-21.md](kontekst/sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `AKTUALNE` |
+| [archiwum/sesja_2026-10-24.md](archiwum/sesja_2026-10-24.md) | Handoff 2026-10-24/25: wersjonowanie i eksport, koniec gry po wyjściu ze ścieków, imię bohatera + easter eggi, kroki, grupy SFX, boss + stała świta, statystyki wrogów z poziomu i sprzętu mapy, mikstury procentowe, schody, menu zapisu; niezacommitowane testy postaci (SRW / Tiny Questers). | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-22.md](archiwum/sesja_2026-10-22.md) | Handoff 2026-10-22/23: łup w `.tres`, zakończenie (boss ścieków), logika miasta, zadania NPC, boss powrotny, minimapa, spotkania w ściekach, bronie z potencjałem, atlas Props usunięty; następne: user kończy mapę miasta. | `HISTORYCZNE` |
+| [archiwum/sesja_2026-10-21.md](archiwum/sesja_2026-10-21.md) | Handoff 2026-10-21 (Opus): skala FNaFB1, kowal, sloty umiejętności, imiona, fabuła NPC, co czeka. | `HISTORYCZNE` |
 
 ---
 
@@ -61,12 +62,12 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 |---|---|---|
 | [plan_generator_sciekow.md](plan_generator_sciekow.md) | Plan wykonawczy układu structured dla generatora ścieków (reguły R1–R7, kanały, kładki). | `ZROBIONE` |
 | [plan_generator_obiektow.md](plan_generator_obiektow.md) | Plan faz F0–F5 generatora obiektów i dekoracji (obiekty jako sceny, niszczalność, interakcje). | `ZROBIONE` |
-| [plan_zapis_map.md](plan_zapis_map.md) | Zapis gotowych map na dysk (`map_disk_cache.gd`): pomiary, format, jak działa — jaskinie i ścieki. | `ZROBIONE` |
-| [plan_przyspieszenie_generowania.md](plan_przyspieszenie_generowania.md) | Plan optymalizacji czasu generacji poziomów (wątek roboczy, chunking navmesh 64×64). | `W TOKU` |
+| [archiwum/plan_zapis_map.md](archiwum/plan_zapis_map.md) | Zapis gotowych map na dysk (`map_disk_cache.gd`): pomiary, format, jak działa — jaskinie i ścieki. | `ZROBIONE` |
+| [archiwum/plan_przyspieszenie_generowania.md](archiwum/plan_przyspieszenie_generowania.md) | Plan optymalizacji czasu generacji poziomów (zrobione 2026-10-16: raster, mapy z wyprzedzeniem). | `HISTORYCZNE` |
 | [ewaluacja/etap1_scenariusz.md](ewaluacja/etap1_scenariusz.md) | Szkice testów z użytkownikami w dwóch etapach: etap 1 (platforma, edytor pytań, BitBomber; formularz [etap1_formularz.md](ewaluacja/etap1_formularz.md)) i etap 2 (Cień Mgły: [etap2_scenariusz.md](ewaluacja/etap2_scenariusz.md), [etap2_formularz.md](ewaluacja/etap2_formularz.md)); w formularzach SUS. | `SZKIC (niezatwierdzone)` |
 | [zakres_inzynierka.md](zakres_inzynierka.md) | Zakres pracy inżynierskiej: wycinek gry (miasto + NPC, BitBomber), harmonogram do obrony, klify w Pixel Crawler, mapy BitBombera. Narzędzia: [prototypy/makieta_miasta](prototypy/makieta_miasta/README.md). | `SZKIC (niezatwierdzone)` |
 | [universal_interior_generator_refactor.md](universal_interior_generator_refactor.md) | Architektura etapowa i plan refaktoryzacji uniwersalnego generatora wnętrz (architektura etapowa). | `W TOKU` |
-| [migration_plan.md](migration_plan.md) | Plan początkowej migracji projektów do architektury modułowej (zrealizowany na starcie). | `HISTORYCZNE` |
+| [archiwum/migration_plan.md](archiwum/migration_plan.md) | Plan początkowej migracji projektów do architektury modułowej (zrealizowany na starcie). | `HISTORYCZNE` |
 
 ---
 
@@ -76,7 +77,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 |---|---|---|
 | [analiza_ai_przeciwnikow.md](analiza_ai_przeciwnikow.md) | Analiza zachowań AI wrogów w jaskiniach (nawigacja, widoczność 4-way, pościg, wałęsanie). | `ZROBIONE` |
 | [battle_layout_preview.md](battle_layout_preview.md) | Narzędzie i instrukcja graficznego dopasowywania trapezów pól walki do teł 16:9. | `ZROBIONE` |
-| [krytyczne_zawieszenia_klatek.md](krytyczne_zawieszenia_klatek.md) | Analiza i rozwiązanie problemu wielosekundowych przycięć silnika Godot przy obsłudze wejścia. | `ZROBIONE` |
+| [archiwum/krytyczne_zawieszenia_klatek.md](archiwum/krytyczne_zawieszenia_klatek.md) | Analiza i rozwiązanie problemu wielosekundowych przycięć silnika Godot przy obsłudze wejścia. | `ZROBIONE` |
 
 ---
 
@@ -101,13 +102,13 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | Plik | Opis zawartości | Status |
 |---|---|---|
 | [kontekst/zadania_dla_antigravity.md](kontekst/zadania_dla_antigravity.md) | Centralny rejestr zadań roboczych delegowanych modelom pomocniczym (Gemini/Antigravity). | `W TOKU` |
-| [kontekst/porzadkowanie_docs_dla_gemini.md](kontekst/porzadkowanie_docs_dla_gemini.md) | Brief uporządkowania struktury folderu `docs/`, ujednolicenia statusów i indeksów (Zadanie E). | `W TOKU` |
-| [kontekst/i18n_opisy_dla_gemini.md](kontekst/i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do JSON. | `ZROBIONE` |
-| [kontekst/i18n_log_wrogow_dla_gemini.md](kontekst/i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie komunikatów logu walki umiejętności przeciwników. | `ZROBIONE` |
-| [kontekst/i18n_calosc_dla_gemini.md](kontekst/i18n_calosc_dla_gemini.md) | Brief dla Gemini: tłumaczenia PL / EN całego Artefaktu (host, Cień Mgły, BitBomber) — `I18nService`, sceny przez `TranslationServer`, fazy 0–5. | `ZROBIONE` |
-| [kontekst/i18n_calosc_raport.md](kontekst/i18n_calosc_raport.md) | Raport z wdrożenia i18n — faza 0 (infrastruktura, `I18nService`). | `ZROBIONE` |
-| [kontekst/imiona_postaci_dla_gemini.md](kontekst/imiona_postaci_dla_gemini.md) | Brief i propozycje imion (towarzysze, NPC, Strażnik, Arcymag); imiona wdrożone 2026-10-21. | `ZROBIONE` |
-| [kontekst/raport_porzadkowania.md](kontekst/raport_porzadkowania.md) | Raport z przeprowadzonego porządkowania dokumentacji, weryfikacji linków i ewentualnych rozbieżności. | `ZROBIONE` |
+| [archiwum/porzadkowanie_docs_dla_gemini.md](archiwum/porzadkowanie_docs_dla_gemini.md) | Brief uporządkowania struktury folderu `docs/`, ujednolicenia statusów i indeksów (Zadanie E). | `HISTORYCZNE` |
+| [archiwum/i18n_opisy_dla_gemini.md](archiwum/i18n_opisy_dla_gemini.md) | Brief i słownik do tłumaczenia nazw i opisów 44 umiejętności oraz 18 statusów do JSON. | `ZROBIONE` |
+| [archiwum/i18n_log_wrogow_dla_gemini.md](archiwum/i18n_log_wrogow_dla_gemini.md) | Brief dla Gemini na przygotowanie komunikatów logu walki umiejętności przeciwników. | `ZROBIONE` |
+| [archiwum/i18n_calosc_dla_gemini.md](archiwum/i18n_calosc_dla_gemini.md) | Brief dla Gemini: tłumaczenia PL / EN całego Artefaktu (host, Cień Mgły, BitBomber) — `I18nService`, sceny przez `TranslationServer`, fazy 0–5. | `ZROBIONE` |
+| [archiwum/i18n_calosc_raport.md](archiwum/i18n_calosc_raport.md) | Raport z wdrożenia i18n — faza 0 (infrastruktura, `I18nService`). | `ZROBIONE` |
+| [archiwum/imiona_postaci_dla_gemini.md](archiwum/imiona_postaci_dla_gemini.md) | Brief i propozycje imion (towarzysze, NPC, Strażnik, Arcymag); imiona wdrożone 2026-10-21. | `ZROBIONE` |
+| [archiwum/raport_porzadkowania.md](archiwum/raport_porzadkowania.md) | Raport z przeprowadzonego porządkowania dokumentacji, weryfikacji linków i ewentualnych rozbieżności. | `ZROBIONE` |
 
 ---
 

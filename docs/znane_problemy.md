@@ -381,13 +381,13 @@ static func path(local: String) -> String:
 
 ## Rozwiązane (dla kontekstu)
 - **Przeniesione z „Do zrobienia” 2026-10-21 (szczegóły w kontekst/ i commitach):**
-  - Przyspieszenie generowania (#1): zrobione, dalszy zysk wymagałby C# / GDExtension — `plan_przyspieszenie_generowania.md`, `plan_zapis_map.md`.
+  - Przyspieszenie generowania (#1): zrobione, dalszy zysk wymagałby C# / GDExtension — `archiwum/plan_przyspieszenie_generowania.md`, `archiwum/plan_zapis_map.md`.
   - Generator obiektów F5 (dźwignie, beczki, nakładka podglądu): `kontekst/obiekty.md`, `plan_generator_obiektow.md`.
   - Tła walki 16:9: kod gotowy (2026-10-06); grafiki generuje user, wpis wygaszony (decyzja usera).
   - Teammate'owie (4): rekrutacja, skille klasowe, sloty umiejętności, imiona Kael / Eldon / Selene — `kontekst/druzyna_szkic.md`, `sloty_umiejetnosci_szkic.md`.
   - NPC (6): sklep, nauczyciel, odpoczynek, kowal, rozmowa — `kontekst/npc.md`.
   - Beczki scale / k (7): CienMgly ae73bfe6.
-  - Tłumaczenia JSON: `I18nService` + słowniki, `kontekst/i18n_calosc_raport.md` (resztki w `zadania_wg_trudnosci.md`).
+  - Tłumaczenia JSON: `I18nService` + słowniki, `archiwum/i18n_calosc_raport.md` (resztki w `zadania_wg_trudnosci.md`).
   - Optymalizacja ekwipunku członków (MAT / MDF / AGI wg klasy): `_equipment_score` w `player_stats.gd`.
   - Spójna ścieżka między mapami: CienMgly 833d7c0c, `scripts/maps/map_links.gd` (wejście = przeciwna krawędź do wyjścia poprzedniej, bez zawracania; parytet 42/42).
 - **Ekwipunek, złoto i klucze — prototyp w jaskiniach** (2026-10-12, CienMgly): klasy postaci (`character_class`, `allowed_classes`), złoto (`PlayerStats.gold`, `QuizRpgEnemyGold`), tabele łupu z JSON mapy (`chest_loot`, `enemy_loot`), beczki z wzorem 3 / (2n), klucze na tier skrzyni i wygląd skrzyń wg tieru. Szkic i decyzje: `kontekst/ekwipunek_szkic.md`.
