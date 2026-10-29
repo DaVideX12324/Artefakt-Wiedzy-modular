@@ -6,6 +6,10 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.5-beta] — 2026-10-29
+
+Cień Mgły 0.9.5-beta (słabszy boss samouczka, wrogowie nad UI walki), BitBomber bez zmian.
+
 ## [0.9.4-beta] — 2026-10-29
 
 Cień Mgły 0.9.4-beta, BitBomber bez zmian.
