@@ -22,7 +22,7 @@
 **0.1. Które scenariusze zrobiłeś?**
 
 - [ ] S1 dwie jaskinie · [ ] S2 chodzenie · [ ] S3 miasto · [ ] S4 umiejętności · [ ] S5 ekwipunek
-- [ ] S6 ścieki · [ ] S7 pytania · [ ] S8 opcje · [ ] S9 imię · [ ] S10 Android
+- [ ] S6 ścieki · [ ] S7 pytania · [ ] S8 opcje · [ ] S9 imię
 
 **0.2. Ile czasu zajęły ci łącznie** (tylko granie, w minutach)?
 
@@ -226,21 +226,6 @@ przekroczyłeś budżet albo liczby się nie zgadzały? Podaj postać i umiejęt
 
 ---
 
-## S10. Android
-
-**S10.1. Telefon** (model, mniej więcej ile ma lat) **i czy gra działała płynnie:**
-
->
-
-**S10.2. Czy przyciski dotykowe były wygodne?** (wielkość, położenie, czy coś zasłaniały)
-
->
-
-**S10.3. Czy któryś napis był za mały do przeczytania albo któreś okno się nie mieściło?**
-
->
-
----
 
 ## Z. Awarie, błędy i sam test
 

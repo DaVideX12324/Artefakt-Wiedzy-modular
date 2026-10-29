@@ -97,13 +97,6 @@ Tego jeszcze nikt nie sprawdzał, więc każda uwaga się liczy.
 1. Przy nowej grze wpisz kilka różnych imion — zwykłe, bardzo długie, z polskimi znakami, puste.
 2. Spróbuj też imion postaci z gry (towarzysze, NPC) i kilku „znanych” słów. Niektóre mają niespodziankę.
 
-### S10. Sterowanie dotykowe na Androidzie (dla posiadaczy telefonu, ok. 10 min)
-
-`[link do pliku .apk]` — instalacja wymaga zgody na aplikacje spoza Sklepu Play.
-
-1. Zacznij nową grę i przejdź samouczek samym dotykiem.
-2. Zwróć uwagę na wielkość przycisków, czytelność napisów i to, czy coś zasłania grę.
-
 ---
 
 ## Sterowanie
