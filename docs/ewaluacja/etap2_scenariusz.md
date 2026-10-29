@@ -21,8 +21,8 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 ## Zadania
 
-1. **Cień Mgły (ok. 15 min).** Uruchom „Cień Mgły”, zacznij nową grę i zagraj `[do miasta / do bossa ścieków — ustalić po próbie czasowej]`. Pełna ścieżka kończy się na bossie ścieków;
-   tester nie musi go pokonać.
+1. **Cień Mgły (ok. 15 min).** Uruchom „Cień Mgły”, zacznij nową grę i zagraj do końca — do bossa ścieków. Jeśli go pokonasz, zobaczysz ekran końca gry;
+   nie musisz go pokonać.
    Wejdź w walkę i odpowiedz na pytanie quizowe (jeśli możesz, z własnego zestawu z etapu 1).
    Krótkie punkty do zauważenia:
    - po wyjściu z jaskini jest scenka wspinaczki do miasta;
