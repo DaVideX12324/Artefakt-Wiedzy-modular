@@ -1,13 +1,59 @@
 {
   "title": "Artefakt Wiedzy",
   "sections": [
-    {"title": "Projekt i programowanie", "entries": [
-      {"name": "Dawid (DaVideX12324)", "note": "projekt, kod, grafika, poziomy — Artefakt Wiedzy, Cień Mgły i BitBomber"}
-    ]},
-    {"title": "Silnik i czcionki", "entries": [
-      {"name": "Godot Engine 4.7", "author": "Juan Linietsky, Ariel Manzur i społeczność Godota", "license": "MIT"},
-      {"name": "Inter", "author": "Rasmus Andersson", "license": "SIL OFL 1.1"},
-      {"name": "Jacquard 24, Jersey 15", "author": "Sarah Cadigan-Fried", "license": "SIL OFL 1.1"}
-    ]}
+    {
+      "title": "Projekt i programowanie",
+      "entries": [
+        {
+          "name": "Dawid (DaVideX12324)",
+          "note": "projekt, kod, grafika, poziomy — Artefakt Wiedzy, Cień Mgły i BitBomber"
+        }
+      ]
+    },
+    {
+      "title": "Silnik i czcionki",
+      "entries": [
+        {
+          "name": "Godot Engine 4.7",
+          "author": "Juan Linietsky, Ariel Manzur i społeczność Godota",
+          "license": "MIT"
+        },
+        {
+          "name": "Inter",
+          "author": "Rasmus Andersson",
+          "license": "SIL OFL 1.1"
+        },
+        {
+          "name": "Jacquard 24, Jersey 15",
+          "author": "Sarah Cadigan-Fried",
+          "license": "SIL OFL 1.1"
+        }
+      ]
+    },
+    {
+      "title": "Muzyka i dźwięk",
+      "entries": [
+        {
+          "name": "16-bit Fantasy & Adventure",
+          "author": "Marllon Silva (xDeviruchi)",
+          "note": "muzyka"
+        },
+        {
+          "name": "Pixel Combat",
+          "author": "Helton Yan",
+          "note": "efekty walki"
+        },
+        {
+          "name": "Minifantasy Dungeon SFX",
+          "author": "Leohpaz",
+          "note": "efekty lochów i skrzyń"
+        },
+        {
+          "name": "RPG Sound Pack",
+          "author": "artisticdude (OpenGameArt)",
+          "license": "CC0"
+        }
+      ]
+    }
   ]
 }
