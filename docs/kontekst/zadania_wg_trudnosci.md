@@ -31,6 +31,7 @@
 25. **O** — logika miasta: konkretne wnętrza, zadania NPC, prawdziwe flagi etapów. Szkielet zrobiony 2026-10-22 (`kontekst/miasto.md`).
 26. ➜ **rozszerzony scope** — finał: boss z fazami, cutscenka, ścieżki zakończeń, umiejętność 10. poziomu, limit SP w finale. Szkic: `fabula_krag_i_zakonczenia_szkic.md` sekcje 5–6.
 28. ➜ **rozszerzony scope v2.0** — walki z widokiem z boku jak Desire Fantasy (sprite'y drużyny, animacje z szablonu LumenLorePixels, decyzja 2026-10-28).
+29. ➜ **niski priorytet** — revamp UI pod telefony (Android): większe elementy, układ pod dotyk, walka i menu klikalne palcem. APK release działa od 2026-10-29, sterowanie dotykowe na mapie jest (`touch_controls.tscn`).
 
 Odłożone poza inżynierkę: tilesety kolejnych map, dalszy refaktor generatora (etapy 8–12), finał (pkt 26), walki z boku (pkt 28).
 
