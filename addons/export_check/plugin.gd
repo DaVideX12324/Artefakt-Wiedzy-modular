@@ -56,13 +56,26 @@ class ExportHook extends EditorExportPlugin:
 	func _get_name() -> String:
 		return "ExportCheck"
 
-	func _export_begin(_features: PackedStringArray, _is_debug: bool, path: String, _flags: int) -> void:
+	func _export_begin(_features: PackedStringArray, is_debug: bool, path: String, _flags: int) -> void:
 		_path = path
+		if not is_debug:
+			_bump_build()
 		_ref = {}
 		for p in Check.data_paths():
 			var res := load(p)
 			if res != null:
 				_ref[p] = JSON.parse_string(JSON.stringify(Check.snapshot(res)))
+
+	## Numer builda (resources/build.json) +1 przy eksporcie release — przed spakowaniem, więc trafia do exe.
+	func _bump_build() -> void:
+		const BUILD_PATH := "res://resources/build.json"
+		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)) if FileAccess.file_exists(BUILD_PATH) else null
+		var build := int((data as Dictionary).get("build", 0)) + 1 if data is Dictionary else 1
+		var f := FileAccess.open(BUILD_PATH, FileAccess.WRITE)
+		f.store_string(JSON.stringify({"build": build}) + "
+")
+		f.close()
+		print("[ExportCheck] Build ", build)
 
 	func _export_end() -> void:
 		if _path == "" or _ref.is_empty():
