@@ -1,7 +1,9 @@
 # Miasto — logika (2026-10-22)
 
 Decyzje usera 2026-10-22: trasa **jaskinia → miasto → ścieki**; miastem w grze jest `modules/quiz_rpg/scenes/maps/levels/town.tscn`
-(układ user przenosi z desert town). LDtk odpada. Kod nie zależy od układu miasta — wszystko to klocki do ustawienia w edytorze.
+(układ user przenosi z desert town). LDtk odpada.
+
+**2026-10-29:** układ z `desert_town_slopes` scalony do `town.tscn` (bez Desert Oasis); do ustawienia: pozycje `Sewer-Town`, `enter_previous_level`, `enter_next_level`, `Companions`; przejścia muszą być obustronne. Dom piętrowy: schody `QuizRpgZTrigger` (`scripts/world/z_trigger.gd`). Zrzut: `sesja_2026-10-29.md`. Kod nie zależy od układu miasta — wszystko to klocki do ustawienia w edytorze.
 
 ## Klocki
 | Co | Plik | Jak użyć |
