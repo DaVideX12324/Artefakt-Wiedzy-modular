@@ -78,10 +78,13 @@ class ExportHook extends EditorExportPlugin:
 		print("[ExportCheck] Build ", build)
 
 	func _export_end() -> void:
+		print("[ExportCheck] Koniec eksportu: ", _path, " (zasobów we wzorcu: ", _ref.size(), ")")
 		if _path == "" or _ref.is_empty():
 			return
-		var pack := ProjectSettings.globalize_path(_path) if _path.begins_with("res://") else _path
-		if not pack.is_absolute_path():
-			pack = ProjectSettings.globalize_path("res://").path_join(pack)
-		if pack.get_extension().to_lower() in ["exe", "pck", "zip"]:
-			owner_plugin.call_deferred("run_check", pack, _ref)
+		var pack := _path if _path.is_absolute_path() and not _path.begins_with("res://") else ProjectSettings.globalize_path(_path if _path.begins_with("res://") else "res://" + _path)
+		if pack.get_extension().to_lower() not in ["exe", "pck", "zip"]:
+			print("[ExportCheck] Pominięte (nie exe / pck / zip): ", pack)
+			return
+		# Odłożone o chwilę — plik paczki bywa domykany tuż po _export_end.
+		var ref := _ref
+		Engine.get_main_loop().create_timer(1.0).timeout.connect(func() -> void: owner_plugin.call("run_check", pack, ref))
