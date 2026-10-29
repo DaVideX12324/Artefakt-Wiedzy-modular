@@ -15,7 +15,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 
 | Plik | Opis zawartości | Status |
 |---|---|---|
-| [znane_problemy.md](znane_problemy.md) | Jedyne źródło prawdy dla todo i problemów: priorytety `⚠ WAŻNE:` (hook), Do zrobienia, Do sprawdzenia w grze, Pułapki konfiguracji, Rozwiązane. | `W TOKU` |
+| [znane_problemy.md](znane_problemy.md) | Jedyne źródło prawdy dla todo i problemów: priorytety `⚠ WAŻNE:` (hook), Do zrobienia, Do sprawdzenia w grze, Pułapki konfiguracji. Wpisy ZROBIONE → archiwum. | `W TOKU` |
 | [wersjonowanie.md](wersjonowanie.md) | Numery wersji i etapy (Alpha / Beta / RC) hosta i modułów, gdzie są zapisane, plan wydań 0.9 / 1.0 / 2.0, changelogi, kroki wydania. Aktualnie: Artefakt Wiedzy i Cień Mgły `0.8.0-alpha`, BitBomber `0.9.0-beta`. | `ZROBIONE` |
 | [module_contract.md](module_contract.md) | Kontrakt modułowy gry, izolacja modułów, konwencje ścieżek (`QuizRpgPaths`) i synchronizacja zasobów hosta. | `ZROBIONE` |
 | [kontekst/README.md](kontekst/README.md) | Szczegółowy indeks dokumentów technicznych i specyfikacji roboczych w folderze `docs/kontekst/`. | `ZROBIONE` |
@@ -23,7 +23,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [kontekst/zasady.md](kontekst/zasady.md) | Stałe zasady pracy z repozytorium (commity, ochrona kodu), uruchamianie testów i reguły submodułu. | `ZROBIONE` |
 | [kontekst/narzedzia_diag.md](kontekst/narzedzia_diag.md) | Skrypty diagnostyczne headless w `tests/` do testów generatora, siatki nawigacji i renderów. | `ZROBIONE` |
 | [kontekst/backlog_druzyna_balans.md](kontekst/backlog_druzyna_balans.md) | Rejestr zadań (sprint backlog S1–S7 i O1–O7) prac na gałęzi `druzyna-balans`. | `W TOKU` |
-| [kontekst/zadania_wg_trudnosci.md](kontekst/zadania_wg_trudnosci.md) | Widok pomocniczy (nie źródło prawdy): zadania od najłatwiejszych do najtrudniejszych z oznaczeniem wykonawcy (user / Gemini / Sonnet / Opus), stan na 2026-10-13. | `W TOKU` |
+| [kontekst/zadania_wg_trudnosci.md](kontekst/zadania_wg_trudnosci.md) | Widok pomocniczy (nie źródło prawdy): otwarte zadania od najłatwiejszych do najtrudniejszych z oznaczeniem wykonawcy. Wpisy ✅/✖ → archiwum. Stan na 2026-10-29. | `W TOKU` |
 | [archiwum/sesja_2026-10-13_miasto_ldtk.md](archiwum/sesja_2026-10-13_miasto_ldtk.md) | Zrzut kontekstu sesji 2026-10-12/13 (handoff): miasto w LDtk, TileSet free packa Pixel Crawler, decyzje o budynkach i wnętrzach. | `HISTORYCZNE` |
 | [archiwum/sesja_2026-10-15_assety_i_przejscia.md](archiwum/sesja_2026-10-15_assety_i_przejscia.md) | Handoff 2026-10-14/15: prywatny submoduł `assets`, przepisana historia, przejścia, drobne poprawki. | `HISTORYCZNE` |
 | [archiwum/sesja_2026-10-16_druzyna_ui.md](archiwum/sesja_2026-10-16_druzyna_ui.md) | Handoff 2026-10-15/16: drużyna, AGI, szyk, paski, opcje, merge `druzyna-balans` do main. | `HISTORYCZNE` |
@@ -66,7 +66,7 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 | [archiwum/plan_przyspieszenie_generowania.md](archiwum/plan_przyspieszenie_generowania.md) | Plan optymalizacji czasu generacji poziomów (zrobione 2026-10-16: raster, mapy z wyprzedzeniem). | `HISTORYCZNE` |
 | [ewaluacja/etap1_scenariusz.md](ewaluacja/etap1_scenariusz.md) | Szkice testów z użytkownikami w dwóch etapach: etap 1 (platforma, edytor pytań, BitBomber; formularz [etap1_formularz.md](ewaluacja/etap1_formularz.md)) i etap 2 (Cień Mgły: [etap2_scenariusz.md](ewaluacja/etap2_scenariusz.md), [etap2_formularz.md](ewaluacja/etap2_formularz.md)); w formularzach SUS. | `SZKIC (niezatwierdzone)` |
 | [zakres_inzynierka.md](zakres_inzynierka.md) | Zakres pracy inżynierskiej: wycinek gry (miasto + NPC, BitBomber), harmonogram do obrony, klify w Pixel Crawler, mapy BitBombera. Narzędzia: [prototypy/makieta_miasta](prototypy/makieta_miasta/README.md). | `SZKIC (niezatwierdzone)` |
-| [universal_interior_generator_refactor.md](universal_interior_generator_refactor.md) | Architektura etapowa i plan refaktoryzacji uniwersalnego generatora wnętrz (architektura etapowa). | `W TOKU` |
+| [universal_interior_generator_refactor.md](universal_interior_generator_refactor.md) | Architektura etapowa i stan refaktoryzacji generatora wnętrz (etapy 0–7 zrobione, 8–12 zostało). Pełna dokumentacja → archiwum. | `W TOKU` |
 | [archiwum/migration_plan.md](archiwum/migration_plan.md) | Plan początkowej migracji projektów do architektury modułowej (zrealizowany na starcie). | `HISTORYCZNE` |
 
 ---
@@ -118,3 +118,6 @@ Główny indeks dokumentacji projektowej, architektonicznej i roboczej w katalog
 |---|---|---|
 | [archiwum/otwarte_do_2026-10-12.md](archiwum/otwarte_do_2026-10-12.md) | Historyczne notatki, listy todo i dzienniki sesji przeniesione z `otwarte.md`. | `HISTORYCZNE` |
 | [archiwum/kontekst_README_sesje_do_2026-10-06.md](archiwum/kontekst_README_sesje_do_2026-10-06.md) | Dzienniki sesji roboczych (2026-10-02 do 2026-10-06) przeniesione z `docs/kontekst/README.md`. | `HISTORYCZNE` |
+| [archiwum/znane_problemy_rozwiazane_2026-10-29.md](archiwum/znane_problemy_rozwiazane_2026-10-29.md) | Wpisy ZROBIONE/Rozwiązane z `znane_problemy.md` przeniesione 2026-10-29. | `HISTORYCZNE` |
+| [archiwum/universal_interior_generator_refactor_pelny.md](archiwum/universal_interior_generator_refactor_pelny.md) | Pełna dokumentacja refaktoru generatora (4352 linie) — analiza, API, etapy 0–12, strategia weryfikacji. | `HISTORYCZNE` |
+| [archiwum/zadania_zrobione_2026-10-29.md](archiwum/zadania_zrobione_2026-10-29.md) | Wpisy ✅/✖ z `kontekst/zadania_wg_trudnosci.md` przeniesione 2026-10-29. | `HISTORYCZNE` |
