@@ -6,6 +6,10 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.3-beta] — 2026-10-29
+
+Cień Mgły 0.9.3-beta, BitBomber bez zmian.
+
 ### Dodano
 - Ekran „Autorzy” w menu głównym: credits hosta i modułów (pole `credits` w manifeście).
 
