@@ -13,7 +13,7 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 1. Rozpakuj archiwum **w całości** do jednego folderu i uruchom plik `.exe`.
    Nie uruchamiaj go z wnętrza archiwum — gra nie znajdzie swoich plików.
-2. **Zapisz numer wersji** gry `[gdzie go widać]` — będzie o niego pytanie.
+2. **Zapisz numer wersji** gry w prawym dolnym rogu menu głównego (np. „Cień Mgły 0.9.0 Beta”) — będzie o niego pytanie.
 3. Jeśli gra w ogóle nie wystartuje albo Windows ją zablokuje — **to też jest wynik testu**.
    Napisz mi, co dokładnie zobaczyłeś, i możesz na tym skończyć.
 
@@ -24,6 +24,9 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 1. **Cień Mgły (ok. 15 min).** Uruchom „Cień Mgły”, zacznij nową grę i zagraj `[do miasta / do bossa ścieków — ustalić po próbie czasowej]`. Pełna ścieżka kończy się na bossie ścieków;
    tester nie musi go pokonać.
    Wejdź w walkę i odpowiedz na pytanie quizowe (jeśli możesz, z własnego zestawu z etapu 1).
+   Krótkie punkty do zauważenia:
+   - po wyjściu z jaskini jest scenka wspinaczki do miasta;
+   - zejście do ścieków to kratka na dole miasta, otwiera się ją pierwszym [E], schodzi drugim.
 2. **Zapis (ok. 1 min).** Zapisz grę w slocie, wyjdź do menu i wczytaj zapis.
 
 **Graj normalnie.** Nie szukaj błędów celowo, nie sprawdzaj każdego przycisku.
@@ -40,7 +43,12 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 ## Sterowanie
 
-`[uzupełnić z menu Opcje → Sterowanie: ruch, interakcja, menu Esc, odpowiedzi w walce 1–4]`
+- **Ruch:** `W`, `S`, `A`, `D`
+- **Interakcja (rozmowa, skrzynie, przejścia):** `E`
+- **Bieg / chód:** `Shift`
+- **Minimapa:** `M` (przybliżenie: `=` / `-` lub kółko myszy)
+- **Menu pauzy / Wróć:** `Esc`
+- **Odpowiedzi w walce i quizach:** `1`, `2`, `3`, `4` (albo mysz / strzałki + `Enter`)
 
 ---
 
