@@ -21,8 +21,8 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 ## Zadania
 
-1. **Cień Mgły (ok. 15 min).** Uruchom „Cień Mgły”, zacznij nową grę i zagraj do końca — do bossa ścieków. Jeśli go pokonasz, zobaczysz ekran końca gry;
-   nie musisz go pokonać.
+1. **Cień Mgły (ok. 15 min).** Uruchom „Cień Mgły”, zacznij nową grę i zagraj do końca — przez ścieki aż do wyjścia z nich (strzeże go boss). Po wyjściu ze ścieków
+   zobaczysz ekran końca gry; nie musisz dojść tak daleko.
    Wejdź w walkę i odpowiedz na pytanie quizowe (jeśli możesz, z własnego zestawu z etapu 1).
    Krótkie punkty do zauważenia:
    - po wyjściu z jaskini jest scenka wspinaczki do miasta;
