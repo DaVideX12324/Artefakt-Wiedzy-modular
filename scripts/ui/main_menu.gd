@@ -11,10 +11,12 @@ signal launch_requested(manifest: Dictionary)
 @onready var _status: Label = $Center/Panel/Margin/VBox/Status
 @onready var _btn_questions: Button = $Center/Panel/Margin/VBox/HBoxMeta/BtnQuestions
 @onready var _btn_options: Button = $Center/Panel/Margin/VBox/HBoxMeta/BtnOptions
+@onready var _btn_credits: Button = $Center/Panel/Margin/VBox/HBoxMeta/BtnCredits
 @onready var _btn_quit: Button = $Center/Panel/Margin/VBox/HBoxMeta/BtnQuit
 @onready var _ver_label: Label = $VerLabel
 @onready var _options_menu: CanvasLayer = $OptionsMenu
 @onready var _question_editor: CanvasLayer = $QuestionEditor
+@onready var _credits: CanvasLayer = $CreditsScreen
 
 const BASE_PANEL_MIN_W := 380.0
 const BASE_PANEL_PADDING := 24
@@ -26,6 +28,7 @@ const BASE_BTN_META := Vector2(170.0, 38.0)
 func _ready() -> void:
 	_btn_questions.pressed.connect(_on_questions)
 	_btn_options.pressed.connect(_on_options)
+	_btn_credits.pressed.connect(_on_credits)
 	_btn_quit.pressed.connect(_on_quit)
 	ModuleRegistry.modules_changed.connect(refresh_modules)
 	UIScaleService.scale_changed.connect(_on_scale_changed)
@@ -118,6 +121,8 @@ func _on_scale_changed(_scale: float) -> void:
 	_btn_quit.add_theme_font_size_override("font_size", UIScaleService.px(17))
 	_btn_options.custom_minimum_size = UIScaleService.sz2(BASE_BTN_META.x, BASE_BTN_META.y)
 	_btn_quit.custom_minimum_size = UIScaleService.sz2(BASE_BTN_META.x, BASE_BTN_META.y)
+	_btn_credits.add_theme_font_size_override("font_size", UIScaleService.px(17))
+	_btn_credits.custom_minimum_size = UIScaleService.sz2(BASE_BTN_META.x, BASE_BTN_META.y)
 
 	for child in _module_list.get_children():
 		if child is Button:
@@ -143,6 +148,11 @@ func _on_options() -> void:
 		_options_menu.call("open")
 	else:
 		_options_menu.visible = true
+
+
+func _on_credits() -> void:
+	if AudioService: AudioService.play_sfx_by_name("click")
+	_credits.call("open")
 
 
 func _on_quit() -> void:

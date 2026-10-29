@@ -1,0 +1,14 @@
+{
+  "title": "Artefakt Wiedzy",
+  "sections": [
+    {"title": "Projekt i programowanie", "entries": [
+      {"name": "Dawid (DaVideX12324)", "note": "projekt, kod, poziomy"},
+      {"name": "SKN TeamBit", "note": "BitBomber — zespół koła"}
+    ]},
+    {"title": "Silnik i czcionki", "entries": [
+      {"name": "Godot Engine 4.7", "author": "Juan Linietsky, Ariel Manzur i społeczność Godota", "license": "MIT"},
+      {"name": "Inter", "author": "Rasmus Andersson", "license": "SIL OFL 1.1"},
+      {"name": "Jacquard 24, Jersey 15", "author": "Sarah Cadigan-Fried", "license": "SIL OFL 1.1"}
+    ]}
+  ]
+}
