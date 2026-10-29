@@ -1,7 +1,7 @@
 # Cień Mgły — scenariusze szczegółowe (dla chętnych)
 
 > Dodatek do `etap2_scenariusz.md`. **Najpierw zrób podstawowy scenariusz i jego formularz** — ten plik jest
-> dla tych, którym zostało trochę czasu i chęci. Miejsca w `[nawiasach]` do uzupełnienia przed rozesłaniem.
+> dla tych, którym zostało trochę czasu i chęci.
 
 **Czas: od 5 do 60 minut — ile chcesz.** Każdy scenariusz poniżej jest osobny i trwa 5–10 minut.
 Zrób jeden, dwa albo wszystkie, w dowolnej kolejności. Pominięcie scenariusza to żaden problem.

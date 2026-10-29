@@ -1,7 +1,5 @@
 # Artefakt Wiedzy, etap 1 — formularz po teście
 
-> Szkic (etap 1). Miejsca w `[nawiasach]` do uzupełnienia.
-
 **Wypełnij dopiero PO zagraniu.** Zajmie około 5–7 minut. Jeśli nie umiesz odpowiedzieć — napisz **„nie wiem”** albo
 **„nie zauważyłem”**. To pełnoprawna odpowiedź; wymyślona odpowiedź szkodzi. Przy skali **1–5** pogrub swoją liczbę.
 
@@ -9,7 +7,7 @@
 
 ## A. Kilka słów o tobie
 
-**A1. Jak często grasz w gry RPG z walką turową?** (Pokémon, Final Fantasy, Undertale…)
+**A1. Jak często grasz w gry imprezowe / zręcznościowe na kilka osób?** (Bomberman, Overcooked, Mario Party…)
 - [ ] nigdy  - [ ] rzadko  - [ ] regularnie  - [ ] dużo
 
 **A2. Jak często korzystasz z quizów lub aplikacji do nauki?**

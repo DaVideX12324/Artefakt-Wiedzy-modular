@@ -1,7 +1,5 @@
 # Artefakt Wiedzy, etap 2: Cień Mgły — formularz po teście
 
-> Szkic (etap 2). Miejsca w `[nawiasach]` do uzupełnienia.
-
 **Wypełnij dopiero PO zagraniu.** Zajmie około 5–7 minut. Jeśli nie umiesz odpowiedzieć — napisz **„nie wiem”** albo
 **„nie zauważyłem”**. To pełnoprawna odpowiedź; wymyślona odpowiedź szkodzi. Przy skali **1–5** pogrub swoją liczbę.
 

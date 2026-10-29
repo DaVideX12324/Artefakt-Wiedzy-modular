@@ -1,7 +1,5 @@
 # Artefakt Wiedzy, etap 1: platforma, edytor pytań, BitBomber — scenariusz
 
-> Szkic (etap 1 — wcześnie, bez miasta). Miejsca w `[nawiasach]` do uzupełnienia przed rozesłaniem.
-
 **Czas: około 15–18 minut.** Około 13 minut zadań i 5 minut ankiety.
 
 To jest test do mojej pracy inżynierskiej. **Nie oceniasz mnie — oceniasz grę.** Zdanie „nie rozumiałem, co się dzieje”
@@ -13,7 +11,7 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 1. Rozpakuj archiwum **w całości** do jednego folderu i uruchom plik `.exe`.
    Nie uruchamiaj go z wnętrza archiwum — gra nie znajdzie swoich plików.
-2. **Zapisz numer wersji** gry `[gdzie go widać]` — będzie o niego pytanie.
+2. **Zapisz numer wersji** gry w prawym dolnym rogu menu głównego (np. „Artefakt Wiedzy 0.9.0 Beta”) — będzie o niego pytanie.
 3. Jeśli gra w ogóle nie wystartuje albo Windows ją zablokuje — **to też jest wynik testu**.
    Napisz mi, co dokładnie zobaczyłeś, i możesz na tym skończyć.
 
@@ -34,15 +32,26 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 
 ## Czego NIE musisz robić
 
-- nie musisz niczego ukończyć ani wygrać — jeśli zginiesz w walce, tak ma być;
-- nie musisz czytać opisów przedmiotów ani całego dziennika;
+- nie musisz wygrać w BitBomberze — przegrana runda też jest w porządku;
+- nie musisz układać idealnych pytań — wystarczą dowolne, byle różnych typów;
 - nie musisz niczego zapisywać w trakcie gry — wystarczy pamiętać wrażenia.
 
 ---
 
 ## Sterowanie
 
-`[uzupełnić z menu Opcje → Sterowanie: ruch, interakcja, menu Esc, odpowiedzi w walce 1–4]`
+**Menu i edytor pytań:** mysz (albo strzałki + `Enter`), `Esc` — wróć.
+
+**BitBomber:**
+
+| | Gracz 1 | Gracz 2 |
+|---|---|---|
+| Ruch | `W` `S` `A` `D` | strzałki |
+| Bomba | `Spacja` | `Enter` / `Num 0` |
+| Pytanie-bonus | `1`–`4` | `Num 1`–`4` |
+| Pauza | `Esc` | `Esc` |
+
+Klawisze można zmienić w Opcje → Sterowanie.
 
 ---
 

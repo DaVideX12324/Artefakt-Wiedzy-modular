@@ -1,7 +1,5 @@
 # Artefakt Wiedzy, etap 2: Cień Mgły — scenariusz
 
-> Szkic (etap 2 — po zamrożeniu funkcji). Miejsca w `[nawiasach]` do uzupełnienia przed rozesłaniem.
-
 **Czas: około 20 minut.** Około 16 minut zadań i 5 minut ankiety.
 
 To jest test do mojej pracy inżynierskiej. **Nie oceniasz mnie — oceniasz grę.** Zdanie „nie rozumiałem, co się dzieje”
@@ -26,7 +24,7 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
    Wejdź w walkę i odpowiedz na pytanie quizowe (jeśli możesz, z własnego zestawu z etapu 1).
    Krótkie punkty do zauważenia:
    - po wyjściu z jaskini jest scenka wspinaczki do miasta;
-   - zejście do ścieków to kratka na dole miasta, otwiera się ją pierwszym [E], schodzi drugim.
+   - zejście do ścieków to kratka na dole miasta, otwiera się ją pierwszym `E`, schodzi drugim.
 2. **Zapis (ok. 1 min).** Zapisz grę w slocie, wyjdź do menu i wczytaj zapis.
 
 **Graj normalnie.** Nie szukaj błędów celowo, nie sprawdzaj każdego przycisku.
