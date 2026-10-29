@@ -59,4 +59,6 @@ zacząłbyś zwracać uwagę akurat na te rzeczy — a wtedy przestałbyś grać
 
 Formularz otwórz dopiero po skończeniu grania: **`etap2_formularz.md`**.
 
+Zostało ci czasu i chęci? Dodatkowe, krótkie scenariusze są w **`etap2_scenariusz_szczegolowy.md`** (nieobowiązkowe).
+
 *Dziękuję — to jest jedyna część tej pracy, której nie da się zrobić samemu.*
