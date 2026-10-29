@@ -38,12 +38,12 @@ func _ready() -> void:
 	_ver_label.text = "Artefakt Wiedzy " + version_label(str(ProjectSettings.get_setting("application/config/version", "")))
 	_on_scale_changed(UIScaleService.scale_factor)
 	if AudioService:
-		AudioService.play_music("menu")
+		AudioService.play_music("host_menu")
 	# Menu jest ukrywane na czas modułu i pokazywane po wyjściu z niego — wtedy wraca muzyka menu
 	# (inaczej grała dalej muzyka poziomu modułu).
 	visibility_changed.connect(func() -> void:
 		if visible and AudioService:
-			AudioService.play_music("menu"))
+			AudioService.play_music("host_menu"))
 
 
 func refresh_modules() -> void:

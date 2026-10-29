@@ -1,5 +1,6 @@
 {
   "menu": "res://assets/audio/music/menu.ogg",
+  "host_menu": "res://assets/audio/music/summer_nights.ogg",
   "tutorial": "res://assets/audio/music/tutorial.ogg",
   "cave": "res://assets/audio/music/ancient_ruins.ogg",
   "desert_oasis": "res://assets/audio/music/desert_oasis.ogg",
