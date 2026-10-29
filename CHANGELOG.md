@@ -6,6 +6,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Dodano
+- Ekran „Autorzy” w menu głównym: credits hosta i modułów (pole `credits` w manifeście).
+
 ## [0.9.0-beta] — 2026-10-29
 
 Cień Mgły 0.9.0-beta (CienMgly 2caf7a2e, tag v0.9.0-beta), BitBomber 0.9.0-beta. Eksport na Androida (preset, podpis wydania lokalnie).

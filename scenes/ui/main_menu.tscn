@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/ui/question_editor.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/credits_screen.tscn" id="4"]
 
 [node name="MainMenu" type="CanvasLayer"]
 process_mode = 3
@@ -85,6 +86,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Ustawienia"
 
+[node name="BtnCredits" type="Button" parent="Center/Panel/Margin/VBox/HBoxMeta"]
+custom_minimum_size = Vector2(170, 38)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Autorzy"
+
 [node name="BtnQuit" type="Button" parent="Center/Panel/Margin/VBox/HBoxMeta"]
 custom_minimum_size = Vector2(170, 38)
 layout_mode = 2
@@ -112,3 +119,5 @@ horizontal_alignment = 2
 [node name="OptionsMenu" parent="." instance=ExtResource("2")]
 
 [node name="QuestionEditor" parent="." instance=ExtResource("3")]
+
+[node name="CreditsScreen" parent="." instance=ExtResource("4")]
