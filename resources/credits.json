@@ -2,8 +2,7 @@
   "title": "Artefakt Wiedzy",
   "sections": [
     {"title": "Projekt i programowanie", "entries": [
-      {"name": "Dawid (DaVideX12324)", "note": "projekt, kod, poziomy"},
-      {"name": "SKN TeamBit", "note": "BitBomber — zespół koła"}
+      {"name": "Dawid (DaVideX12324)", "note": "projekt, kod, grafika, poziomy — Artefakt Wiedzy, Cień Mgły i BitBomber"}
     ]},
     {"title": "Silnik i czcionki", "entries": [
       {"name": "Godot Engine 4.7", "author": "Juan Linietsky, Ariel Manzur i społeczność Godota", "license": "MIT"},
