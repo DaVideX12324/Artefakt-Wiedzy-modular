@@ -6,6 +6,15 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Zmieniono
+- Wszystkie klawisze gry zmienialne w Opcje → Sterowanie: nowe akcje zatwierdź / wróć (Z / X), odpowiedzi 1–4,
+  zakładki (Q / E), mapa i zoom (M, = / -); panel quizu korzysta z akcji (Enter, spacja, Esc i strzałki działają zawsze).
+- Nazwy klawiszy numerycznych w Sterowaniu („Num 1” zamiast „End” przy wyłączonym NumLocku), „=” / „-”.
+
+### Naprawiono
+- Skala UI wracała po restarcie mimo „Zastosuj” i „Zatwierdź” (zapis szedł przed ustawieniem skali); skala działa
+  i zapisuje się od razu po wyborze.
+
 ## [0.9.6-beta] — 2026-10-29
 
 Cień Mgły 0.9.6-beta (poprawki z testów: ekran śmierci, pauza, balans, ekwipunek, losowe spotkania), BitBomber bez zmian.
