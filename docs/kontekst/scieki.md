@@ -128,10 +128,9 @@ bierze A (nie kafel jaskini).
 
 ## Do zrobienia
 - Rury z cieniem; kolejne winiety (dzbany / worki przy barierce — brak kafli w paczce i tagu „przy kanale”; wyjście
-  ze schodami między filarami zastąpione drabiną portalu; skrzynia przy ścianie już przez `context` / `prefer` skrzyni); schody platform N / E / W (kafle robi user — wtedy role w `platform_tiles`); dziura w licu jako
+  ze schodami między filarami zastąpione drabiną portalu; skrzynia przy ścianie już przez `context` / `prefer` skrzyni); dziura w licu jako
   odpowiednik nisz OUT (user da przezroczystą teksturę).
 - Zdejmowanie obiektów: 250² seed 7 19 (było 56), 160² 0–6.
-- Podpięcie ścieków do gry (scena w `levels/`, szczury w puli wrogów).
 - Opcjonalnie: region nawigacji przez bramę włączany przy otwarciu; strefy mapy oddzielone bramami (pomysł usera
   — tylko feedback, bez kodu).
 - Do wyjaśnienia przez usera: Props (0,4), Props (1,10–12).

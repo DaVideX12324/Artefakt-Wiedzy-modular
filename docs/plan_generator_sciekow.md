@@ -452,12 +452,12 @@ Szczegóły stanu: `docs/kontekst/scieki.md`.
   filary w rytmie przęseł, ozdoby przęseł, łańcuchy. Rury z cieniem — nie.
 - [x] **F4 posadzka** — teren podłogi, `dark_floor`, `foliage` (posadzka i dno pustego koryta), kratownice,
   krawężniki, rzędy otworów pod przęsłami.
-- [~] **F5** — zestawy obiektów, ściany działowe kompleksów (L / U), kolce, bramy z zagadkami (płyty, zamki
-  z kluczem, płyty-skróty), **kontrola B** z bramami. Winiety z biblioteki i gruz skupiskami — nie.
+- [x] **F5** — zestawy obiektów, ściany działowe kompleksów (L / U), kolce, bramy z zagadkami (płyty, zamki
+  z kluczem, płyty-skróty), **kontrola B** z bramami. Winiety i gruz skupiskami — zrobione 2026-10-22.
 - [~] **F6** — navmesh z przeszkodami i kolcami bram, spawny poza przeszkodami. Budżet czasu nie mierzony
   (160²: ~2 s danych, 250²: ~4–9 s).
 - [ ] **F7** — galeria 12 seedów, kryterium uniwersalności (szkic miasta).
-- Nie z planu, zrobione: ściany szerokości 1, kolce-pułapki, skrzynia quizu ścieków. Platformy ze schodami — nie.
+- Nie z planu, zrobione: ściany szerokości 1, kolce-pułapki, skrzynia quizu ścieków. Platformy ze schodami — zrobione (schody N / E / W, kafle usera).
 
 ### Ocena gałęzi `sewer-gen-v2` (2026-10-07)
 Wdrożenie z sesji Antigravity (2026-10-05/06, CienMgly `sewer-gen-v2`, 63 commity ponad `main`, oparte na
