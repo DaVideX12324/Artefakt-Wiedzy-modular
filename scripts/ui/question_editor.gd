@@ -14,6 +14,7 @@ signal closed
 @onready var _btn_new_set: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnNewSet
 @onready var _btn_import: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnImport
 @onready var _btn_export: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnExport
+@onready var _btn_template: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnTemplate
 @onready var _btn_rename: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnRename
 @onready var _btn_delete_set: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnDeleteSet
 @onready var _search: LineEdit = $Root/Margin/VBox/Body/QuestionsBox/Filters/Search
@@ -78,6 +79,8 @@ func _ready() -> void:
 	_btn_new_set.pressed.connect(_on_new_set)
 	_btn_import.pressed.connect(func() -> void: _import_dialog.popup_centered())
 	_btn_export.pressed.connect(_on_export)
+	_btn_template.pressed.connect(_on_template)
+	_export_dialog.canceled.connect(func() -> void: _saving_template = false)
 	_btn_rename.pressed.connect(_on_rename)
 	_btn_delete_set.pressed.connect(_on_delete_set)
 	_btn_add.pressed.connect(func() -> void: _open_edit(-1))
@@ -191,6 +194,8 @@ func _check_icon(size: int, checked: bool, round: bool) -> ImageTexture:
 func _update_dialog_titles() -> void:
 	_import_dialog.title = I18nService.t("host.question_editor.import_dlg_title")
 	_export_dialog.title = I18nService.t("host.question_editor.export_dlg_title")
+	_btn_template.text = I18nService.t("host.question_editor.btn_template")
+	_btn_template.tooltip_text = I18nService.t("host.question_editor.template_tip")
 	_confirm_dialog.title = I18nService.t("host.question_editor.confirm_dlg_title")
 	_name_dialog.title = I18nService.t("host.question_editor.name_dlg_title")
 	_report_dialog.title = I18nService.t("host.question_editor.report_dlg_title")
@@ -347,6 +352,17 @@ func _on_delete_set() -> void:
 		_say(I18nService.tf("host.question_editor.reverted", {"name": name}) if source == "edited" else I18nService.tf("host.question_editor.deleted", {"name": name})))
 
 
+## Szablon zestawu (po jednym pytaniu każdego typu) do zapisania i wypełnienia — potem „Importuj JSON”.
+const TEMPLATE_PATH := "res://resources/data/question_set_template.json"
+var _saving_template := false
+
+
+func _on_template() -> void:
+	_saving_template = true
+	_export_dialog.current_file = "szablon_pytan.json"
+	_export_dialog.popup_centered()
+
+
 func _on_export() -> void:
 	if _set.is_empty():
 		return
@@ -355,6 +371,16 @@ func _on_export() -> void:
 
 
 func _on_export_path(path: String) -> void:
+	if _saving_template:
+		_saving_template = false
+		var f := FileAccess.open(path, FileAccess.WRITE)
+		if f:
+			f.store_string(FileAccess.get_file_as_string(TEMPLATE_PATH))
+			f.close()
+			_say(I18nService.tf("host.question_editor.template_saved", {"path": path}))
+		else:
+			_say(I18nService.tf("host.question_editor.save_failed", {"path": path}), false)
+		return
 	if QuestionBank.export_set(_set_id, path):
 		_say(I18nService.tf("host.question_editor.exported_status", {"name": _set["name"], "path": path}))
 	else:

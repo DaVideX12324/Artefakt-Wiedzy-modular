@@ -6,6 +6,13 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Dodano
+- Edytor pytań: przycisk „Szablon JSON” — zapisuje przykładowy zestaw (po jednym pytaniu każdego typu) do wypełnienia
+  i zaimportowania.
+
+### Naprawiono
+- Po wyjściu z modułu menu główne zostawało z czcionką modułu.
+
 ## [0.9.7-beta] — 2026-10-29
 
 Cień Mgły 0.9.7-beta (zapis pozycji, trwała śmierć wrogów, bez pauzy w walce, klawisze, balans), BitBomber bez zmian.
