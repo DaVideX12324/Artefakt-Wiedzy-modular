@@ -1,77 +1,56 @@
 # Zadania od najłatwiejszych / najszybszych
 
-> Widok pomocniczy, **nie** źródło prawdy — szczegóły i statusy: [`docs/znane_problemy.md`](../znane_problemy.md). Stan na 2026-10-17.
-> Skróty: **U** = robi user (gra/LDtk/grafika), **S** = Sonnet wystarczy, **O** = lepiej Opus (projekt/architektura). ✅ = zrobione.
+> Widok pomocniczy, **nie** źródło prawdy — szczegóły i statusy: [`docs/znane_problemy.md`](../znane_problemy.md). Stan na 2026-10-29.  
+> Wpisy ✅ i ✖ → [`archiwum/zadania_zrobione_2026-10-29.md`](../archiwum/zadania_zrobione_2026-10-29.md).  
+> Skróty: **U** = user (gra/grafika), **S** = Sonnet, **O** = Opus. ➜ = rozszerzony scope.
 
-> Sekcja „Z znanych problemów” na końcu (przeniesione 2026-10-21 z [`znane_problemy.md`](../znane_problemy.md)); zrobione wpisy są tam w „Rozwiązane”.
+---
 
 ## 1. Minuty
 
-1. **U** — sprawdzić w grze: poprawki ekranu śmierci i trucizny, skrzynie i klucze na tier, beczki 3/(2n), złoto, koszt walki, zakładkę „Ogólne”, a po ostatnich zmianach: scroll drużyny w pauzie, wczytywanie map z dysku, grę po angielsku w oknie.
-2. **U** — skomitować `Floor_Full.xcf` (submoduł, potem wskaźnik w hoście). `miasto.ldtk` niepotrzebne — LDtk pominięty (2026-10-22).
-3. ✅ **U** — `world_build` to wersja 32x, nie nada się: przywrócony do `assets/_nieuzywane/pixel_crawler/environments/world_build/` (2026-10-22, assets `1c92671`).
-4. ✅ **S** — nieśledzona kopia `pixel_crawler_free.tres` już nie istnieje (sprawdzone 2026-10-22).
+1. **U** — sprawdzić w grze: ekran śmierci i trucizna, skrzynie / klucze / beczki / złoto, koszt walki, zakładkę „Ogólne", scroll drużyny w pauzie, wczytywanie map z dysku, grę po angielsku w oknie.
+2. **U** — skomitować `Floor_Full.xcf` (submoduł, potem wskaźnik w hoście).
+
+---
 
 ## 2. Godziny
 
-5. ✅ **S** — przegląd gry po angielsku (skan danych i scen UI bez polskich znaków; w oknie nikt nie sprawdzał).
-6. ✅ **S** — poprawki i18n: klucze `bb.options.bind_*`, imiona bohaterów wdrożone 2026-10-21 (Kael, Eldon, Selene — EN = PL). Kolizje msgid z nazwami klas usunięte.
-7. ✅ **S** — pancerz: zmierzony, decyzja usera **„zostaw na razie”** do czasu decyzji o skali drabiny sprzętu (pkt 20).
-8. ✅ **S** — `optimize_member_equipment` z MAT/MDF (mag/kapłan → MAT).
-10. ✅ **S** — scroll drużyny > 4 w pauzie. Szyk w Status: zostaje osobno (decyzja usera). Okno pytania: już zgodne z życzeniem (najpierw rozszerza się na maks., potem rośnie w górę; może zasłaniać UI).
-11. ✅ **S** — stare FAIL-e testów naprawione (`check_combat_lists`, `check_start_safety`, `check_pause_lists`).
-12. ✅ **U/S** — tabela mikstur w tierach (2026-10-21) i ikony wg rozmiaru (2026-10-22: Kyrise 16x16, CC BY 4.0 — mała / duża / wielka, czerwone HP, niebieskie SP; `resources/items/icons/potions/CREDITS.md`). Tier tylko w nazwie.
+9. **U** — (brak numeru, luka po ✅ 5–8) — brak otwartych wpisów w tej sekcji.
+
+---
 
 ## 3. Pół dnia
 
-13. ✅ **S** — klucze i wytrychy uniwersalne (zrobione 2026-10-11, `kontekst/obiekty.md` „Klucze i wytrychy”).
-14. ✖ ~~konwerter LDtk → `TileMapLayer`~~ — odpada (2026-10-22, decyzja usera): miasto robione bezpośrednio w Godocie, na bazie edytowanego desert town.
-15. ✅ **S** — interfejs sklepu (2026-10-21, `kontekst/npc.md`); ceny robocze do czasu pkt 20. Ceny zależą od skali drabiny sprzętu (pkt 20), więc najpierw wspólny szkielet interakcji z NPC (pkt 21–24).
 16. **S** — warianty skrzyń z innych paczek i więcej mikstur w jaskiniach.
-17. ✅ **S** — zapis map na dysk (`map_disk_cache.gd`, wejście z pliku ≈ 0,25 s zamiast 2–2,5 s). Zapis map z wyprzedzeniem i kasowanie map usuniętego slotu / rerollu zrobione 2026-10-22. Zostało: podbijanie `MAP_CACHE_VERSION` w wydaniu (klatka ~0,5 s przy starcie mapy z wyprzedzeniem naprawiona 2026-10-22: sceny wrogów i tabele łupu wczytywane w tle).
-18. ✅ **S/O** — skrzynie specjalne w rzadkich pokojach (2026-10-21, tier 3, pokoje na uboczu). Nisze out w jaskiniach ✅ (2026-10-21: przedmiot, skrzynia tieru 2 albo sekretny pokój — osobna mapa z 1–3 pokoi; jedna nisza na mapę do krypty relikwii z bossem, `kontekst/obiekty.md` „Zawartość nisz out”). Zostało: przedmiot relikwii, rzadkie pokoje.
-19. ✅ **S/O** — generator obiektów F5: niszczalne beczki, dźwignie bram, nakładka podglądu (2026-10-21); leniwe sceny niepotrzebne (pomiar).
+29. **S** — ujednolicić skrzynie w jednym stylu Pixel Crawlera (2026-10-29): `closed_chest_tutorial.tscn` + generator używają `legacy_amonra/RPG Chests.png`, ścieki — `sewer/Assets/Props.png`. Kandydaci: kryjówka (`_nieuzywane/hideout`), kuźnia / Desert / biblioteka — jeden zestaw na tiery.
+
+---
 
 ## 4. Dni
 
-20. ✅ **O** — krzywe XP do lv 100 (były) i skala drabiny sprzętu jak FNaFB1 (2026-10-21, `kontekst/ekwipunek_szkic.md` sekcja 12). Zostało: przedmioty pośrednie per mapa, tiery mikstur, ceny w sklepach.
-21. ✅ **O** — wspólny szkielet interakcji z NPC: usługi sklep / odpoczynek / nauka / rozmowa (2026-10-21, `kontekst/npc.md`). Zostały: kowal, zadania NPC.
-22. ✅ **O** — sklep z tierami blokowanymi flagami fabularnymi (mechanizm; flagi to placeholdery).
-23. ✅ **O** — kowal i bronie z potencjałem (2026-10-21: usługa ulepszania + Ostrze Mgły w 4 etapach jako relikwia jaskiń, `kontekst/npc.md`). Zostało: kolejne bronie z potencjałem (inne klasy), materiały z bossów, prawdziwe flagi etapów.
-24. ✅ **O** — rekrutacja towarzyszy, skille klasowe i sloty umiejętności (2026-10-21, `kontekst/druzyna_szkic.md`, `kontekst/sloty_umiejetnosci_szkic.md` sekcja 6). Zostały: imiona towarzyszy, akcesoria z bonusem slotów.
-25. **O** — logika miasta: flagi, NPC, wnętrza. Szkielet zrobiony 2026-10-22 (`kontekst/miasto.md`: trasa jaskinia → miasto → ścieki, mapa ręczna w trasie, drzwi do wnętrz, szablon wnętrza, bramka flag). Zostało: konkretne wnętrza, zadania NPC, prawdziwe flagi etapów.
-26. ➜ **rozszerzony scope** (decyzja usera 2026-10-22, nie na poziom inżynierki) — finał: walka z ostatnim bossem (fazy, inna Faza 2 na ścieżce Good), cutscenka i zakończenia, zabranie towarzyszy, „Wzmocnienie tarczy”, umiejętność 10. poziomu, limit mikstur SP w finale. Szkic: `fabula_krag_i_zakonczenia_szkic.md` sekcje 5–6.
-27. ✅ **S/O** — uproszczone zakończenie na inżynierkę (zamiast pkt 26; zrobione 2026-10-22: boss ścieków Szczurzy Król — nazwa robocza — z `"boss": {"ends_game": true}` w `sewer.json`, ekran `scenes/ui/end_screen.tscn`, flaga `game:completed`, zapis w bieżącym slocie, „Ukończono” w opisie slotu, test `check_end_screen`): zwykła walka z ostatnim bossem (bez faz, cutscenek i ścieżek zakończeń), po wygranej ekran końca gry (napisy / podsumowanie: czas gry, poziom, pokonani bossowie, poprawne odpowiedzi) i powrót do menu; zapis oznaczony jako ukończony. Do ustalenia z userem: która mapa i który boss jest ostatni.
+25. **O** — logika miasta: konkretne wnętrza, zadania NPC, prawdziwe flagi etapów. Szkielet zrobiony 2026-10-22 (`kontekst/miasto.md`).
+26. ➜ **rozszerzony scope** — finał: boss z fazami, cutscenka, ścieżki zakończeń, umiejętność 10. poziomu, limit SP w finale. Szkic: `fabula_krag_i_zakonczenia_szkic.md` sekcje 5–6.
+28. ➜ **rozszerzony scope v2.0** — walki z widokiem z boku jak Desire Fantasy (sprite'y drużyny, animacje z szablonu LumenLorePixels, decyzja 2026-10-28).
 
-28. ➜ **rozszerzony scope, wersja 2.0 Cienia Mgły** (decyzja usera 2026-10-28) — walki jak w demie Desire Fantasy (noiracide.itch.io/df-demo, RPG Maker MV): widok z boku, **wrogowie z lewej, bohaterowie z prawej**, postacie drużyny na polu walki jako sprite'y (animacje ataku / czaru / trafienia / śmierci z szablonu LumenLorePixels, z którego postacie są generowane skryptem — decyzja 2026-10-28) zamiast obecnego UI walki.
+Odłożone poza inżynierkę: tilesety kolejnych map, dalszy refaktor generatora (etapy 8–12), finał (pkt 26), walki z boku (pkt 28).
 
-29. **S** — inżynierka, nie blokuje release'u (user 2026-10-29): ujednolicić skrzynie w jednym stylu Pixel Crawlera. Dziś tutorial i jaskinie (`closed_chest_tutorial.tscn`, generator) używają `legacy_amonra/.../RPG Chests.png`, ścieki — skrzyni z `sewer/Assets/Props.png`, a miasto dostanie inną. Kandydaci: drewniana skrzynia z okuciami z kryjówki (`_nieuzywane/.../hideout`), skrzynie z kuźni / Desert / biblioteki (wszystkie mają klatkę otwartą) — jeden zestaw na tiery skrzyń.
+---
 
-Odłożone poza inżynierkę (rozszerzony scope): tilesety kolejnych map, dalsze przyspieszanie generatora, finał (pkt 26), walki z widokiem z boku (pkt 28).
-
-**Następny sensowny krok:** Opus robi szkic ekonomii/drabiny sprzętu (20) i szkielet NPC (21); potem UI scen (15, 22) może zrobić Sonnet albo Antigravity z briefem. Bez blokady: 19 (nakładka podglądu), 16 (warianty skrzyń).
-
-## Z znanych problemów (otwarte, stan 2026-10-21, od najłatwiejszych)
+## Z znanych problemów (otwarte, od najłatwiejszych)
 
 **Minuty / godziny**
-- **U** — sprawdzić w grze: ekran śmierci i trucizna, mysz w walce (klik wroga, listy, znacznik celu, klik po fokusie), pytania bossów, skróty dev w eksporcie, gra po angielsku, skrzynie / klucze / beczki / złoto / trudność jaskiń, kafle wielokratkowe na `Props`, grzyby nad ścianą; nowe: sloty (Q/E), trasa map (jaskinia po tutorialu od południa), skille klasowe.
-- ✅ **S** — zduplikowany UID ikony BitBombera (BitBomber `icon.png.import` ma własny UID, 2026-10-21).
-- **S/O** — `PlateauPass._solve` ~750 ms na 250² (płaskie tablice jak w `ObjectPlanner`). Ocena 2026-10-21: to ~200-liniowa pętla na słownikach w pliku 2000 linii, każda zmiana wymaga parytetu 42/42 — zysk ≤ 0,5 s niewart ryzyka, raczej odpuścić.
-- ✅ **S** — resztki i18n (2026-10-21): sprawdzone — sterowanie BitBombera, opcje motywu i nagrody były już przetłumaczone, etapy generowania doszły (`gen.stage.*`). Licznik „407 linii” w `check_i18n.py` zawyża (liczy zapasowe teksty `QuizRpgI18n.t(...)`, komentarze, dev menu, narzędzia); zostają tylko narzędzia i komunikaty debug.
+- **U** — sprawdzić w grze: mysz w walce (klik wroga, listy, znacznik celu, klik po fokusie), pytania bossów, skróty dev w eksporcie, kafle wielokratkowe na `Props`, grzyby nad ścianą; sloty (Q/E), trasa map (jaskinia po tutorialu od południa), skille klasowe.
+- **S/O** — `PlateauPass._solve` ~750 ms na 250² — zysk ≤ 0,5 s przy ryzyku regresji 42/42; raczej odpuścić.
 
 **Pół dnia**
 - **S** — propozycja korzenia modułu z położenia skryptu (`module_root()`), po zatwierdzeniu przez usera.
-- **S** — ścieki: uskoki lica przy dostawionych pokojach (`tests/diag_sewer_thin_walls.gd`); opcjonalnie mniej zdejmowania obiektów (250² seed 7: 19, 160²: 0–6). Winiety i gruz w skupiskach zrobione 2026-10-22.
-- ✅ **S/O** — umiejętności wrogów skalowane z poziomem (2026-10-21): obrażenia umiejętności liczą się z ATK/MAT wroga, który już skaluje się z poziomem; jedyne stałe liczby to leczenie Mrocznej Regeneracji (zamienione na 25 % maks. HP) oraz niewielkie `base_damage` 40 / 80 w Serii Wybuchów i Oddechu Zgnilizny (zostawione — pomijalne na wyższych poziomach).
-- ➜ **opcjonalne** (decyzja usera 2026-10-22: po dopięciu reszty) — częstsze nisze-przejścia (dziś 0–2 na mapę; np. celowe wycięcie ściany do głębokości 3).
-- **O** — pancerz na późnych poziomach: wzór procentowy `ATK×4 × 100/(100+DEF·k)` albo mocniejszy DEF w krzywych (po zmierzeniu drabiny).
-- **O** — NPC: kwestie przy pierwszej rozmowie po nowym tierze (`required_flag`), prawdziwe flagi etapów kowala i sklepów, skrzynia przeklęta, akcesoria z bonusem slotów.
+- **S** — ścieki: uskoki lica przy dostawionych pokojach (`diag_sewer_thin_walls.gd`).
+- ➜ **opcjonalne** — częstsze nisze-przejścia (celowe wycięcie ściany do głębokości 3).
+- **O** — pancerz na późnych poziomach: wzór `ATK×4 × 100/(100+DEF·k)` albo mocniejszy DEF (po zmierzeniu drabiny).
+- **O** — NPC: kwestie przy nowym tierze (`required_flag`), flagi kowala i sklepów, skrzynia przeklęta, akcesoria z bonusem slotów.
 
 **Dni**
-- ✅ **O** — minimapa z fog of war (2026-10-21: róg + pełna mapa pod M, linia wzroku, maska w zapisie, mapy ręczne z warstw; `znane_problemy.md` „Minimapa”).
-- ✅ **O** — losowe spotkania jak w JRPG (2026-10-21, wersja podstawowa: tryb `cleared` w jaskiniach, `random_encounters` w JSON mapy; zostało strojenie w grze i ścieki).
-- ➜ **opcjonalne** (decyzja usera 2026-10-22: po dopięciu reszty) — ukryte przejścia między pokojami (tunel pod voidem, shader z Amon-Ra, własne kolizje ścian tunelu) — projekt najpierw.
+- ➜ **opcjonalne** — ukryte przejścia między pokojami (tunel pod voidem, shader + kolizje) — projekt najpierw.
 
 **User / poza inżynierką**
-- Miasto (ręcznie), wariant kafli RIM nisz-przejść, tilesety kolejnych map, mapy otwarte (las) po tilesetach.
-
+- Miasto (ręcznie), wariant kafli RIM nisz-przejść, tilesety kolejnych map, mapy otwarte (las).
