@@ -35,7 +35,7 @@ func _ready() -> void:
 	if I18nService:
 		I18nService.language_changed.connect(func(_l: String) -> void: refresh_modules())
 	refresh_modules()
-	_ver_label.text = "Artefakt Wiedzy " + version_label(str(ProjectSettings.get_setting("application/config/version", "")))
+	_ver_label.text = "Artefakt Wiedzy " + version_label(str(ProjectSettings.get_setting("application/config/version", ""))) + build_suffix()
 	_on_scale_changed(UIScaleService.scale_factor)
 	if AudioService:
 		AudioService.play_music("host_menu")
@@ -96,6 +96,14 @@ func _module_button_text(manifest: Dictionary) -> String:
 	if summary != "":
 		lines.append(I18nService.tf("host.menu.last_session", {"summary": summary}, "Ostatnio: {summary}"))
 	return "\n".join(lines)
+
+
+## " (build N)" z resources/build.json (podbijany przy eksporcie release przez wtyczkę ExportCheck); bez pliku — "".
+static func build_suffix() -> String:
+	const BUILD_PATH := "res://resources/build.json"
+	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)) if FileAccess.file_exists(BUILD_PATH) else null
+	var build := int((data as Dictionary).get("build", 0)) if data is Dictionary else 0
+	return " (build %d)" % build if build > 0 else ""
 
 
 ## Wersja do wyświetlenia: "0.8.0-alpha" -> "0.8.0 Alpha" (zasady: docs/wersjonowanie.md).
