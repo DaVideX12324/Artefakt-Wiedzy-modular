@@ -72,6 +72,8 @@ func show_status(message: String) -> void:
 func _build_module_button(manifest: Dictionary) -> Button:
 	var button := Button.new()
 	button.custom_minimum_size = UIScaleService.sz2(BASE_BTN_MODULE.x, BASE_BTN_MODULE.y)
+	# Rozmiar od razu — lista budowana jest też po powrocie z modułu, a _on_scale_changed woła się tylko przy zmianie skali.
+	button.add_theme_font_size_override("font_size", UIScaleService.px(18))
 	button.text = _module_button_text(manifest)
 	button.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	button.pressed.connect(func():
