@@ -6,6 +6,7 @@ extends EditorPlugin
 ## konwersji eksportu — w edytorze działało, w exe nie.
 
 const Check = preload("check_pack.gd")
+const Update = preload("res://autoloads/services/update_service.gd")
 const CHECK_SCRIPT := "res://addons/export_check/check_pack.gd"
 
 var _export_plugin: ExportHook
@@ -69,10 +70,13 @@ class ExportHook extends EditorExportPlugin:
 	func _bump_build() -> void:
 		const BUILD_PATH := "res://resources/build.json"
 		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)) if FileAccess.file_exists(BUILD_PATH) else null
-		var build := int((data as Dictionary).get("build", 0)) + 1 if data is Dictionary else 1
+		var version := str(ProjectSettings.get_setting("application/config/version", ""))
+		# Od 1 w każdej głównej wersji (0.9.8 -> 0.9.9); paczki 0.9.9.x liczą dalej.
+		var same_main := data is Dictionary and Update.main_version(str((data as Dictionary).get("version", ""))) == Update.main_version(version)
+		var build := int((data as Dictionary).get("build", 0)) + 1 if same_main else 1
 		var f := FileAccess.open(BUILD_PATH, FileAccess.WRITE)
 		# Wersja też tu: paczki aktualizacji (.pck) nie podmieniają ustawień projektu, a ten plik tak.
-		f.store_string(JSON.stringify({"build": build, "version": str(ProjectSettings.get_setting("application/config/version", ""))}) + "
+		f.store_string(JSON.stringify({"build": build, "version": version}) + "
 ")
 		f.close()
 		print("[ExportCheck] Build ", build)
