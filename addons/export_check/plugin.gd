@@ -82,9 +82,21 @@ class ExportHook extends EditorExportPlugin:
 		if _path == "" or _ref.is_empty():
 			return
 		var pack := _path if _path.is_absolute_path() and not _path.begins_with("res://") else ProjectSettings.globalize_path(_path if _path.begins_with("res://") else "res://" + _path)
+		# Windows: eksport pisze <nazwa>.tmp i zmienia nazwę na .exe dopiero po _export_end.
+		if pack.get_extension().to_lower() == "tmp":
+			pack = pack.get_basename() + ".exe"
 		if pack.get_extension().to_lower() not in ["exe", "pck", "zip"]:
 			print("[ExportCheck] Pominięte (nie exe / pck / zip): ", pack)
 			return
-		# Odłożone o chwilę — plik paczki bywa domykany tuż po _export_end.
 		var ref := _ref
-		Engine.get_main_loop().create_timer(1.0).timeout.connect(func() -> void: owner_plugin.call("run_check", pack, ref))
+		var started := Time.get_ticks_msec()
+		var plugin := owner_plugin
+		# Czekamy, aż paczka będzie na miejscu (zmiana nazwy .tmp -> .exe), najwyżej 60 s.
+		var wait := func(self_ref: Callable) -> void:
+			if FileAccess.file_exists(pack) and not FileAccess.file_exists(pack.get_basename() + ".tmp"):
+				plugin.call("run_check", pack, ref)
+			elif Time.get_ticks_msec() - started < 60000:
+				Engine.get_main_loop().create_timer(1.0).timeout.connect(self_ref.bind(self_ref))
+			else:
+				print("[ExportCheck] Nie doczekano się paczki: ", pack)
+		Engine.get_main_loop().create_timer(1.0).timeout.connect(wait.bind(wait))
