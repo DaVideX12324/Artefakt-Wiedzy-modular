@@ -10,7 +10,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ### Dodano
 - Cień Mgły: cel główny fabuły w dzienniku (Pauza → Zadania).
-- Cień Mgły: „schodki” poziomów — wrogowie wyżej od drużyny dają więcej XP (do ×1,5), niżsi coraz mniej (do ×0,2); opłaca się iść na kolejną mapę.
+- Cień Mgły: „schodki” poziomów — na początku zakresu poziomów mapy awans tani, pod koniec coraz droższy; na kolejnej mapie znów szybko. XP za wrogów bez zmian.
 
 ### Naprawiono
 - Cień Mgły: Esc / wstecz zamyka pełną minimapę zamiast otwierać pauzę.
