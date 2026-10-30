@@ -14,6 +14,7 @@ signal launch_requested(manifest: Dictionary)
 @onready var _btn_credits: Button = $Center/Panel/Margin/VBox/HBoxMeta/BtnCredits
 @onready var _btn_quit: Button = $Center/Panel/Margin/VBox/HBoxMeta/BtnQuit
 @onready var _ver_label: Label = $VerLabel
+@onready var _update_btn: LinkButton = $UpdateBtn
 @onready var _options_menu: CanvasLayer = $OptionsMenu
 @onready var _question_editor: CanvasLayer = $QuestionEditor
 @onready var _credits: CanvasLayer = $CreditsScreen
@@ -37,6 +38,7 @@ func _ready() -> void:
 	refresh_modules()
 	_ver_label.text = "Artefakt Wiedzy " + version_label(str(ProjectSettings.get_setting("application/config/version", ""))) + build_suffix()
 	_on_scale_changed(UIScaleService.scale_factor)
+	UpdateService.update_available.connect(_on_update_available)
 	if AudioService:
 		AudioService.play_music("host_menu")
 	# Menu jest ukrywane na czas modułu i pokazywane po wyjściu z niego — wtedy wraca muzyka menu
@@ -99,10 +101,16 @@ func _module_button_text(manifest: Dictionary) -> String:
 
 
 ## " (build N)" z resources/build.json (podbijany przy eksporcie release przez wtyczkę ExportCheck); bez pliku — "".
+## Info z UpdateService: link do pełnego exe albo (url pusty) prośba o ponowne uruchomienie po pobraniu paczek.
+func _on_update_available(text: String, url: String) -> void:
+	_update_btn.text = text
+	_update_btn.uri = url
+	_update_btn.disabled = url == ""
+	_update_btn.visible = true
+
+
 static func build_suffix() -> String:
-	const BUILD_PATH := "res://resources/build.json"
-	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)) if FileAccess.file_exists(BUILD_PATH) else null
-	var build := int((data as Dictionary).get("build", 0)) if data is Dictionary else 0
+	var build := UpdateService.current_build()
 	return " (build %d)" % build if build > 0 else ""
 
 

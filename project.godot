@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+UpdateService="*res://autoloads/services/update_service.gd"
 SettingsService="*res://autoloads/services/settings_service.gd"
 I18nService="*res://autoloads/services/i18n_service.gd"
 UIScaleService="*res://autoloads/services/ui_scale_service.gd"
