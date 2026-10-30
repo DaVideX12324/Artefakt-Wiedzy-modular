@@ -10,11 +10,11 @@ $Repo = "DaVideX12324/ArtefaktWiedzy-updates"
 $Gist = "cc2274c3de25a1ee9a122ad9419097a8"
 # Pełny exe (gdy paczka się nie pobierze albo przy nowej bazie).
 $FullUrl = "https://mega.nz/folder/ZJVTTSLb#PtinvmoFu9NuOYVPZRQ7Fw"
-# Łatka ma KB–MB; pełny pck (bez „Eksportuj jako łatkę”) ma ~220 MB.
+# Łatka ma KB–MB; pełny pck (bez 'Eksportuj jako łatkę') ma ~220 MB.
 $MaxMB = 50
 
 if (-not (Test-Path $Pck)) { throw "Brak paczki: $Pck" }
-if ((Get-Item $Pck).Length -gt $MaxMB * 1MB) { throw "Paczka ma ponad $MaxMB MB — to pełny pck? Eksportuj z zaznaczonym „Eksportuj jako łatkę”." }
+if ((Get-Item $Pck).Length -gt $MaxMB * 1MB) { throw "Paczka ma ponad $MaxMB MB — to pełny pck? Eksportuj z zaznaczonym 'Eksportuj jako łatkę'." }
 $info = Get-Content "resources/build.json" -Raw | ConvertFrom-Json
 $version = [string]$info.version
 $build = [int]$info.build
