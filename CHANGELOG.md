@@ -6,6 +6,21 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.9.3-beta] — 2026-10-30
+
+### Dodano
+- Cień Mgły: cel główny fabuły w dzienniku (Pauza → Zadania).
+- Cień Mgły: „schodki” poziomów — wrogowie wyżej od drużyny dają więcej XP (do ×1,5), niżsi coraz mniej (do ×0,2); opłaca się iść na kolejną mapę.
+
+### Naprawiono
+- Cień Mgły: Esc / wstecz zamyka pełną minimapę zamiast otwierać pauzę.
+- Tłumaczenia: licznik czasu w quizie, ekran końca gry, napisy walki, okno skrzyni, ekran ładowania (EN).
+
+## [0.9.9.2-beta] — 2026-10-30
+
+### Zmieniono
+- Okno „Co nowego”: nieprzezroczyste tło
+
 ## [0.9.9.1-beta] — 2026-10-30
 
 ### Dodano
