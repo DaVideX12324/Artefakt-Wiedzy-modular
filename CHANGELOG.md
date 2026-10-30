@@ -6,11 +6,24 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.9-beta] — 2026-10-30
+
 ### Dodano
-- Edytor pytań: przycisk „Szablon JSON” — zapisuje przykładowy zestaw (po jednym pytaniu każdego typu) do wypełnienia
-  i zaimportowania.
+- Automatyczne aktualizacje: gra sama pobiera poprawki, a o nowej wersji informuje w menu głównym.
+- Okno „Co nowego” po aktualizacji.
+- Obsługa pada (Xbox): ruch, interakcja, bieg, menu, zakładki, minimapa.
+- Menu główne: tło z paralaksą i muzyka; edytor pytań: przycisk „Szablon JSON”.
+- Cień Mgły: opcja „Tempo walki”, przyspieszanie walki biegiem (Shift / X), skrzynie z łupem w mieście.
+
+### Zmieniono
+- Cień Mgły: szybszy początek (mniej XP na niskich poziomach, więcej za wrogów), mniej dukatów.
+- Cień Mgły: sklep z wyborem ilości; ekwipunek tylko dla pasujących klas, opis „Dla: …” i porównanie statystyk.
+- Cień Mgły: towarzysze dołączają na własnym poziomie; słabsze umiejętności bossów.
+- Beczki nie dają dwa razy tego samego przedmiotu.
 
 ### Naprawiono
+- Cień Mgły: SP drużyny nie spadało (zawsze 100); odtrutka nie działała w wyeksportowanej grze.
+- Cień Mgły: znikający pas drużyny w walce; winieta zatrucia w walce.
 - Po wyjściu z modułu menu główne zostawało z czcionką modułu.
 
 ## [0.9.7-beta] — 2026-10-29

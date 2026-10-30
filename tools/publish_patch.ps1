@@ -24,7 +24,7 @@ New-Item -ItemType Directory $tmp | Out-Null
 try {
 	Copy-Item $Pck (Join-Path $tmp $asset)
 	Write-Host "Wydanie $version (build $build): $Pck"
-	gh release create $version (Join-Path $tmp $asset) -R $Repo -t $version -n "Paczka $version (build $build)"
+	gh release create $version (Join-Path $tmp $asset) -R $Repo -t $version -n $(if ($info.notes) { [string]$info.notes } else { "Paczka $version (build $build)" })
 	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$version/$asset"
 

@@ -15,6 +15,7 @@ signal launch_requested(manifest: Dictionary)
 @onready var _btn_quit: Button = $Center/Panel/Margin/VBox/HBoxMeta/BtnQuit
 @onready var _ver_label: Label = $VerLabel
 @onready var _update_btn: LinkButton = $UpdateBtn
+@onready var _whats_new: Control = $WhatsNew
 @onready var _options_menu: CanvasLayer = $OptionsMenu
 @onready var _question_editor: CanvasLayer = $QuestionEditor
 @onready var _credits: CanvasLayer = $CreditsScreen
@@ -41,6 +42,7 @@ func _ready() -> void:
 	UpdateService.update_available.connect(_on_update_available)
 	if not UpdateService.last_message.is_empty():
 		_on_update_available(UpdateService.last_message[0], UpdateService.last_message[1])
+	_whats_new.show_if_new()
 	if AudioService:
 		AudioService.play_music("host_menu")
 	# Menu jest ukrywane na czas modułu i pokazywane po wyjściu z niego — wtedy wraca muzyka menu
