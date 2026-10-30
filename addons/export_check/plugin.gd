@@ -71,7 +71,8 @@ class ExportHook extends EditorExportPlugin:
 		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)) if FileAccess.file_exists(BUILD_PATH) else null
 		var build := int((data as Dictionary).get("build", 0)) + 1 if data is Dictionary else 1
 		var f := FileAccess.open(BUILD_PATH, FileAccess.WRITE)
-		f.store_string(JSON.stringify({"build": build}) + "
+		# Wersja też tu: paczki aktualizacji (.pck) nie podmieniają ustawień projektu, a ten plik tak.
+		f.store_string(JSON.stringify({"build": build, "version": str(ProjectSettings.get_setting("application/config/version", ""))}) + "
 ")
 		f.close()
 		print("[ExportCheck] Build ", build)

@@ -36,7 +36,7 @@ func _ready() -> void:
 	if I18nService:
 		I18nService.language_changed.connect(func(_l: String) -> void: refresh_modules())
 	refresh_modules()
-	_ver_label.text = "Artefakt Wiedzy " + version_label(str(ProjectSettings.get_setting("application/config/version", ""))) + build_suffix()
+	_ver_label.text = "Artefakt Wiedzy " + version_label(UpdateService.current_version()) + build_suffix()
 	_on_scale_changed(UIScaleService.scale_factor)
 	UpdateService.update_available.connect(_on_update_available)
 	if AudioService:

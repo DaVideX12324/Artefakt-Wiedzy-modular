@@ -30,8 +30,17 @@ func _ready() -> void:
 
 
 static func current_build() -> int:
+	return int(_build_info().get("build", 0))
+
+
+## Wersja z build.json (aktualna także po paczce), bez niej z ustawień projektu.
+static func current_version() -> String:
+	return str(_build_info().get("version", ProjectSettings.get_setting("application/config/version", "")))
+
+
+static func _build_info() -> Dictionary:
 	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)) if FileAccess.file_exists(BUILD_PATH) else null
-	return int((data as Dictionary).get("build", 0)) if data is Dictionary else 0
+	return data if data is Dictionary else {}
 
 
 func _fetch(url: String, done: Callable, save_to: String = "") -> void:
