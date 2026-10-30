@@ -80,7 +80,7 @@ func _on_manifest(ok: bool, body: PackedByteArray) -> void:
 				if failed[0]:
 					update_available.emit(_t("update.available", "Dostępna wersja {version} — pobierz", version), str(m.get("url", "")))
 				else:
-					update_available.emit(_t("update.restart", "Pobrano aktualizację {version} — uruchom grę ponownie", version), ""), dest)
+					update_available.emit(_t("update.restart", "Pobrano aktualizację {version} — kliknij, by uruchomić ponownie", version), ""), dest)
 
 
 func _t(key: String, fallback: String, version: String) -> String:
