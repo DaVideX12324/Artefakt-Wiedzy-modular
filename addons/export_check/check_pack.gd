@@ -11,6 +11,9 @@ func _initialize() -> void:
 	if args.size() < 2:
 		quit(2)
 		return
+	if args.size() > 2 and args[2] != "" and not ProjectSettings.load_resource_pack(args[2]):  # łatka na bazie
+		lines_fail(args[1], "Nie wczytano łatki: " + args[2])
+		return
 	var ref: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(args[0]))
 	var lines: Array[String] = []
 	for path: String in ref:
@@ -30,6 +33,13 @@ func _initialize() -> void:
 	f.store_string("OK %d\n" % ref.size() if lines.is_empty() else "\n".join(lines))
 	f.close()
 	quit(0 if lines.is_empty() else 1)
+
+
+func lines_fail(out_path: String, msg: String) -> void:
+	var f := FileAccess.open(out_path, FileAccess.WRITE)
+	f.store_string(msg)
+	f.close()
+	quit(1)
 
 
 ## Foldery z danymi gry (rekurencyjnie, .tres / .res).
