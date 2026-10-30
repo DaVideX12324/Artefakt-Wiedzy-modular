@@ -101,11 +101,14 @@ func _module_button_text(manifest: Dictionary) -> String:
 
 
 ## " (build N)" z resources/build.json (podbijany przy eksporcie release przez wtyczkę ExportCheck); bez pliku — "".
-## Info z UpdateService: link do pełnego exe albo (url pusty) prośba o ponowne uruchomienie po pobraniu paczek.
+## Info z UpdateService: link do pełnego exe albo (url pusty) po pobraniu paczek — klik uruchamia grę ponownie.
 func _on_update_available(text: String, url: String) -> void:
 	_update_btn.text = text
 	_update_btn.uri = url
-	_update_btn.disabled = url == ""
+	if url == "":
+		_update_btn.pressed.connect(func() -> void:
+			OS.create_process(OS.get_executable_path(), OS.get_cmdline_args())
+			get_tree().quit())
 	_update_btn.visible = true
 
 
