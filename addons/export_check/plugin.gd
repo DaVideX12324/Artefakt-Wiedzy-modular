@@ -42,10 +42,9 @@ func run_check(pack_path: String, ref: Dictionary) -> void:
 	dlg.title = "Sprawdzenie eksportu"
 	dlg.dialog_text = ("Eksport OK — dane gry (%s zasobów) takie jak w edytorze." % result.get_slice(" ", 1).strip_edges()) if ok \
 			else "Dane w eksporcie różnią się od edytora:\n\n" + result.left(3000)
-	EditorInterface.get_base_control().add_child(dlg)
 	dlg.confirmed.connect(dlg.queue_free)
 	dlg.canceled.connect(dlg.queue_free)
-	dlg.popup_centered()
+	EditorInterface.popup_dialog_centered(dlg)  # nad otwartym oknem eksportu (jedno okno modalne naraz)
 
 
 class ExportHook extends EditorExportPlugin:
