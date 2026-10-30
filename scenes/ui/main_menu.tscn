@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/ui/question_editor.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/ui/credits_screen.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/ui/whats_new.tscn" id="5"]
 
 [node name="MainMenu" type="CanvasLayer"]
 process_mode = 3
@@ -139,3 +140,5 @@ underline = 1
 [node name="QuestionEditor" parent="." instance=ExtResource("3")]
 
 [node name="CreditsScreen" parent="." instance=ExtResource("4")]
+
+[node name="WhatsNew" parent="." instance=ExtResource("5")]

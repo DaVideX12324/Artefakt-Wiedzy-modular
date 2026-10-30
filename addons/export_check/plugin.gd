@@ -76,10 +76,25 @@ class ExportHook extends EditorExportPlugin:
 		var build := int((data as Dictionary).get("build", 0)) + 1 if same_main else 1
 		var f := FileAccess.open(BUILD_PATH, FileAccess.WRITE)
 		# Wersja też tu: paczki aktualizacji (.pck) nie podmieniają ustawień projektu, a ten plik tak.
-		f.store_string(JSON.stringify({"build": build, "version": version}) + "
+		f.store_string(JSON.stringify({"build": build, "version": version, "notes": _changelog_section(version)}) + "
 ")
 		f.close()
 		print("[ExportCheck] Build ", build)
+
+	## Sekcja „## [wersja]” z CHANGELOG.md (bez nagłówka) — okno „Co nowego” w grze; brak = pusto.
+	func _changelog_section(version: String) -> String:
+		var lines := FileAccess.get_file_as_string("res://CHANGELOG.md").replace("\r", "").split("\n")
+		var out: PackedStringArray = []
+		var inside := false
+		for line in lines:
+			if line.begins_with("## ["):
+				if inside:
+					break
+				inside = line.begins_with("## [%s]" % version)
+				continue
+			if inside:
+				out.append(line)
+		return "\n".join(out).strip_edges()
 
 	func _export_end() -> void:
 		print("[ExportCheck] Koniec eksportu: ", _path, " (zasobów we wzorcu: ", _ref.size(), ")")
