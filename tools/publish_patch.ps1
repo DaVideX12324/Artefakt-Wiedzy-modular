@@ -1,8 +1,8 @@
 ﻿# Publikacja paczki aktualizacji: wydanie z .pck w DaVideX12324/ArtefaktWiedzy-updates + manifest w gist.
 # Użycie (po eksporcie łatki w Godocie): dwuklik publish_patch.bat albo  powershell -File tools/publish_patch.ps1 [ścieżka.pck]
-#   domyślnie build/windows/patches/patch_001.pck; wersja i build z resources/build.json (podbija je ExportCheck).
+#   domyślnie build/patch.pck; wersja i build z resources/build.json (podbija je ExportCheck).
 # Paczki są skumulowane względem bazy, więc manifest wskazuje tylko najnowszą. Link do pełnego exe (url) zostaje z gista.
-param([string]$Pck = "build/windows/patches/patch_001.pck")
+param([string]$Pck = "build/patch.pck")
 $ErrorActionPreference = "Stop"
 Set-Location (Join-Path $PSScriptRoot "..")
 
