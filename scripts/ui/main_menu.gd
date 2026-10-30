@@ -39,6 +39,8 @@ func _ready() -> void:
 	_ver_label.text = "Artefakt Wiedzy " + version_label(UpdateService.current_version()) + build_suffix()
 	_on_scale_changed(UIScaleService.scale_factor)
 	UpdateService.update_available.connect(_on_update_available)
+	if not UpdateService.last_message.is_empty():
+		_on_update_available(UpdateService.last_message[0], UpdateService.last_message[1])
 	if AudioService:
 		AudioService.play_music("host_menu")
 	# Menu jest ukrywane na czas modułu i pokazywane po wyjściu z niego — wtedy wraca muzyka menu

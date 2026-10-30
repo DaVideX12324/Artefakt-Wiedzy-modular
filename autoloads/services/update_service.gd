@@ -8,6 +8,9 @@ extends Node
 
 signal update_available(text: String, url: String)
 
+## Ostatni komunikat [text, url] — dla menu, które zaczęło słuchać po jego wysłaniu (szybkie pobranie).
+var last_message: Array = []
+
 const MANIFEST_URL := "https://gist.githubusercontent.com/DaVideX12324/cc2274c3de25a1ee9a122ad9419097a8/raw/"
 const BUILD_PATH := "res://resources/build.json"
 
@@ -64,7 +67,7 @@ func _on_manifest(ok: bool, body: PackedByteArray) -> void:
 	var pending: Array = (m.get("patches", []) as Array).filter(func(p: Variant) -> bool:
 		return p is Dictionary and int(p.get("build", 0)) > current_build())
 	if pending.is_empty():
-		update_available.emit(_t("update.available", "Dostępna wersja {version} — pobierz", version), str(m.get("url", "")))
+		_notify(_t("update.available", "Dostępna wersja {version} — pobierz", version), str(m.get("url", "")))
 		return
 	DirAccess.make_dir_recursive_absolute(_patch_dir)
 	var left := [pending.size()]
@@ -78,9 +81,14 @@ func _on_manifest(ok: bool, body: PackedByteArray) -> void:
 			left[0] -= 1
 			if left[0] == 0:
 				if failed[0]:
-					update_available.emit(_t("update.available", "Dostępna wersja {version} — pobierz", version), str(m.get("url", "")))
+					_notify(_t("update.available", "Dostępna wersja {version} — pobierz", version), str(m.get("url", "")))
 				else:
-					update_available.emit(_t("update.restart", "Pobrano aktualizację {version} — kliknij, by uruchomić ponownie", version), ""), dest)
+					_notify(_t("update.restart", "Pobrano aktualizację {version} — kliknij, by uruchomić ponownie", version), ""), dest)
+
+
+func _notify(text: String, url: String) -> void:
+	last_message = [text, url]
+	update_available.emit(text, url)
 
 
 func _t(key: String, fallback: String, version: String) -> String:
