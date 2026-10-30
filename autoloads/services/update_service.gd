@@ -26,7 +26,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	if OS.has_feature("template"):
-		_fetch(MANIFEST_URL, _on_manifest)
+		_fetch(MANIFEST_URL + "?t=%d" % int(Time.get_unix_time_from_system()), _on_manifest)  # bez pamięci podręcznej (5 min)
 
 
 static func current_build() -> int:
