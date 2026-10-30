@@ -6,7 +6,6 @@ extends EditorPlugin
 ## konwersji eksportu — w edytorze działało, w exe nie.
 
 const Check = preload("check_pack.gd")
-const Update = preload("res://autoloads/services/update_service.gd")
 const CHECK_SCRIPT := "res://addons/export_check/check_pack.gd"
 
 var _export_plugin: ExportHook
@@ -78,17 +77,29 @@ class ExportHook extends EditorExportPlugin:
 	## Numer builda (resources/build.json) +1 przy eksporcie release — przed spakowaniem, więc trafia do exe.
 	func _bump_build() -> void:
 		const BUILD_PATH := "res://resources/build.json"
-		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)) if FileAccess.file_exists(BUILD_PATH) else null
+		var data := _build_data()
 		var version := str(ProjectSettings.get_setting("application/config/version", ""))
-		# Od 1 w każdej głównej wersji (0.9.8 -> 0.9.9); paczki 0.9.9.x liczą dalej.
-		var same_main := data is Dictionary and Update.main_version(str((data as Dictionary).get("version", ""))) == Update.main_version(version)
-		var build := int((data as Dictionary).get("build", 0)) + 1 if same_main else 1
+		var build := int(data.get("build", 0)) + 1  # rośnie stale; bazę ustawia eksport exe (_export_end)
 		var f := FileAccess.open(BUILD_PATH, FileAccess.WRITE)
 		# Wersja też tu: paczki aktualizacji (.pck) nie podmieniają ustawień projektu, a ten plik tak.
-		f.store_string(JSON.stringify({"build": build, "version": version, "notes": _changelog_section(version)}) + "
+		f.store_string(JSON.stringify({"build": build, "base": int(data.get("base", 0)), "version": version, "notes": _changelog_section(version)}) + "
 ")
 		f.close()
 		print("[ExportCheck] Build ", build)
+
+	static func _build_data() -> Dictionary:
+		const BUILD_PATH := "res://resources/build.json"
+		var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)) if FileAccess.file_exists(BUILD_PATH) else null
+		return data if data is Dictionary else {}
+
+	## Po eksporcie exe jego build zostaje bazą kolejnych łatek (publish_patch.ps1 -> "base" w manifeście).
+	static func _set_base_from_build() -> void:
+		var data := _build_data()
+		data["base"] = int(data.get("build", 0))
+		var f := FileAccess.open("res://resources/build.json", FileAccess.WRITE)
+		f.store_string(JSON.stringify(data) + "\n")
+		f.close()
+		print("[ExportCheck] Baza łatek = build ", data["base"])
 
 	## Sekcja „## [wersja]” z CHANGELOG.md (bez nagłówka) — okno „Co nowego” w grze; brak = pusto.
 	func _changelog_section(version: String) -> String:
@@ -116,6 +127,8 @@ class ExportHook extends EditorExportPlugin:
 		if pack.get_extension().to_lower() not in ["exe", "pck", "zip"]:
 			print("[ExportCheck] Pominięte (nie exe / pck / zip): ", pack)
 			return
+		if pack.get_extension().to_lower() == "exe":
+			_set_base_from_build()
 		var ref := _ref
 		var bases := _bases
 		var started := Time.get_ticks_msec()
