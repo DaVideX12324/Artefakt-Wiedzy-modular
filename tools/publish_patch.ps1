@@ -8,8 +8,13 @@ Set-Location (Join-Path $PSScriptRoot "..")
 
 $Repo = "DaVideX12324/ArtefaktWiedzy-updates"
 $Gist = "cc2274c3de25a1ee9a122ad9419097a8"
+# Pełny exe (gdy paczka się nie pobierze albo przy nowej bazie).
+$FullUrl = "https://mega.nz/folder/ZJVTTSLb#PtinvmoFu9NuOYVPZRQ7Fw"
+# Łatka ma KB–MB; pełny pck (bez „Eksportuj jako łatkę”) ma ~220 MB.
+$MaxMB = 50
 
 if (-not (Test-Path $Pck)) { throw "Brak paczki: $Pck" }
+if ((Get-Item $Pck).Length -gt $MaxMB * 1MB) { throw "Paczka ma ponad $MaxMB MB — to pełny pck? Eksportuj z zaznaczonym „Eksportuj jako łatkę”." }
 $info = Get-Content "resources/build.json" -Raw | ConvertFrom-Json
 $version = [string]$info.version
 $build = [int]$info.build
@@ -23,9 +28,7 @@ try {
 	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$version/$asset"
 
-	$full = ""
-	try { $full = [string]((gh api "gists/$Gist" --jq '.files["version.json"].content') -join "`n" | ConvertFrom-Json).url } catch {}
-	$manifest = [ordered]@{ version = $version; build = $build; url = $full; patches = @([ordered]@{ build = $build; url = $url }) }
+	$manifest = [ordered]@{ version = $version; build = $build; url = $FullUrl; patches = @([ordered]@{ build = $build; url = $url }) }
 	$body = @{ files = @{ "version.json" = @{ content = ($manifest | ConvertTo-Json -Depth 5) } } } | ConvertTo-Json -Depth 6
 	$bodyPath = Join-Path $tmp "body.json"
 	[IO.File]::WriteAllText($bodyPath, $body, (New-Object Text.UTF8Encoding $false))
