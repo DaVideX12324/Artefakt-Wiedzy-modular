@@ -17,20 +17,23 @@ $MaxMB = 50
 
 if (-not (Test-Path $Pck)) { throw "Brak paczki: $Pck" }
 if ((Get-Item $Pck).Length -gt $MaxMB * 1MB) { throw "Paczka ma ponad $MaxMB MB — to pełny pck? Eksportuj z zaznaczonym 'Eksportuj jako łatkę'." }
-$info = Get-Content "resources/build.json" -Raw | ConvertFrom-Json
+$info = Get-Content "resources/build.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 $version = [string]$info.version
 $build = [int]$info.build
+$base = [int]$info.base
 $asset = "patch_$build.pck"
 $tmp = Join-Path ([IO.Path]::GetTempPath()) ("aw_patch_" + [guid]::NewGuid())
 New-Item -ItemType Directory $tmp | Out-Null
 try {
 	Copy-Item $Pck (Join-Path $tmp $asset)
 	Write-Host "Wydanie $version (build $build): $Pck"
-	gh release create $version (Join-Path $tmp $asset) -R $Repo -t $version -n $(if ($info.notes) { [string]$info.notes } else { "Paczka $version (build $build)" })
+	$notesPath = Join-Path $tmp "notes.md"
+	[IO.File]::WriteAllText($notesPath, $(if ($info.notes) { [string]$info.notes } else { "Paczka $version (build $build)" }), (New-Object Text.UTF8Encoding $false))
+	gh release create $version (Join-Path $tmp $asset) -R $Repo -t $version -F $notesPath
 	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$version/$asset"
 
-	$manifest = [ordered]@{ version = $version; build = $build; url = $FullUrl; patches = @([ordered]@{ build = $build; url = $url }) }
+	$manifest = [ordered]@{ version = $version; build = $build; base = $base; url = $FullUrl; patches = @([ordered]@{ build = $build; url = $url }) }
 	$body = @{ files = @{ "version.json" = @{ content = ($manifest | ConvertTo-Json -Depth 5) } } } | ConvertTo-Json -Depth 6
 	$bodyPath = Join-Path $tmp "body.json"
 	[IO.File]::WriteAllText($bodyPath, $body, (New-Object Text.UTF8Encoding $false))
