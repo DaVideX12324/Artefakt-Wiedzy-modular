@@ -6,6 +6,14 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.9.1-beta] — 2026-10-30
+
+### Dodano
+- Okno „Co nowego” po aktualizacji — lista zmian nowej wersji.
+
+### Zmieniono
+- Komunikat o pobranej aktualizacji widoczny i klikalny (uruchamia grę ponownie).
+
 ## [0.9.9-beta] — 2026-10-30
 
 ### Dodano
