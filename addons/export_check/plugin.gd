@@ -49,7 +49,7 @@ func run_check(pack_path: String, ref: Dictionary, patch_path: String = "") -> v
 	dlg.canceled.connect(dlg.queue_free)
 	EditorInterface.popup_dialog_centered(dlg)  # nad otwartym oknem eksportu (jedno okno modalne naraz)
 	if ok and patch_path != "":
-		OS.create_process("powershell.exe", ["-NoExit", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
+		OS.create_process("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
 			ProjectSettings.globalize_path("res://tools/publish_patch.ps1"), patch_path], true)  # cmd /c gubi ścieżki ze spacjami
 		print("[ExportCheck] Publikacja łatki: ", patch_path)
 

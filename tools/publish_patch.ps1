@@ -4,6 +4,8 @@
 # Paczki są skumulowane względem bazy, więc manifest wskazuje tylko najnowszą. Link do pełnego exe (url) zostaje z gista.
 param([string]$Pck = "build/patch.pck")
 $ErrorActionPreference = "Stop"
+# Okno z wtyczki: przy sukcesie zamyka się samo, przy błędzie czeka na Enter.
+trap { Write-Host $_ -ForegroundColor Red; Read-Host "Enter, aby zamknąć"; exit 1 }
 Set-Location (Join-Path $PSScriptRoot "..")
 
 $Repo = "DaVideX12324/ArtefaktWiedzy-updates"
