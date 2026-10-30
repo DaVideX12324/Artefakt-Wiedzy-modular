@@ -23,7 +23,9 @@ func _exit_tree() -> void:
 	_export_plugin = null
 
 
-func run_check(pack_path: String, ref: Dictionary) -> void:
+## Łatka (patch_path) sprawdzana na bazie (pack_path) — sama ma tylko zmienione pliki. Po udanym sprawdzeniu łatki
+## odpala tools/publish_patch.bat (wydanie na GitHubie + gist) w osobnym oknie.
+func run_check(pack_path: String, ref: Dictionary, patch_path: String = "") -> void:
 	var dir := ProjectSettings.globalize_path("user://export_check")
 	DirAccess.make_dir_recursive_absolute(dir)
 	var ref_path := dir.path_join("reference.json")
@@ -35,7 +37,7 @@ func run_check(pack_path: String, ref: Dictionary) -> void:
 		DirAccess.remove_absolute(out_path)
 	var output := []
 	OS.execute(OS.get_executable_path(), ["--headless", "--main-pack", pack_path, "-s",
-			ProjectSettings.globalize_path(CHECK_SCRIPT), "--", ref_path, out_path], output, true)
+			ProjectSettings.globalize_path(CHECK_SCRIPT), "--", ref_path, out_path, patch_path], output, true)
 	var result := FileAccess.get_file_as_string(out_path) if FileAccess.file_exists(out_path) else "Sprawdzenie nie zwróciło wyniku:\n" + "\n".join(output)
 	var ok := result.begins_with("OK")
 	print("[ExportCheck] ", result if ok else "BŁĘDY EKSPORTU:\n" + result)
@@ -46,18 +48,24 @@ func run_check(pack_path: String, ref: Dictionary) -> void:
 	dlg.confirmed.connect(dlg.queue_free)
 	dlg.canceled.connect(dlg.queue_free)
 	EditorInterface.popup_dialog_centered(dlg)  # nad otwartym oknem eksportu (jedno okno modalne naraz)
+	if ok and patch_path != "":
+		OS.create_process("cmd.exe", ["/c", ProjectSettings.globalize_path("res://tools/publish_patch.bat"), patch_path], true)
+		print("[ExportCheck] Publikacja łatki: ", patch_path)
 
 
 class ExportHook extends EditorExportPlugin:
 	var owner_plugin: EditorPlugin
 	var _path := ""
 	var _ref := {}
+	var _bases: PackedStringArray = []  # bazy łatek z presetu (zakładka Patches)
 
 	func _get_name() -> String:
 		return "ExportCheck"
 
 	func _export_begin(_features: PackedStringArray, is_debug: bool, path: String, _flags: int) -> void:
 		_path = path
+		var preset := get_export_preset()
+		_bases = preset.get_patches() if preset else PackedStringArray()
 		if not is_debug:
 			_bump_build()
 		_ref = {}
@@ -108,12 +116,21 @@ class ExportHook extends EditorExportPlugin:
 			print("[ExportCheck] Pominięte (nie exe / pck / zip): ", pack)
 			return
 		var ref := _ref
+		var bases := _bases
 		var started := Time.get_ticks_msec()
 		var plugin := owner_plugin
 		# Czekamy, aż paczka będzie na miejscu (zmiana nazwy .tmp -> .exe), najwyżej 60 s.
 		var wait := func(self_ref: Callable) -> void:
 			if FileAccess.file_exists(pack) and not FileAccess.file_exists(pack.get_basename() + ".tmp"):
-				plugin.call("run_check", pack, ref)
+				# Łatka = mały .pck przy bazie w presecie (pełny pck ma ~220 MB): sprawdzana na ostatniej bazie.
+				var fa := FileAccess.open(pack, FileAccess.READ) if pack.get_extension().to_lower() == "pck" else null
+				var size := fa.get_length() if fa else 0
+				if size > 0 and size < 50 * 1024 * 1024 and not bases.is_empty():
+					var base := bases[bases.size() - 1]
+					base = base if base.is_absolute_path() else ProjectSettings.globalize_path("res://" + base)
+					plugin.call("run_check", base, ref, pack)
+				else:
+					plugin.call("run_check", pack, ref)
 			elif Time.get_ticks_msec() - started < 60000:
 				Engine.get_main_loop().create_timer(1.0).timeout.connect(self_ref.bind(self_ref))
 			else:
