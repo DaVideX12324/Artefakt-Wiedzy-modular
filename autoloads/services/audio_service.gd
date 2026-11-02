@@ -319,7 +319,8 @@ func start_boss_music(boss_name: String, fade_time: float = 0.5) -> void:
 
 
 func return_to_previous_track(fade_time: float = 1.0) -> void:
-	if previous_track != "" and music_track_paths.has(previous_track):
+	# Utwór mapy bywa ścieżką pliku (LevelMusic), nie nazwą z music_tracks.json.
+	if previous_track != "" and _get_music_stream(previous_track) != null:
 		play_music(previous_track, fade_time)
 	else:
 		stop_music(fade_time)
