@@ -24,7 +24,7 @@ func _exit_tree() -> void:
 
 ## Łatka (patch_path) sprawdzana na bazie (pack_path) — sama ma tylko zmienione pliki. Po udanym sprawdzeniu łatki
 ## odpala tools/publish_patch.bat (wydanie na GitHubie + gist) w osobnym oknie.
-func run_check(pack_path: String, ref: Dictionary, patch_path: String = "", platform: String = "windows") -> void:
+func run_check(pack_path: String, ref: Dictionary, patch_path: String = "", platform: String = "windows", publish_exe := false) -> void:
 	var dir := ProjectSettings.globalize_path("user://export_check")
 	DirAccess.make_dir_recursive_absolute(dir)
 	var ref_path := dir.path_join("reference.json")
@@ -51,6 +51,11 @@ func run_check(pack_path: String, ref: Dictionary, patch_path: String = "", plat
 		OS.create_process("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
 			ProjectSettings.globalize_path("res://tools/publish_patch.ps1"), patch_path, "-Platform", platform], true)  # cmd /c gubi ścieżki ze spacjami
 		print("[ExportCheck] Publikacja łatki: ", patch_path)
+	elif ok and publish_exe:
+		# Pełny exe release = nowa baza: wydanie z exe + exe_url w giście (gra pobiera go i podmienia się sama).
+		OS.create_process("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
+			ProjectSettings.globalize_path("res://tools/publish_patch.ps1"), pack_path, "-Full"], true)
+		print("[ExportCheck] Publikacja exe: ", pack_path)
 
 
 class ExportHook extends EditorExportPlugin:
@@ -58,6 +63,7 @@ class ExportHook extends EditorExportPlugin:
 	var _path := ""
 	var _ref := {}
 	var _bases: PackedStringArray = []  # bazy łatek z presetu (zakładka Patches)
+	var _debug := false
 	var _platform := "windows"  # "android" przy presecie Androida (osobna baza i wpis w manifeście)
 
 	func _get_name() -> String:
@@ -65,6 +71,7 @@ class ExportHook extends EditorExportPlugin:
 
 	func _export_begin(_features: PackedStringArray, is_debug: bool, path: String, _flags: int) -> void:
 		_path = path
+		_debug = is_debug
 		_platform = "android" if "android" in _features else "windows"
 		var preset := get_export_preset()
 		_bases = preset.get_patches() if preset else PackedStringArray()
@@ -140,6 +147,7 @@ class ExportHook extends EditorExportPlugin:
 		var started := Time.get_ticks_msec()
 		var plugin := owner_plugin
 		var platform := _platform
+		var publish_exe := not _debug and pack.get_extension().to_lower() == "exe"
 		# Czekamy, aż paczka będzie na miejscu (zmiana nazwy .tmp -> .exe), najwyżej 60 s.
 		var wait := func(self_ref: Callable) -> void:
 			if FileAccess.file_exists(pack) and not FileAccess.file_exists(pack.get_basename() + ".tmp"):
@@ -151,7 +159,7 @@ class ExportHook extends EditorExportPlugin:
 					base = base if base.is_absolute_path() else ProjectSettings.globalize_path("res://" + base)
 					plugin.call("run_check", base, ref, pack, platform)
 				else:
-					plugin.call("run_check", pack, ref)
+					plugin.call("run_check", pack, ref, "", platform, publish_exe)
 			elif Time.get_ticks_msec() - started < 60000:
 				Engine.get_main_loop().create_timer(1.0).timeout.connect(self_ref.bind(self_ref))
 			else:

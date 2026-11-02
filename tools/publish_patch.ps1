@@ -3,7 +3,8 @@
 #   domyślnie build/<platforma>/patch.pck (zapas: build/patch.pck); wersja i build z resources/build.json (podbija je ExportCheck).
 # Paczki są skumulowane względem bazy, więc manifest wskazuje tylko najnowszą. Link do pełnego exe (url) zostaje z gista.
 # -Platform android: baza = base_android z build.json, wpis "android" w manifeście (reszta manifestu zostaje).
-param([string]$Pck = "", [string]$Platform = "windows")
+# -Full: pełny exe (build/windows/ArtefaktWiedzy.exe) jako nowa baza — gra pobiera go sama (exe_url) i podmienia się.
+param([string]$Pck = "", [string]$Platform = "windows", [switch]$Full)
 $ErrorActionPreference = "Stop"
 # Okno z wtyczki: przy sukcesie zamyka się samo, przy błędzie czeka na Enter.
 trap { Write-Host $_ -ForegroundColor Red; Read-Host "Enter, aby zamknąć"; exit 1 }
@@ -17,15 +18,16 @@ $FullUrlAndroid = $FullUrl
 # Łatka ma KB–MB; pełny pck (bez 'Eksportuj jako łatkę') ma ~220 MB.
 $MaxMB = 50
 
-if (-not $Pck) { $Pck = "build/$Platform/patch.pck"; if (-not (Test-Path $Pck)) { $Pck = "build/patch.pck" } }
+if ($Full) { if (-not $Pck) { $Pck = "build/windows/ArtefaktWiedzy.exe" } }
+elseif (-not $Pck) { $Pck = "build/$Platform/patch.pck"; if (-not (Test-Path $Pck)) { $Pck = "build/patch.pck" } }
 if (-not (Test-Path $Pck)) { throw "Brak paczki: $Pck" }
-if ((Get-Item $Pck).Length -gt $MaxMB * 1MB) { throw "Paczka ma ponad $MaxMB MB — to pełny pck? Eksportuj z zaznaczonym 'Eksportuj jako łatkę'." }
+if (-not $Full -and (Get-Item $Pck).Length -gt $MaxMB * 1MB) { throw "Paczka ma ponad $MaxMB MB — to pełny pck? Eksportuj z zaznaczonym 'Eksportuj jako łatkę'." }
 $info = Get-Content "resources/build.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 $version = [string]$info.version
 $build = [int]$info.build
 $android = $Platform -eq "android"
 $base = if ($android) { [int]$info.base_android } else { [int]$info.base }
-$asset = if ($android) { "patch_android_$build.pck" } else { "patch_$build.pck" }
+$asset = if ($Full) { "ArtefaktWiedzy.exe" } elseif ($android) { "patch_android_$build.pck" } else { "patch_$build.pck" }
 $tmp = Join-Path ([IO.Path]::GetTempPath()) ("aw_patch_" + [guid]::NewGuid())
 New-Item -ItemType Directory $tmp | Out-Null
 try {
@@ -33,15 +35,21 @@ try {
 	Write-Host "Wydanie $version (build $build): $Pck"
 	$notesPath = Join-Path $tmp "notes.md"
 	[IO.File]::WriteAllText($notesPath, $(if ($info.notes) { [string]$info.notes } else { "Paczka $version (build $build)" }), (New-Object Text.UTF8Encoding $false))
-	$tag = "$version-build$build" + $(if ($android) { "-android" } else { "" })  # build w tagu: kilka łatek tej samej wersji
+	$tag = "$version-build$build" + $(if ($Full) { "-full" } elseif ($android) { "-android" } else { "" })  # build w tagu: kilka łatek tej samej wersji
 	gh release create $tag (Join-Path $tmp $asset) -R $Repo -t "$version (build $build$(if ($android) { ', Android' }))" -F $notesPath
 	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$tag/$asset"
 
-	$entry = [ordered]@{ version = $version; build = $build; base = $base; url = $(if ($android) { $FullUrlAndroid } else { $FullUrl }); patches = @([ordered]@{ build = $build; url = $url }) }
-	# Obecny manifest z gista: wpis drugiej platformy zostaje.
+	# Obecny manifest z gista: wpis drugiej platformy i exe bazy (exe_url) zostają.
 	$current = gh api "gists/$Gist" --jq '.files["version.json"].content' | Out-String
 	$old = if ($current.Trim()) { $current | ConvertFrom-Json } else { $null }
+	if ($Full) {
+		# Pełny exe = nowa baza (eksport exe ustawił base = build), bez łatek.
+		$entry = [ordered]@{ version = $version; build = $build; base = $build; url = $FullUrl; exe_url = $url; patches = @() }
+	} else {
+		$entry = [ordered]@{ version = $version; build = $build; base = $base; url = $(if ($android) { $FullUrlAndroid } else { $FullUrl }); patches = @([ordered]@{ build = $build; url = $url }) }
+		if (-not $android -and $old -and $old.exe_url -and [int]$old.base -eq $base) { $entry["exe_url"] = $old.exe_url }
+	}
 	if ($android) {
 		$manifest = [ordered]@{}
 		if ($old) { foreach ($p in $old.PSObject.Properties) { if ($p.Name -ne "android") { $manifest[$p.Name] = $p.Value } } }
