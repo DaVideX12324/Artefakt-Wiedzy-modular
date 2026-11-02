@@ -81,7 +81,9 @@ func _stick_action() -> StringName:
 func _press(action: StringName) -> void:
 	if action == &"":
 		return
-	for pressed in [true, false]:
+	# Akcja trzymana klawiszem / krzyżakiem: bez puszczenia — inaczej stan Input gubi trzymanie i przewijanie staje.
+	var held := Input.is_action_pressed(action)
+	for pressed in ([true] if held else [true, false]):
 		var ev := InputEventAction.new()
 		ev.action = action
 		ev.pressed = pressed
