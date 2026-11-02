@@ -24,7 +24,8 @@ $info = Get-Content "resources/build.json" -Raw -Encoding UTF8 | ConvertFrom-Jso
 $version = [string]$info.version
 $build = [int]$info.build
 $android = $Platform -eq "android"
-$base = if ($Base -gt 0) { $Base } elseif ($android) { [int]$info.base_android } else { [int]$info.base }
+# Nie $base: PowerShell nie rozróżnia wielkości liter, to byłby parametr $Base (wpis główny nadpisywany zawsze).
+$patchBase = if ($Base -gt 0) { $Base } elseif ($android) { [int]$info.base_android } else { [int]$info.base }
 $asset = if ($Full) { "ArtefaktWiedzy.exe" } elseif ($android) { "patch_android_$build.pck" } else { "patch_$build.pck" }
 $tmp = Join-Path ([IO.Path]::GetTempPath()) ("aw_patch_" + [guid]::NewGuid())
 New-Item -ItemType Directory $tmp | Out-Null
@@ -56,14 +57,14 @@ try {
 		$manifest["exe"] = [ordered]@{ version = $version; build = $build; base = $build; url = $url }
 		if (-not $old) { $manifest["version"] = $version; $manifest["build"] = $build; $manifest["base"] = $build; $manifest["patches"] = @() }
 	} else {
-		$entry = [ordered]@{ version = $version; build = $build; base = $base; url = $(if ($android) { "" } else { $exeUrl }); patches = @([ordered]@{ build = $build; url = $url }) }
+		$entry = [ordered]@{ version = $version; build = $build; base = $patchBase; url = $(if ($android) { "" } else { $exeUrl }); patches = @([ordered]@{ build = $build; url = $url }) }
 		if ($android) { $manifest["android"] = $entry }
 		else {
 			$bases = [ordered]@{}
 			if ($old -and $old.bases) { foreach ($p in $old.bases.PSObject.Properties) { $bases[$p.Name] = $p.Value } }
-			$bases["$base"] = [ordered]@{ version = $version; build = $build; patches = $entry.patches }
+			$bases["$patchBase"] = [ordered]@{ version = $version; build = $build; patches = $entry.patches }
 			$manifest["bases"] = $bases
-			if (-not $old -or [int]$old.base -eq $base -or -not $old.exe -or $Base -gt 0) { foreach ($k in $entry.Keys) { $manifest[$k] = $entry[$k] } }
+			if (-not $old -or [int]$old.base -eq $patchBase -or -not $old.exe -or $Base -gt 0) { foreach ($k in $entry.Keys) { $manifest[$k] = $entry[$k] } }
 		}
 	}
 	# „pobierz” w starych exe przy innej bazie = pełny exe z GitHuba (bez Mega).
