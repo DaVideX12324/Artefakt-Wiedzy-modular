@@ -12,7 +12,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Obsługa pada w menu: gałka i krzyżak przesuwają zaznaczenie o jedno pole, A zatwierdza, B wraca, LB / RB zmieniają zakładki opcji.
 - Przytrzymanie kierunku (gałka, krzyżak, strzałki, WASD) przez 1 s przewija listę.
 - Cień Mgły: klawiatura ekranowa przy wpisywaniu imienia (przycisk „Klawiatura” albo Y na padzie).
-- Cień Mgły: bieg pełnym wychyleniem gałki, chód częściowym; ruch gałką w dowolnym kierunku.
+- Cień Mgły: ruch gałką w dowolnym kierunku.
 - Cień Mgły: poziom nad przeciwnikami — pomarańczowy, gdy wróg jest silniejszy, czerwony, gdy dużo silniejszy; bossowie z dopiskiem.
 - Cień Mgły: opcje trudności — wersje statystyk zwykłych wrogów i bossów do wyboru albo własne wartości (Opcje → Motyw).
 - Cień Mgły: barierki na tle walki w ściekach zasłaniają przeciwników.
