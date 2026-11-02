@@ -6,6 +6,31 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.11-beta] — 2026-11-02
+
+### Dodano
+- Obsługa pada w menu: gałka i krzyżak przesuwają zaznaczenie o jedno pole, A zatwierdza, B wraca, LB / RB zmieniają zakładki opcji.
+- Przytrzymanie kierunku (gałka, krzyżak, strzałki, WASD) przez 1 s przewija listę.
+- Cień Mgły: klawiatura ekranowa przy wpisywaniu imienia (przycisk „Klawiatura” albo Y na padzie).
+- Cień Mgły: bieg pełnym wychyleniem gałki, chód częściowym; ruch gałką w dowolnym kierunku.
+- Cień Mgły: poziom nad przeciwnikami — pomarańczowy, gdy wróg jest silniejszy, czerwony, gdy dużo silniejszy; bossowie z dopiskiem.
+- Cień Mgły: opcje trudności — wersje statystyk zwykłych wrogów i bossów do wyboru albo własne wartości (Opcje → Motyw).
+- Cień Mgły: barierki na tle walki w ściekach zasłaniają przeciwników.
+- Aktualizacje na Androidzie.
+
+### Zmieniono
+- Cień Mgły: sprzęt w skrzyniach ścieków, częściej w skrzyniach jaskiń i miasta; beczki dają mniej przedmiotów.
+- Kliknięcia słychać we wszystkich podmenu.
+- Wersja Cienia Mgły w menu zgodna z wersją gry.
+- Aktualizator trzyma tylko najnowszą paczkę.
+
+### Naprawiono
+- Muzyka lokacji wraca po walce.
+- Cień Mgły: postać przy kanale w ściekach nie chowa się za barierką.
+- Cień Mgły: efekt podwyższenia pokoju nie znika przy ścianach.
+- Cień Mgły: minimapa nie pokazuje pustki za krawędzią mapy.
+- Przycisk aktualizacji w menu da się wybrać padem.
+
 ## [0.9.9.3-beta] — 2026-10-30
 
 ### Dodano
