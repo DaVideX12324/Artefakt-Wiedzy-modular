@@ -3,8 +3,13 @@ extends Node
 ## Gałka pada w UI: Godot traktuje każde drgnięcie osi (InputEventJoypadMotion) jako nowe wciśnięcie ui_*, więc fokus
 ## przeskakuje o wiele pól. Tu ruchy osi ui_* są pochłaniane, a kierunek gałki zamieniany na pojedyncze kroki
 ## z powtarzaniem przy przytrzymaniu (jak klawiatura). Stan Input (get_vector w grze) zostaje nietknięty.
+## Pochłaniane są też osie akcji ruchu modułów (move_*) — menu modułów czytają je jako zdarzenia.
+## Przyciski pada akcji menu_confirm / menu_cancel (modułowe) przy fokusie w UI dają dodatkowo ui_accept / ui_cancel —
+## domyślne ui_* Godota nie mają przycisków pada.
 
-const ACTIONS: Array[StringName] = [&"ui_up", &"ui_down", &"ui_left", &"ui_right"]
+const ACTIONS: Array[StringName] = [&"ui_up", &"ui_down", &"ui_left", &"ui_right",
+	&"move_up", &"move_down", &"move_left", &"move_right"]
+const BUTTON_AS_UI := {&"menu_confirm": &"ui_accept", &"menu_cancel": &"ui_cancel"}
 const DEADZONE := 0.5
 const REPEAT_DELAY := 0.4
 const REPEAT_RATE := 0.12
@@ -18,6 +23,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventJoypadButton:
+		_forward_button(event)
+		return
 	if not event is InputEventJoypadMotion:
 		return
 	for a in ACTIONS:
@@ -53,6 +61,19 @@ func _stick_action() -> StringName:
 				best_v = c[0]
 				best = c[1]
 	return best
+
+
+func _forward_button(event: InputEventJoypadButton) -> void:
+	if get_viewport().gui_get_focus_owner() == null:
+		return
+	for src: StringName in BUTTON_AS_UI:
+		var target: StringName = BUTTON_AS_UI[src]
+		if InputMap.has_action(src) and event.is_action(src) and not event.is_action(target):
+			var ev := InputEventAction.new()
+			ev.action = target
+			ev.pressed = event.pressed
+			Input.parse_input_event(ev)
+			return
 
 
 func _press(action: StringName) -> void:
