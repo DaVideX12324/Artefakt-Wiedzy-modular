@@ -2,7 +2,8 @@
 # Użycie (po eksporcie łatki w Godocie): dwuklik publish_patch.bat albo  powershell -File tools/publish_patch.ps1 [ścieżka.pck]
 #   domyślnie build/patch.pck; wersja i build z resources/build.json (podbija je ExportCheck).
 # Paczki są skumulowane względem bazy, więc manifest wskazuje tylko najnowszą. Link do pełnego exe (url) zostaje z gista.
-param([string]$Pck = "build/patch.pck")
+# -Platform android: baza = base_android z build.json, wpis "android" w manifeście (reszta manifestu zostaje).
+param([string]$Pck = "build/patch.pck", [string]$Platform = "windows")
 $ErrorActionPreference = "Stop"
 # Okno z wtyczki: przy sukcesie zamyka się samo, przy błędzie czeka na Enter.
 trap { Write-Host $_ -ForegroundColor Red; Read-Host "Enter, aby zamknąć"; exit 1 }
@@ -10,8 +11,9 @@ Set-Location (Join-Path $PSScriptRoot "..")
 
 $Repo = "DaVideX12324/ArtefaktWiedzy-updates"
 $Gist = "cc2274c3de25a1ee9a122ad9419097a8"
-# Pełny exe (gdy paczka się nie pobierze albo przy nowej bazie).
+# Pełny exe / APK (gdy paczka się nie pobierze albo przy nowej bazie).
 $FullUrl = "https://mega.nz/folder/ZJVTTSLb#PtinvmoFu9NuOYVPZRQ7Fw"
+$FullUrlAndroid = $FullUrl
 # Łatka ma KB–MB; pełny pck (bez 'Eksportuj jako łatkę') ma ~220 MB.
 $MaxMB = 50
 
@@ -20,8 +22,9 @@ if ((Get-Item $Pck).Length -gt $MaxMB * 1MB) { throw "Paczka ma ponad $MaxMB MB 
 $info = Get-Content "resources/build.json" -Raw -Encoding UTF8 | ConvertFrom-Json
 $version = [string]$info.version
 $build = [int]$info.build
-$base = [int]$info.base
-$asset = "patch_$build.pck"
+$android = $Platform -eq "android"
+$base = if ($android) { [int]$info.base_android } else { [int]$info.base }
+$asset = if ($android) { "patch_android_$build.pck" } else { "patch_$build.pck" }
 $tmp = Join-Path ([IO.Path]::GetTempPath()) ("aw_patch_" + [guid]::NewGuid())
 New-Item -ItemType Directory $tmp | Out-Null
 try {
@@ -29,12 +32,23 @@ try {
 	Write-Host "Wydanie $version (build $build): $Pck"
 	$notesPath = Join-Path $tmp "notes.md"
 	[IO.File]::WriteAllText($notesPath, $(if ($info.notes) { [string]$info.notes } else { "Paczka $version (build $build)" }), (New-Object Text.UTF8Encoding $false))
-	$tag = "$version-build$build"  # build w tagu: kilka łatek tej samej wersji
-	gh release create $tag (Join-Path $tmp $asset) -R $Repo -t "$version (build $build)" -F $notesPath
+	$tag = "$version-build$build" + $(if ($android) { "-android" } else { "" })  # build w tagu: kilka łatek tej samej wersji
+	gh release create $tag (Join-Path $tmp $asset) -R $Repo -t "$version (build $build$(if ($android) { ', Android' }))" -F $notesPath
 	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$tag/$asset"
 
-	$manifest = [ordered]@{ version = $version; build = $build; base = $base; url = $FullUrl; patches = @([ordered]@{ build = $build; url = $url }) }
+	$entry = [ordered]@{ version = $version; build = $build; base = $base; url = $(if ($android) { $FullUrlAndroid } else { $FullUrl }); patches = @([ordered]@{ build = $build; url = $url }) }
+	# Obecny manifest z gista: wpis drugiej platformy zostaje.
+	$current = gh api "gists/$Gist" --jq '.files["version.json"].content' | Out-String
+	$old = if ($current.Trim()) { $current | ConvertFrom-Json } else { $null }
+	if ($android) {
+		$manifest = [ordered]@{}
+		if ($old) { foreach ($p in $old.PSObject.Properties) { if ($p.Name -ne "android") { $manifest[$p.Name] = $p.Value } } }
+		$manifest["android"] = $entry
+	} else {
+		$manifest = $entry
+		if ($old -and $old.android) { $manifest["android"] = $old.android }
+	}
 	$body = @{ files = @{ "version.json" = @{ content = ($manifest | ConvertTo-Json -Depth 5) } } } | ConvertTo-Json -Depth 6
 	$bodyPath = Join-Path $tmp "body.json"
 	[IO.File]::WriteAllText($bodyPath, $body, (New-Object Text.UTF8Encoding $false))

@@ -24,7 +24,7 @@ func _exit_tree() -> void:
 
 ## Łatka (patch_path) sprawdzana na bazie (pack_path) — sama ma tylko zmienione pliki. Po udanym sprawdzeniu łatki
 ## odpala tools/publish_patch.bat (wydanie na GitHubie + gist) w osobnym oknie.
-func run_check(pack_path: String, ref: Dictionary, patch_path: String = "") -> void:
+func run_check(pack_path: String, ref: Dictionary, patch_path: String = "", platform: String = "windows") -> void:
 	var dir := ProjectSettings.globalize_path("user://export_check")
 	DirAccess.make_dir_recursive_absolute(dir)
 	var ref_path := dir.path_join("reference.json")
@@ -49,7 +49,7 @@ func run_check(pack_path: String, ref: Dictionary, patch_path: String = "") -> v
 	EditorInterface.popup_dialog_centered(dlg)  # nad otwartym oknem eksportu (jedno okno modalne naraz)
 	if ok and patch_path != "":
 		OS.create_process("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
-			ProjectSettings.globalize_path("res://tools/publish_patch.ps1"), patch_path], true)  # cmd /c gubi ścieżki ze spacjami
+			ProjectSettings.globalize_path("res://tools/publish_patch.ps1"), patch_path, "-Platform", platform], true)  # cmd /c gubi ścieżki ze spacjami
 		print("[ExportCheck] Publikacja łatki: ", patch_path)
 
 
@@ -58,12 +58,14 @@ class ExportHook extends EditorExportPlugin:
 	var _path := ""
 	var _ref := {}
 	var _bases: PackedStringArray = []  # bazy łatek z presetu (zakładka Patches)
+	var _platform := "windows"  # "android" przy presecie Androida (osobna baza i wpis w manifeście)
 
 	func _get_name() -> String:
 		return "ExportCheck"
 
 	func _export_begin(_features: PackedStringArray, is_debug: bool, path: String, _flags: int) -> void:
 		_path = path
+		_platform = "android" if "android" in _features else "windows"
 		var preset := get_export_preset()
 		_bases = preset.get_patches() if preset else PackedStringArray()
 		if not is_debug:
@@ -82,7 +84,8 @@ class ExportHook extends EditorExportPlugin:
 		var build := int(data.get("build", 0)) + 1  # rośnie stale; bazę ustawia eksport exe (_export_end)
 		var f := FileAccess.open(BUILD_PATH, FileAccess.WRITE)
 		# Wersja też tu: paczki aktualizacji (.pck) nie podmieniają ustawień projektu, a ten plik tak.
-		f.store_string(JSON.stringify({"build": build, "base": int(data.get("base", 0)), "version": version, "notes": _changelog_section(version)}) + "
+		f.store_string(JSON.stringify({"build": build, "base": int(data.get("base", 0)), "base_android": int(data.get("base_android", 0)),
+				"version": version, "notes": _changelog_section(version)}) + "
 ")
 		f.close()
 		print("[ExportCheck] Build ", build)
@@ -93,13 +96,13 @@ class ExportHook extends EditorExportPlugin:
 		return data if data is Dictionary else {}
 
 	## Po eksporcie exe jego build zostaje bazą kolejnych łatek (publish_patch.ps1 -> "base" w manifeście).
-	static func _set_base_from_build() -> void:
+	static func _set_base_from_build(key: String = "base") -> void:
 		var data := _build_data()
-		data["base"] = int(data.get("build", 0))
+		data[key] = int(data.get("build", 0))
 		var f := FileAccess.open("res://resources/build.json", FileAccess.WRITE)
 		f.store_string(JSON.stringify(data) + "\n")
 		f.close()
-		print("[ExportCheck] Baza łatek = build ", data["base"])
+		print("[ExportCheck] Baza łatek (", key, ") = build ", data[key])
 
 	## Sekcja „## [wersja]” z CHANGELOG.md (bez nagłówka) — okno „Co nowego” w grze; brak = pusto.
 	func _changelog_section(version: String) -> String:
@@ -124,6 +127,9 @@ class ExportHook extends EditorExportPlugin:
 		# Windows: eksport pisze <nazwa>.tmp i zmienia nazwę na .exe dopiero po _export_end.
 		if pack.get_extension().to_lower() == "tmp":
 			pack = pack.get_basename() + ".exe"
+		if pack.get_extension().to_lower() in ["apk", "aab"]:
+			_set_base_from_build("base_android")  # pełny APK = baza łatek Androida (bez sprawdzania paczki)
+			return
 		if pack.get_extension().to_lower() not in ["exe", "pck", "zip"]:
 			print("[ExportCheck] Pominięte (nie exe / pck / zip): ", pack)
 			return
@@ -133,6 +139,7 @@ class ExportHook extends EditorExportPlugin:
 		var bases := _bases
 		var started := Time.get_ticks_msec()
 		var plugin := owner_plugin
+		var platform := _platform
 		# Czekamy, aż paczka będzie na miejscu (zmiana nazwy .tmp -> .exe), najwyżej 60 s.
 		var wait := func(self_ref: Callable) -> void:
 			if FileAccess.file_exists(pack) and not FileAccess.file_exists(pack.get_basename() + ".tmp"):
@@ -142,7 +149,7 @@ class ExportHook extends EditorExportPlugin:
 				if size > 0 and size < 50 * 1024 * 1024 and not bases.is_empty():
 					var base := bases[bases.size() - 1]
 					base = base if base.is_absolute_path() else ProjectSettings.globalize_path("res://" + base)
-					plugin.call("run_check", base, ref, pack)
+					plugin.call("run_check", base, ref, pack, platform)
 				else:
 					plugin.call("run_check", pack, ref)
 			elif Time.get_ticks_msec() - started < 60000:
