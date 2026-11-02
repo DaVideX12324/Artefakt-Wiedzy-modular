@@ -35,7 +35,7 @@ try {
 	[IO.File]::WriteAllText($notesPath, $(if ($info.notes) { [string]$info.notes } else { "Paczka $version (build $build)" }), (New-Object Text.UTF8Encoding $false))
 	$tag = "$version-build$build" + $(if ($Full) { "-full" } elseif ($android) { "-android" } else { "" })  # build w tagu: kilka łatek tej samej wersji
 	# Wydanie już jest (ta sama paczka publikowana drugi raz, np. z -Base) — tylko podmiana pliku.
-	gh release view $tag -R $Repo *> $null
+	cmd /c "gh release view $tag -R $Repo >nul 2>&1"  # przez cmd: stderr gh ("release not found") przy Stop w PS 5.1 przerywał skrypt
 	if ($LASTEXITCODE -eq 0) { gh release upload $tag (Join-Path $tmp $asset) -R $Repo --clobber }
 	else { gh release create $tag (Join-Path $tmp $asset) -R $Repo -t "$version (build $build$(if ($android) { ', Android' }))" -F $notesPath }
 	if ($LASTEXITCODE -ne 0) { throw "wysłanie wydania nie powiodło się" }
