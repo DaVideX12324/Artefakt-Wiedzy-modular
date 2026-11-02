@@ -29,9 +29,10 @@ try {
 	Write-Host "Wydanie $version (build $build): $Pck"
 	$notesPath = Join-Path $tmp "notes.md"
 	[IO.File]::WriteAllText($notesPath, $(if ($info.notes) { [string]$info.notes } else { "Paczka $version (build $build)" }), (New-Object Text.UTF8Encoding $false))
-	gh release create $version (Join-Path $tmp $asset) -R $Repo -t $version -F $notesPath
+	$tag = "$version-build$build"  # build w tagu: kilka łatek tej samej wersji
+	gh release create $tag (Join-Path $tmp $asset) -R $Repo -t "$version (build $build)" -F $notesPath
 	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
-	$url = "https://github.com/$Repo/releases/download/$version/$asset"
+	$url = "https://github.com/$Repo/releases/download/$tag/$asset"
 
 	$manifest = [ordered]@{ version = $version; build = $build; base = $base; url = $FullUrl; patches = @([ordered]@{ build = $build; url = $url }) }
 	$body = @{ files = @{ "version.json" = @{ content = ($manifest | ConvertTo-Json -Depth 5) } } } | ConvertTo-Json -Depth 6
