@@ -1,9 +1,9 @@
 ﻿# Publikacja paczki aktualizacji: wydanie z .pck w DaVideX12324/ArtefaktWiedzy-updates + manifest w gist.
 # Użycie (po eksporcie łatki w Godocie): dwuklik publish_patch.bat albo  powershell -File tools/publish_patch.ps1 [ścieżka.pck]
-#   domyślnie build/patch.pck; wersja i build z resources/build.json (podbija je ExportCheck).
+#   domyślnie build/<platforma>/patch.pck (zapas: build/patch.pck); wersja i build z resources/build.json (podbija je ExportCheck).
 # Paczki są skumulowane względem bazy, więc manifest wskazuje tylko najnowszą. Link do pełnego exe (url) zostaje z gista.
 # -Platform android: baza = base_android z build.json, wpis "android" w manifeście (reszta manifestu zostaje).
-param([string]$Pck = "build/patch.pck", [string]$Platform = "windows")
+param([string]$Pck = "", [string]$Platform = "windows")
 $ErrorActionPreference = "Stop"
 # Okno z wtyczki: przy sukcesie zamyka się samo, przy błędzie czeka na Enter.
 trap { Write-Host $_ -ForegroundColor Red; Read-Host "Enter, aby zamknąć"; exit 1 }
@@ -17,6 +17,7 @@ $FullUrlAndroid = $FullUrl
 # Łatka ma KB–MB; pełny pck (bez 'Eksportuj jako łatkę') ma ~220 MB.
 $MaxMB = 50
 
+if (-not $Pck) { $Pck = "build/$Platform/patch.pck"; if (-not (Test-Path $Pck)) { $Pck = "build/patch.pck" } }
 if (-not (Test-Path $Pck)) { throw "Brak paczki: $Pck" }
 if ((Get-Item $Pck).Length -gt $MaxMB * 1MB) { throw "Paczka ma ponad $MaxMB MB — to pełny pck? Eksportuj z zaznaczonym 'Eksportuj jako łatkę'." }
 $info = Get-Content "resources/build.json" -Raw -Encoding UTF8 | ConvertFrom-Json
