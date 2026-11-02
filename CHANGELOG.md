@@ -19,6 +19,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Aktualizacje na Androidzie.
 
 ### Zmieniono
+- Cień Mgły: trafienia jak w FNaFB — atak prawie zawsze trafia; zła odpowiedź osłabia cios o połowę, seria dobrych odpowiedzi zwiększa szansę na krytyk.
 - Cień Mgły: sprzęt w skrzyniach ścieków, częściej w skrzyniach jaskiń i miasta; beczki dają mniej przedmiotów.
 - Kliknięcia słychać we wszystkich podmenu.
 - Wersja Cienia Mgły w menu zgodna z wersją gry.
