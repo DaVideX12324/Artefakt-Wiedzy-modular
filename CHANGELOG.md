@@ -28,7 +28,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Muzyka lokacji wraca po walce.
 - Cień Mgły: postać przy kanale w ściekach nie chowa się za barierką.
 - Cień Mgły: efekt podwyższenia pokoju nie znika przy ścianach.
-- Cień Mgły: minimapa nie pokazuje pustki za krawędzią mapy.
+- Cień Mgły: ciemność za krawędzią mapy sięga dalej — nie widać końca świata przy brzegu.
 - Przycisk aktualizacji w menu da się wybrać padem.
 
 ## [0.9.9.3-beta] — 2026-10-30
