@@ -92,7 +92,8 @@ func _build_module_button(manifest: Dictionary) -> Button:
 func _module_button_text(manifest: Dictionary) -> String:
 	var unknown_name: String = I18nService.t("host.menu.unknown_module") if I18nService else "Unknown"
 	var title := str(manifest.get("name", manifest.get("id", unknown_name)))
-	var version := str(manifest.get("version", ""))
+	# "version_from_host": moduł wydawany razem z hostem (łatki) — jego wersja to wersja hosta.
+	var version := UpdateService.current_version() if manifest.get("version_from_host", false) else str(manifest.get("version", ""))
 	var lines: Array[String] = [title + ("  ·  " + version_label(version) if version != "" else "")]
 	var description := str(manifest.get("description", ""))
 	if description != "":
