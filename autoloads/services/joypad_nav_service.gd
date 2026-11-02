@@ -24,6 +24,11 @@ var _raw_held := {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# _input idzie od ostatniego węzła drzewa — serwis trzyma się na końcu korzenia, żeby pochłaniać gałkę przed
+	# menu z własnym _input (pauza, sklep, ...).
+	get_tree().root.child_entered_tree.connect(func(n: Node) -> void:
+		if n != self and n.get_parent() == get_tree().root:
+			get_tree().root.move_child.call_deferred(self, -1))
 	for action: StringName in PAD_BUTTONS:
 		var ev := InputEventJoypadButton.new()
 		ev.device = -1
