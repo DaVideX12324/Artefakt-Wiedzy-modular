@@ -3,7 +3,7 @@
 #   domyślnie build/<platforma>/patch.pck (zapas: build/patch.pck); wersja i build z resources/build.json (podbija je ExportCheck).
 # Paczki są skumulowane względem bazy, więc manifest wskazuje tylko najnowszą. Link do pełnego exe (url) zostaje z gista.
 # -Platform android: baza = base_android z build.json, wpis "android" w manifeście (reszta manifestu zostaje).
-# -Full: pełny exe (build/windows/ArtefaktWiedzy.exe) jako nowa baza — gra pobiera go sama (exe_url) i podmienia się.
+# -Full: pełny exe (build/windows/ArtefaktWiedzy.exe) jako nowa baza — gra pobiera go sama (wpis "exe", ExeUpdater) i podmienia się.
 param([string]$Pck = "", [string]$Platform = "windows", [switch]$Full)
 $ErrorActionPreference = "Stop"
 # Okno z wtyczki: przy sukcesie zamyka się samo, przy błędzie czeka na Enter.
@@ -37,25 +37,24 @@ try {
 	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$tag/$asset"
 
-	# Obecny manifest z gista: wpis drugiej platformy i exe bazy (exe_url) zostają.
+	# Obecny manifest z gista: pozostałe wpisy zostają. Pełny exe idzie do osobnego wpisu "exe" (ExeUpdater) — wpis łatek
+	# starej bazy zostaje, więc stare exe dalej pobierają łatkę z ExeUpdaterem (kolejność wydań nie ma znaczenia).
 	$current = gh api "gists/$Gist" --jq '.files["version.json"].content' | Out-String
 	$old = if ($current.Trim()) { $current | ConvertFrom-Json } else { $null }
+	$manifest = [ordered]@{}
+	if ($old) { foreach ($p in $old.PSObject.Properties) { $manifest[$p.Name] = $p.Value } }
+	$exeUrl = if ($Full) { $url } elseif ($old -and $old.exe) { [string]$old.exe.url } else { "" }
 	if ($Full) {
-		# Pełny exe = nowa baza (eksport exe ustawił base = build), bez łatek.
-		$entry = [ordered]@{ version = $version; build = $build; base = $build; url = $url; exe_url = $url; patches = @() }
+		$manifest["exe"] = [ordered]@{ version = $version; build = $build; base = $build; url = $url }
+		if (-not $old) { $manifest["version"] = $version; $manifest["build"] = $build; $manifest["base"] = $build; $manifest["patches"] = @() }
 	} else {
-		$entry = [ordered]@{ version = $version; build = $build; base = $base; url = ""; patches = @([ordered]@{ build = $build; url = $url }) }
-		# Link „pobierz” = pełny exe bazy z GitHuba (bez Mega); stare exe pobierają go ręcznie, nowsze same (ExeUpdater).
-		if (-not $android -and $old -and $old.exe_url -and [int]$old.base -eq $base) { $entry["exe_url"] = $old.exe_url; $entry["url"] = $old.exe_url }
+		$entry = [ordered]@{ version = $version; build = $build; base = $base; url = $(if ($android) { "" } else { $exeUrl }); patches = @([ordered]@{ build = $build; url = $url }) }
+		if ($android) { $manifest["android"] = $entry }
+		else { foreach ($k in $entry.Keys) { $manifest[$k] = $entry[$k] } }
 	}
-	if ($android) {
-		$manifest = [ordered]@{}
-		if ($old) { foreach ($p in $old.PSObject.Properties) { if ($p.Name -ne "android") { $manifest[$p.Name] = $p.Value } } }
-		$manifest["android"] = $entry
-	} else {
-		$manifest = $entry
-		if ($old -and $old.android) { $manifest["android"] = $old.android }
-	}
+	# „pobierz” w starych exe przy innej bazie = pełny exe z GitHuba (bez Mega).
+	if (-not $android -and $exeUrl) { $manifest["url"] = $exeUrl }
+	$manifest.Remove("exe_url")
 	$body = @{ files = @{ "version.json" = @{ content = ($manifest | ConvertTo-Json -Depth 5) } } } | ConvertTo-Json -Depth 6
 	$bodyPath = Join-Path $tmp "body.json"
 	[IO.File]::WriteAllText($bodyPath, $body, (New-Object Text.UTF8Encoding $false))
