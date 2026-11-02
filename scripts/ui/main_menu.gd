@@ -49,7 +49,22 @@ func _ready() -> void:
 	# (inaczej grała dalej muzyka poziomu modułu).
 	visibility_changed.connect(func() -> void:
 		if visible and AudioService:
-			AudioService.play_music("host_menu"))
+			AudioService.play_music("host_menu")
+		if visible:
+			_focus_first.call_deferred())
+	_focus_first.call_deferred()
+
+
+## Fokus na pierwszym module (pad / klawiatura mają od czego zacząć), chyba że coś w menu już go ma.
+func _focus_first() -> void:
+	var focused := get_viewport().gui_get_focus_owner()
+	if not visible or (focused != null and is_ancestor_of(focused)):
+		return
+	for b in _module_list.get_children():
+		if b is Button and not b.is_queued_for_deletion():
+			b.grab_focus()
+			return
+	_btn_questions.grab_focus()
 
 
 func refresh_modules() -> void:
