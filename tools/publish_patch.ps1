@@ -4,7 +4,8 @@
 # Paczki są skumulowane względem bazy, więc manifest wskazuje tylko najnowszą. Link do pełnego exe (url) zostaje z gista.
 # -Platform android: baza = base_android z build.json, wpis "android" w manifeście (reszta manifestu zostaje).
 # -Full: pełny exe (build/windows/ArtefaktWiedzy.exe) jako nowa baza — gra pobiera go sama (wpis "exe", ExeUpdater) i podmienia się.
-param([string]$Pck = "", [string]$Platform = "windows", [switch]$Full)
+# -Base N: łatka na starą bazę N (np. starsze exe graczy) — wpis główny gista (czytany przez stare exe) dla tej bazy.
+param([string]$Pck = "", [string]$Platform = "windows", [switch]$Full, [int]$Base = 0)
 $ErrorActionPreference = "Stop"
 # Okno z wtyczki: przy sukcesie zamyka się samo, przy błędzie czeka na Enter.
 trap { Write-Host $_ -ForegroundColor Red; Read-Host "Enter, aby zamknąć"; exit 1 }
@@ -23,7 +24,7 @@ $info = Get-Content "resources/build.json" -Raw -Encoding UTF8 | ConvertFrom-Jso
 $version = [string]$info.version
 $build = [int]$info.build
 $android = $Platform -eq "android"
-$base = if ($android) { [int]$info.base_android } else { [int]$info.base }
+$base = if ($Base -gt 0) { $Base } elseif ($android) { [int]$info.base_android } else { [int]$info.base }
 $asset = if ($Full) { "ArtefaktWiedzy.exe" } elseif ($android) { "patch_android_$build.pck" } else { "patch_$build.pck" }
 $tmp = Join-Path ([IO.Path]::GetTempPath()) ("aw_patch_" + [guid]::NewGuid())
 New-Item -ItemType Directory $tmp | Out-Null
@@ -33,14 +34,20 @@ try {
 	$notesPath = Join-Path $tmp "notes.md"
 	[IO.File]::WriteAllText($notesPath, $(if ($info.notes) { [string]$info.notes } else { "Paczka $version (build $build)" }), (New-Object Text.UTF8Encoding $false))
 	$tag = "$version-build$build" + $(if ($Full) { "-full" } elseif ($android) { "-android" } else { "" })  # build w tagu: kilka łatek tej samej wersji
-	gh release create $tag (Join-Path $tmp $asset) -R $Repo -t "$version (build $build$(if ($android) { ', Android' }))" -F $notesPath
-	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
+	# Wydanie już jest (ta sama paczka publikowana drugi raz, np. z -Base) — tylko podmiana pliku.
+	gh release view $tag -R $Repo *> $null
+	if ($LASTEXITCODE -eq 0) { gh release upload $tag (Join-Path $tmp $asset) -R $Repo --clobber }
+	else { gh release create $tag (Join-Path $tmp $asset) -R $Repo -t "$version (build $build$(if ($android) { ', Android' }))" -F $notesPath }
+	if ($LASTEXITCODE -ne 0) { throw "wysłanie wydania nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$tag/$asset"
 
 	# Obecny manifest z gista: pozostałe wpisy zostają. Pełny exe idzie do osobnego wpisu "exe" (ExeUpdater). Łatki — do
 	# "bases"[baza] (nowe exe), a wpis główny (stare exe czytają tylko jego) tylko dla bazy, którą już opisuje — stare exe
 	# zawsze dostaną łatkę z ExeUpdaterem, kolejność i liczba wydań nie mają znaczenia.
-	$current = gh api "gists/$Gist" --jq '.files["version.json"].content' | Out-String
+	# Bez --jq: PowerShell 5.1 gubi cudzysłowy w argumentach (".files[\"version.json\"]") i odczyt wychodził pusty.
+	$gistJson = gh api "gists/$Gist" | Out-String
+	if ($LASTEXITCODE -ne 0) { throw "odczyt gista nie powiódł się" }
+	$current = [string](($gistJson | ConvertFrom-Json).files.'version.json'.content)
 	$old = if ($current.Trim()) { $current | ConvertFrom-Json } else { $null }
 	$manifest = [ordered]@{}
 	if ($old) { foreach ($p in $old.PSObject.Properties) { $manifest[$p.Name] = $p.Value } }
@@ -56,7 +63,7 @@ try {
 			if ($old -and $old.bases) { foreach ($p in $old.bases.PSObject.Properties) { $bases[$p.Name] = $p.Value } }
 			$bases["$base"] = [ordered]@{ version = $version; build = $build; patches = $entry.patches }
 			$manifest["bases"] = $bases
-			if (-not $old -or [int]$old.base -eq $base -or -not $old.exe) { foreach ($k in $entry.Keys) { $manifest[$k] = $entry[$k] } }
+			if (-not $old -or [int]$old.base -eq $base -or -not $old.exe -or $Base -gt 0) { foreach ($k in $entry.Keys) { $manifest[$k] = $entry[$k] } }
 		}
 	}
 	# „pobierz” w starych exe przy innej bazie = pełny exe z GitHuba (bez Mega).
