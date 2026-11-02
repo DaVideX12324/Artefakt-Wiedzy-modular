@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Artefakt Wiedzy Modular"
 config/description="Modularny host dla edukacyjnych gier Godot."
-config/version="0.9.10.2-beta"
+config/version="0.9.12-beta"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -33,6 +33,7 @@ QuizManager="*res://autoloads/compat/quiz_manager.gd"
 ModuleRegistry="*res://autoloads/module_registry.gd"
 CheatService="*res://autoloads/services/cheat_service.gd"
 AudioService="*res://autoloads/services/audio_service.gd"
+JoypadNavService="*res://autoloads/services/joypad_nav_service.gd"
 GameManager="*res://modules/BitBomber/autoloads/game_manager.gd"
 RoundManager="*res://modules/BitBomber/autoloads/round_manager.gd"
 SpriteLoader="*res://modules/BitBomber/autoloads/sprite_loader.gd"

@@ -6,6 +6,16 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.12-beta] — 2026-11-02
+
+### Zmieniono
+- Cień Mgły: trafienia jak w RPG Makerze (FNaFB) — atak prawie zawsze trafia, a zła odpowiedź osłabia cios o połowę; seria dobrych odpowiedzi zwiększa szansę na krytyk.
+- Cień Mgły: uniki zależą od zwinności (AGI) — dotyczy wrogów i drużyny; umiejętności magiczne nie dają się uniknąć.
+
+### Dodano
+- Pad: prawa gałka przewija długie listy i teksty; lista podąża za zaznaczeniem.
+- Pad: po zmianie zakładki opcji (LB / RB) zaznaczenie na pierwszym elemencie.
+
 ## [0.9.11-beta] — 2026-11-02
 
 ### Dodano
@@ -19,11 +29,13 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Aktualizacje na Androidzie.
 
 ### Zmieniono
-- Cień Mgły: trafienia jak w FNaFB — atak prawie zawsze trafia; zła odpowiedź osłabia cios o połowę, seria dobrych odpowiedzi zwiększa szansę na krytyk.
 - Cień Mgły: sprzęt w skrzyniach ścieków, częściej w skrzyniach jaskiń i miasta; beczki dają mniej przedmiotów.
 - Kliknięcia słychać we wszystkich podmenu.
 - Wersja Cienia Mgły w menu zgodna z wersją gry.
 - Aktualizator trzyma tylko najnowszą paczkę.
+- Opcje: ustawienia Cienia Mgły w osobnej zakładce modułu; zakładka Motyw tylko z ustawieniami wyglądu i ukryta, gdy ich brak.
+- Okno „Co nowego” szersze, z odstępami między punktami.
+- Cień Mgły: przedmioty i skrzynie głębiej w niszach.
 
 ### Naprawiono
 - Muzyka lokacji wraca po walce.
