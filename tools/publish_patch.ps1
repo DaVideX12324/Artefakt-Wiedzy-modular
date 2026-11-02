@@ -12,9 +12,6 @@ Set-Location (Join-Path $PSScriptRoot "..")
 
 $Repo = "DaVideX12324/ArtefaktWiedzy-updates"
 $Gist = "cc2274c3de25a1ee9a122ad9419097a8"
-# Pełny exe / APK (gdy paczka się nie pobierze albo przy nowej bazie).
-$FullUrl = "https://mega.nz/folder/ZJVTTSLb#PtinvmoFu9NuOYVPZRQ7Fw"
-$FullUrlAndroid = $FullUrl
 # Łatka ma KB–MB; pełny pck (bez 'Eksportuj jako łatkę') ma ~220 MB.
 $MaxMB = 50
 
@@ -45,10 +42,11 @@ try {
 	$old = if ($current.Trim()) { $current | ConvertFrom-Json } else { $null }
 	if ($Full) {
 		# Pełny exe = nowa baza (eksport exe ustawił base = build), bez łatek.
-		$entry = [ordered]@{ version = $version; build = $build; base = $build; url = $FullUrl; exe_url = $url; patches = @() }
+		$entry = [ordered]@{ version = $version; build = $build; base = $build; url = $url; exe_url = $url; patches = @() }
 	} else {
-		$entry = [ordered]@{ version = $version; build = $build; base = $base; url = $(if ($android) { $FullUrlAndroid } else { $FullUrl }); patches = @([ordered]@{ build = $build; url = $url }) }
-		if (-not $android -and $old -and $old.exe_url -and [int]$old.base -eq $base) { $entry["exe_url"] = $old.exe_url }
+		$entry = [ordered]@{ version = $version; build = $build; base = $base; url = ""; patches = @([ordered]@{ build = $build; url = $url }) }
+		# Link „pobierz” = pełny exe bazy z GitHuba (bez Mega); stare exe pobierają go ręcznie, nowsze same (ExeUpdater).
+		if (-not $android -and $old -and $old.exe_url -and [int]$old.base -eq $base) { $entry["exe_url"] = $old.exe_url; $entry["url"] = $old.exe_url }
 	}
 	if ($android) {
 		$manifest = [ordered]@{}
