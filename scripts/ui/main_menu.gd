@@ -130,11 +130,12 @@ func _on_update_available(text: String, url: String) -> void:
 			OS.create_process(OS.get_executable_path(), OS.get_cmdline_args())
 			get_tree().quit())
 	_update_btn.visible = true
-	# Pad / klawiatura: przycisk w rogu poza siatką fokusu — dostaje fokus od razu (B / strzałki wracają do modułów).
+	# Pad / klawiatura: przycisk w rogu poza siatką fokusu — dół z dolnego rzędu prowadzi do niego, góra wraca.
 	_update_btn.focus_mode = Control.FOCUS_ALL
+	for btn: Control in [_btn_questions, _btn_options, _btn_credits, _btn_quit]:
+		btn.focus_neighbor_bottom = btn.get_path_to(_update_btn)
 	for side in ["focus_neighbor_top", "focus_neighbor_bottom", "focus_neighbor_left", "focus_neighbor_right"]:
 		_update_btn.set(side, _update_btn.get_path_to(_btn_questions))
-	_update_btn.grab_focus.call_deferred()
 
 
 static func build_suffix() -> String:
