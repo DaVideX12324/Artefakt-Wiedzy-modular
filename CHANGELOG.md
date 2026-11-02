@@ -6,6 +6,17 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Dodano
+- Pasek postępu i komunikat przy pobieraniu nowej wersji gry.
+
+## [0.9.13-beta] — 2026-11-02
+
+### Dodano
+- Automatyczna aktualizacja całej gry: nowa wersja exe pobiera się w tle i uruchamia przy następnym starcie — bez ręcznego pobierania.
+
+### Zmieniono
+- Link „pobierz” prowadzi do pliku gry na GitHubie (bez Mega).
+
 ## [0.9.12-beta] — 2026-11-02
 
 ### Zmieniono
