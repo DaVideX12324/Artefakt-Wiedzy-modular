@@ -37,8 +37,9 @@ try {
 	if ($LASTEXITCODE -ne 0) { throw "gh release create nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$tag/$asset"
 
-	# Obecny manifest z gista: pozostałe wpisy zostają. Pełny exe idzie do osobnego wpisu "exe" (ExeUpdater) — wpis łatek
-	# starej bazy zostaje, więc stare exe dalej pobierają łatkę z ExeUpdaterem (kolejność wydań nie ma znaczenia).
+	# Obecny manifest z gista: pozostałe wpisy zostają. Pełny exe idzie do osobnego wpisu "exe" (ExeUpdater). Łatki — do
+	# "bases"[baza] (nowe exe), a wpis główny (stare exe czytają tylko jego) tylko dla bazy, którą już opisuje — stare exe
+	# zawsze dostaną łatkę z ExeUpdaterem, kolejność i liczba wydań nie mają znaczenia.
 	$current = gh api "gists/$Gist" --jq '.files["version.json"].content' | Out-String
 	$old = if ($current.Trim()) { $current | ConvertFrom-Json } else { $null }
 	$manifest = [ordered]@{}
@@ -50,12 +51,18 @@ try {
 	} else {
 		$entry = [ordered]@{ version = $version; build = $build; base = $base; url = $(if ($android) { "" } else { $exeUrl }); patches = @([ordered]@{ build = $build; url = $url }) }
 		if ($android) { $manifest["android"] = $entry }
-		else { foreach ($k in $entry.Keys) { $manifest[$k] = $entry[$k] } }
+		else {
+			$bases = [ordered]@{}
+			if ($old -and $old.bases) { foreach ($p in $old.bases.PSObject.Properties) { $bases[$p.Name] = $p.Value } }
+			$bases["$base"] = [ordered]@{ version = $version; build = $build; patches = $entry.patches }
+			$manifest["bases"] = $bases
+			if (-not $old -or [int]$old.base -eq $base -or -not $old.exe) { foreach ($k in $entry.Keys) { $manifest[$k] = $entry[$k] } }
+		}
 	}
 	# „pobierz” w starych exe przy innej bazie = pełny exe z GitHuba (bez Mega).
 	if (-not $android -and $exeUrl) { $manifest["url"] = $exeUrl }
 	$manifest.Remove("exe_url")
-	$body = @{ files = @{ "version.json" = @{ content = ($manifest | ConvertTo-Json -Depth 5) } } } | ConvertTo-Json -Depth 6
+	$body = @{ files = @{ "version.json" = @{ content = ($manifest | ConvertTo-Json -Depth 8) } } } | ConvertTo-Json -Depth 10
 	$bodyPath = Join-Path $tmp "body.json"
 	[IO.File]::WriteAllText($bodyPath, $body, (New-Object Text.UTF8Encoding $false))
 	gh api -X PATCH "gists/$Gist" --input $bodyPath | Out-Null
