@@ -156,7 +156,11 @@ class ExportHook extends EditorExportPlugin:
 				var size := fa.get_length() if fa else 0
 				if size > 0 and size < 50 * 1024 * 1024 and not bases.is_empty():
 					var base := bases[bases.size() - 1]
-					base = base if base.is_absolute_path() else ProjectSettings.globalize_path("res://" + base)
+					if not base.is_absolute_path():  # okno presetu zapisuje ścieżkę względem folderu eksportu
+						var rel := base
+						base = ProjectSettings.globalize_path("res://" + rel)
+						if not FileAccess.file_exists(base):
+							base = pack.get_base_dir().path_join(rel)
 					plugin.call("run_check", base, ref, pack, platform)
 				else:
 					plugin.call("run_check", pack, ref, "", platform, publish_exe)
