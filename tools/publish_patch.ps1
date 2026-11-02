@@ -36,7 +36,7 @@ try {
 	$tag = "$version-build$build" + $(if ($Full) { "-full" } elseif ($android) { "-android" } else { "" })  # build w tagu: kilka łatek tej samej wersji
 	# Wydanie już jest (ta sama paczka publikowana drugi raz, np. z -Base) — tylko podmiana pliku.
 	cmd /c "gh release view $tag -R $Repo >nul 2>&1"  # przez cmd: stderr gh ("release not found") przy Stop w PS 5.1 przerywał skrypt
-	if ($LASTEXITCODE -eq 0) { gh release upload $tag (Join-Path $tmp $asset) -R $Repo --clobber }
+	if ($LASTEXITCODE -eq 0) { gh release upload $tag (Join-Path $tmp $asset) -R $Repo --clobber; gh release edit $tag -R $Repo --draft=false | Out-Null }  # przerwane wysyłanie zostawia szkic
 	else { gh release create $tag (Join-Path $tmp $asset) -R $Repo -t "$version (build $build$(if ($android) { ', Android' }))" -F $notesPath }
 	if ($LASTEXITCODE -ne 0) { throw "wysłanie wydania nie powiodło się" }
 	$url = "https://github.com/$Repo/releases/download/$tag/$asset"
