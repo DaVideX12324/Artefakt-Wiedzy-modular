@@ -11,7 +11,8 @@ const ACTIONS: Array[StringName] = [&"ui_up", &"ui_down", &"ui_left", &"ui_right
 const PAD_BUTTONS := {&"ui_accept": JOY_BUTTON_A, &"ui_cancel": JOY_BUTTON_B, &"ui_up": JOY_BUTTON_DPAD_UP,
 	&"ui_down": JOY_BUTTON_DPAD_DOWN, &"ui_left": JOY_BUTTON_DPAD_LEFT, &"ui_right": JOY_BUTTON_DPAD_RIGHT}
 const DEADZONE := 0.5
-const REPEAT_DELAY := 0.4
+## Przytrzymanie kierunku (gałka, krzyżak, strzałki, WASD): pojedynczy krok, po REPEAT_DELAY s przewijanie.
+const REPEAT_DELAY := 3.0
 const REPEAT_RATE := 0.12
 
 var _held: StringName = &""
@@ -29,7 +30,8 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if not event is InputEventJoypadMotion:
+	# Ruch gałki i powtórzenia (echo) klawiszy pochłaniane — kroki i przewijanie robi _process.
+	if not (event is InputEventJoypadMotion or event.is_echo()):
 		return
 	for a in ACTIONS:
 		if event.is_action(a):
@@ -38,11 +40,13 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	var dir := _stick_action()
+	var stick := _stick_action()
+	var dir := stick if stick != &"" else _held_button_action()
 	if dir != _held:
 		_held = dir
 		_timer = REPEAT_DELAY
-		_press(dir)
+		if stick != &"":  # klawisz / krzyżak dał już pierwszy krok sam
+			_press(dir)
 		return
 	if dir == &"":
 		return
@@ -50,6 +54,14 @@ func _process(delta: float) -> void:
 	if _timer <= 0.0:
 		_timer = REPEAT_RATE
 		_press(dir)
+
+
+## Kierunek trzymany klawiszem / krzyżakiem (ui_* albo move_*) jako akcja ui_* albo "".
+func _held_button_action() -> StringName:
+	for a in ACTIONS:
+		if InputMap.has_action(a) and Input.is_action_pressed(a):
+			return StringName("ui_" + str(a).get_slice("_", 1))
+	return &""
 
 
 ## Kierunek gałki ponad martwą strefą (dominująca oś) albo "" — tylko z osi, przyciski krzyżaka działają po staremu.
