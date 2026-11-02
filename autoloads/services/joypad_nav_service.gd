@@ -12,11 +12,14 @@ const PAD_BUTTONS := {&"ui_accept": JOY_BUTTON_A, &"ui_cancel": JOY_BUTTON_B, &"
 	&"ui_down": JOY_BUTTON_DPAD_DOWN, &"ui_left": JOY_BUTTON_DPAD_LEFT, &"ui_right": JOY_BUTTON_DPAD_RIGHT}
 const DEADZONE := 0.5
 ## Przytrzymanie kierunku (gałka, krzyżak, strzałki, WASD): pojedynczy krok, po REPEAT_DELAY s przewijanie.
-const REPEAT_DELAY := 3.0
+const REPEAT_DELAY := 1.0
 const REPEAT_RATE := 0.12
 
 var _held: StringName = &""
 var _timer := 0.0
+## Trzymane klawisze / przyciski kierunków (id zdarzenia -> akcja ui_*) — z surowych zdarzeń, nie ze stanu akcji
+## (sztuczne kroki z _press go zmieniają).
+var _raw_held := {}
 
 
 func _ready() -> void:
@@ -29,7 +32,13 @@ func _ready() -> void:
 			InputMap.action_add_event(action, ev)
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_raw_held.clear()
+
+
 func _input(event: InputEvent) -> void:
+	_track_raw(event)
 	# Ruch gałki i powtórzenia (echo) klawiszy pochłaniane — kroki i przewijanie robi _process.
 	if not (event is InputEventJoypadMotion or event.is_echo()):
 		return
@@ -58,10 +67,27 @@ func _process(delta: float) -> void:
 
 ## Kierunek trzymany klawiszem / krzyżakiem (ui_* albo move_*) jako akcja ui_* albo "".
 func _held_button_action() -> StringName:
-	for a in ACTIONS:
-		if InputMap.has_action(a) and Input.is_action_pressed(a):
-			return StringName("ui_" + str(a).get_slice("_", 1))
+	for id in _raw_held:
+		return _raw_held[id]
 	return &""
+
+
+func _track_raw(event: InputEvent) -> void:
+	var id := ""
+	if event is InputEventKey:
+		var k := event as InputEventKey
+		id = "k%d" % (k.physical_keycode if k.physical_keycode != 0 else k.keycode)
+	elif event is InputEventJoypadButton:
+		id = "j%d_%d" % [event.device, (event as InputEventJoypadButton).button_index]
+	if id == "" or event.is_echo():
+		return
+	if not event.is_pressed():
+		_raw_held.erase(id)
+		return
+	for a in ACTIONS:
+		if InputMap.has_action(a) and event.is_action(a):
+			_raw_held[id] = StringName("ui_" + str(a).get_slice("_", 1))
+			return
 
 
 ## Kierunek gałki ponad martwą strefą (dominująca oś) albo "" — tylko z osi, przyciski krzyżaka działają po staremu.
@@ -81,9 +107,7 @@ func _stick_action() -> StringName:
 func _press(action: StringName) -> void:
 	if action == &"":
 		return
-	# Akcja trzymana klawiszem / krzyżakiem: bez puszczenia — inaczej stan Input gubi trzymanie i przewijanie staje.
-	var held := Input.is_action_pressed(action)
-	for pressed in ([true] if held else [true, false]):
+	for pressed in [true, false]:
 		var ev := InputEventAction.new()
 		ev.action = action
 		ev.pressed = pressed
