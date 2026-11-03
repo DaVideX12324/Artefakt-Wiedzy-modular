@@ -6,6 +6,8 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.13.1-beta] — 2026-11-03
+
 ### Dodano
 - Pasek postępu i komunikat przy pobieraniu nowej wersji gry.
 
