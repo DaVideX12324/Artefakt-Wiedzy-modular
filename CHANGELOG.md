@@ -9,6 +9,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 ### Dodano
 - Pasek postępu i komunikat przy pobieraniu nowej wersji gry.
 
+### Naprawiono
+- Cień Mgły: styl pasków „Gradientowe skośne” wyświetlał się jako jednolity kolor.
+
 ## [0.9.13-beta] — 2026-11-02
 
 ### Dodano
