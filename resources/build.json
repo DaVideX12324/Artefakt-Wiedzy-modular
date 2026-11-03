@@ -1,1 +1,1 @@
-{"base":25,"base_android":0,"build":34,"notes":"### Dodano\n- Automatyczna aktualizacja całej gry: nowa wersja exe pobiera się w tle i uruchamia przy następnym starcie — bez ręcznego pobierania.\n\n### Zmieniono\n- Link „pobierz” prowadzi do pliku gry na GitHubie (bez Mega).","version":"0.9.13-beta"}
+{"base":25,"base_android":0,"build":35,"notes":"### Dodano\n- Pasek postępu i komunikat przy pobieraniu nowej wersji gry.\n\n### Naprawiono\n- Cień Mgły: styl pasków „Gradientowe skośne” wyświetlał się jako jednolity kolor.","version":"0.9.13.1-beta"}
