@@ -6,6 +6,11 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.13.2-beta] — 2026-11-03
+
+### Zmieniono
+- Cień Mgły: postacie z cieniowaniem i detalami — bryła, kolorowy kontur, kosmyki włosów, fałdy szat, gwiazdki na kapeluszu maga.
+
 ## [0.9.13.1-beta] — 2026-11-03
 
 ### Dodano
