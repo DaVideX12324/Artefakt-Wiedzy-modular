@@ -1,1 +1,1 @@
-{"base":25,"base_android":0,"build":33,"notes":"","version":"0.9.13-beta"}
+{"base":25,"base_android":0,"build":34,"notes":"### Dodano\n- Automatyczna aktualizacja całej gry: nowa wersja exe pobiera się w tle i uruchamia przy następnym starcie — bez ręcznego pobierania.\n\n### Zmieniono\n- Link „pobierz” prowadzi do pliku gry na GitHubie (bez Mega).","version":"0.9.13-beta"}
