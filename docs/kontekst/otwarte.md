@@ -85,3 +85,9 @@ Zadania i otwarte wątki zostały skonsolidowane w dokumencie [`docs/znane_probl
   - Sklepy, kowal, ulepszanie broni z potencjałem (`docs/znane_problemy.md` → „miasto / hub” oraz `docs/kontekst/ekwipunek_szkic.md`).
   - Rewizja wpływu pancerza DEF w późnej fazie gry oraz wielostatystykowej optymalizacji ekwipunku (`docs/znane_problemy.md` → „Do zrobienia”).
   - Teksty logu wrogów `skill.<plik>.log` (brief [`docs/archiwum/i18n_log_wrogow_dla_gemini.md`](../archiwum/i18n_log_wrogow_dla_gemini.md)).
+
+## Pomysły na przyszłość
+
+- **Punkty statystyk przy awansie** (pomysł kolegi, 2026-11-03): staty dalej rosną same, a do tego 2–3 punkty na poziom
+  do rozdania (ATK / DEF / MAT / MDF / AGI). Limit na stat na poziom albo malejący przyrost, reset u NPC za złoto.
+  Ryzyka: balans (wszystko w ATK), towarzysze mają stałe staty, FNaFB rozwija przez sklep umiejętności, nie punkty.
