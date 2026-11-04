@@ -91,3 +91,5 @@ Zadania i otwarte wątki zostały skonsolidowane w dokumencie [`docs/znane_probl
 - **Punkty statystyk przy awansie** (pomysł kolegi, 2026-11-03): staty dalej rosną same, a do tego 2–3 punkty na poziom
   do rozdania (ATK / DEF / MAT / MDF / AGI). Limit na stat na poziom albo malejący przyrost, reset u NPC za złoto.
   Ryzyka: balans (wszystko w ATK), towarzysze mają stałe staty, FNaFB rozwija przez sklep umiejętności, nie punkty.
+- **Śnieżna mapa (Anokolisa / Pixel Crawler)** (2026-11-04): autor zapowiedział paczkę śnieżnej mapy do końca listopada
+  2026 — na etap po inżynierce (nowy biom).
