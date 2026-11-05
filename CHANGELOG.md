@@ -6,6 +6,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Zmieniono
+- Pytania z wyborem mają losową kolejność odpowiedzi przy każdym zadaniu (nie da się zapamiętać pozycji).
+
 ## [0.9.13.2-beta] — 2026-11-03
 
 ### Zmieniono
