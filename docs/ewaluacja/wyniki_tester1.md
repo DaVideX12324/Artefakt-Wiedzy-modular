@@ -18,7 +18,7 @@ Etap 1: >20 min (BitBomber 0.9.0-beta). Etap 2: ~1 h (Cień Mgły 0.9.13.2-beta)
 |---|---|---|
 | 1 | CM: zapamiętywał pozycję odpowiedzi i zgadywał po długości (D4) | **zrobione** — losowa kolejność odpowiedzi (QuizService.start_quiz). Bias długości sprawdzony: poprawna najdłuższa w 29% pytań (losowo 25%) — OK |
 | 2 | BB: w 20 min nie trafił na quiz (D8) | **zrobione** — 35% power-upów zamkniętych pytaniem (znaczek ❓); D8 w formularzu do przeredagowania |
-| 3 | BB: „dziwne przyciąganie w kwadratach” przy ruchu (H) | do zrobienia — za mocne dociąganie do kratki |
+| 3 | BB: „dziwne przyciąganie w kwadratach” przy ruchu (H) | **zrobione** — ciało 52 px zamiast 62, wyrównanie z pełną prędkością (było 150 px/s) |
 | 4 | CM: po wyjściu z miasta nudno, brak celu i nagród (E2) | do zrobienia — tempo / widoczność celu |
 | 5 | CM: konfiguracja rozgrywki przy starcie nowej gry, do Opcji nie zajrzał (H) | do zrobienia |
 | 6 | BB: zasady 3/5 (D7) | do zrobienia — legenda power-upów |
