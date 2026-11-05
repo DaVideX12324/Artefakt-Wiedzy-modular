@@ -24,4 +24,4 @@ Etap 1: >20 min (BitBomber 0.9.0-beta). Etap 2: ~1 h (Cień Mgły 0.9.13.2-beta)
 | 6 | BB: zasady 3/5 (D7) | **zrobione** — nazwa power-upu nad graczem po zebraniu, zamknięte power-upy w Instrukcji |
 | 7 | Formularz: D10 niezrozumiałe; D8 pyta o „quiz między rundami”, a takiego nie ma | poprawić formularz |
 | 8 | Uwaga o numeracji wersji (A4) | — |
-| 9 | (user) Prawdziwe tutoriale w strefie samouczka | do zrobienia |
+| 9 | (user) Prawdziwe tutoriale w strefie samouczka | **zrobione** — okna wskazówek (tutorial_hint.gd), pomijanie pojedynczych / wszystkich |

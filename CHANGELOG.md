@@ -13,6 +13,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Cień Mgły: premia złota i XP za pierwsze przejście mapy.
 - Cień Mgły: ekran ustawień przy nowej grze (poziom trudności, losowe spotkania, tempo walki, tryb bez quizów) i nowa opcja „Poziom trudności”.
 - Cień Mgły: poziom wroga wyświetlany pod stopami.
+- Cień Mgły: wskazówki samouczka (start, jaskinia, miasto, walka, skrzynia, awans) — można pominąć pojedynczą albo wyłączyć wszystkie (też w Opcjach).
 
 ### Zmieniono
 - Pytania z wyborem mają losową kolejność odpowiedzi przy każdym zadaniu (nie da się zapamiętać pozycji).
