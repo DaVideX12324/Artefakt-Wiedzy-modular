@@ -20,7 +20,8 @@ Etap 1: >20 min (BitBomber 0.9.0-beta). Etap 2: ~1 h (Cień Mgły 0.9.13.2-beta)
 | 2 | BB: w 20 min nie trafił na quiz (D8) | **zrobione** — 35% power-upów zamkniętych pytaniem (znaczek ❓); D8 w formularzu do przeredagowania |
 | 3 | BB: „dziwne przyciąganie w kwadratach” przy ruchu (H) | **zrobione** — ciało 52 px zamiast 62, wyrównanie z pełną prędkością (było 150 px/s) |
 | 4 | CM: po wyjściu z miasta nudno, brak celu i nagród (E2) | **zrobione** — cel główny na HUD, skrzynie na minimapie (bez nisz), komunikat serii, premia za pierwsze przejście mapy |
-| 5 | CM: konfiguracja rozgrywki przy starcie nowej gry, do Opcji nie zajrzał (H) | do zrobienia |
-| 6 | BB: zasady 3/5 (D7) | do zrobienia — legenda power-upów |
+| 5 | CM: konfiguracja rozgrywki przy starcie nowej gry, do Opcji nie zajrzał (H) | **zrobione** — ekran ustawień po imieniu: trudność (nowa), losowe spotkania, tempo walki, bez quizów |
+| 6 | BB: zasady 3/5 (D7) | **zrobione** — nazwa power-upu nad graczem po zebraniu, zamknięte power-upy w Instrukcji |
 | 7 | Formularz: D10 niezrozumiałe; D8 pyta o „quiz między rundami”, a takiego nie ma | poprawić formularz |
 | 8 | Uwaga o numeracji wersji (A4) | — |
+| 9 | (user) Prawdziwe tutoriale w strefie samouczka | do zrobienia |
