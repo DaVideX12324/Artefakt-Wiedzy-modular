@@ -6,17 +6,20 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.14-beta] — 2026-11-05
+
 ### Dodano
 - Cień Mgły: cel główny widoczny stale na mapie (lewy górny róg), z komunikatem „Nowy cel!” po jego zmianie.
 - Cień Mgły: skrzynie i przedmioty (poza niszami) widoczne na minimapie od razu, także w nieodkrytych miejscach.
 - Cień Mgły: komunikat serii poprawnych odpowiedzi w walce (3, 5, 10, potem co 5) z aktualną szansą krytyka.
 - Cień Mgły: premia złota i XP za pierwsze przejście mapy.
 - Cień Mgły: ekran ustawień przy nowej grze (poziom trudności, losowe spotkania, tempo walki, tryb bez quizów) i nowa opcja „Poziom trudności”.
-- Cień Mgły: poziom wroga wyświetlany pod stopami.
 - Cień Mgły: wskazówki samouczka (start, jaskinia, miasto, walka, skrzynia, awans) — można pominąć pojedynczą albo wyłączyć wszystkie (też w Opcjach).
 
 ### Zmieniono
 - Pytania z wyborem mają losową kolejność odpowiedzi przy każdym zadaniu (nie da się zapamiętać pozycji).
+- Cień Mgły: poziom wroga wyświetlany pod stopami.
+- BitBomber: 0.9.0-beta → 0.9.1-beta, commit `18f42db` — część power-upów (znaczek ❓) wymaga odpowiedzi na pytanie, nazwa power-upu nad graczem, luźniejszy ruch (mniej przyciągania do kratek), naprawione ładowanie motywu UI.
 
 ## [0.9.13.2-beta] — 2026-11-03
 
