@@ -8,6 +8,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ### Dodano
 - Cień Mgły: cel główny widoczny stale na mapie (lewy górny róg), z komunikatem „Nowy cel!” po jego zmianie.
+- Cień Mgły: skrzynie i przedmioty (poza niszami) widoczne na minimapie od razu, także w nieodkrytych miejscach.
+- Cień Mgły: komunikat serii poprawnych odpowiedzi w walce (3, 5, 10, potem co 5) z aktualną szansą krytyka.
+- Cień Mgły: premia złota i XP za pierwsze przejście mapy.
 
 ### Zmieniono
 - Pytania z wyborem mają losową kolejność odpowiedzi przy każdym zadaniu (nie da się zapamiętać pozycji).
