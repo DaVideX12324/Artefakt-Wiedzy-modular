@@ -23,8 +23,8 @@ jest dla mnie warte więcej niż „fajne, gratulacje”. Rzeczy, które cię zi
 2. **Edytor pytań (ok. 6 min).** W menu głównym wejdź w „Pytania”. Utwórz własny zestaw i dodaj do niego dwa pytania
    różnych typów. Potem zmień treść jednego pytania z zestawu wbudowanego i wyłącz jedno pytanie. Na końcu włącz swój zestaw
    w Opcje → Pytania.
-3. **BitBomber (ok. 5 min).** Uruchom BitBombera z menu głównego i zagraj co najmniej dwie rundy, tak żeby trafić na quiz
-   między rundami. Potem wyjdź do menu głównego.
+3. **BitBomber (ok. 5 min).** Uruchom BitBombera z menu głównego i zagraj co najmniej dwie rundy. Zbierz kilka power-upów
+   (część ma znaczek ❓ — wtedy pojawi się pytanie). Potem wyjdź do menu głównego Artefaktu Wiedzy.
 
 **Graj normalnie.** Nie szukaj błędów celowo, nie sprawdzaj każdego przycisku.
 

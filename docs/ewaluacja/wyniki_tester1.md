@@ -22,6 +22,6 @@ Etap 1: >20 min (BitBomber 0.9.0-beta). Etap 2: ~1 h (Cień Mgły 0.9.13.2-beta)
 | 4 | CM: po wyjściu z miasta nudno, brak celu i nagród (E2) | **zrobione** — cel główny na HUD, skrzynie na minimapie (bez nisz), komunikat serii, premia za pierwsze przejście mapy |
 | 5 | CM: konfiguracja rozgrywki przy starcie nowej gry, do Opcji nie zajrzał (H) | **zrobione** — ekran ustawień po imieniu: trudność (nowa), losowe spotkania, tempo walki, bez quizów |
 | 6 | BB: zasady 3/5 (D7) | **zrobione** — nazwa power-upu nad graczem po zebraniu, zamknięte power-upy w Instrukcji |
-| 7 | Formularz: D10 niezrozumiałe; D8 pyta o „quiz między rundami”, a takiego nie ma | poprawić formularz |
+| 7 | Formularz: D10 niezrozumiałe; D8 pyta o „quiz między rundami”, a takiego nie ma | **zrobione** — D8 o pytaniach w trakcie gry, D10 o wyjściu do menu AW z opcjami; scenariusz bez „quizu między rundami” |
 | 8 | Uwaga o numeracji wersji (A4) | — |
 | 9 | (user) Prawdziwe tutoriale w strefie samouczka | **zrobione** — okna wskazówek (tutorial_hint.gd), pomijanie pojedynczych / wszystkich |

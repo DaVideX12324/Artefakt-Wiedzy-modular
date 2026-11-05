@@ -64,12 +64,13 @@ Dlaczego? >
 
 **D7. Czy rozumiałeś zasady (bomby, skrzynie, power-upy) bez tłumaczenia?** `1` `2` `3` `4` `5`
 
-**D8. Czy quiz między rundami pasował do gry?**
-- [ ] tak, fajny dodatek  - [ ] obojętny  - [ ] psuł tempo gry  - [ ] nie trafiłem na quiz
+**D8. Czy pytania w trakcie gry pasowały do BitBombera?** (pytanie po śmierci, przy power-upie ze znaczkiem ❓)
+- [ ] tak, fajny dodatek  - [ ] obojętne  - [ ] psuły tempo gry  - [ ] nie trafiłem na pytanie
 
 **D9. Czy arena i boty były w porządku?** (za prosta / w sam raz / za trudna; czy mapy się nudziły) >
 
-**D10. Czy powrót do menu głównego hosta działał tak, jak się spodziewałeś?** >
+**D10. Czy wyjście z BitBombera do menu głównego Artefaktu Wiedzy (przycisk „Powrót” albo pauza → wyjście) było proste?**
+- [ ] tak  - [ ] z trudem  - [ ] nie udało się  — co przeszkadzało? >
 
 ---
 
