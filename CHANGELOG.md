@@ -6,6 +6,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Dodano
+- Cień Mgły: cel główny widoczny stale na mapie (lewy górny róg), z komunikatem „Nowy cel!” po jego zmianie.
+
 ### Zmieniono
 - Pytania z wyborem mają losową kolejność odpowiedzi przy każdym zadaniu (nie da się zapamiętać pozycji).
 
