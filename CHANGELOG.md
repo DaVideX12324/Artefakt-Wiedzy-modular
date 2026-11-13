@@ -12,6 +12,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 ### Zmieniono
 - Cień Mgły: boss z celu głównego jest od razu widoczny na minimapie (duży czerwony znacznik), a cel mówi, gdzie go szukać — „(znacznik na mapie)” albo nazwa mapy, gdy boss został na innej.
 - BitBomber: w wyborze zestawu pytań widać nazwę zestawu zamiast nazwy pliku.
+- Cień Mgły: skrzynię strzeżoną przez strażnika w ukrytej komnacie jaskini otwiera tylko klucz (zostawia go strażnik) — wytrych nie działa.
 
 ## [0.9.14-beta] — 2026-11-05
 
