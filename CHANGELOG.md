@@ -6,6 +6,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Zmieniono
+- BitBomber: w wyborze zestawu pytań widać nazwę zestawu zamiast nazwy pliku.
+
 ## [0.9.14-beta] — 2026-11-05
 
 ### Dodano
