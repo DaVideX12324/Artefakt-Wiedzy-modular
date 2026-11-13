@@ -6,6 +6,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Naprawiono
+- Cień Mgły: przedmiot użyty w walce (np. mikstura) działa na początku rundy — przed ruchami wrogów, a nie w kolejce wg zręczności.
+
 ### Zmieniono
 - BitBomber: w wyborze zestawu pytań widać nazwę zestawu zamiast nazwy pliku.
 
