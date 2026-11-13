@@ -10,6 +10,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Cień Mgły: przedmiot użyty w walce (np. mikstura) działa na początku rundy — przed ruchami wrogów, a nie w kolejce wg zręczności.
 
 ### Zmieniono
+- Cień Mgły: boss z celu głównego jest od razu widoczny na minimapie (duży czerwony znacznik), a cel mówi, gdzie go szukać — „(znacznik na mapie)” albo nazwa mapy, gdy boss został na innej.
 - BitBomber: w wyborze zestawu pytań widać nazwę zestawu zamiast nazwy pliku.
 
 ## [0.9.14-beta] — 2026-11-05
