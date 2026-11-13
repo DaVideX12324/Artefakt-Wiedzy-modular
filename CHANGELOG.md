@@ -216,5 +216,5 @@ względem poprzedniego wydania.
 
 ### Znane ograniczenia
 - Paczka jest w Alphie, bo zawiera Cień Mgły w Alphie; platforma sama jest gotowa do testów (etap 1 ewaluacji:
-  platforma + edytor pytań + BitBomber, [`docs/ewaluacja/`](docs/ewaluacja/etap1_scenariusz.md)).
+  platforma + edytor pytań + BitBomber; scenariusze w notatkach prywatnych).
 - Assety są w prywatnym submodule — publicznie dostępny jest tylko zbudowany plik wykonywalny.

@@ -54,8 +54,7 @@ Użytkownik może:
 - włączać i wyłączać całe zestawy i pojedyncze pytania (zapis w `user://quiz_selection.json`, globalnie dla wszystkich modułów).
 
 Zestawy są dostępne we wszystkich modułach przez `QuizService` — moduł podaje `quiz_id` przy starcie quizu; gdy zestaw
-nie istnieje albo jest wyłączony, pytania losuje się ze wszystkich aktywnych zestawów. Szczegóły:
-[`docs/kontekst/pytania.md`](docs/kontekst/pytania.md).
+nie istnieje albo jest wyłączony, pytania losuje się ze wszystkich aktywnych zestawów.
 
 ## Architektura hosta
 
@@ -104,14 +103,7 @@ Artefakt-Wiedzy-modular/
 │   ├── README.md                # Indeks całej dokumentacji (statusy plików)
 │   ├── wersjonowanie.md         # Numery wersji, etapy, plan wydań, changelogi
 │   ├── module_contract.md       # Kontrakt modułu — co musi zawierać
-│   ├── zakres_inzynierka.md     # Zakres pracy inżynierskiej i stan kodu względem niego
-│   ├── ewaluacja/               # Scenariusze i formularze testów z użytkownikami (etap 1 i 2)
 │   ├── game_design.md           # Projekt gry Cień Mgły (fabuła, strefy, mechaniki)
-│   ├── plan_*.md                # Plany techniczne (generator ścieków / obiektów, przyspieszenie, zapis map)
-│   ├── migration_plan.md        # Plan migracji istniejących modułów (historyczny)
-│   ├── kontekst/                # Bieżący stan prac (handoffy sesji), opisy tematyczne
-│   ├── prototypy/               # Narzędzia pomocnicze (makieta miasta)
-│   ├── archiwum/                # Dzienniki sesji i przeniesione notatki
 │   └── znane_problemy.md        # Do zrobienia, pułapki, rozwiązane
 ├── CHANGELOG.md                 # Zmiany platformy i wersje dołączonych modułów
 └── project.godot                # Wersja Artefaktu: application/config/version
@@ -244,6 +236,5 @@ BitBomber i Cień Mgły są już modułami hosta; kolejne powstają według szab
 ## Dokumentacja
 
 Indeks dokumentów ze statusami: [`docs/README.md`](docs/README.md). Do zrobienia i znane problemy:
-[`docs/znane_problemy.md`](docs/znane_problemy.md); stan ostatniej sesji Cienia Mgły (handoff):
-[`docs/kontekst/sesja_2026-10-24.md`](docs/kontekst/sesja_2026-10-24.md), BitBombera: `modules/BitBomber/docs/zadania.md`.
+[`docs/znane_problemy.md`](docs/znane_problemy.md). Handoffy sesji, notatki robocze i plany są w prywatnym repozytorium notatek.
 Wersje i plan wydań: [`docs/wersjonowanie.md`](docs/wersjonowanie.md), zmiany: [`CHANGELOG.md`](CHANGELOG.md).

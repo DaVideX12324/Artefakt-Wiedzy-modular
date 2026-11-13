@@ -71,7 +71,7 @@ Każde repo ma `CHANGELOG.md` (host, CienMgly, BitBomber):
 - przy wydaniu sekcja zmienia nazwę na `[wersja] — RRRR-MM-DD`, pod nią pusta nowa `[Unreleased]`;
 - podsekcje: Dodano / Zmieniono / Naprawiono / Kompatybilność / Znane ograniczenia (puste pomijać);
 - opisuje skutki dla gracza, nie każdy commit (historia jest w git); planów nie wpisuje się jako wydanych — plany są w
-  roadmapie / [`zakres_inzynierka.md`](zakres_inzynierka.md);
+  roadmapie / `zakres_inzynierka.md` (notatki prywatne);
 - changelog hosta przy aktualizacji modułu: „Cień Mgły: 0.8.0-alpha → 0.8.1-alpha, commit `abc1234`, najważniejsze zmiany”.
 
 ## Wydanie — kroki

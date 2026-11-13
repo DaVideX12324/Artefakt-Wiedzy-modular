@@ -1,6 +1,6 @@
 # Znane problemy i rzeczy odłożone (quiz_rpg — generator jaskiń)
 
-> Tylko otwarte sprawy. Wpisy ZROBIONE/Rozwiązane → [`archiwum/znane_problemy_rozwiazane_2026-10-29.md`](archiwum/znane_problemy_rozwiazane_2026-10-29.md).
+> Tylko otwarte sprawy. Wpisy ZROBIONE/Rozwiązane → `archiwum/znane_problemy_rozwiazane_2026-10-29.md` (notatki prywatne).
 > Stan na 2026-10-29. Po naprawie usunąć wpis albo przenieść do archiwum.
 
 ---
@@ -11,14 +11,14 @@
 
 ### ⚠ WAŻNE: (5) miasto / hub z modularnych zasobów paczki free — następny etap
 - **Decyzja 2026-10-15:** miasto robione **ręcznie** przez usera (scena w edytorze), **bez generowania**. Po stronie kodu: NPC, sklep, kowal / ulepszenia, rekrutacja towarzyszy (logika niezależna od mapy).
-- Stan 2026-10-29: szkielet logiczny zrobiony (`kontekst/miasto.md`); zostało: konkretne wnętrza, zadania NPC, prawdziwe flagi etapów.
+- Stan 2026-10-29: szkielet logiczny zrobiony (`kontekst/miasto.md`, notatki prywatne); zostało: konkretne wnętrza, zadania NPC, prawdziwe flagi etapów.
 > **Priorytet 2026-10-11:** user ustawił miasto / hub jako następny etap prac.
 
 ### (1) tilesety kolejnych map — ścieki zrobione, kolejne po stronie autora
 - **Stan 2026-10-17: ODŁOŻONE POZA INŻYNIERKĘ (decyzja usera)** — na teraz zostaje tylko miasto (pkt 5); tilesety Cemetery, Fairy Forest itd. później albo na osobnym branchu.
 - Są: jaskinie (`resources/maps/caves.tres`), ścieki (`resources/maps/sewer.tres`). Kolejne wg kolejności stref (`docs/game_design.md`): Cemetery, Fairy Forest, Desert / Desert Temple, Volcano / Forge, Dense Forest / biom zimowy, Library, Garden, Castle.
 - Do zrobienia przez autora: TileSet `.tres` + companion-JSON (`resources/maps/config/`) dla każdego biomu.
-- Szczegóły ścieków: [kontekst/scieki.md](kontekst/scieki.md).
+- Szczegóły ścieków: `kontekst/scieki.md` (notatki prywatne).
 
 ### Feature: ukryte przejścia między pokojami (tunel pod voidem)
 - **Stan: NIE ZROBIONE** (brak kodu; są nisze-przejścia, `NichePlacer`).
