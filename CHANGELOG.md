@@ -15,6 +15,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Cień Mgły: skrzynię strzeżoną przez strażnika w ukrytej komnacie jaskini otwiera tylko klucz (zostawia go strażnik) — wytrych nie działa.
 - Cień Mgły: dalej przejdziesz dopiero po pokonaniu strażnika mapy — drzwi z kłódką na polanie, zasypane wyjście z jaskiń (Stary Grzyb), krata do ścieków otwiera się po pokonaniu Matki Nietoperzy.
 - Cień Mgły: cel główny podaje poziom bossa, którego trzeba pokonać, i ma osobny krok dla strażnika wyjścia z jaskiń.
+- Cień Mgły: poziomy wrogów — na polanie szlamy Lv 1, zielony szlam Lv 3 i boss Lv 5; w jaskiniach najsłabsi wrogowie mają Lv 3–4 (zamiast Lv 1).
 
 ## [0.9.14-beta] — 2026-11-05
 
