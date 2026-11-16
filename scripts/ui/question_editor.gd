@@ -8,35 +8,40 @@ extends CanvasLayer
 signal closed
 
 @onready var _root: Control = $Root
-@onready var _title: Label = $Root/Margin/VBox/Header/Title
+@onready var _title: Label = $Root/Margin/VBox/Header/TitleBox/Title
 @onready var _btn_close: Button = $Root/Margin/VBox/Header/BtnClose
-@onready var _sets_tree: Tree = $Root/Margin/VBox/Body/SetsBox/SetsTree
-@onready var _btn_new_set: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnNewSet
-@onready var _btn_import: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnImport
-@onready var _btn_export: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnExport
-@onready var _btn_template: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnTemplate
-@onready var _btn_rename: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnRename
-@onready var _btn_delete_set: Button = $Root/Margin/VBox/Body/SetsBox/SetButtons/BtnDeleteSet
-@onready var _search: LineEdit = $Root/Margin/VBox/Body/QuestionsBox/Filters/Search
-@onready var _type_filter: OptionButton = $Root/Margin/VBox/Body/QuestionsBox/Filters/TypeFilter
-@onready var _q_tree: Tree = $Root/Margin/VBox/Body/QuestionsBox/QuestionsTree
-@onready var _btn_add: Button = $Root/Margin/VBox/Body/QuestionsBox/QButtons/BtnAdd
-@onready var _btn_edit: Button = $Root/Margin/VBox/Body/QuestionsBox/QButtons/BtnEdit
-@onready var _btn_duplicate: Button = $Root/Margin/VBox/Body/QuestionsBox/QButtons/BtnDuplicate
-@onready var _btn_delete: Button = $Root/Margin/VBox/Body/QuestionsBox/QButtons/BtnDelete
-@onready var _btn_all_on: Button = $Root/Margin/VBox/Body/QuestionsBox/QButtons/BtnAllOn
-@onready var _btn_all_off: Button = $Root/Margin/VBox/Body/QuestionsBox/QButtons/BtnAllOff
+@onready var _sets_card: Control = $Root/Margin/VBox/Body/SetsCard
+@onready var _lbl_sets: Label = $Root/Margin/VBox/Body/SetsCard/SetsBox/LblSets
+@onready var _sets_tree: Tree = $Root/Margin/VBox/Body/SetsCard/SetsBox/SetsTree
+@onready var _btn_new_set: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/BtnNewSet
+@onready var _btn_import: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/ImportRow/BtnImport
+@onready var _btn_template: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/ImportRow/BtnTemplate
+@onready var _btn_export: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons/BtnExport
+@onready var _btn_rename: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons/BtnRename
+@onready var _btn_delete_set: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons/BtnDeleteSet
+@onready var _set_name: Label = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/SetHeader/SetName
+@onready var _set_count: Label = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/SetHeader/SetCount
+@onready var _search: LineEdit = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/Filters/Search
+@onready var _type_filter: OptionButton = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/Filters/TypeFilter
+@onready var _q_tree: Tree = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QuestionsTree
+@onready var _btn_add: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnAdd
+@onready var _btn_edit: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnEdit
+@onready var _btn_duplicate: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnDuplicate
+@onready var _btn_delete: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnDelete
+@onready var _btn_all_on: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnAllOn
+@onready var _btn_all_off: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnAllOff
 @onready var _status: Label = $Root/Margin/VBox/Status
 
 @onready var _edit_dialog: Control = $Root/EditDialog
-@onready var _dlg_title: Label = $Root/EditDialog/Center/Panel/Margin/VBox/DlgTitle
-@onready var _type_option: OptionButton = $Root/EditDialog/Center/Panel/Margin/VBox/Common/TypeOption
-@onready var _diff_spin: SpinBox = $Root/EditDialog/Center/Panel/Margin/VBox/Common/DiffSpin
-@onready var _category_edit: LineEdit = $Root/EditDialog/Center/Panel/Margin/VBox/Common/CategoryEdit
-@onready var _form: VBoxContainer = $Root/EditDialog/Center/Panel/Margin/VBox/Scroll/Form
-@onready var _error: Label = $Root/EditDialog/Center/Panel/Margin/VBox/Error
-@onready var _btn_save: Button = $Root/EditDialog/Center/Panel/Margin/VBox/DlgButtons/BtnSave
-@onready var _btn_cancel: Button = $Root/EditDialog/Center/Panel/Margin/VBox/DlgButtons/BtnCancel
+@onready var _dlg_panel: Control = $Root/EditDialog/Center/Panel
+@onready var _dlg_title: Label = $Root/EditDialog/Center/Panel/VBox/DlgTitle
+@onready var _type_option: OptionButton = $Root/EditDialog/Center/Panel/VBox/Common/TypeOption
+@onready var _diff_spin: SpinBox = $Root/EditDialog/Center/Panel/VBox/Common/DiffSpin
+@onready var _category_edit: LineEdit = $Root/EditDialog/Center/Panel/VBox/Common/CategoryEdit
+@onready var _form: VBoxContainer = $Root/EditDialog/Center/Panel/VBox/Scroll/Form
+@onready var _error: Label = $Root/EditDialog/Center/Panel/VBox/Error
+@onready var _btn_save: Button = $Root/EditDialog/Center/Panel/VBox/DlgButtons/BtnSave
+@onready var _btn_cancel: Button = $Root/EditDialog/Center/Panel/VBox/DlgButtons/BtnCancel
 
 @onready var _import_dialog: FileDialog = $ImportDialog
 @onready var _export_dialog: FileDialog = $ExportDialog
@@ -50,7 +55,7 @@ const MAX_PAIRS := 8
 const COLOR_OK := Color(0.6, 0.85, 0.6)
 const COLOR_ERR := Color(1.0, 0.5, 0.5)
 
-var _theme := Theme.new()
+var _theme: Theme   # resources/ui/question_editor_theme.tres (Root.theme w scenie): warianty przycisków, karty, pola
 var _set_id := ""
 var _set: Dictionary = {}          # bieżący zestaw (kopia; zapis przez QuestionBank.save_set)
 var _edit_index := -1              # indeks edytowanego pytania w _set.questions, -1 = nowe
@@ -64,7 +69,7 @@ var _f: Dictionary = {}
 
 
 func _ready() -> void:
-	_root.theme = _theme
+	_theme = _root.theme
 	for d: Window in [_import_dialog, _export_dialog, _confirm_dialog, _name_dialog, _report_dialog]:
 		d.theme = _theme
 	_apply_scale()
@@ -149,7 +154,13 @@ func _apply_scale() -> void:
 	_theme.default_font_size = UIScaleService.px(18)
 	_apply_check_icons(UIScaleService.px(18))
 	_title.add_theme_font_size_override("font_size", UIScaleService.px(30))
+	_lbl_sets.add_theme_font_size_override("font_size", UIScaleService.px(21))
+	_set_name.add_theme_font_size_override("font_size", UIScaleService.px(21))
 	_dlg_title.add_theme_font_size_override("font_size", UIScaleService.px(24))
+	_sets_card.custom_minimum_size.x = UIScaleService.px(470)
+	# okno pytania: duże, ale w granicach ekranu
+	var vp := _root.get_viewport_rect().size if _root.is_inside_tree() else Vector2(1920, 1080)
+	_dlg_panel.custom_minimum_size = Vector2(minf(UIScaleService.px(1000), vp.x * 0.94), minf(UIScaleService.px(700), vp.y * 0.92))
 
 
 ## Wyraźne pola wyboru (domyślne niezaznaczone giną na ciemnym tle): kwadrat / kółko z jasną ramką,
@@ -464,7 +475,24 @@ func _selected_question_index() -> int:
 	return int(it.get_metadata(0)) if it else -1
 
 
+## Nazwa wybranego zestawu nad listą pytań i liczba pytań (w tym używanych w grze).
+func _update_set_header() -> void:
+	if _set.is_empty():
+		_set_name.text = I18nService.t("host.question_editor.no_set")
+		_set_count.text = ""
+		return
+	_set_name.text = str(_set.get("name", _set_id))
+	var questions: Array = _set.get("questions", [])
+	var sel := QuestionBank.load_selection()
+	var on := 0
+	for q in questions:
+		if QuestionBank.is_question_enabled(_set_id, str(q.get("id", "")), sel):
+			on += 1
+	_set_count.text = I18nService.tf("host.question_editor.set_count", {"count": questions.size(), "on": on})
+
+
 func _update_buttons() -> void:
+	_update_set_header()
 	var has_set := not _set.is_empty()
 	var has_q := _selected_question_index() >= 0
 	_btn_add.disabled = not has_set
@@ -628,6 +656,7 @@ func _build_form(t: String, q: Dictionary) -> void:
 			for i in range(answers.size()):
 				_add_answer_row(str(answers[i]), i == int(q.get("correct_index", 0)))
 			var add := Button.new()
+			add.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			add.text = I18nService.t("host.question_editor.btn_add_answer")
 			add.pressed.connect(func() -> void:
 				if box.get_child_count() < MAX_ANSWERS:
@@ -695,6 +724,7 @@ func _build_form(t: String, q: Dictionary) -> void:
 				var ri := int(p.get("right_index", -1))
 				_add_pair_row(str(left[li]) if li >= 0 and li < left.size() else "", str(right[ri]) if ri >= 0 and ri < right.size() else "")
 			var add := Button.new()
+			add.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			add.text = I18nService.t("host.question_editor.btn_add_pair")
 			add.pressed.connect(func() -> void:
 				if pairs_box.get_child_count() < MAX_PAIRS:
@@ -714,6 +744,7 @@ func _add_answer_row(text: String, correct: bool) -> void:
 	le.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	le.placeholder_text = I18nService.t("host.question_editor.placeholder_answer")
 	var del := Button.new()
+	del.theme_type_variation = &"GhostButton"
 	del.text = "✕"
 	del.tooltip_text = I18nService.t("host.question_editor.tooltip_delete_answer")
 	del.pressed.connect(func() -> void:
@@ -740,6 +771,7 @@ func _add_pair_row(left: String, right: String) -> void:
 	r.placeholder_text = I18nService.t("host.question_editor.placeholder_right")
 	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var del := Button.new()
+	del.theme_type_variation = &"GhostButton"
 	del.text = "✕"
 	del.pressed.connect(func() -> void:
 		if box.get_child_count() > 2:
