@@ -7,6 +7,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 ## [Unreleased]
 
 ### Naprawiono
+- Cień Mgły: przez szafy w ściekach nie da się już przejść.
 - Cień Mgły: przedmiot użyty w walce (np. mikstura) działa na początku rundy — przed ruchami wrogów, a nie w kolejce wg zręczności.
 
 ### Zmieniono
