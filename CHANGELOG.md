@@ -16,6 +16,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Cień Mgły: dalej przejdziesz dopiero po pokonaniu strażnika mapy — drzwi z kłódką na polanie, zasypane wyjście z jaskiń (Stary Grzyb), krata do ścieków otwiera się po pokonaniu Matki Nietoperzy.
 - Cień Mgły: cel główny podaje poziom bossa, którego trzeba pokonać, i ma osobny krok dla strażnika wyjścia z jaskiń.
 - Cień Mgły: poziomy wrogów — na polanie szlamy Lv 1, zielony szlam Lv 3 i boss Lv 5; w jaskiniach najsłabsi wrogowie mają Lv 3–4 (zamiast Lv 1).
+- Pytania „Połącz w pary” i z lukami: wybierasz kartę z jednej strony (albo lukę / słowo), a potem tylko z przeciwnej — klawiaturą kursor sam tam przechodzi; wyraźna żółta ramka kursora; Backspace / Delete anuluje wybór albo rozłącza parę / opróżnia lukę; po wstawieniu słowa kursor nie skacze na „Zatwierdź”, póki są puste luki.
 
 ## [0.9.14-beta] — 2026-11-05
 
