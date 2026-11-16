@@ -302,6 +302,54 @@ content_margin_right = 6.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.115, 0.16, 1)
 
+[sub_resource type="StyleBoxFlat" id="row_normal"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 6.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0)
+border_width_bottom = 1
+border_color = Color(0.12, 0.14, 0.19, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="row_hover"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 6.0
+content_margin_bottom = 5.0
+bg_color = Color(0.11, 0.13, 0.19, 1)
+border_width_bottom = 1
+border_color = Color(0.12, 0.14, 0.19, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="row_selected"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 6.0
+content_margin_bottom = 5.0
+bg_color = Color(0.15, 0.3, 0.5, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="chip"]
+content_margin_left = 10.0
+content_margin_top = 1.0
+content_margin_right = 10.0
+content_margin_bottom = 1.0
+bg_color = Color(0.13, 0.15, 0.21, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [resource]
 default_font_size = 18
 AccentButton/base_type = &"Button"
@@ -333,6 +381,12 @@ CheckBox/styles/hover = SubResource("ghost_hover")
 CheckBox/styles/hover_pressed = SubResource("ghost_hover")
 CheckBox/styles/normal = SubResource("empty")
 CheckBox/styles/pressed = SubResource("empty")
+CheckButton/styles/disabled = SubResource("empty")
+CheckButton/styles/focus = SubResource("empty")
+CheckButton/styles/hover = SubResource("empty")
+CheckButton/styles/hover_pressed = SubResource("empty")
+CheckButton/styles/normal = SubResource("empty")
+CheckButton/styles/pressed = SubResource("empty")
 DangerButton/base_type = &"Button"
 DangerButton/colors/font_color = Color(1, 0.78, 0.78, 1)
 DangerButton/colors/font_hover_color = Color(1, 0.88, 0.88, 1)
@@ -373,3 +427,11 @@ Tree/styles/selected_focus = SubResource("tree_selected_focus")
 Tree/styles/title_button_hover = SubResource("tree_title")
 Tree/styles/title_button_normal = SubResource("tree_title")
 Tree/styles/title_button_pressed = SubResource("tree_title")
+Chip/base_type = &"PanelContainer"
+Chip/styles/panel = SubResource("chip")
+ListRow/base_type = &"PanelContainer"
+ListRow/styles/panel = SubResource("row_normal")
+ListRowHover/base_type = &"PanelContainer"
+ListRowHover/styles/panel = SubResource("row_hover")
+ListRowSelected/base_type = &"PanelContainer"
+ListRowSelected/styles/panel = SubResource("row_selected")

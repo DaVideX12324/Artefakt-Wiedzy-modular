@@ -12,7 +12,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Cień Mgły: przedmiot użyty w walce (np. mikstura) działa na początku rundy — przed ruchami wrogów, a nie w kolejce wg zręczności.
 
 ### Zmieniono
-- Edytor pytań czytelniejszy: przyciski z wyraźnym tłem (główna akcja niebieska, usuwanie czerwone), akcje zestawów podzielone na „nowy / import” i „wybrany zestaw”, nad listą pytań nazwa zestawu i liczba pytań w grze, większe okno pytania, „← Wróć” zamiast „Zamknij”.
+- Edytor pytań w nowym, prostszym układzie: najpierw lista zestawów (przełącznik „w grze”, „Importuj…”, „+ Nowy zestaw”), po kliknięciu zestawu — jego pytania (szukaj, filtr typu, przełącznik „w grze”, typ i trudność ●○ przy pytaniu). Rzadsze akcje w menu „⋯” (zestaw: zmiana nazwy, eksport, włącz / wyłącz wszystkie, usuń; pytanie: edytuj, duplikuj, usuń), dwuklik otwiera edycję, Esc wraca. Wyraźne przyciski i większe okno pytania.
 - Cień Mgły: boss z celu głównego jest od razu widoczny na minimapie (duży czerwony znacznik), a cel mówi, gdzie go szukać — „(znacznik na mapie)” albo nazwa mapy, gdy boss został na innej.
 - BitBomber: w wyborze zestawu pytań widać nazwę zestawu zamiast nazwy pliku.
 - Cień Mgły: skrzynię strzeżoną przez strażnika w ukrytej komnacie jaskini otwiera tylko klucz (zostawia go strażnik) — wytrych nie działa.

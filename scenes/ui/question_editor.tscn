@@ -33,207 +33,157 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 14
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 16
 
 [node name="VBox" type="VBoxContainer" parent="Root/Margin"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Header" type="HBoxContainer" parent="Root/Margin/VBox"]
+[node name="SetsPage" type="VBoxContainer" parent="Root/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Root/Margin/VBox/SetsPage"]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="BtnClose" type="Button" parent="Root/Margin/VBox/Header"]
+[node name="BtnClose" type="Button" parent="Root/Margin/VBox/SetsPage/Header"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_type_variation = &"GhostButton"
 text = "← Wróć"
 
-[node name="TitleBox" type="VBoxContainer" parent="Root/Margin/VBox/Header"]
+[node name="TitleBox" type="VBoxContainer" parent="Root/Margin/VBox/SetsPage/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Title" type="Label" parent="Root/Margin/VBox/Header/TitleBox"]
+[node name="Title" type="Label" parent="Root/Margin/VBox/SetsPage/Header/TitleBox"]
 layout_mode = 2
 theme_type_variation = &"SectionTitle"
 text = "Pytania"
 
-[node name="Subtitle" type="Label" parent="Root/Margin/VBox/Header/TitleBox"]
+[node name="Subtitle" type="Label" parent="Root/Margin/VBox/SetsPage/Header/TitleBox"]
 layout_mode = 2
 theme_type_variation = &"HintLabel"
-text = "Twórz zestawy pytań i wybieraj, które pytania trafiają do gier."
+text = "Wybierz zestaw, żeby zobaczyć i edytować jego pytania. Przełącznik = zestaw używany w grach."
 text_overrun_behavior = 3
 
-[node name="Body" type="HSplitContainer" parent="Root/Margin/VBox"]
+[node name="BtnImport" type="MenuButton" parent="Root/Margin/VBox/SetsPage/Header"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 4
+text = "Importuj…"
+flat = false
 
-[node name="SetsCard" type="PanelContainer" parent="Root/Margin/VBox/Body"]
-custom_minimum_size = Vector2(470, 0)
+[node name="BtnNewSet" type="Button" parent="Root/Margin/VBox/SetsPage/Header"]
 layout_mode = 2
-theme_type_variation = &"Card"
-
-[node name="SetsBox" type="VBoxContainer" parent="Root/Margin/VBox/Body/SetsCard"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="LblSets" type="Label" parent="Root/Margin/VBox/Body/SetsCard/SetsBox"]
-layout_mode = 2
-text = "Zestawy"
-
-[node name="LblSetsHint" type="Label" parent="Root/Margin/VBox/Body/SetsCard/SetsBox"]
-layout_mode = 2
-theme_type_variation = &"HintLabel"
-text = "Zaznaczone zestawy są używane w grach."
-autowrap_mode = 3
-
-[node name="SetsTree" type="Tree" parent="Root/Margin/VBox/Body/SetsCard/SetsBox"]
-auto_translate_mode = 2
-layout_mode = 2
-size_flags_vertical = 3
-columns = 3
-column_titles_visible = true
-hide_root = true
-select_mode = 1
-
-[node name="BtnNewSet" type="Button" parent="Root/Margin/VBox/Body/SetsCard/SetsBox"]
-layout_mode = 2
+size_flags_vertical = 4
 theme_type_variation = &"AccentButton"
 text = "+ Nowy zestaw"
 
-[node name="ImportRow" type="HBoxContainer" parent="Root/Margin/VBox/Body/SetsCard/SetsBox"]
+[node name="SetsCard" type="PanelContainer" parent="Root/Margin/VBox/SetsPage"]
 layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="BtnImport" type="Button" parent="Root/Margin/VBox/Body/SetsCard/SetsBox/ImportRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Importuj JSON"
-
-[node name="BtnTemplate" type="Button" parent="Root/Margin/VBox/Body/SetsCard/SetsBox/ImportRow"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Szablon JSON"
-
-[node name="SepSelected" type="HSeparator" parent="Root/Margin/VBox/Body/SetsCard/SetsBox"]
-layout_mode = 2
-
-[node name="LblSelected" type="Label" parent="Root/Margin/VBox/Body/SetsCard/SetsBox"]
-layout_mode = 2
-theme_type_variation = &"HintLabel"
-text = "Wybrany zestaw:"
-
-[node name="SetButtons" type="HBoxContainer" parent="Root/Margin/VBox/Body/SetsCard/SetsBox"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="BtnRename" type="Button" parent="Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Zmień nazwę"
-
-[node name="BtnExport" type="Button" parent="Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Eksportuj"
-
-[node name="BtnDeleteSet" type="Button" parent="Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"DangerButton"
-text = "Usuń zestaw"
-
-[node name="QuestionsCard" type="PanelContainer" parent="Root/Margin/VBox/Body"]
-layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_type_variation = &"Card"
 
-[node name="QuestionsBox" type="VBoxContainer" parent="Root/Margin/VBox/Body/QuestionsCard"]
+[node name="Scroll" type="ScrollContainer" parent="Root/Margin/VBox/SetsPage/SetsCard"]
 layout_mode = 2
-theme_override_constants/separation = 8
+horizontal_scroll_mode = 0
 
-[node name="SetHeader" type="HBoxContainer" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="SetName" type="Label" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/SetHeader"]
-auto_translate_mode = 2
+[node name="SetsList" type="VBoxContainer" parent="Root/Margin/VBox/SetsPage/SetsCard/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="QuestionsPage" type="VBoxContainer" parent="Root/Margin/VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="Header" type="HBoxContainer" parent="Root/Margin/VBox/QuestionsPage"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BtnBack" type="Button" parent="Root/Margin/VBox/QuestionsPage/Header"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"GhostButton"
+text = "← Zestawy"
+
+[node name="TitleBox" type="VBoxContainer" parent="Root/Margin/VBox/QuestionsPage/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="SetName" type="Label" parent="Root/Margin/VBox/QuestionsPage/Header/TitleBox"]
+auto_translate_mode = 2
+layout_mode = 2
+theme_type_variation = &"SectionTitle"
 text = "Zestaw"
 text_overrun_behavior = 3
 
-[node name="SetCount" type="Label" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/SetHeader"]
+[node name="SetCount" type="Label" parent="Root/Margin/VBox/QuestionsPage/Header/TitleBox"]
 auto_translate_mode = 2
 layout_mode = 2
-size_flags_vertical = 8
 theme_type_variation = &"HintLabel"
 
-[node name="Filters" type="HBoxContainer" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox"]
+[node name="SetMenu" type="MenuButton" parent="Root/Margin/VBox/QuestionsPage/Header"]
+custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
-theme_override_constants/separation = 8
+size_flags_vertical = 4
+tooltip_text = "Zestaw: zmień nazwę, eksportuj, włącz / wyłącz pytania, usuń"
+theme_type_variation = &"GhostButton"
+text = "⋯"
 
-[node name="Search" type="LineEdit" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/Filters"]
+[node name="BtnAdd" type="Button" parent="Root/Margin/VBox/QuestionsPage/Header"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"AccentButton"
+text = "+ Dodaj pytanie"
+
+[node name="Filters" type="HBoxContainer" parent="Root/Margin/VBox/QuestionsPage"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Search" type="LineEdit" parent="Root/Margin/VBox/QuestionsPage/Filters"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Szukaj w treści i kategorii…"
 clear_button_enabled = true
 
-[node name="TypeFilter" type="OptionButton" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/Filters"]
+[node name="TypeFilter" type="OptionButton" parent="Root/Margin/VBox/QuestionsPage/Filters"]
 custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 
-[node name="QuestionsTree" type="Tree" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox"]
-auto_translate_mode = 2
+[node name="QuestionsCard" type="PanelContainer" parent="Root/Margin/VBox/QuestionsPage"]
 layout_mode = 2
 size_flags_vertical = 3
-columns = 5
-column_titles_visible = true
-hide_root = true
-select_mode = 1
+theme_type_variation = &"Card"
 
-[node name="QButtons" type="HBoxContainer" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox"]
+[node name="Scroll" type="ScrollContainer" parent="Root/Margin/VBox/QuestionsPage/QuestionsCard"]
 layout_mode = 2
-theme_override_constants/separation = 8
+horizontal_scroll_mode = 0
 
-[node name="BtnAdd" type="Button" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons"]
-layout_mode = 2
-theme_type_variation = &"AccentButton"
-text = "+ Dodaj pytanie"
-
-[node name="BtnEdit" type="Button" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons"]
-layout_mode = 2
-text = "Edytuj"
-
-[node name="BtnDuplicate" type="Button" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons"]
-layout_mode = 2
-text = "Duplikuj"
-
-[node name="BtnDelete" type="Button" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons"]
-layout_mode = 2
-theme_type_variation = &"DangerButton"
-text = "Usuń"
-
-[node name="Spacer" type="Control" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons"]
+[node name="QuestionsList" type="VBoxContainer" parent="Root/Margin/VBox/QuestionsPage/QuestionsCard/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 2
 
-[node name="BtnAllOn" type="Button" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons"]
+[node name="Empty" type="Label" parent="Root/Margin/VBox/QuestionsPage/QuestionsCard/Scroll/QuestionsList"]
+visible = false
 layout_mode = 2
-theme_type_variation = &"GhostButton"
-text = "Włącz wszystkie"
-
-[node name="BtnAllOff" type="Button" parent="Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons"]
-layout_mode = 2
-theme_type_variation = &"GhostButton"
-text = "Wyłącz wszystkie"
+theme_type_variation = &"HintLabel"
+text = "Brak pytań — dodaj pierwsze przyciskiem „+ Dodaj pytanie”."
+horizontal_alignment = 1
 
 [node name="Status" type="Label" parent="Root/Margin/VBox"]
 layout_mode = 2
+theme_type_variation = &"HintLabel"
 theme_override_colors/font_color = Color(0.6, 0.85, 0.6, 1)
 text = "Przeciągnij plik .json na okno, żeby go zaimportować."
 autowrap_mode = 3

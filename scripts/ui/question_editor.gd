@@ -1,35 +1,34 @@
 extends CanvasLayer
 
-## Edytor pytań (menu główne -> Pytania): zestawy (nowy, import JSON, eksport, zmiana nazwy, usunięcie /
-## przywrócenie oryginału), pytania (dodaj, edytuj, duplikuj, usuń, włącz / wyłącz w grze) — 5 typów.
-## Dane: QuestionBank (user://quizzes, user://quiz_selection.json); po każdej zmianie
-## QuizService.reload_all(), więc gra od razu używa nowych pytań.
+## Edytor pytań (menu główne -> Pytania), dwa ekrany: lista zestawów (przełącznik „w grze”, import, nowy zestaw) i pytania
+## wybranego zestawu (szukaj / filtr typu, przełącznik „w grze”, menu „⋯” przy pytaniu i zestawu, dwuklik = edycja).
+## Wiersze: sceny question_editor_set_row / question_editor_question_row; wygląd: resources/ui/question_editor_theme.tres.
+## Dane: QuestionBank (user://quizzes, user://quiz_selection.json); po każdej zmianie QuizService.reload_all(), więc gra
+## od razu używa nowych pytań.
 
 signal closed
 
+const SetRowScene = preload("res://scenes/ui/question_editor_set_row.tscn")
+const QuestionRowScene = preload("res://scenes/ui/question_editor_question_row.tscn")
+
 @onready var _root: Control = $Root
-@onready var _title: Label = $Root/Margin/VBox/Header/TitleBox/Title
-@onready var _btn_close: Button = $Root/Margin/VBox/Header/BtnClose
-@onready var _sets_card: Control = $Root/Margin/VBox/Body/SetsCard
-@onready var _lbl_sets: Label = $Root/Margin/VBox/Body/SetsCard/SetsBox/LblSets
-@onready var _sets_tree: Tree = $Root/Margin/VBox/Body/SetsCard/SetsBox/SetsTree
-@onready var _btn_new_set: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/BtnNewSet
-@onready var _btn_import: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/ImportRow/BtnImport
-@onready var _btn_template: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/ImportRow/BtnTemplate
-@onready var _btn_export: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons/BtnExport
-@onready var _btn_rename: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons/BtnRename
-@onready var _btn_delete_set: Button = $Root/Margin/VBox/Body/SetsCard/SetsBox/SetButtons/BtnDeleteSet
-@onready var _set_name: Label = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/SetHeader/SetName
-@onready var _set_count: Label = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/SetHeader/SetCount
-@onready var _search: LineEdit = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/Filters/Search
-@onready var _type_filter: OptionButton = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/Filters/TypeFilter
-@onready var _q_tree: Tree = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QuestionsTree
-@onready var _btn_add: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnAdd
-@onready var _btn_edit: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnEdit
-@onready var _btn_duplicate: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnDuplicate
-@onready var _btn_delete: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnDelete
-@onready var _btn_all_on: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnAllOn
-@onready var _btn_all_off: Button = $Root/Margin/VBox/Body/QuestionsCard/QuestionsBox/QButtons/BtnAllOff
+@onready var _sets_page: Control = $Root/Margin/VBox/SetsPage
+@onready var _title: Label = $Root/Margin/VBox/SetsPage/Header/TitleBox/Title
+@onready var _btn_close: Button = $Root/Margin/VBox/SetsPage/Header/BtnClose
+@onready var _btn_import: MenuButton = $Root/Margin/VBox/SetsPage/Header/BtnImport
+@onready var _btn_new_set: Button = $Root/Margin/VBox/SetsPage/Header/BtnNewSet
+@onready var _sets_list: VBoxContainer = $Root/Margin/VBox/SetsPage/SetsCard/Scroll/SetsList
+
+@onready var _questions_page: Control = $Root/Margin/VBox/QuestionsPage
+@onready var _btn_back: Button = $Root/Margin/VBox/QuestionsPage/Header/BtnBack
+@onready var _set_name: Label = $Root/Margin/VBox/QuestionsPage/Header/TitleBox/SetName
+@onready var _set_count: Label = $Root/Margin/VBox/QuestionsPage/Header/TitleBox/SetCount
+@onready var _set_menu: MenuButton = $Root/Margin/VBox/QuestionsPage/Header/SetMenu
+@onready var _btn_add: Button = $Root/Margin/VBox/QuestionsPage/Header/BtnAdd
+@onready var _search: LineEdit = $Root/Margin/VBox/QuestionsPage/Filters/Search
+@onready var _type_filter: OptionButton = $Root/Margin/VBox/QuestionsPage/Filters/TypeFilter
+@onready var _q_list: VBoxContainer = $Root/Margin/VBox/QuestionsPage/QuestionsCard/Scroll/QuestionsList
+@onready var _q_empty: Label = $Root/Margin/VBox/QuestionsPage/QuestionsCard/Scroll/QuestionsList/Empty
 @onready var _status: Label = $Root/Margin/VBox/Status
 
 @onready var _edit_dialog: Control = $Root/EditDialog
@@ -54,15 +53,21 @@ const MAX_ANSWERS := 6
 const MAX_PAIRS := 8
 const COLOR_OK := Color(0.6, 0.85, 0.6)
 const COLOR_ERR := Color(1.0, 0.5, 0.5)
+const ACCENT := Color(0.35, 0.72, 1.0)
 
-var _theme: Theme   # resources/ui/question_editor_theme.tres (Root.theme w scenie): warianty przycisków, karty, pola
+## Menu „Importuj…” i „⋯” zestawu / pytania (identyfikatory pozycji).
+enum ImportItem { FILE, TEMPLATE }
+enum SetItem { RENAME, EXPORT, ALL_ON, ALL_OFF, DELETE }
+enum QuestionItem { EDIT, DUPLICATE, DELETE }
+
+var _theme: Theme   # resources/ui/question_editor_theme.tres (Root.theme w scenie): warianty przycisków, karty, wiersze
 var _set_id := ""
 var _set: Dictionary = {}          # bieżący zestaw (kopia; zapis przez QuestionBank.save_set)
 var _edit_index := -1              # indeks edytowanego pytania w _set.questions, -1 = nowe
 var _edit_original: Dictionary = {}
 var _confirm_action: Callable
 var _name_action: Callable
-var _refreshing := false
+var _selected_question := -1       # podświetlony wiersz pytania (po edycji / duplikacji)
 
 # Pola formularza bieżącego typu (budowane w _build_form).
 var _f: Dictionary = {}
@@ -75,32 +80,20 @@ func _ready() -> void:
 	_apply_scale()
 	if UIScaleService.scale_changed.is_connected(_on_scale_changed) == false:
 		UIScaleService.scale_changed.connect(_on_scale_changed)
-	_setup_trees()
 	_update_type_dropdowns()
+	_update_menus()
 	_update_dialog_titles()
 	if not I18nService.language_changed.is_connected(_on_language_changed):
 		I18nService.language_changed.connect(_on_language_changed)
 	_btn_close.pressed.connect(close)
+	_btn_back.pressed.connect(_show_sets)
 	_btn_new_set.pressed.connect(_on_new_set)
-	_btn_import.pressed.connect(func() -> void: _import_dialog.popup_centered())
-	_btn_export.pressed.connect(_on_export)
-	_btn_template.pressed.connect(_on_template)
+	_btn_import.get_popup().id_pressed.connect(_on_import_menu)
+	_set_menu.get_popup().id_pressed.connect(_on_set_menu)
 	_export_dialog.canceled.connect(func() -> void: _saving_template = false)
-	_btn_rename.pressed.connect(_on_rename)
-	_btn_delete_set.pressed.connect(_on_delete_set)
 	_btn_add.pressed.connect(func() -> void: _open_edit(-1))
-	_btn_edit.pressed.connect(func() -> void: _open_edit(_selected_question_index()))
-	_btn_duplicate.pressed.connect(_on_duplicate)
-	_btn_delete.pressed.connect(_on_delete_question)
-	_btn_all_on.pressed.connect(func() -> void: _set_all_questions(true))
-	_btn_all_off.pressed.connect(func() -> void: _set_all_questions(false))
 	_search.text_changed.connect(func(_t: String) -> void: _refresh_questions())
 	_type_filter.item_selected.connect(func(_i: int) -> void: _refresh_questions())
-	_sets_tree.item_selected.connect(_on_set_selected)
-	_sets_tree.item_edited.connect(_on_set_edited)
-	_q_tree.item_edited.connect(_on_question_edited)
-	_q_tree.item_activated.connect(func() -> void: _open_edit(_selected_question_index()))
-	_q_tree.item_selected.connect(_update_buttons)
 	_import_dialog.file_selected.connect(_import_file)
 	_import_dialog.files_selected.connect(func(paths: PackedStringArray) -> void:
 		for p in paths:
@@ -125,7 +118,7 @@ func _ready() -> void:
 func open() -> void:
 	visible = true
 	_edit_dialog.visible = false
-	_refresh_sets(_set_id)
+	_show_sets()
 
 
 func close() -> void:
@@ -139,9 +132,28 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if _edit_dialog.visible:
 			_edit_dialog.visible = false
+		elif _questions_page.visible:
+			_show_sets()
 		else:
 			close()
 		get_viewport().set_input_as_handled()
+
+
+func _show_sets() -> void:
+	_questions_page.visible = false
+	_sets_page.visible = true
+	_refresh_sets()
+
+
+func _open_set(id: String) -> void:
+	_set_id = id
+	_set = QuestionBank.get_set(id)
+	_selected_question = -1
+	_search.text = ""
+	_type_filter.select(0)
+	_sets_page.visible = false
+	_questions_page.visible = true
+	_refresh_questions()
 
 
 # --- Wygląd ------------------------------------------------------------------------------------------
@@ -154,17 +166,16 @@ func _apply_scale() -> void:
 	_theme.default_font_size = UIScaleService.px(18)
 	_apply_check_icons(UIScaleService.px(18))
 	_title.add_theme_font_size_override("font_size", UIScaleService.px(30))
-	_lbl_sets.add_theme_font_size_override("font_size", UIScaleService.px(21))
-	_set_name.add_theme_font_size_override("font_size", UIScaleService.px(21))
+	_set_name.add_theme_font_size_override("font_size", UIScaleService.px(28))
 	_dlg_title.add_theme_font_size_override("font_size", UIScaleService.px(24))
-	_sets_card.custom_minimum_size.x = UIScaleService.px(470)
 	# okno pytania: duże, ale w granicach ekranu
 	var vp := _root.get_viewport_rect().size if _root.is_inside_tree() else Vector2(1920, 1080)
 	_dlg_panel.custom_minimum_size = Vector2(minf(UIScaleService.px(1000), vp.x * 0.94), minf(UIScaleService.px(700), vp.y * 0.92))
 
 
-## Wyraźne pola wyboru (domyślne niezaznaczone giną na ciemnym tle): kwadrat / kółko z jasną ramką,
-## zaznaczone — wypełnione kolorem akcentu.
+## Wyraźne pola wyboru (domyślne niezaznaczone giną na ciemnym tle): kwadrat / kółko z jasną ramką, zaznaczone —
+## wypełnione kolorem akcentu; przełącznik „w grze” (CheckButton): włączony — niebieski z gałką po prawej, wyłączony —
+## szara ramka z gałką po lewej.
 func _apply_check_icons(size: int) -> void:
 	var on := _check_icon(size, true, false)
 	var off := _check_icon(size, false, false)
@@ -175,12 +186,18 @@ func _apply_check_icons(size: int) -> void:
 		_theme.set_icon(&"unchecked", t, off)
 	_theme.set_icon(&"radio_checked", &"CheckBox", r_on)
 	_theme.set_icon(&"radio_unchecked", &"CheckBox", r_off)
+	var sw_on := _switch_icon(size, true)
+	var sw_off := _switch_icon(size, false)
+	for state in [&"checked", &"checked_disabled", &"checked_mirrored", &"checked_disabled_mirrored"]:
+		_theme.set_icon(state, &"CheckButton", sw_on)
+	for state in [&"unchecked", &"unchecked_disabled", &"unchecked_mirrored", &"unchecked_disabled_mirrored"]:
+		_theme.set_icon(state, &"CheckButton", sw_off)
 
 
 func _check_icon(size: int, checked: bool, round: bool) -> ImageTexture:
 	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
 	var border := Color(0.85, 0.87, 0.95)
-	var fill := Color(0.35, 0.75, 1.0)
+	var fill := ACCENT
 	var c := (size - 1) * 0.5
 	var b := maxf(1.5, size / 10.0)
 	for y in range(size):
@@ -202,14 +219,59 @@ func _check_icon(size: int, checked: bool, round: bool) -> ImageTexture:
 	return ImageTexture.create_from_image(img)
 
 
+## Przełącznik (pigułka 2:1 wysokości `size`): włączony — wypełniony akcentem, biała gałka po prawej; wyłączony — szare
+## tło z jaśniejszą ramką, szara gałka po lewej.
+func _switch_icon(size: int, on: bool) -> ImageTexture:
+	var h := size
+	var w := size * 2
+	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
+	var r := (h - 1) * 0.5
+	var b := maxf(1.5, h / 10.0)
+	var knob_x := (w - 1) - r if on else r
+	var bg := ACCENT if on else Color(0.16, 0.18, 0.24)
+	var border := ACCENT if on else Color(0.45, 0.5, 0.62)
+	var knob := Color.WHITE if on else Color(0.62, 0.66, 0.76)
+	for y in range(h):
+		for x in range(w):
+			var cx := clampf(x, r, (w - 1) - r)
+			var d := Vector2(x - cx, y - r).length()
+			var col := Color(0, 0, 0, 0)
+			if d <= r:
+				col = border if d > r - b else bg
+			if Vector2(x - knob_x, y - r).length() <= r - b * 2.0:
+				col = knob
+			img.set_pixel(x, y, col)
+	return ImageTexture.create_from_image(img)
+
+
 func _update_dialog_titles() -> void:
 	_import_dialog.title = I18nService.t("host.question_editor.import_dlg_title")
 	_export_dialog.title = I18nService.t("host.question_editor.export_dlg_title")
-	_btn_template.text = I18nService.t("host.question_editor.btn_template")
-	_btn_template.tooltip_text = I18nService.t("host.question_editor.template_tip")
 	_confirm_dialog.title = I18nService.t("host.question_editor.confirm_dlg_title")
 	_name_dialog.title = I18nService.t("host.question_editor.name_dlg_title")
 	_report_dialog.title = I18nService.t("host.question_editor.report_dlg_title")
+
+
+## Pozycje menu „Importuj…” i „⋯” zestawu (tekst z i18n; „Usuń zestaw” / „Przywróć oryginał” wg źródła zestawu).
+func _update_menus() -> void:
+	var imp := _btn_import.get_popup()
+	imp.clear()
+	imp.add_item(I18nService.t("host.question_editor.menu_import_file"), ImportItem.FILE)
+	imp.add_item(I18nService.t("host.question_editor.menu_template"), ImportItem.TEMPLATE)
+	imp.set_item_tooltip(imp.get_item_index(ImportItem.TEMPLATE), I18nService.t("host.question_editor.template_tip"))
+	var sm := _set_menu.get_popup()
+	sm.clear()
+	sm.add_item(I18nService.t("host.question_editor.btn_rename"), SetItem.RENAME)
+	sm.add_item(I18nService.t("host.question_editor.menu_export"), SetItem.EXPORT)
+	sm.add_separator()
+	sm.add_item(I18nService.t("host.question_editor.menu_all_on"), SetItem.ALL_ON)
+	sm.add_item(I18nService.t("host.question_editor.menu_all_off"), SetItem.ALL_OFF)
+	sm.add_separator()
+	var source := str(_set.get("source", ""))
+	sm.add_item(I18nService.t("host.question_editor.btn_revert_original") if source == "edited" else I18nService.t("host.question_editor.btn_delete_set"), SetItem.DELETE)
+	sm.set_item_disabled(sm.get_item_index(SetItem.DELETE), source == "builtin")
+	if source == "builtin":
+		sm.set_item_tooltip(sm.get_item_index(SetItem.DELETE), I18nService.t("host.question_editor.cannot_delete_builtin"))
 
 
 func _update_type_dropdowns() -> void:
@@ -230,32 +292,13 @@ func _update_type_dropdowns() -> void:
 
 
 func _on_language_changed(_lang: String) -> void:
-	_setup_trees()
 	_update_type_dropdowns()
+	_update_menus()
 	_update_dialog_titles()
-	_refresh_sets(_set_id)
-	_update_buttons()
-
-
-func _setup_trees() -> void:
-	_sets_tree.set_column_title(0, I18nService.t("host.question_editor.tree_in_game"))
-	_sets_tree.set_column_title(1, I18nService.t("host.question_editor.tree_set"))
-	_sets_tree.set_column_title(2, I18nService.t("host.question_editor.tree_questions"))
-	_sets_tree.set_column_expand(0, false)
-	_sets_tree.set_column_custom_minimum_width(0, UIScaleService.px(70))
-	_sets_tree.set_column_expand(2, false)
-	_sets_tree.set_column_custom_minimum_width(2, UIScaleService.px(70))
-	_q_tree.set_column_title(0, I18nService.t("host.question_editor.tree_in_game"))
-	_q_tree.set_column_title(1, I18nService.t("host.question_editor.tree_type"))
-	_q_tree.set_column_title(2, I18nService.t("host.question_editor.tree_content"))
-	_q_tree.set_column_title(3, I18nService.t("host.question_editor.tree_diff"))
-	_q_tree.set_column_title(4, I18nService.t("host.question_editor.tree_cat"))
-	for c in [0, 1, 3, 4]:
-		_q_tree.set_column_expand(c, false)
-	_q_tree.set_column_custom_minimum_width(0, UIScaleService.px(70))
-	_q_tree.set_column_custom_minimum_width(1, UIScaleService.px(190))
-	_q_tree.set_column_custom_minimum_width(3, UIScaleService.px(70))
-	_q_tree.set_column_custom_minimum_width(4, UIScaleService.px(160))
+	if _questions_page.visible:
+		_refresh_questions()
+	else:
+		_refresh_sets()
 
 
 func _say(text: String, ok: bool = true) -> void:
@@ -263,62 +306,80 @@ func _say(text: String, ok: bool = true) -> void:
 	_status.add_theme_color_override("font_color", COLOR_OK if ok else COLOR_ERR)
 
 
+## Rozmiary czcionek wiersza: wartości ze sceny wiersza (theme_override_font_sizes) przeskalowane jak reszta UI.
+func _scale_row(row: Control) -> void:
+	for l in row.find_children("*", "Label", true, false):
+		var label := l as Label
+		if label.has_theme_font_size_override("font_size"):
+			label.add_theme_font_size_override("font_size", UIScaleService.px(label.get_theme_font_size("font_size")))
+
+
+## Podświetlenie wiersza pod myszą (wariant motywu ListRowHover), zaznaczony — ListRowSelected.
+func _hook_row_hover(row: PanelContainer, selected: bool) -> void:
+	row.theme_type_variation = &"ListRowSelected" if selected else &"ListRow"
+	row.mouse_entered.connect(func() -> void:
+		if row.theme_type_variation != &"ListRowSelected":
+			row.theme_type_variation = &"ListRowHover")
+	row.mouse_exited.connect(func() -> void:
+		if row.theme_type_variation != &"ListRowSelected":
+			row.theme_type_variation = &"ListRow")
+
+
 # --- Zestawy -----------------------------------------------------------------------------------------
 
-func _refresh_sets(select_id: String = "") -> void:
-	_refreshing = true
-	_sets_tree.clear()
-	var root := _sets_tree.create_item()
+func _refresh_sets() -> void:
+	for c in _sets_list.get_children():
+		_sets_list.remove_child(c)
+		c.queue_free()
 	var sel := QuestionBank.load_selection()
-	var first: TreeItem = null
-	var to_select: TreeItem = null
 	for s in QuestionBank.list_sets():
-		var it := _sets_tree.create_item(root)
 		var id := str(s["id"])
-		it.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
-		it.set_editable(0, true)
-		it.set_checked(0, QuestionBank.is_set_enabled(id, sel))
-		var tag: String = {"builtin": "", "edited": "  " + I18nService.t("host.options.set_edited"), "user": "  " + I18nService.t("host.options.set_user")}.get(str(s["source"]), "")
-		it.set_text(1, str(s["name"]) + tag)
-		it.set_tooltip_text(1, "%s\nid: %s" % [str(s.get("description", "")), id])
-		it.set_text(2, str((s["questions"] as Array).size()))
-		it.set_metadata(0, id)
-		if first == null:
-			first = it
-		if id == select_id:
-			to_select = it
-	_refreshing = false
-	if to_select == null:
-		to_select = first
-	if to_select:
-		to_select.select(1)
-		_on_set_selected()
-	else:
-		_set_id = ""
-		_set = {}
-		_refresh_questions()
+		var row := SetRowScene.instantiate() as PanelContainer
+		_scale_row(row)
+		_sets_list.add_child(row)
+		var toggle := row.get_node("HBox/Toggle") as CheckButton
+		toggle.button_pressed = QuestionBank.is_set_enabled(id, sel)
+		toggle.tooltip_text = I18nService.t("host.question_editor.toggle_set_tip")
+		toggle.toggled.connect(func(on: bool) -> void: _on_set_toggled(id, str(s["name"]), on))
+		var name_label := row.get_node("HBox/Name") as Label
+		name_label.text = str(s["name"])
+		var tag: String = {"edited": I18nService.t("host.options.set_edited"), "user": I18nService.t("host.options.set_user")}.get(str(s["source"]), "")
+		(row.get_node("HBox/Tag") as Label).text = tag.strip_edges()
+		(row.get_node("HBox/Count") as Label).text = I18nService.tf("host.question_editor.count_short", {"count": (s["questions"] as Array).size()})
+		row.tooltip_text = "%s\nid: %s" % [str(s.get("description", "")), id] if str(s.get("description", "")) != "" else "id: " + id
+		_hook_row_hover(row, false)
+		row.gui_input.connect(func(e: InputEvent) -> void:
+			if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
+				_open_set(id))
 
 
-func _on_set_selected() -> void:
-	var it := _sets_tree.get_selected()
-	if it == null:
-		return
-	_set_id = str(it.get_metadata(0))
-	_set = QuestionBank.get_set(_set_id)
-	_refresh_questions()
-
-
-func _on_set_edited() -> void:
-	if _refreshing:
-		return
-	var it := _sets_tree.get_edited()
-	if it == null:
-		return
-	var id := str(it.get_metadata(0))
-	QuestionBank.set_set_enabled(id, it.is_checked(0))
+func _on_set_toggled(id: String, set_name: String, on: bool) -> void:
+	QuestionBank.set_set_enabled(id, on)
 	_reload_game()
-	var status_str: String = I18nService.t("host.question_editor.status_used") if it.is_checked(0) else I18nService.t("host.question_editor.status_unused")
-	_say(I18nService.tf("host.question_editor.set_status", {"name": it.get_text(1).strip_edges(), "status": status_str}))
+	var status_str: String = I18nService.t("host.question_editor.status_used") if on else I18nService.t("host.question_editor.status_unused")
+	_say(I18nService.tf("host.question_editor.set_status", {"name": set_name, "status": status_str}))
+
+
+func _on_import_menu(id: int) -> void:
+	match id:
+		ImportItem.FILE:
+			_import_dialog.popup_centered()
+		ImportItem.TEMPLATE:
+			_on_template()
+
+
+func _on_set_menu(id: int) -> void:
+	match id:
+		SetItem.RENAME:
+			_on_rename()
+		SetItem.EXPORT:
+			_on_export()
+		SetItem.ALL_ON:
+			_set_all_questions(true)
+		SetItem.ALL_OFF:
+			_set_all_questions(false)
+		SetItem.DELETE:
+			_on_delete_set()
 
 
 func _on_new_set() -> void:
@@ -328,7 +389,7 @@ func _on_new_set() -> void:
 		var id := QuestionBank.new_set_id(name)
 		QuestionBank.save_set(id, {"name": name, "description": "", "questions": []})
 		_reload_game()
-		_refresh_sets(id)
+		_open_set(id)
 		_say(I18nService.tf("host.question_editor.set_created", {"name": name})))
 
 
@@ -359,7 +420,12 @@ func _on_delete_set() -> void:
 		if source == "user":
 			QuestionBank.forget_set(id)
 		_reload_game()
-		_refresh_sets(id if source == "edited" else "")
+		if source == "edited":
+			_open_set(id)
+		else:
+			_set_id = ""
+			_set = {}
+			_show_sets()
 		_say(I18nService.tf("host.question_editor.reverted", {"name": name}) if source == "edited" else I18nService.tf("host.question_editor.deleted", {"name": name})))
 
 
@@ -413,7 +479,7 @@ func _import_file(path: String) -> void:
 		_report(I18nService.t("host.question_editor.import_failed_title"), "%s\n\n%s" % [path.get_file(), r["error"]] + _skipped_text(r["skipped"]))
 		return
 	_reload_game()
-	_refresh_sets(str(r["id"]))
+	_open_set(str(r["id"]))
 	var skipped: Array = r["skipped"]
 	var skipped_str := I18nService.tf("host.question_editor.skipped_part", {"count": skipped.size()}) if not skipped.is_empty() else ""
 	_say(I18nService.tf("host.question_editor.imported_status", {"name": r["name"], "count": r["imported"], "skipped": skipped_str}))
@@ -434,49 +500,9 @@ func _skipped_text(skipped: Array) -> String:
 
 # --- Pytania -----------------------------------------------------------------------------------------
 
-func _refresh_questions(select_index: int = -1) -> void:
-	_refreshing = true
-	_q_tree.clear()
-	var root := _q_tree.create_item()
-	if _set.is_empty():
-		_refreshing = false
-		_update_buttons()
-		return
-	var sel := QuestionBank.load_selection()
-	var needle := _search.text.strip_edges().to_lower()
-	var type_idx := _type_filter.get_selected_id()
-	var questions: Array = _set["questions"]
-	for i in range(questions.size()):
-		var q: Dictionary = questions[i]
-		var t := str(q.get("type", "multiple_choice"))
-		if type_idx > 0 and QuestionBank.TYPES[type_idx - 1] != t:
-			continue
-		var text := QuestionBank.question_text(q)
-		if needle != "" and not (text.to_lower().contains(needle) or str(q.get("category", "")).to_lower().contains(needle)):
-			continue
-		var it := _q_tree.create_item(root)
-		it.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
-		it.set_editable(0, true)
-		it.set_checked(0, QuestionBank.is_question_enabled(_set_id, str(q.get("id", "")), sel))
-		it.set_text(1, QuestionBank.get_type_name(t))
-		it.set_text(2, text.replace("\n", " "))
-		it.set_tooltip_text(2, text)
-		it.set_text(3, str(int(q.get("difficulty", 1))))
-		it.set_text(4, str(q.get("category", "")))
-		it.set_metadata(0, i)
-		if i == select_index:
-			it.select(2)
-	_refreshing = false
-	_update_buttons()
-
-
-func _selected_question_index() -> int:
-	var it := _q_tree.get_selected()
-	return int(it.get_metadata(0)) if it else -1
-
-
-## Nazwa wybranego zestawu nad listą pytań i liczba pytań (w tym używanych w grze).
+## Nazwa zestawu w nagłówku ekranu pytań i liczba pytań (w tym używanych w grze).
 func _update_set_header() -> void:
+	_btn_add.disabled = _set.is_empty()
 	if _set.is_empty():
 		_set_name.text = I18nService.t("host.question_editor.no_set")
 		_set_count.text = ""
@@ -491,74 +517,137 @@ func _update_set_header() -> void:
 	_set_count.text = I18nService.tf("host.question_editor.set_count", {"count": questions.size(), "on": on})
 
 
-func _update_buttons() -> void:
+## Wiersze pytań wg szukanego tekstu i filtra typu: przełącznik „w grze”, treść, typ, trudność (●○), menu „⋯”.
+## Klik zaznacza wiersz, dwuklik otwiera edycję.
+func _refresh_questions() -> void:
 	_update_set_header()
-	var has_set := not _set.is_empty()
-	var has_q := _selected_question_index() >= 0
-	_btn_add.disabled = not has_set
-	_btn_edit.disabled = not has_q
-	_btn_duplicate.disabled = not has_q
-	_btn_delete.disabled = not has_q
-	_btn_all_on.disabled = not has_set
-	_btn_all_off.disabled = not has_set
-	_btn_export.disabled = not has_set
-	_btn_rename.disabled = not has_set
-	var source := str(_set.get("source", ""))
-	_btn_delete_set.disabled = not has_set or source == "builtin"
-	_btn_delete_set.text = I18nService.t("host.question_editor.btn_revert_original") if source == "edited" else I18nService.t("host.question_editor.btn_delete_set")
+	_update_menus()
+	for c in _q_list.get_children():
+		if c != _q_empty:
+			_q_list.remove_child(c)
+			c.queue_free()
+	var questions: Array = _set.get("questions", [])
+	var sel := QuestionBank.load_selection()
+	var needle := _search.text.strip_edges().to_lower()
+	var type_idx := _type_filter.get_selected_id()
+	var selected_row: Control = null
+	var shown := 0
+	for i in range(questions.size()):
+		var q: Dictionary = questions[i]
+		var t := str(q.get("type", "multiple_choice"))
+		if type_idx > 0 and QuestionBank.TYPES[type_idx - 1] != t:
+			continue
+		var text := QuestionBank.question_text(q)
+		if needle != "" and not (text.to_lower().contains(needle) or str(q.get("category", "")).to_lower().contains(needle)):
+			continue
+		shown += 1
+		var index := i
+		var qid := str(q.get("id", ""))
+		var row := QuestionRowScene.instantiate() as PanelContainer
+		row.set_meta(&"index", i)
+		_scale_row(row)
+		_q_list.add_child(row)
+		var toggle := row.get_node("HBox/Toggle") as CheckButton
+		toggle.button_pressed = QuestionBank.is_question_enabled(_set_id, qid, sel)
+		toggle.tooltip_text = I18nService.t("host.question_editor.toggle_question_tip")
+		toggle.toggled.connect(func(on: bool) -> void: _on_question_toggled(qid, on))
+		var text_label := row.get_node("HBox/Text") as Label
+		text_label.text = text.replace("\n", " ")
+		var category := str(q.get("category", ""))
+		text_label.tooltip_text = text + ("\n\n" + I18nService.t("host.question_editor.lbl_category") + " " + category if category != "" else "")
+		(row.get_node("HBox/Chip/Type") as Label).text = QuestionBank.get_type_name(t)
+		var diff := clampi(int(q.get("difficulty", 1)), 1, 5)
+		var diff_label := row.get_node("HBox/Diff") as Label
+		diff_label.text = "●".repeat(diff) + "○".repeat(5 - diff)
+		diff_label.tooltip_text = I18nService.t("host.question_editor.lbl_diff") + " %d / 5" % diff
+		var menu := (row.get_node("HBox/Menu") as MenuButton).get_popup()
+		menu.add_item(I18nService.t("host.question_editor.btn_edit"), QuestionItem.EDIT)
+		menu.add_item(I18nService.t("host.question_editor.btn_duplicate"), QuestionItem.DUPLICATE)
+		menu.add_separator()
+		menu.add_item(I18nService.t("host.question_editor.btn_delete"), QuestionItem.DELETE)
+		menu.id_pressed.connect(func(item: int) -> void: _on_question_menu(index, item))
+		_hook_row_hover(row, i == _selected_question)
+		if i == _selected_question:
+			selected_row = row
+		row.gui_input.connect(func(e: InputEvent) -> void:
+			if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
+				if e.double_click:
+					_open_edit(index)
+				else:
+					_select_question(index))
+	_q_list.move_child(_q_empty, _q_list.get_child_count() - 1)
+	_q_empty.visible = shown == 0
+	_q_empty.text = I18nService.t("host.question_editor.empty_set") if questions.is_empty() else I18nService.t("host.question_editor.empty_filter")
+	if selected_row:
+		(_q_list.get_parent() as ScrollContainer).ensure_control_visible.call_deferred(selected_row)
 
 
-func _on_question_edited() -> void:
-	if _refreshing:
-		return
-	var it := _q_tree.get_edited()
-	if it == null:
-		return
-	var q: Dictionary = (_set["questions"] as Array)[int(it.get_metadata(0))]
-	QuestionBank.set_question_enabled(_set_id, str(q.get("id", "")), it.is_checked(0))
+## Zaznaczenie wiersza (bez przebudowy listy): wiersz `index` — ListRowSelected, pozostałe — ListRow.
+func _select_question(index: int) -> void:
+	_selected_question = index
+	var questions: Array = _set.get("questions", [])
+	for row in _q_list.get_children():
+		if row != _q_empty:
+			row.theme_type_variation = &"ListRowSelected" if int(row.get_meta(&"index", -1)) == index else &"ListRow"
+	if index >= 0 and index < questions.size():
+		_say(QuestionBank.question_text(questions[index]).left(120).replace("\n", " "))
+
+
+func _on_question_toggled(question_id: String, on: bool) -> void:
+	QuestionBank.set_question_enabled(_set_id, question_id, on)
 	_reload_game()
+	_update_set_header()
+
+
+func _on_question_menu(index: int, item: int) -> void:
+	match item:
+		QuestionItem.EDIT:
+			_open_edit(index)
+		QuestionItem.DUPLICATE:
+			_on_duplicate(index)
+		QuestionItem.DELETE:
+			_on_delete_question(index)
 
 
 func _set_all_questions(enabled: bool) -> void:
 	for q in _set.get("questions", []):
 		QuestionBank.set_question_enabled(_set_id, str(q.get("id", "")), enabled)
 	_reload_game()
-	_refresh_questions(_selected_question_index())
+	_refresh_questions()
 	var status_str: String = I18nService.t("host.question_editor.enabled") if enabled else I18nService.t("host.question_editor.disabled")
 	_say(I18nService.tf("host.question_editor.all_questions_status", {"status": status_str}))
 
 
-func _on_duplicate() -> void:
-	var i := _selected_question_index()
-	if i < 0:
-		return
+func _on_duplicate(i: int) -> void:
 	var questions: Array = _set["questions"]
+	if i < 0 or i >= questions.size():
+		return
 	var copy: Dictionary = (questions[i] as Dictionary).duplicate(true)
 	copy["id"] = QuestionBank.next_question_id(questions, str(copy.get("type", "multiple_choice")))
 	questions.insert(i + 1, copy)
 	_save_current(I18nService.t("host.question_editor.duplicated_q"), i + 1)
 
 
-func _on_delete_question() -> void:
-	var i := _selected_question_index()
-	if i < 0:
+func _on_delete_question(i: int) -> void:
+	var questions: Array = _set["questions"]
+	if i < 0 or i >= questions.size():
 		return
-	var q: Dictionary = (_set["questions"] as Array)[i]
+	var q: Dictionary = questions[i]
 	_ask_confirm(I18nService.tf("host.question_editor.confirm_delete_q", {"text": QuestionBank.question_text(q).left(80)}), func() -> void:
 		(_set["questions"] as Array).remove_at(i)
 		QuestionBank.set_question_enabled(_set_id, str(q.get("id", "")), true)  # porządek w wyborze
 		_save_current(I18nService.t("host.question_editor.deleted_q"), mini(i, (_set["questions"] as Array).size() - 1)))
 
 
-## Zapis bieżącego zestawu (wbudowany -> wersja edytowana w user://) i odświeżenie gry oraz list.
+## Zapis bieżącego zestawu (wbudowany -> wersja edytowana w user://), odświeżenie gry i listy pytań.
 func _save_current(message: String, select_question: int = -1) -> void:
 	if not QuestionBank.save_set(_set_id, _set):
 		_say(I18nService.t("host.question_editor.save_set_failed"), false)
 		return
 	_reload_game()
-	var keep := _set_id
-	_refresh_sets(keep)
-	_refresh_questions(select_question)
+	_set = QuestionBank.get_set(_set_id)   # źródło mogło się zmienić (wbudowany -> edytowany)
+	_selected_question = select_question
+	_refresh_questions()
 	_say(message)
 
 
