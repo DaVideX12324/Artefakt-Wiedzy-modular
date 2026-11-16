@@ -8,6 +8,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ### Naprawiono
 - Cień Mgły: przez szafy w ściekach nie da się już przejść.
+- Cień Mgły: w mieście nie da się już przejść „przez” krzak przy drzwiach domu obok wejścia do jaskini.
 - Cień Mgły: przedmiot użyty w walce (np. mikstura) działa na początku rundy — przed ruchami wrogów, a nie w kolejce wg zręczności.
 
 ### Zmieniono
