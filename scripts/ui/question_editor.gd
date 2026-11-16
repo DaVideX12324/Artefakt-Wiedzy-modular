@@ -163,14 +163,14 @@ func _on_scale_changed(_s: float) -> void:
 
 
 func _apply_scale() -> void:
-	_theme.default_font_size = UIScaleService.px(18)
-	_apply_check_icons(UIScaleService.px(18))
-	_title.add_theme_font_size_override("font_size", UIScaleService.px(30))
-	_set_name.add_theme_font_size_override("font_size", UIScaleService.px(28))
-	_dlg_title.add_theme_font_size_override("font_size", UIScaleService.px(24))
+	_theme.default_font_size = UIScaleService.px(22)
+	_apply_check_icons(UIScaleService.px(22))
+	_title.add_theme_font_size_override("font_size", UIScaleService.px(36))
+	_set_name.add_theme_font_size_override("font_size", UIScaleService.px(34))
+	_dlg_title.add_theme_font_size_override("font_size", UIScaleService.px(28))
 	# okno pytania: duże, ale w granicach ekranu
 	var vp := _root.get_viewport_rect().size if _root.is_inside_tree() else Vector2(1920, 1080)
-	_dlg_panel.custom_minimum_size = Vector2(minf(UIScaleService.px(1000), vp.x * 0.94), minf(UIScaleService.px(700), vp.y * 0.92))
+	_dlg_panel.custom_minimum_size = Vector2(minf(UIScaleService.px(1150), vp.x * 0.94), minf(UIScaleService.px(780), vp.y * 0.92))
 
 
 ## Wyraźne pola wyboru (domyślne niezaznaczone giną na ciemnym tle): kwadrat / kółko z jasną ramką, zaznaczone —

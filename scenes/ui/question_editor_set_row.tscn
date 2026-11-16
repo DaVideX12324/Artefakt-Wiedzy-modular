@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [node name="SetRow" type="PanelContainer"]
-custom_minimum_size = Vector2(0, 46)
+custom_minimum_size = Vector2(0, 54)
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"ListRow"
@@ -21,7 +21,7 @@ tooltip_text = "Używany w grach"
 auto_translate_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Nazwa zestawu"
 text_overrun_behavior = 3
 
@@ -29,19 +29,19 @@ text_overrun_behavior = 3
 auto_translate_mode = 2
 layout_mode = 2
 theme_type_variation = &"HintLabel"
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 18
 
 [node name="Count" type="Label" parent="HBox"]
 auto_translate_mode = 2
-custom_minimum_size = Vector2(90, 0)
+custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 theme_type_variation = &"HintLabel"
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 19
 text = "40 pytań"
 horizontal_alignment = 2
 
 [node name="Arrow" type="Label" parent="HBox"]
 layout_mode = 2
 theme_type_variation = &"HintLabel"
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 30
 text = "›"
