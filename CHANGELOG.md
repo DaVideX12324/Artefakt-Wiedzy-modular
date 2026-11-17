@@ -6,6 +6,9 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Dodano
+- Edytor pytań także w Opcjach → Pytania („Edytor pytań…”) — dostępny z gier (menu główne i pauza modułu), również w wersji samodzielnej Cienia Mgły.
+
 ### Naprawiono
 - Cień Mgły: przez szafy w ściekach nie da się już przejść.
 - Cień Mgły: w mieście nie da się już przejść „przez” krzak przy drzwiach domu obok wejścia do jaskini.
