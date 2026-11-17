@@ -15,6 +15,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 - Edytor pytań w nowym, prostszym układzie: najpierw lista zestawów (przełącznik „w grze”, „Importuj…”, „+ Nowy zestaw”), po kliknięciu zestawu — jego pytania (szukaj, filtr typu, przełącznik „w grze”, typ i trudność ●○ przy pytaniu). Rzadsze akcje w menu „⋯” (zestaw: zmiana nazwy, eksport, włącz / wyłącz wszystkie, usuń; pytanie: edytuj, duplikuj, usuń), dwuklik otwiera edycję, Esc wraca. Wyraźne przyciski i większe okno pytania.
 - Cień Mgły: boss z celu głównego jest od razu widoczny na minimapie (duży czerwony znacznik), a cel mówi, gdzie go szukać — „(znacznik na mapie)” albo nazwa mapy, gdy boss został na innej.
 - BitBomber: w wyborze zestawu pytań widać nazwę zestawu zamiast nazwy pliku.
+- BitBomber: 0.9.1-beta → 1.0.0, commit `3da8652` — boty łatwe i średnie słabsze (da się je pokonać: wolniej reagują i chodzą, rzadziej atakują, przez chwilę nie widzą świeżej bomby), zasięg bomby maks. 5 pól, odpowiedzi po śmierci tylko klawiszami odpowiedzi.
 - Cień Mgły: skrzynię strzeżoną przez strażnika w ukrytej komnacie jaskini otwiera tylko klucz (zostawia go strażnik) — wytrych nie działa.
 - Cień Mgły: dalej przejdziesz dopiero po pokonaniu strażnika mapy — drzwi z kłódką na polanie, zasypane wyjście z jaskiń (Stary Grzyb), krata do ścieków otwiera się po pokonaniu Matki Nietoperzy.
 - Cień Mgły: cel główny podaje poziom bossa, którego trzeba pokonać, i ma osobny krok dla strażnika wyjścia z jaskiń.
