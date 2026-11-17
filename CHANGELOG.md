@@ -8,6 +8,7 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ### Dodano
 - Edytor pytań także w Opcjach → Pytania („Edytor pytań…”) — dostępny z gier (menu główne i pauza modułu), również w wersji samodzielnej Cienia Mgły.
+- BitBomber: edytor pytań przyciskiem „✎ Edytuj” przy wyborze pytań w menu — także w BitBomberze bez Artefaktu Wiedzy (własne zestawy i wybór „w grze”).
 
 ### Naprawiono
 - Cień Mgły: przez szafy w ściekach nie da się już przejść.
