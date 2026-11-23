@@ -9,6 +9,8 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 ### Dodano
 - Edytor pytań także w Opcjach → Pytania („Edytor pytań…”) — dostępny z gier (menu główne i pauza modułu), również w wersji samodzielnej Cienia Mgły.
 - BitBomber: edytor pytań przyciskiem „✎ Edytuj” przy wyborze pytań w menu — także w BitBomberze bez Artefaktu Wiedzy (własne zestawy i wybór „w grze”).
+- Wyjaśnienia pytań: opcjonalne pole `explanation` w zestawach (format, walidacja, pole „Wyjaśnienie” w edytorze pytań, zostaje przy zmianie typu). Wspólny panel pytań pokazuje je po odpowiedzi i umie czekać na Enter / klik.
+- Cień Mgły: wyjaśnienia w walce i zagadkach + opcje „Wyjaśnienia pytań” i „Czekanie po odpowiedzi (Enter / klik)”. BitBomber: wyjaśnienia w quizie ostatniej szansy.
 
 ### Naprawiono
 - Cień Mgły: walka nie przechodzi już nagle na całą szerokość ekranu po wejściu w listę umiejętności / przedmiotów (gra sama wyłączała opcję „UI walki na szerokość treści”).

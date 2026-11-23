@@ -31,6 +31,9 @@
 ### Tryb walki: typy pytań bossów, losowe spotkania — strojenie
 - **Stan: W TOKU.** DO SPRAWDZENIA W GRZE: typy pytań bossów (wpisywanie, kafelki, dopasowanie), przewijanie długiej listy. Losowe spotkania (wersja podstawowa zrobiona 2026-10-21): zostało strojenie dystansu w grze, strefy bez spotkań (portale, schody).
 
+### Wyjaśnienia pytań (2026-11-23)
+- **[DO SPRAWDZENIA W GRZE]** Wygląd „Wyjaśnienie: …” w walce w trybie okna modalnego (opcja deweloperska `quiz_ui_mode = popup`) i przy „Pytanie w menu walki”; długie wyjaśnienie w zagadce (okno nie powinno wyjechać poza ekran); BitBomber — wyjaśnienie w nakładce ostatniej szansy przy dużej skali UI. Tryb zwykły walki sprawdzony zrzutem.
+
 ### Feedback z testów pre-alpha — resztki DO SPRAWDZENIA W GRZE
 4. **[DO SPRAWDZENIA W GRZE]** Mysz w listach Umiejętności / Przedmioty (przerobione 2026-10-11, do potwierdzenia).
 5. **[DO SPRAWDZENIA W GRZE]** Brak znacznika celu na starcie wyboru przeciwnika.
