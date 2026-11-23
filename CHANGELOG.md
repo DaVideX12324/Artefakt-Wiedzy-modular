@@ -6,6 +6,8 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+## [0.9.15-beta] — 2026-11-24
+
 ### Dodano
 - Edytor pytań także w Opcjach → Pytania („Edytor pytań…”) — dostępny z gier (menu główne i pauza modułu), również w wersji samodzielnej Cienia Mgły.
 - BitBomber: edytor pytań przyciskiem „✎ Edytuj” przy wyborze pytań w menu — także w BitBomberze bez Artefaktu Wiedzy (własne zestawy i wybór „w grze”).
