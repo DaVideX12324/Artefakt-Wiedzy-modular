@@ -6,6 +6,12 @@ Istotne zmiany platformy (host) i aktualizacje dołączonych modułów. Szczegó
 
 ## [Unreleased]
 
+### Zmieniono
+- BitBomber: 1.0.0 → 1.0.1, commit `c9cb9ce` — wybór kilku zestawów pytań naraz, pytania z power-upów w kolejce (zamiast przepadać), zmiana klawiszy i Opcje w stylu menu w grze samodzielnej.
+
+### Naprawiono
+- BitBomber: odpowiedzi gracza 2 na klawiaturze numerycznej były przesunięte (`project.godot`: Num+ / Num 0 / Num 1 / Num 2 zamiast Num 1–4), bomba gracza 2 pod Ctrl zamiast Num 0.
+
 ## [0.9.15-beta] — 2026-11-24
 
 ### Dodano
