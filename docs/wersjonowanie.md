@@ -9,7 +9,7 @@ etap (Alpha / Beta / RC) — **dojrzałość** tego zakresu. Numer nie jest proc
 |---|---|---|---|
 | Artefakt Wiedzy (host + paczka z modułami) | `0.8.0-alpha` | Alpha | `project.godot` → `application/config/version` |
 | Cień Mgły (`modules/quiz_rpg`, repo CienMgly) | `0.8.0-alpha` | Alpha | `modules/quiz_rpg/module_manifest.json` → `version` |
-| BitBomber (`modules/BitBomber`) | `1.0.1` | Stable | `modules/BitBomber/module_manifest.json` → `version` |
+| BitBomber (`modules/BitBomber`) | `1.0.2` | Stable | `modules/BitBomber/module_manifest.json` → `version` |
 
 Wersję pokazują: menu główne hosta (prawy dolny róg + przyciski modułów), menu Cienia Mgły i menu BitBombera — wszystkie
 czytają ją z plików powyżej, więc numer zmienia się **tylko tam**. Edytor pytań, wspólne serwisy (`QuizService`,
@@ -18,7 +18,7 @@ czytają ją z plików powyżej, więc numer zmienia się **tylko tam**. Edytor 
 Dlaczego takie etapy:
 - **Cień Mgły — Alpha:** systemy działają, ścieżka tutorial → jaskinia → miasto → ścieki → boss ścieków → wyjście na cmentarzysko →
   ekran końca jest spięta w kodzie, ale mapa miasta jest jeszcze w budowie (warstwa Walls, obiekty, domki).
-- **BitBomber — Stable (1.0.0 od 2026-11-17, teraz 1.0.1):** zakres gry meczowej (dwa tryby, 28 map, boty na 3 poziomach, quizy w grze,
+- **BitBomber — Stable (1.0.0 od 2026-11-17, teraz 1.0.2):** zakres gry meczowej (dwa tryby, 28 map, boty na 3 poziomach, quizy w grze,
   oprawa, sesja z hostem). Kampania i bot kopiący bomby to rozszerzenia 1.x.
 - **Artefakt Wiedzy — Alpha:** platforma (moduły, opcje, edytor pytań, wyniki sesji) jest gotowa do testów, ale paczka
   zawiera RPG w Alphie, więc całość dziedziczy najniższy etap.
